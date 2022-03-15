@@ -1,0 +1,30 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.SMExtendedEditor.cpp.obj": [
+			"SMExtendedEditorCommands.cpp.obj",
+			"SMExtendedEditorSettings.cpp.obj",
+			"SMExtendedEditorStyle.cpp.obj",
+			"SMGraphK2Node_TextPropertyNode.cpp.obj",
+			"SMTextPropertyGraphSchema.cpp.obj",
+			"SMTextPropertyGraph.cpp.obj",
+			"SMExtendedEditorModule.cpp.obj",
+			"SMEditableTextLayout.cpp.obj",
+			"SMRichTextPropertyLink.cpp.obj",
+			"SMRunTypes.cpp.obj",
+			"SMTextParsing.cpp.obj",
+			"SMTextGraphUtils.cpp.obj",
+			"SSMEditableText.cpp.obj",
+			"SSMEditableTextBlock.cpp.obj",
+			"SSMEditableTextBox.cpp.obj",
+			"SSMTextProperty.cpp.obj"
+		],
+		"Module.SMExtendedEditor.gen.cpp.obj": [
+			"SMExtendedEditor.init.gen.cpp.obj",
+			"SMExtendedEditorSettings.gen.cpp.obj",
+			"SMGraphK2Node_TextPropertyNode.gen.cpp.obj",
+			"SMTextPropertyGraph.gen.cpp.obj",
+			"SMTextPropertyGraphSchema.gen.cpp.obj"
+		]
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"OutputFiles": [
+		"PCH.Debug.h.obj",
+		"Module.Debug.cpp.obj",
+		"Module.Debug.gen.cpp.obj"
+	]
+}

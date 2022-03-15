@@ -1,0 +1,11 @@
+{
+	"BuildId": "16433597",
+	"Modules": 
+	{
+		"SMExtendedEditor": "UnrealEditor-SMExtendedEditor.dll",
+		"SMExtendedRuntime": "UnrealEditor-SMExtendedRuntime.dll",
+		"SMPreviewEditor": "UnrealEditor-SMPreviewEditor.dll",
+		"SMSystem": "UnrealEditor-SMSystem.dll",
+		"SMSystemEditor": "UnrealEditor-SMSystemEditor.dll"
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.SMExtendedRuntime.cpp.obj": [
+			"SMExtendedPropertyHelpers.cpp.obj",
+			"SMTextGraphProperty.cpp.obj",
+			"SMTextNodeWidgetInfo.cpp.obj",
+			"SMExtendedRuntimeModule.cpp.obj",
+			"SMTextGraphPropertyVersion.cpp.obj"
+		],
+		"Module.SMExtendedRuntime.gen.cpp.obj": [
+			"SMExtendedPropertyHelpers.gen.cpp.obj",
+			"SMExtendedRuntime.init.gen.cpp.obj",
+			"SMTextGraphProperty.gen.cpp.obj",
+			"SMTextNodeWidgetInfo.gen.cpp.obj"
+		]
+	}
+}

@@ -1,0 +1,59 @@
+{
+	"FileVersion": 3,
+	"Version": 31,
+	"VersionName": "2.5.2",
+	"FriendlyName": "Logic Driver Pro - State Machine Blueprint Editor",
+	"Description": "Create State Machines in Blueprints using graphs to define state and transition logic.",
+	"Category": "Editor",
+	"CreatedBy": "Recursoft",
+	"CreatedByURL": "https://recursoft.com",
+	"DocsURL": "https://logicdriver.com/docs",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/9d8db9962594400988f8ddd3fb83cd88",
+	"SupportURL": "https://logicdriver.com",
+	"EngineVersion": "5.0.0",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "SMSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "SMSystemEditor",
+			"Type": "UncookedOnly",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "SMPreviewEditor",
+			"Type": "Editor",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "SMExtendedRuntime",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "SMExtendedEditor",
+			"Type": "UncookedOnly",
+			"LoadingPhase": "PreDefault",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		}
+	]
+}

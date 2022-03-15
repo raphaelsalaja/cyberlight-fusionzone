@@ -1,0 +1,33 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\development\\smextendedruntime\\module.smextendedruntime.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\projects\\unrealengine\\revenant5\\intermediate\\build\\win64\\revenanteditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
+        "Includes": [
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\development\\smextendedruntime\\definitions.smextendedruntime.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\private\\properties\\smextendedpropertyhelpers.cpp",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\public\\properties\\smextendedpropertyhelpers.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\public\\properties\\smtextgraphproperty.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smsystem\\public\\properties\\smgraphproperty_base.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smsystem\\public\\smblueprintfunctions.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smsystem\\smblueprintfunctions.generated.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smsystem\\public\\properties\\smnodewidgetinfo.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smsystem\\smnodewidgetinfo.generated.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smsystem\\smgraphproperty_base.generated.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\public\\properties\\smtextnodewidgetinfo.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smextendedruntime\\smtextnodewidgetinfo.generated.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smextendedruntime\\smtextgraphproperty.generated.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smextendedruntime\\smextendedpropertyhelpers.generated.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\public\\smtextgraphlogging.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\private\\properties\\smtextgraphproperty.cpp",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\private\\properties\\smtextnodewidgetinfo.cpp",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\private\\smextendedruntimemodule.cpp",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\public\\ismextendedruntimemodule.h",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\private\\smtextgraphpropertyversion.cpp",
+            "d:\\projects\\unrealengine\\revenant5\\plugins\\developer\\logicdriver\\source\\smextendedruntime\\private\\smtextgraphpropertyversion.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

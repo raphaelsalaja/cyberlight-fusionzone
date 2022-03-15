@@ -1,0 +1,79 @@
+// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "SMGraphK2.h"
+#include "SMPropertyGraph.generated.h"
+
+
+UCLASS()
+class SMSYSTEMEDITOR_API USMPropertyGraph : public USMGraphK2
+{
+	GENERATED_UCLASS_BODY()
+
+	UPROPERTY()
+	class USMGraphK2Node_PropertyNode_Base* ResultNode;
+
+	// UObject
+	virtual void Serialize(FArchive& Ar) override;
+	virtual void PostEditUndo() override;
+	// ~UObject
+	
+	/** Temporarily set during graph initialization. */
+	FSMGraphProperty_Base* TempGraphProperty;
+
+	/**
+	 * Called from owning state machine graph node.
+	 *
+	 * @param bModify Conditionally recompile blueprint.
+	 * @param bSetFromPinFirst If true will call SetPropertyDefaultsFromPin prior to SetPinValueFromPropertyDefaults.
+	 * This is needed largely for undo support. When creating initially it should not be called so property defaults can be read.
+	 */
+	virtual void RefreshProperty(bool bModify = true, bool bSetFromPinFirst = true);
+
+	/** Delete all nodes and recreate default nodes. */
+	virtual void ResetGraph();
+
+	/** Configure if the graph is editable and update the slate node. */
+	virtual void SetUsingGraphToEdit(bool bValue, bool bModify = true);
+
+	/** If the graph is the primary source of data. */
+	virtual bool IsGraphBeingUsedToEdit() const { return bEditable; }
+
+	/** Called before setting the edit status during RefreshProperty. */
+	virtual bool CanSetEditStatusFromReadOnlyVariable() const { return true; }
+	
+	/** Toggles the property edit value and updates the blueprint. */
+	virtual void ToggleGraphPropertyEdit();
+
+	virtual void SetPropertyOnGraph(FProperty* Property);
+	virtual void SetFunctionOnGraph(UFunction* Function);
+
+	/**
+	 *	Called after we manually clone nodes into this graph.
+	 *	@param OldGraph The original graph used in the clone, available in case there are properties that need to be copied.
+	 */
+	virtual void OnGraphManuallyCloned(USMPropertyGraph* OldGraph);
+	
+	/** Remove any nodes that aren't connected to the ResultNode. */
+	void PruneDisconnectedNodes();
+
+	/** If the variable property is configured for read only. */
+	bool IsVariableReadOnly() const { return bVariableIsReadOnly; }
+
+	/**
+	 * If the graph is supposed to be editable. This could be what the user wants, but bEditable could still be false such
+	 * as when the variable is set to read only.
+	 */
+	bool IsGraphEditDesired() const { return bUsingGraphToEdit; }
+	
+	TSet<UEdGraphPin*> PreventConnections;
+	
+private:
+	UPROPERTY()
+	bool bUsingGraphToEdit;
+
+	UPROPERTY()
+	bool bVariableIsReadOnly;
+};

@@ -1,0 +1,15 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.Debug.cpp.obj": [
+			"Debug.cpp.obj",
+			"DebugLogLibrarySettings.cpp.obj",
+			"Log.cpp.obj"
+		],
+		"Module.Debug.gen.cpp.obj": [
+			"Debug.init.gen.cpp.obj",
+			"DebugLogLibrarySettings.gen.cpp.obj",
+			"Log.gen.cpp.obj"
+		]
+	}
+}

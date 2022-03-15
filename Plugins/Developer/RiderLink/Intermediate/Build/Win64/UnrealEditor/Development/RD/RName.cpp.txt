@@ -1,0 +1,129 @@
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RD\Definitions.h
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl\RName.h
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\thirdparty.hpp
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_set.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cstddef
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\yvals_core.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\sal.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\concurrencysal.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vadefs.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xkeycheck.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\stddef.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xtr1common
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cstdint
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\stdint.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\deque
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xmemory
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cstdlib
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\math.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_math.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\stdlib.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_malloc.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_search.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wstdlib.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\limits.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\limits
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cfloat
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\float.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\climits
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cwchar
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cstdio
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\stdio.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wstdio.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_stdio_config.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\wchar.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_memcpy_s.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\errno.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime_string.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wconio.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wctype.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wdirect.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wio.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_share.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wprocess.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wstring.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_wtime.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\sys/stat.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\sys/types.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\intrin0.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\intrin0.inl.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\isa_availability.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xstddef
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\initializer_list
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\new
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\exception
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\yvals.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\crtdbg.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime_new_debug.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime_new.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\crtdefs.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\use_ansi.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\type_traits
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\malloc.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime_exception.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\eh.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_terminate.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xatomic.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xutility
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cstring
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\string.h
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_memory.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\utility
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xpolymorphic_allocator.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\tuple
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\functional
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\typeinfo
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime_typeinfo.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\memory
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\iosfwd
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\unordered_map
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xhash
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cmath
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\list
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vector
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xbit_ops.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xstring
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xnode_handle.h
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl\ordered_hash.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\algorithm
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\iterator
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\stdexcept
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_map.h
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\optional\tl\optional.hpp
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark/variant.hpp
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\config.hpp
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\in_place.hpp
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\lib.hpp
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\string-view-lite\include\nonstd/string_view.hpp
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\ostream
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\ios
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xlocnum
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\streambuf
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xiosbase
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\share.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\system_error
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\__msvc_system_error_abi.hpp
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cerrno
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xcall_once.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xerrc.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\atomic
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xthreads.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xtimec.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\ctime
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\time.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xlocale
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xfacet
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xlocinfo
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xlocinfo.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cctype
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\ctype.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\clocale
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\locale.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\string
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\rd_framework_export.h

@@ -1,0 +1,181 @@
+D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/Debug/Intermediate/Build/Win64/UnrealEditor/Inc/Debug/Debug.init.gen.cpp
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/Object.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/Script.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Stats/Stats.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformTime.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformTime.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformTime.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Stats\StatsCommon.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Stats/Stats2.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/LowLevelMemTracker.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/TagTrace.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Detail/LogScope.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace\Detail\Writer.inl
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/LockFreeList.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/NoopCounter.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformProcess.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformProcess.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformProcess.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ChunkedArray.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/IndirectArray.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/MiscTrace.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Stats\StatsTrace.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ObjectMacros.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/UObjectBaseUtility.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/UObjectBase.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/UObjectGlobals.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/PrimaryAssetId.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/StringBuilder.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/StringView.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers\StringView.inl
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/LinkerInstancingContext.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/OutputDeviceRedirector.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Misc/PackagePath.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Serialization/ArchiveUObject.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/UObjectArray.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/UObjectMarks.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/ResourceSize.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/CoreNative.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/Class.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Concepts/GetTypeHashable.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/RandomStream.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FallbackStruct.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Misc/PackageAccessTracking.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Misc/PackageName.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ObjectHandle.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ObjectPathId.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/Package.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/PackageId.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/LinkerSave.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/FileRegions.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\PixelFormat.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ObjectResource.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/Linker.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/GatherableTextData.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/InternationalizationMetadata.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/PackageFileSummary.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/CustomVersion.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/EngineVersion.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/SavePackage.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RefCounting.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/UObjectThreadContext.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/OutputDeviceError.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ObjectThumbnail.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/SecureHash.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Async/AsyncWork.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/Event.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/IQueuedWork.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/QueuedThreadPool.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformAffinity.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Async/Fundamental/Scheduler.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Async/Fundamental/Task.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Async\Fundamental\TaskDelegate.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ScopeExit.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Launder.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\atomic
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xatomic.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\intrin0.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xthreads.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xtimec.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\ctime
+C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\time.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/Thread.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformAffinity.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformAffinity.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Async\Fundamental\LocalQueue.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Experimental/Containers/FAAArrayQueue.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Experimental\Containers\HazardPointer.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/BufferReader.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\String/BytesToHex.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\String/HexToBytes.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Misc/WorldCompositionUtility.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Async/Future.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ScopeLock.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Misc/PackageAccessTrackingOps.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ScopeRWLock.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/GarbageCollection.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/ThreadSafeBool.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/FastReferenceCollectorOptions.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ReflectedTypeAccessors.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/FieldPath.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/Field.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/HasGetTypeHash.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/WeakObjectPtr.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/UnrealType.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/List.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Serialization/SerializedPropertyScope.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/MemoryImage.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/HashTable.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\typeinfo
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime_typeinfo.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Templates/Casts.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Greater.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/CoreNetTypes.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/LazyObjectPtr.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/PersistentObjectPtr.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ObjectPtr.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/PropertyPortFlags.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/PropertyTag.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ScriptInterface.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/SoftObjectPtr.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/SoftObjectPath.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/SparseDelegate.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/UndefineUPropertyMacros.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/DefineUPropertyMacros.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/EnumProperty.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/TextProperty.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/FieldPathProperty.h
+D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/Debug/Intermediate/Build/Win64/UnrealEditor/Inc/Debug/DebugLogLibrarySettings.gen.cpp
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Source\Debug/Public/DebugLogLibrarySettings.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/NoExportTypes.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/PropertyAccessUtil.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/UnitConversion.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/ValueOrError.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/TVariant.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc\TVariantMeta.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/UnitConversion.inl
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/PolyglotTextData.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\AssetRegistry/ARFilter.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\AssetRegistry/AssetBundleData.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\AssetRegistry/AssetData.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ObjectRedirector.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/LinkerLoad.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/PackageResourceManager.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Features/IModularFeature.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformFile.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformFile.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformFile.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/PathViews.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\AssetRegistry/AssetDataTagMap.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/SortedMap.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject\../../../ApplicationCore/Public/GenericPlatform/ICursor.h
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Inc\Debug\DebugLogLibrarySettings.generated.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/ScriptMacros.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/Stack.h
+D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/Debug/Intermediate/Build/Win64/UnrealEditor/Inc/Debug/Log.gen.cpp
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Source\Debug/Public/Log.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\Kismet/BlueprintFunctionLibrary.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\BlueprintFunctionLibrary.generated.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\Engine/EngineTypes.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\Templates/SubclassOf.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\Engine/NetSerialization.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/BitReader.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/BitArchive.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/IConsoleManager.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/NetworkGuid.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/CoreNet.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/BitWriter.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Engine\Public\EngineLogs.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Engine\Public\Net/GuidReferences.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\NetSerialization.generated.h
+D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\EngineTypes.generated.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\chrono
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\limits
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cfloat
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cwchar
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cstdio
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\isa_availability.h
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\ratio
+D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Inc\Debug\Log.generated.h

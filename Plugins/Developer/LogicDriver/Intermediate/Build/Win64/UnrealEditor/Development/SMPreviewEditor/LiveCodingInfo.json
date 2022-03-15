@@ -1,0 +1,20 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.SMPreviewEditor.cpp.obj": [
+			"SMPreviewEditorCommands.cpp.obj",
+			"SMPreviewEditorModule.cpp.obj",
+			"SMPreviewObject.cpp.obj",
+			"SMPreviewUtils.cpp.obj",
+			"SSMPreviewModeEditorView.cpp.obj",
+			"SSMPreviewModeOutlinerView.cpp.obj",
+			"SMPreviewModeViewportClient.cpp.obj",
+			"SSMPreviewModeViewportView.cpp.obj",
+			"SSMAddActorCombo.cpp.obj"
+		],
+		"Module.SMPreviewEditor.gen.cpp.obj": [
+			"SMPreviewEditor.init.gen.cpp.obj",
+			"SMPreviewObject.gen.cpp.obj"
+		]
+	}
+}

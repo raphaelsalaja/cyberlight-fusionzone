@@ -1,0 +1,6 @@
+{
+	"OutputFiles": [
+		"Module.SMExtendedRuntime.cpp.obj",
+		"Module.SMExtendedRuntime.gen.cpp.obj"
+	]
+}
