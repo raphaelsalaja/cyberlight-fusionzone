@@ -27,14 +27,14 @@ class USMStateMachineComponent;
 #endif
 #define SMSYSTEM_SMInstance_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_27_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_27_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMDebugStateMachine_Statics; \
 	SMSYSTEM_API static class UScriptStruct* StaticStruct();
 
 
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMDebugStateMachine>();
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_21_DELEGATE \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_21_DELEGATE \
 struct _Script_SMSystem_eventOnStateMachineStateChangedSignature_Parms \
 { \
 	USMInstance* Instance; \
@@ -51,7 +51,7 @@ static inline void FOnStateMachineStateChangedSignature_DelegateWrapper(const FM
 }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_20_DELEGATE \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_20_DELEGATE \
 struct _Script_SMSystem_eventOnStateMachineTransitionTakenSignature_Parms \
 { \
 	USMInstance* Instance; \
@@ -66,7 +66,7 @@ static inline void FOnStateMachineTransitionTakenSignature_DelegateWrapper(const
 }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_19_DELEGATE \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_19_DELEGATE \
 struct _Script_SMSystem_eventOnStateMachineStoppedSignature_Parms \
 { \
 	USMInstance* Instance; \
@@ -79,7 +79,7 @@ static inline void FOnStateMachineStoppedSignature_DelegateWrapper(const FMultic
 }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_18_DELEGATE \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_18_DELEGATE \
 struct _Script_SMSystem_eventOnStateMachineUpdatedSignature_Parms \
 { \
 	USMInstance* Instance; \
@@ -94,7 +94,7 @@ static inline void FOnStateMachineUpdatedSignature_DelegateWrapper(const FMultic
 }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_17_DELEGATE \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_17_DELEGATE \
 struct _Script_SMSystem_eventOnStateMachineStartedSignature_Parms \
 { \
 	USMInstance* Instance; \
@@ -107,7 +107,7 @@ static inline void FOnStateMachineStartedSignature_DelegateWrapper(const FMultic
 }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_16_DELEGATE \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_16_DELEGATE \
 struct _Script_SMSystem_eventOnStateMachineInitializedSignature_Parms \
 { \
 	USMInstance* Instance; \
@@ -120,8 +120,8 @@ static inline void FOnStateMachineInitializedSignature_DelegateWrapper(const FMu
 }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_SPARSE_DATA
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_RPC_WRAPPERS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_SPARSE_DATA
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_RPC_WRAPPERS \
 	virtual void OnStateMachineStateChanged_Implementation(FSMStateInfo const& ToState, FSMStateInfo const& FromState); \
 	virtual void OnStateMachineTransitionTaken_Implementation(FSMTransitionInfo const& Transition); \
 	virtual void OnStateMachineStop_Implementation(); \
@@ -203,7 +203,7 @@ static inline void FOnStateMachineInitializedSignature_DelegateWrapper(const FMu
 	DECLARE_FUNCTION(execTick);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_RPC_WRAPPERS_NO_PURE_DECLS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execOnContextPawnControllerChanged); \
 	DECLARE_FUNCTION(execREP_StartChanged); \
@@ -277,7 +277,7 @@ static inline void FOnStateMachineInitializedSignature_DelegateWrapper(const FMu
 	DECLARE_FUNCTION(execTick);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_EVENT_PARMS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_EVENT_PARMS \
 	struct SMInstance_eventOnStateMachineInitialStateLoaded_Parms \
 	{ \
 		FGuid StateGuid; \
@@ -301,8 +301,8 @@ static inline void FOnStateMachineInitializedSignature_DelegateWrapper(const FMu
 	};
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_CALLBACK_WRAPPERS
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_INCLASS_NO_PURE_DECLS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_CALLBACK_WRAPPERS
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUSMInstance(); \
 	friend struct Z_Construct_UClass_USMInstance_Statics; \
@@ -325,7 +325,7 @@ private: \
 public:
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_INCLASS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_INCLASS \
 private: \
 	static void StaticRegisterNativesUSMInstance(); \
 	friend struct Z_Construct_UClass_USMInstance_Statics; \
@@ -348,7 +348,7 @@ private: \
 public:
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_STANDARD_CONSTRUCTORS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USMInstance(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USMInstance) \
@@ -361,7 +361,7 @@ private: \
 public:
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_ENHANCED_CONSTRUCTORS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API USMInstance(USMInstance&&); \
@@ -372,7 +372,7 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(USMInstance)
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_PRIVATE_PROPERTY_OFFSET \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__ComponentOwner() { return STRUCT_OFFSET(USMInstance, ComponentOwner); } \
 	FORCEINLINE static uint32 __PPO__NetworkInterface() { return STRUCT_OFFSET(USMInstance, NetworkInterface); } \
 	FORCEINLINE static uint32 __PPO__ActiveTransactions() { return STRUCT_OFFSET(USMInstance, ActiveTransactions); } \
@@ -404,32 +404,32 @@ public: \
 	FORCEINLINE static uint32 __PPO__WorldTimeDelta() { return STRUCT_OFFSET(USMInstance, WorldTimeDelta); }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_80_PROLOG \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_EVENT_PARMS
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_80_PROLOG \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_EVENT_PARMS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_GENERATED_BODY_LEGACY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_RPC_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_INCLASS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_STANDARD_CONSTRUCTORS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_PRIVATE_PROPERTY_OFFSET \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_SPARSE_DATA \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_RPC_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_CALLBACK_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_INCLASS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_RPC_WRAPPERS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_INCLASS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_ENHANCED_CONSTRUCTORS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_PRIVATE_PROPERTY_OFFSET \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_SPARSE_DATA \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_RPC_WRAPPERS_NO_PURE_DECLS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_CALLBACK_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_INCLASS_NO_PURE_DECLS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h_83_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -437,7 +437,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> SMSYSTEM_API UClass* StaticClass<class USMInstance>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h
+#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMInstance_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

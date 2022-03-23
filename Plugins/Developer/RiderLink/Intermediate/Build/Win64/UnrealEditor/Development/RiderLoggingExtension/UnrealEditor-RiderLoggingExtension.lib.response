@@ -6,7 +6,7 @@
 /NAME:"UnrealEditor-RiderLoggingExtension.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Module.RiderLoggingExtension.cpp.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Default.rc2.res"
-/OUT:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\UnrealEditor-RiderLoggingExtension.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Module.RiderLoggingExtension.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Default.rc2.res"
+/OUT:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\UnrealEditor-RiderLoggingExtension.lib"
 /INCLUDE:IMPLEMENT_MODULE_RiderLoggingExtension

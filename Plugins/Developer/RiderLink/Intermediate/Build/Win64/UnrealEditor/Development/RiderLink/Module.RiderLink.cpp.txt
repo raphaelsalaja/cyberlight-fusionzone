@@ -1,12 +1,12 @@
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLink\Definitions.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Private/ProtocolFactory.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Private\ProtocolFactory.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/Protocol.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IProtocol.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdDynamic.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RName.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\thirdparty.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_set.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLink\Definitions.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Private/ProtocolFactory.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Private\ProtocolFactory.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/Protocol.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IProtocol.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdDynamic.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RName.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\thirdparty.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_set.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cstddef
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\yvals_core.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime.h
@@ -83,7 +83,7 @@ D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\memory
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\iosfwd
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vector
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl\ordered_hash.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl\ordered_hash.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\algorithm
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
@@ -91,13 +91,13 @@ D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\iterator
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\stdexcept
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xstring
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_map.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\optional\tl\optional.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark/variant.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\config.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\in_place.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\lib.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\string-view-lite\include\nonstd/string_view.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_map.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\optional\tl\optional.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark/variant.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\config.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\in_place.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\lib.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\string-view-lite\include\nonstd/string_view.hpp
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\ostream
@@ -125,20 +125,20 @@ C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\ctype.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\clocale
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\locale.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\string
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\rd_framework_export.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/Serializers.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/RdId.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/Buffer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/DateTime.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/hash.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\rd_core_export.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/core_util.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\erase_if.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\gen_util.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/allocator.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\overloaded.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\shared_function.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/to_string.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\rd_framework_export.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/Serializers.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/RdId.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/Buffer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/DateTime.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/hash.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\rd_core_export.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/core_util.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\erase_if.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\gen_util.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/allocator.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\overloaded.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\shared_function.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/to_string.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\thread
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\chrono
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\ratio
@@ -176,104 +176,104 @@ D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xlocmon
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xloctime
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\codecvt
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/wrapper.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/core_traits.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/Void.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/spdlog.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/common.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/tweakme.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/null_mutex.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/fmt.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/bundled/core.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/bundled/format.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/registry.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/cfg/log_levels.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/wrapper.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/core_traits.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/Void.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/spdlog.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/common.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/tweakme.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/null_mutex.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/fmt.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/bundled/core.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/bundled/format.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/registry.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/cfg/log_levels.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\unordered_map
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xhash
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\list
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xbit_ops.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/logger.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/log_msg.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/backtracer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/log_msg_buffer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/circular_q.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/logger.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/log_msg.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/backtracer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/log_msg_buffer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/circular_q.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/os.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/version.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/synchronous_factory.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/os.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/version.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/synchronous_factory.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\iostream
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/list.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util\hashing.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/ISerializable.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/Identities.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IUnknownInstance.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/RdAny.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization\DefaultAbstractDeclaration.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/unordered_map.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/list.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util\hashing.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/ISerializable.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/Identities.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IUnknownInstance.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/RdAny.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization\DefaultAbstractDeclaration.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/unordered_map.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\unordered_set
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler/base/IScheduler.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IWire.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/base/interfaces.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime/Lifetime.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime\LifetimeImpl.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler/base/IScheduler.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IWire.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/base/interfaces.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime/Lifetime.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime\LifetimeImpl.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\map
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xtree
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IRdReactive.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdBindable.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdWireable.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/Property.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IProperty.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\SignalX.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\SignalCookie.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\IPropertyBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime/SequentialLifetimes.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime\LifetimeDefinition.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/SerializationCtx.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IRdReactive.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdBindable.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdWireable.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/Property.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IProperty.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\SignalX.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\SignalCookie.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\IPropertyBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime/SequentialLifetimes.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime\LifetimeDefinition.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/SerializationCtx.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\regex
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\intern/InternRoot.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/RdReactiveBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/RdBindableBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util\guards.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\intern\InternScheduler.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/InternedAnySerializer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/SerializationCtx.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire/SocketWire.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/WireBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/MessageBroker.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\intern/InternRoot.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/RdReactiveBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/RdBindableBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util\guards.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\intern\InternScheduler.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/InternedAnySerializer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/SerializationCtx.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire/SocketWire.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/WireBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/MessageBroker.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\queue
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire\ByteBufferAsyncProcessor.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire\PkgInputStream.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire\ByteBufferAsyncProcessor.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire\PkgInputStream.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\array
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/UniquePtr.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\CoreTypes.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/Platform.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Build.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL\PreprocessorHelpers.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformCompilerPreSetup.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformCompilerPreSetup.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatform.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformCodeAnalysis.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatform.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\MSVC/MSVCPlatform.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformCompilerSetup.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/UMemoryDefines.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CoreMiscDefines.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CoreDefines.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/UnrealTemplate.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsPointer.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/UnrealMemory.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformMemory.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformMemory.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\CoreFwd.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ContainersFwd.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Traits/IsContiguousContainer.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/UObjectHierarchyFwd.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformMemory.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsSystemIncludes.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/MinimalWindowsApi.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/UniquePtr.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\CoreTypes.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/Platform.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Build.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL\PreprocessorHelpers.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformCompilerPreSetup.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformCompilerPreSetup.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatform.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformCodeAnalysis.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatform.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\MSVC/MSVCPlatform.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformCompilerSetup.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/UMemoryDefines.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CoreMiscDefines.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CoreDefines.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/UnrealTemplate.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsPointer.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/UnrealMemory.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformMemory.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformMemory.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\CoreFwd.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ContainersFwd.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Traits/IsContiguousContainer.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/UObjectHierarchyFwd.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformMemory.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsSystemIncludes.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/MinimalWindowsApi.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\tchar.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\intsafe.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\winapifamily.h
@@ -285,216 +285,216 @@ C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\driverspecs.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\sdv_driverspecs.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\strsafe.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\stdarg.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/MemoryBase.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/OutputDevice.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogVerbosity.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/VarArgs.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsValidVariadicFunctionArg.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates\IsEnum.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/AndOrNot.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsArrayOrRefOfType.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformAtomics.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformAtomics.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformAtomics.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Exec.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/AssertionMacros.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformMisc.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformMisc.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformCrt.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/MemoryBase.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/OutputDevice.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogVerbosity.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/VarArgs.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsValidVariadicFunctionArg.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates\IsEnum.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/AndOrNot.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsArrayOrRefOfType.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformAtomics.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformAtomics.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformAtomics.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Exec.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/AssertionMacros.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformMisc.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformMisc.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformCrt.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\math.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CompressionFlags.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/EnumClassFlags.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/NumericLimits.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformMisc.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/CpuProfilerTrace.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Trace.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace\Detail/Trace.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Config.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Detail/Channel.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Detail/Channel.inl
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/EnableIf.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Atomic.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/ThreadSafeCounter.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/ThreadSafeCounter64.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsIntegral.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsTrivial.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsTriviallyDestructible.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsTriviallyCopyConstructible.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsTriviallyCopyAssignable.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Traits/IntType.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/AreTypesEqual.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/CopyQualifiersAndRefsFromTo.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/CopyQualifiersFromTo.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsArithmetic.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/UnrealTypeTraits.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RemoveCV.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Traits/IsVoidType.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Models.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Identity.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsPODType.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RemoveReference.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/TypeCompatibleBytes.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsArray.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RemoveExtent.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/MemoryLayout.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/EnumAsByte.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsEnumClass.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/TypeHash.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Crc.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Char.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CompressionFlags.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/EnumClassFlags.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/NumericLimits.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformMisc.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/CpuProfilerTrace.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Trace.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace\Detail/Trace.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Config.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Detail/Channel.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\TraceLog\Public\Trace/Detail/Channel.inl
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/EnableIf.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Atomic.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/ThreadSafeCounter.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/ThreadSafeCounter64.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsIntegral.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsTrivial.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsTriviallyDestructible.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsTriviallyCopyConstructible.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsTriviallyCopyAssignable.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Traits/IntType.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/AreTypesEqual.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/CopyQualifiersAndRefsFromTo.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/CopyQualifiersFromTo.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsArithmetic.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/UnrealTypeTraits.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RemoveCV.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Traits/IsVoidType.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Models.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Identity.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsPODType.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RemoveReference.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/TypeCompatibleBytes.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsArray.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RemoveExtent.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/MemoryLayout.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/EnumAsByte.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsEnumClass.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/TypeHash.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Crc.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Char.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\wctype.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CString.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformString.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformString.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/MicrosoftPlatformString.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformString.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformStricmp.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/StringFwd.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsAbstract.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsPolymorphic.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/DelayedAutoRegister.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Function.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/ChooseClass.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Decay.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Invoke.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/PointerIsConvertibleFromTo.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/StaticAssertCompleteType.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/LosesQualifiersFromTo.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsConstructible.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsInvocable.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsMemberPointer.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/UnrealMathUtility.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformMath.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformMath.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsFloatingPoint.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformMath.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/UnrealPlatformMathSSE4.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/UnrealPlatformMathSSE.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime/Launch/Resources/Version.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformFileManager.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/App.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/Array.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsSigned.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ContainerAllocationPolicies.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/MemoryOps.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ContainerElementTypeCompatibility.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/Archive.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformProperties.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformProperties.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformProperties.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/EngineVersionBase.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/TextNamespaceFwd.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/MemoryImageWriter.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/Heapify.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/Impl/BinaryHeap.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/ReversePredicate.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IdentityFunctor.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Less.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/HeapSort.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/IsHeap.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Sorting.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/BinarySearch.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/Sort.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/IntroSort.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/AlignmentTemplates.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/UnrealString.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/StringFormatArg.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Parse.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/NameTypes.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/CriticalSection.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsCriticalSection.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Timespan.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/Interval.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/StringConv.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/UnrealNames.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject\UnrealNames.inl
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\CoreGlobals.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogMacros.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogCategory.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogScopedCategoryAndVerbosityOverride.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogTrace.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/FormatArgsTrace.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformTLS.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformTLS.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformTLS.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/Delegate.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/SharedPointer.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/Map.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/Reverse.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/Set.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/StructBuilder.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/SparseArray.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ScriptArray.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/BitArray.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/StructuredArchive.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/StructuredArchiveFormatter.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization\Formatters/BinaryArchiveFormatter.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Optional.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Concepts/Insertable.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/ArchiveProxy.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/UniqueObj.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RetainedRef.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Tuple.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/IntegerSequence.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/SharedPointerInternals.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/SharedPointerTesting.inl
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/WeakObjectPtrTemplates.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/MulticastDelegateBase.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/IDelegateInstance.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateSettings.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateBase.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateInstanceInterface.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateInstancesImpl.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateSignatureImpl.inl
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/ScriptDelegates.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsConst.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateCombinations.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Guid.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Hash/CityHash.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CoreMisc.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/IntPoint.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/ThreadSingleton.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/TlsAutoCleanup.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CommandLine.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/QualifiedFrameTime.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FrameRate.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FrameNumber.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FrameTime.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/Text.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/TextKey.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/LocKeyFuncs.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/CulturePointer.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/TextLocalizationManager.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ArrayView.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Traits/ElementType.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/LocTesting.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/LocalizedTextSourceTypes.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/StringTableCoreFwd.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/ITextData.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/Range.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/DateTime.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/RangeBound.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ExpressionParserTypes.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/Internationalization.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/ValueOrError.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/TVariant.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc\TVariantMeta.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ExpressionParserTypes.inl
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Timecode.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformProcess.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformProcess.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformProcess.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FileHelper.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/StringView.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers\StringView.inl
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/FileManager.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformFile.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/Color.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Paths.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/AllowWindowsPlatformTypes.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsHWrapper.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/PreWindowsApi.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/MinWindows.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CString.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformString.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformString.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/MicrosoftPlatformString.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformString.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformStricmp.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/StringFwd.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsAbstract.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsPolymorphic.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/DelayedAutoRegister.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Function.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/ChooseClass.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Decay.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Invoke.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/PointerIsConvertibleFromTo.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/StaticAssertCompleteType.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/LosesQualifiersFromTo.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsConstructible.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsInvocable.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsMemberPointer.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/UnrealMathUtility.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformMath.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformMath.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsFloatingPoint.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformMath.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/UnrealPlatformMathSSE4.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/UnrealPlatformMathSSE.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime/Launch/Resources/Version.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformFileManager.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/App.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/Array.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsSigned.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ContainerAllocationPolicies.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/MemoryOps.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ContainerElementTypeCompatibility.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/Archive.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformProperties.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformProperties.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformProperties.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/EngineVersionBase.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/TextNamespaceFwd.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/MemoryImageWriter.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/Heapify.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/Impl/BinaryHeap.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/ReversePredicate.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IdentityFunctor.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Less.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/HeapSort.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/IsHeap.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Sorting.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/BinarySearch.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/Sort.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/IntroSort.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/AlignmentTemplates.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/UnrealString.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/StringFormatArg.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Parse.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/NameTypes.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/CriticalSection.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsCriticalSection.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Timespan.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/Interval.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/StringConv.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/UnrealNames.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject\UnrealNames.inl
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\CoreGlobals.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogMacros.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogCategory.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogScopedCategoryAndVerbosityOverride.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Logging/LogTrace.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\ProfilingDebugging/FormatArgsTrace.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformTLS.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformTLS.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformTLS.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/Delegate.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/SharedPointer.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/Map.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Algo/Reverse.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/Set.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/StructBuilder.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/SparseArray.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ScriptArray.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/BitArray.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/StructuredArchive.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/StructuredArchiveFormatter.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization\Formatters/BinaryArchiveFormatter.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Optional.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Concepts/Insertable.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Serialization/ArchiveProxy.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/UniqueObj.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/RetainedRef.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/Tuple.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/IntegerSequence.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/SharedPointerInternals.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/SharedPointerTesting.inl
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/WeakObjectPtrTemplates.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/MulticastDelegateBase.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/IDelegateInstance.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateSettings.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateBase.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateInstanceInterface.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateInstancesImpl.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateSignatureImpl.inl
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\UObject/ScriptDelegates.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/IsConst.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Delegates/DelegateCombinations.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Guid.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Hash/CityHash.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CoreMisc.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/IntPoint.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/ThreadSingleton.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/TlsAutoCleanup.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/CommandLine.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/QualifiedFrameTime.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FrameRate.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FrameNumber.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FrameTime.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/Text.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/TextKey.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/LocKeyFuncs.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/CulturePointer.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/TextLocalizationManager.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/ArrayView.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Traits/ElementType.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/LocTesting.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/LocalizedTextSourceTypes.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/StringTableCoreFwd.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/ITextData.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/Range.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/DateTime.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/RangeBound.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ExpressionParserTypes.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Internationalization/Internationalization.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Templates/ValueOrError.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/TVariant.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc\TVariantMeta.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ExpressionParserTypes.inl
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Timecode.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/PlatformProcess.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsPlatformProcess.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformProcess.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/FileHelper.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers/StringView.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Containers\StringView.inl
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\HAL/FileManager.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\GenericPlatform/GenericPlatformFile.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Math/Color.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/Paths.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/AllowWindowsPlatformTypes.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/WindowsHWrapper.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/PreWindowsApi.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/MinWindows.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\Windows.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\sdkddkver.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\excpt.h
@@ -591,111 +591,111 @@ C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\wnnc.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\stralign.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\imm.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\ime_cmodes.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/PostWindowsApi.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/PreWindowsApi.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/PostWindowsApi.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/HideWindowsPlatformTypes.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/daily_file_sink.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/file_helper.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/base_sink.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/sink.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/formatter.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Private/RiderLink.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Private\RiderLink.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\IRiderLink.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\RdEditorProtocol\RdEditorModel/RdEditorModel.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdSignal.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/Polymorphic.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdProperty.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/RdPropertyBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdList.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/ViewableList.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IViewableList.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\viewable_collections.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdSet.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/ViewableSet.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IViewableSet.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdMap.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/ViewableMap.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IViewableMap.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/ISerializersOwner.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/NullableSerializer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/AbstractPolymorphic.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util\framework_traits.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/ArraySerializer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/InternedSerializer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\ext/RdExtBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\ext\ExtWire.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task/RdCall.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\RdTask.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\RdTaskImpl.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\RdTaskResult.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler/SynchronousScheduler.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\WiredRdTask.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\WiredRdTaskImpl.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task/RdEndpoint.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task/RdSymmetricCall.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/enum.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\RdEditorProtocol\instantiations_RdEditorRoot.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/UnrealLogEvent.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\instantiations_UE4Library.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\UE4TypesMarshallers.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/LogMessageInfo.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/StringRange.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/BlueprintReference.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/UClass.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/PlayState.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/RequestResultBase.Generated.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Modules/ModuleInterface.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Modules/ModuleManager.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Modules/Boilerplate/ModuleBoilerplate.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler/SingleThreadScheduler.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler\base/SingleThreadSchedulerBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/UE4Library.Generated.h
-D:\Program Files (x86)\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ScopeRWLock.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Private/UE4TypesMarshallers.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/instantiations_UE4Library.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/BlueprintFunction.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\BlueprintFunction.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/BlueprintHighlighter.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\BlueprintHighlighter.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/BlueprintReference.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/EmptyScriptCallStack.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\EmptyScriptCallStack.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\IScriptCallStack.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/IScriptCallStack.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\IScriptCallStack_Unknown.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/IScriptCallStack_Unknown.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/IScriptMsg.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\IScriptMsg.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\IScriptMsg_Unknown.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/IScriptMsg_Unknown.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/LogMessageInfo.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/NotificationType.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\NotificationType.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/PlayState.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/RequestFailed.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\RequestFailed.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/RequestResultBase.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\RequestResultBase_Unknown.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/RequestResultBase_Unknown.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/RequestSucceed.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\RequestSucceed.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/ScriptCallStack.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\ScriptCallStack.Generated.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/ScriptCallStackFrame.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/ScriptCallStackFrame.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/ScriptMsgCallStack.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\ScriptMsgCallStack.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/ScriptMsgException.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\ScriptMsgException.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/StringRange.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/UClass.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/UE4Library.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/UnableToDisplayScriptCallStack.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/UnableToDisplayScriptCallStack.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/UnrealLogEvent.Generated.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/RdEditorProtocol/instantiations_RdEditorRoot.cpp
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/RdEditorProtocol/RdEditorModel/RdEditorModel.Generated.cpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\RdEditorProtocol\RdEditorRoot/RdEditorRoot.Generated.h
-D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/RdEditorProtocol/RdEditorRoot/RdEditorRoot.Generated.cpp
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/PostWindowsApi.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/PreWindowsApi.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/PostWindowsApi.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Windows/HideWindowsPlatformTypes.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/daily_file_sink.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/file_helper.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/base_sink.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/sink.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/formatter.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Private/RiderLink.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Private\RiderLink.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\IRiderLink.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\RdEditorProtocol\RdEditorModel/RdEditorModel.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdSignal.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/Polymorphic.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdProperty.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/RdPropertyBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdList.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/ViewableList.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IViewableList.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\viewable_collections.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdSet.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/ViewableSet.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IViewableSet.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RdMap.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/ViewableMap.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IViewableMap.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/ISerializersOwner.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/NullableSerializer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/AbstractPolymorphic.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util\framework_traits.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/ArraySerializer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\serialization/InternedSerializer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\ext/RdExtBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\ext\ExtWire.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task/RdCall.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\RdTask.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\RdTaskImpl.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\RdTaskResult.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler/SynchronousScheduler.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\WiredRdTask.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task\WiredRdTaskImpl.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task/RdEndpoint.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\task/RdSymmetricCall.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/enum.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\RdEditorProtocol\instantiations_RdEditorRoot.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/UnrealLogEvent.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\instantiations_UE4Library.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\UE4TypesMarshallers.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/LogMessageInfo.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/StringRange.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/BlueprintReference.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/UClass.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/PlayState.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/RequestResultBase.Generated.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Modules/ModuleInterface.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Modules/ModuleManager.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Modules/Boilerplate/ModuleBoilerplate.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler/SingleThreadScheduler.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler\base/SingleThreadSchedulerBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/UE4Library.Generated.h
+D:\Programs\UE_5.0EA\Engine\Source\Runtime\Core\Public\Misc/ScopeRWLock.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Private/UE4TypesMarshallers.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/instantiations_UE4Library.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/BlueprintFunction.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\BlueprintFunction.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/BlueprintHighlighter.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\BlueprintHighlighter.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/BlueprintReference.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/EmptyScriptCallStack.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\EmptyScriptCallStack.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\IScriptCallStack.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/IScriptCallStack.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\IScriptCallStack_Unknown.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/IScriptCallStack_Unknown.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/IScriptMsg.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\IScriptMsg.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\IScriptMsg_Unknown.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/IScriptMsg_Unknown.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/LogMessageInfo.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/NotificationType.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\NotificationType.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/PlayState.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/RequestFailed.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\RequestFailed.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/RequestResultBase.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\RequestResultBase_Unknown.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/RequestResultBase_Unknown.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/RequestSucceed.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\RequestSucceed.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/ScriptCallStack.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\ScriptCallStack.Generated.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/ScriptCallStackFrame.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/ScriptCallStackFrame.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/ScriptMsgCallStack.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\ScriptMsgCallStack.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/ScriptMsgException.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library\ScriptMsgException.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/StringRange.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/UClass.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/UE4Library.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\Library\UE4Library/UnableToDisplayScriptCallStack.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/UnableToDisplayScriptCallStack.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/Library/UE4Library/UnrealLogEvent.Generated.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/RdEditorProtocol/instantiations_RdEditorRoot.cpp
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/RdEditorProtocol/RdEditorModel/RdEditorModel.Generated.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\RdEditorProtocol\RdEditorRoot/RdEditorRoot.Generated.h
+D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/RiderLink/Source/RiderLink/Public/Model/RdEditorProtocol/RdEditorRoot/RdEditorRoot.Generated.cpp

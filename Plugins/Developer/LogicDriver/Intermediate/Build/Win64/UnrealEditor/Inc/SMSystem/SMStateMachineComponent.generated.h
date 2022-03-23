@@ -19,8 +19,8 @@ class AActor;
 #endif
 #define SMSYSTEM_SMStateMachineComponent_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_SPARSE_DATA
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_RPC_WRAPPERS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_SPARSE_DATA
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_RPC_WRAPPERS \
 	virtual bool SERVER_ProcessTransaction_Validate(TArray<FSMNetworkedTransaction> const& ); \
 	virtual void SERVER_ProcessTransaction_Implementation(TArray<FSMNetworkedTransaction> const& Transactions); \
 	virtual bool SERVER_Shutdown_Validate(); \
@@ -60,7 +60,7 @@ class AActor;
 	DECLARE_FUNCTION(execInitialize);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
 	virtual bool SERVER_ProcessTransaction_Validate(TArray<FSMNetworkedTransaction> const& ); \
 	virtual void SERVER_ProcessTransaction_Implementation(TArray<FSMNetworkedTransaction> const& Transactions); \
 	virtual bool SERVER_Shutdown_Validate(); \
@@ -99,7 +99,7 @@ class AActor;
 	DECLARE_FUNCTION(execInitialize);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_EVENT_PARMS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_EVENT_PARMS \
 	struct SMStateMachineComponent_eventGetContextForInitialization_Parms \
 	{ \
 		UObject* ReturnValue; \
@@ -124,19 +124,19 @@ class AActor;
 	};
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_CALLBACK_WRAPPERS
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ARCHIVESERIALIZER \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_CALLBACK_WRAPPERS
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ARCHIVESERIALIZER \
 	DECLARE_FSTRUCTUREDARCHIVE_SERIALIZER(USMStateMachineComponent, NO_API)
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_INCLASS_NO_PURE_DECLS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUSMStateMachineComponent(); \
 	friend struct Z_Construct_UClass_USMStateMachineComponent_Statics; \
 public: \
 	DECLARE_CLASS(USMStateMachineComponent, UActorComponent, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/SMSystem"), NO_API) \
 	DECLARE_SERIALIZER(USMStateMachineComponent) \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ARCHIVESERIALIZER \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ARCHIVESERIALIZER \
 	virtual UObject* _getUObject() const override { return const_cast<USMStateMachineComponent*>(this); } \
 	enum class ENetFields_Private : uint16 \
 	{ \
@@ -148,14 +148,14 @@ public: \
 	NO_API virtual void ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& ClassReps) const override;
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_INCLASS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_INCLASS \
 private: \
 	static void StaticRegisterNativesUSMStateMachineComponent(); \
 	friend struct Z_Construct_UClass_USMStateMachineComponent_Statics; \
 public: \
 	DECLARE_CLASS(USMStateMachineComponent, UActorComponent, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/SMSystem"), NO_API) \
 	DECLARE_SERIALIZER(USMStateMachineComponent) \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ARCHIVESERIALIZER \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ARCHIVESERIALIZER \
 	virtual UObject* _getUObject() const override { return const_cast<USMStateMachineComponent*>(this); } \
 	enum class ENetFields_Private : uint16 \
 	{ \
@@ -167,7 +167,7 @@ public: \
 	NO_API virtual void ValidateGeneratedRepEnums(const TArray<struct FRepRecord>& ClassReps) const override;
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_STANDARD_CONSTRUCTORS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USMStateMachineComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USMStateMachineComponent) \
@@ -180,7 +180,7 @@ private: \
 public:
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ENHANCED_CONSTRUCTORS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USMStateMachineComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
@@ -193,7 +193,7 @@ public: \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USMStateMachineComponent)
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_PRIVATE_PROPERTY_OFFSET \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__R_NetworkedTransactions() { return STRUCT_OFFSET(USMStateMachineComponent, R_NetworkedTransactions); } \
 	FORCEINLINE static uint32 __PPO__PendingTransactions() { return STRUCT_OFFSET(USMStateMachineComponent, PendingTransactions); } \
 	FORCEINLINE static uint32 __PPO__R_Instance() { return STRUCT_OFFSET(USMStateMachineComponent, R_Instance); } \
@@ -206,32 +206,32 @@ public: \
 	FORCEINLINE static uint32 __PPO__bCanInstanceNetworkTick() { return STRUCT_OFFSET(USMStateMachineComponent, bCanInstanceNetworkTick); }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_18_PROLOG \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_EVENT_PARMS
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_18_PROLOG \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_EVENT_PARMS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_GENERATED_BODY_LEGACY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_RPC_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_INCLASS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_STANDARD_CONSTRUCTORS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_PRIVATE_PROPERTY_OFFSET \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_SPARSE_DATA \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_RPC_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_CALLBACK_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_INCLASS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_INCLASS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ENHANCED_CONSTRUCTORS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_PRIVATE_PROPERTY_OFFSET \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_SPARSE_DATA \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_CALLBACK_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_INCLASS_NO_PURE_DECLS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h_21_ENHANCED_CONSTRUCTORS \
 static_assert(false, "Unknown access specifier for GENERATED_BODY() macro in class SMStateMachineComponent."); \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -239,7 +239,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> SMSYSTEM_API UClass* StaticClass<class USMStateMachineComponent>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h
+#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMStateMachineComponent_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -24,7 +24,6 @@ D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Buil
 /I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public\Model\RdEditorProtocol
 /I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderLink\Public
 /I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RiderBlueprintExtension\Public
-/I ThirdParty\mimalloc\include
 /I "D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE"
 /I "C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"
@@ -33,11 +32,9 @@ D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Buil
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"
 /FI"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Definitions.h"
 /Fo"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Module.RiderLoggingExtension.cpp.obj"
-/sourceDependencies D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Module.RiderLoggingExtension.cpp.json
 /Zc:inline
 /nologo
 /Oi
-/FC
 /c
 /Gw
 /Gy
@@ -55,7 +52,6 @@ D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Buil
 /GF
 /errorReport:prompt
 /EHsc
-/DPLATFORM_EXCEPTIONS_DISABLED=0
 /Z7
 /MD
 /bigobj
@@ -72,4 +68,3 @@ D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Buil
 /TP
 /GR
 /W4
-/std:c++17

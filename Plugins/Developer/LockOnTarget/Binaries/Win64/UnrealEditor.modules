@@ -1,0 +1,8 @@
+{
+	"BuildId": "16433597",
+	"Modules": 
+	{
+		"LockOnTarget": "UnrealEditor-LockOnTarget.dll",
+		"LockOnTargetEditor": "UnrealEditor-LockOnTargetEditor.dll"
+	}
+}

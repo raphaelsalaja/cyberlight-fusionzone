@@ -24,15 +24,15 @@ class UObject;
 #endif
 #define SMSYSTEM_SMNodeInstance_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_51_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_51_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMNodeDescription_Statics; \
 	static class UScriptStruct* StaticStruct();
 
 
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeDescription>();
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS \
 	virtual FLinearColor GetNodeIconTintColor_Implementation() const; \
 	virtual FVector2D GetNodeIconSize_Implementation() const; \
 	virtual UTexture2D* GetNodeIcon_Implementation() const; \
@@ -67,7 +67,7 @@ template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeDescription>()
 	DECLARE_FUNCTION(execGetContext);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS_NO_PURE_DECLS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execOnContextPawnControllerChanged); \
 	DECLARE_FUNCTION(execResetVariables); \
@@ -98,7 +98,7 @@ template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeDescription>()
 	DECLARE_FUNCTION(execGetContext);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_EVENT_PARMS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_EVENT_PARMS \
 	struct SMNodeInstance_eventGetNodeIcon_Parms \
 	{ \
 		UTexture2D* ReturnValue; \
@@ -131,8 +131,8 @@ template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeDescription>()
 	};
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS_NO_PURE_DECLS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUSMNodeInstance(); \
 	friend struct Z_Construct_UClass_USMNodeInstance_Statics; \
@@ -142,7 +142,7 @@ public: \
 	virtual UObject* _getUObject() const override { return const_cast<USMNodeInstance*>(this); }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS \
 private: \
 	static void StaticRegisterNativesUSMNodeInstance(); \
 	friend struct Z_Construct_UClass_USMNodeInstance_Statics; \
@@ -152,7 +152,7 @@ public: \
 	virtual UObject* _getUObject() const override { return const_cast<USMNodeInstance*>(this); }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_STANDARD_CONSTRUCTORS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USMNodeInstance(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_ABSTRACT_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USMNodeInstance) \
@@ -165,7 +165,7 @@ private: \
 public:
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_ENHANCED_CONSTRUCTORS \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API USMNodeInstance(USMNodeInstance&&); \
@@ -176,7 +176,7 @@ public: \
 	DEFINE_ABSTRACT_DEFAULT_CONSTRUCTOR_CALL(USMNodeInstance)
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__bHasGameConstructionScripts() { return STRUCT_OFFSET(USMNodeInstance, bHasGameConstructionScripts); } \
 	FORCEINLINE static uint32 __PPO__NodeIcon() { return STRUCT_OFFSET(USMNodeInstance, NodeIcon); } \
 	FORCEINLINE static uint32 __PPO__NodeIconSize() { return STRUCT_OFFSET(USMNodeInstance, NodeIconSize); } \
@@ -189,32 +189,32 @@ public: \
 	FORCEINLINE static uint32 __PPO__TemplateGuid() { return STRUCT_OFFSET(USMNodeInstance, TemplateGuid); }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_87_PROLOG \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_EVENT_PARMS
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_87_PROLOG \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_EVENT_PARMS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_GENERATED_BODY_LEGACY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_STANDARD_CONSTRUCTORS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_ENHANCED_CONSTRUCTORS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS_NO_PURE_DECLS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS_NO_PURE_DECLS \
+	revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -222,7 +222,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> SMSYSTEM_API UClass* StaticClass<class USMNodeInstance>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h
+#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h
 
 
 #define FOREACH_ENUM_ESMEXECUTIONENVIRONMENT(op) \

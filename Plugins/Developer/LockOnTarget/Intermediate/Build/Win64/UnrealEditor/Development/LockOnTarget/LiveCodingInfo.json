@@ -1,0 +1,34 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.LockOnTarget.cpp.obj": [
+			"LockOnTarget.cpp.obj",
+			"LockOnSubobjectBase.cpp.obj",
+			"InterpolationMode.cpp.obj",
+			"LazyInterpolationMode.cpp.obj",
+			"LazyInterpolationModeRotator.cpp.obj",
+			"RotationModeBase.cpp.obj",
+			"DefaultTargetHandler.cpp.obj",
+			"TargetHandlerBase.cpp.obj",
+			"LockOnTargetComponent.cpp.obj",
+			"TargetingHelperComponent.cpp.obj",
+			"LOTC_BPLibrary.cpp.obj",
+			"Structs.cpp.obj"
+		],
+		"Module.LockOnTarget.gen.cpp.obj": [
+			"DefaultTargetHandler.gen.cpp.obj",
+			"Enums.gen.cpp.obj",
+			"InterpolationMode.gen.cpp.obj",
+			"LazyInterpolationMode.gen.cpp.obj",
+			"LazyInterpolationModeRotator.gen.cpp.obj",
+			"LockOnSubobjectBase.gen.cpp.obj",
+			"LockOnTarget.init.gen.cpp.obj",
+			"LockOnTargetComponent.gen.cpp.obj",
+			"LOTC_BPLibrary.gen.cpp.obj",
+			"RotationModeBase.gen.cpp.obj",
+			"Structs.gen.cpp.obj",
+			"TargetHandlerBase.gen.cpp.obj",
+			"TargetingHelperComponent.gen.cpp.obj"
+		]
+	}
+}

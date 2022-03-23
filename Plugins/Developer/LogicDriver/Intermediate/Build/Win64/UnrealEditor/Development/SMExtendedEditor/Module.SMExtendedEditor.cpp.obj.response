@@ -1,8 +1,8 @@
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\Module.SMExtendedEditor.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\Module.SMExtendedEditor.cpp
 /I .
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMExtendedEditor\Private
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMSystemEditor\Private
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMExtendedRuntime\Private
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMExtendedEditor\Private
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMSystemEditor\Private
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMExtendedRuntime\Private
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\Engine
 /I Runtime
 /I Runtime\Engine\Classes
@@ -238,23 +238,23 @@ D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Bu
 /I Editor\EditorWidgets\Public
 /I Editor\WorkspaceMenuStructure\Public
 /I Editor\KismetWidgets\Public
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMExtendedEditor
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMExtendedEditor\Public
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMSystem
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMSystem\Public
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Properties
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Nodes
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Nodes\States
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Nodes\Transitions
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Nodes\Rules
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMPreviewEditor
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMPreviewEditor\Public
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMExtendedRuntime
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMExtendedRuntime\Public
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMExtendedRuntime\Public\Properties
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMSystemEditor
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Source\SMSystemEditor\Public
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMExtendedEditor
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMExtendedEditor\Public
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMSystem
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMSystem\Public
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Properties
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Nodes
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Nodes\States
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Nodes\Transitions
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMSystem\Public\Nodes\Rules
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMPreviewEditor
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMPreviewEditor\Public
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMExtendedRuntime
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMExtendedRuntime\Public
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMExtendedRuntime\Public\Properties
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Inc\SMSystemEditor
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Source\SMSystemEditor\Public
 /I ThirdParty\PhysX3\PxShared\include
 /I ThirdParty\PhysX3\PxShared\include\cudamanager
 /I ThirdParty\PhysX3\PxShared\include\filebuf
@@ -272,11 +272,11 @@ D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Bu
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"
-/FI"D:\Projects\UnrealEngine\Revenant5\Intermediate\Build\Win64\RevenantEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h"
-/FI"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\Definitions.SMExtendedEditor.h"
-/Yu"D:\Projects\UnrealEngine\Revenant5\Intermediate\Build\Win64\RevenantEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h"
-/Fp"D:\Projects\UnrealEngine\Revenant5\Intermediate\Build\Win64\RevenantEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.pch"
-/Fo"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\Module.SMExtendedEditor.cpp.obj"
+/FI"D:\Projects\UnrealEngine\revenant-5.00-ea\Intermediate\Build\Win64\RevenantEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h"
+/FI"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\Definitions.SMExtendedEditor.h"
+/Yu"D:\Projects\UnrealEngine\revenant-5.00-ea\Intermediate\Build\Win64\RevenantEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h"
+/Fp"D:\Projects\UnrealEngine\revenant-5.00-ea\Intermediate\Build\Win64\RevenantEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.pch"
+/Fo"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\Module.SMExtendedEditor.cpp.obj"
 /Zc:inline
 /nologo
 /Oi

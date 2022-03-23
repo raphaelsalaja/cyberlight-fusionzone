@@ -1,6 +1,6 @@
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RD\Definitions.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire/SocketWire.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler/base/IScheduler.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RD\Definitions.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire/SocketWire.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\scheduler/base/IScheduler.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\functional
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\yvals_core.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime.h
@@ -95,15 +95,15 @@ C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_startup
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\math.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\vcruntime_startup.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xthreads.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\rd_framework_export.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/WireBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/Property.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IProperty.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\SignalX.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\interfaces.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime/Lifetime.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime\LifetimeImpl.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/hash.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\rd_framework_export.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/WireBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive/Property.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base/IProperty.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\SignalX.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\interfaces.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime/Lifetime.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime\LifetimeImpl.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/hash.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\map
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xtree
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\mutex
@@ -114,21 +114,21 @@ D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xcall_once.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xerrc.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\atomic
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\thirdparty.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_set.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\thirdparty.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_set.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\deque
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl\ordered_hash.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl\ordered_hash.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\algorithm
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\iterator
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_map.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\optional\tl\optional.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark/variant.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\config.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\in_place.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\lib.hpp
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\string-view-lite\include\nonstd/string_view.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\ordered-map\include\tsl/ordered_map.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\optional\tl\optional.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark/variant.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\config.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\in_place.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\variant\include\mpark\lib.hpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\string-view-lite\include\nonstd/string_view.hpp
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\ostream
@@ -146,12 +146,12 @@ C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\ctype.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\clocale
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\locale.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\string
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\rd_core_export.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/wrapper.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/core_traits.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/Void.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/allocator.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/to_string.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\rd_core_export.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/wrapper.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/core_traits.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/Void.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/allocator.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/to_string.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\sstream
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\istream
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\future
@@ -181,62 +181,62 @@ D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xlocmon
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\xloctime
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\codecvt
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\SignalCookie.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/core_util.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\erase_if.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\gen_util.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\overloaded.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\shared_function.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/spdlog.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/common.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/tweakme.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/null_mutex.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/fmt.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/bundled/core.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\SignalCookie.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util/core_util.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\erase_if.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\gen_util.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\overloaded.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\util\shared_function.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/spdlog.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/common.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/tweakme.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/null_mutex.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/fmt.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/bundled/core.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\string_view
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/bundled/format.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/registry.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/cfg/log_levels.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/logger.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/log_msg.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/backtracer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/log_msg_buffer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/circular_q.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/fmt/bundled/format.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/registry.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/cfg/log_levels.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/logger.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/log_msg.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/backtracer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/log_msg_buffer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/circular_q.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/os.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/version.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/synchronous_factory.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/os.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/version.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/synchronous_factory.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\iostream
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\cassert
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\assert.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\IPropertyBase.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime/SequentialLifetimes.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime\LifetimeDefinition.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IWire.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IRdReactive.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdBindable.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdDynamic.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RName.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/RdId.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/Buffer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/DateTime.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/list.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util\hashing.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdWireable.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/MessageBroker.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/unordered_map.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\reactive\base\IPropertyBase.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime/SequentialLifetimes.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\lifetime\LifetimeDefinition.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IWire.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base/IRdReactive.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdBindable.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdDynamic.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\impl/RName.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/RdId.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/Buffer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\types/DateTime.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/list.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util\hashing.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\base\IRdWireable.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\protocol/MessageBroker.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_core_cpp\src\main\std/unordered_map.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\queue
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire\ByteBufferAsyncProcessor.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire\PkgInputStream.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire\ByteBufferAsyncProcessor.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\wire\PkgInputStream.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\array
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util/thread_util.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/stdout_color_sinks.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/wincolor_sink.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/console_globals.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/sink.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/formatter.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/windows_include.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\src\rd_framework_cpp\src\main\util/thread_util.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/stdout_color_sinks.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/wincolor_sink.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/console_globals.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/sinks/sink.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/formatter.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\spdlog\include\spdlog/details/windows_include.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\windows.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\winapifamily.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\winpackagefamily.h
@@ -345,7 +345,7 @@ C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\winsvc.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\mcx.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\imm.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\ime_cmodes.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\SimpleSocket.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\SimpleSocket.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\io.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\corecrt_io.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\winsock2.h
@@ -355,9 +355,9 @@ C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\qos.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um\Ws2tcpip.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\ws2ipdef.h
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared\in6addr.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\Host.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\StatTimer.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\ActiveSocket.h
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\PassiveSocket.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\Host.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\StatTimer.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\ActiveSocket.h
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Source\RD\thirdparty\clsocket\src\PassiveSocket.h
 D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE\csignal
 C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt\signal.h

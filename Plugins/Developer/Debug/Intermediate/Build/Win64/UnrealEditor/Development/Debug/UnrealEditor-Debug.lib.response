@@ -6,9 +6,9 @@
 /NAME:"UnrealEditor-Debug.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\PCH.Debug.h.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.cpp.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.gen.cpp.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Default.rc2.res"
-/OUT:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\UnrealEditor-Debug.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\PCH.Debug.h.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.gen.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Default.rc2.res"
+/OUT:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\UnrealEditor-Debug.lib"
 /INCLUDE:IMPLEMENT_MODULE_Debug

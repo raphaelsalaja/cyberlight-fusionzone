@@ -13,7 +13,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SMSYSTEM_SMNode_Base_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_108_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_108_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMNode_Base_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	FORCEINLINE static uint32 __PPO__Guid() { return STRUCT_OFFSET(FSMNode_Base, Guid); } \
@@ -31,14 +31,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNode_Base>();
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_79_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_79_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics; \
 	static class UScriptStruct* StaticStruct();
 
 
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMActiveStateTransaction>();
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_25_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_25_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics; \
 	static class UScriptStruct* StaticStruct();
 
@@ -46,7 +46,7 @@ template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMActiveStateTransac
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNetworkedTransaction>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h
+#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h
 
 
 #define FOREACH_ENUM_ESMTRANSACTIONTYPE(op) \

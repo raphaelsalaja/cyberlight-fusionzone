@@ -1,7 +1,7 @@
 /MANIFEST:EMBED
-/MANIFESTINPUT:"..\Build\Windows\Resources\Default-Win64.manifest"
+/MANIFESTINPUT:"D:\Program Files (x86)\UE_5.0EA\Engine\Build\Windows\Resources\Default-Win64.manifest"
 /NOLOGO
-/DEBUG:FULL
+/DEBUG
 /errorReport:prompt
 /MACHINE:x64
 /SUBSYSTEM:WINDOWS
@@ -33,19 +33,19 @@
 /NODEFAULTLIB:"LIBCD"
 /NODEFAULTLIB:"LIBCPD"
 /FUNCTIONPADMIN
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderBlueprintExtension\Module.RiderBlueprintExtension.cpp.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderBlueprintExtension\Default.rc2.res"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\SlateCore\UnrealEditor-SlateCore.lib"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLink\UnrealEditor-RiderLink.lib"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\Slate\UnrealEditor-Slate.lib"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\AssetRegistry\UnrealEditor-AssetRegistry.lib"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\MessagingCommon\UnrealEditor-MessagingCommon.lib"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\UnrealEd\UnrealEditor-UnrealEd.lib"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\UnrealEdMessages\UnrealEditor-UnrealEdMessages.lib"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RD\UnrealEditor-RD.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderBlueprintExtension\Module.RiderBlueprintExtension.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderBlueprintExtension\Default.rc2.res"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\SlateCore\UnrealEditor-SlateCore.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLink\UnrealEditor-RiderLink.lib"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Slate\UnrealEditor-Slate.lib"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\AssetRegistry\UnrealEditor-AssetRegistry.lib"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\MessagingCommon\UnrealEditor-MessagingCommon.lib"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\UnrealEd\UnrealEditor-UnrealEd.lib"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\UnrealEdMessages\UnrealEditor-UnrealEdMessages.lib"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
+"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RD\UnrealEditor-RD.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"
@@ -70,7 +70,8 @@
 "setupapi.lib"
 "dwmapi.lib"
 "imm32.lib"
-/OUT:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Binaries\Win64\UnrealEditor-RiderBlueprintExtension.dll"
-/IMPLIB:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderBlueprintExtension\UnrealEditor-RiderBlueprintExtension.suppressed.lib"
-/PDB:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Binaries\Win64\UnrealEditor-RiderBlueprintExtension.pdb"
+/OUT:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Binaries\Win64\UnrealEditor-RiderBlueprintExtension.dll"
+/IMPLIB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderBlueprintExtension\UnrealEditor-RiderBlueprintExtension.suppressed.lib"
+/PDB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Binaries\Win64\UnrealEditor-RiderBlueprintExtension.pdb"
 /ignore:4078
+/INCLUDE:IMPLEMENT_MODULE_RiderBlueprintExtension

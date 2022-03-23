@@ -1,5 +1,5 @@
 /MANIFEST:EMBED
-/MANIFESTINPUT:"D:\Program Files (x86)\UE_5.0EA\Engine\Build\Windows\Resources\Default-Win64.manifest"
+/MANIFESTINPUT:D:\Programs\UE_5.0EA\Engine\Build\Windows\Resources\Default-Win64.manifest
 /NOLOGO
 /DEBUG
 /errorReport:prompt
@@ -33,12 +33,12 @@
 /NODEFAULTLIB:"LIBCD"
 /NODEFAULTLIB:"LIBCPD"
 /FUNCTIONPADMIN
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Module.RiderLoggingExtension.cpp.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Default.rc2.res"
-"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RD\UnrealEditor-RD.lib"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLink\UnrealEditor-RiderLink.lib"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderBlueprintExtension\UnrealEditor-RiderBlueprintExtension.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Module.RiderLoggingExtension.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\Default.rc2.res"
+"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RD\UnrealEditor-RD.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLink\UnrealEditor-RiderLink.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderBlueprintExtension\UnrealEditor-RiderBlueprintExtension.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"
@@ -63,8 +63,8 @@
 "setupapi.lib"
 "dwmapi.lib"
 "imm32.lib"
-/OUT:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Binaries\Win64\UnrealEditor-RiderLoggingExtension.dll"
-/IMPLIB:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\UnrealEditor-RiderLoggingExtension.suppressed.lib"
-/PDB:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Binaries\Win64\UnrealEditor-RiderLoggingExtension.pdb"
+/OUT:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Binaries\Win64\UnrealEditor-RiderLoggingExtension.dll"
+/IMPLIB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderLoggingExtension\UnrealEditor-RiderLoggingExtension.suppressed.lib"
+/PDB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\RiderLink\Binaries\Win64\UnrealEditor-RiderLoggingExtension.pdb"
 /ignore:4078
 /INCLUDE:IMPLEMENT_MODULE_RiderLoggingExtension

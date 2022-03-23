@@ -11,3 +11,4 @@
 "D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\Module.SMExtendedEditor.gen.cpp.obj"
 "D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\Default.rc2.res"
 /OUT:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedEditor\UnrealEditor-SMExtendedEditor.lib"
+/INCLUDE:IMPLEMENT_MODULE_SMExtendedEditor

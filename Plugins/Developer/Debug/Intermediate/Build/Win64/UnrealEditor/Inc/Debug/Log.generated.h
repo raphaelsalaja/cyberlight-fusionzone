@@ -24,8 +24,8 @@ struct FMatrix;
 #endif
 #define DEBUG_Log_generated_h
 
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS \
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execUnImplemented); \
 	DECLARE_FUNCTION(execCheckNoRecursion); \
@@ -139,7 +139,7 @@ struct FMatrix;
 	DECLARE_FUNCTION(execObjectValidity);
 
 
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS_NO_PURE_DECLS \
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execUnImplemented); \
 	DECLARE_FUNCTION(execCheckNoRecursion); \
@@ -253,7 +253,7 @@ struct FMatrix;
 	DECLARE_FUNCTION(execObjectValidity);
 
 
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS_NO_PURE_DECLS \
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesULog(); \
 	friend struct Z_Construct_UClass_ULog_Statics; \
@@ -262,7 +262,7 @@ public: \
 	DECLARE_SERIALIZER(ULog)
 
 
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS \
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS \
 private: \
 	static void StaticRegisterNativesULog(); \
 	friend struct Z_Construct_UClass_ULog_Statics; \
@@ -271,7 +271,7 @@ public: \
 	DECLARE_SERIALIZER(ULog)
 
 
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_STANDARD_CONSTRUCTORS \
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API ULog(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_ABSTRACT_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(ULog) \
@@ -284,7 +284,7 @@ private: \
 public:
 
 
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_ENHANCED_CONSTRUCTORS \
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API ULog(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
@@ -297,28 +297,28 @@ public: \
 	DEFINE_ABSTRACT_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(ULog)
 
 
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_377_PROLOG
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_GENERATED_BODY_LEGACY \
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_377_PROLOG
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_STANDARD_CONSTRUCTORS \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_ENHANCED_CONSTRUCTORS \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS_NO_PURE_DECLS \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS_NO_PURE_DECLS \
+	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -326,7 +326,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> DEBUG_API UClass* StaticClass<class ULog>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_Debug_Source_Debug_Public_Log_h
+#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h
 
 
 #define FOREACH_ENUM_EDEBUGLOGCOMPARISONMETHOD(op) \

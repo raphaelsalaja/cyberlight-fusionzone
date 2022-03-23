@@ -9,3 +9,4 @@
 "D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderGameControlExtension\RiderGameControlExtension.cpp.obj"
 "D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderGameControlExtension\Default.rc2.res"
 /OUT:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\RiderLink\Intermediate\Build\Win64\UnrealEditor\Development\RiderGameControlExtension\UnrealEditor-RiderGameControlExtension.lib"
+/INCLUDE:IMPLEMENT_MODULE_RiderGameControlExtension

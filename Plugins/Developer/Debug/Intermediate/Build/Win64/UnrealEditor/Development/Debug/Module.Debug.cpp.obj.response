@@ -1,6 +1,6 @@
-D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.cpp
+D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.cpp
 /I .
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Source\Debug\Private
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Source\Debug\Private
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\CoreUObject
 /I Runtime
 /I Runtime\CoreUObject\Public
@@ -232,9 +232,9 @@ D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Wi
 /I Runtime\ClothingSystemRuntimeInterface\Public
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\AnimationDataController
 /I Developer\AnimationDataController\Public
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Inc\Debug
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Source
-/I D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Source\Debug\Public
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Inc\Debug
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Source
+/I D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Source\Debug\Public
 /I ThirdParty\PhysX3\PxShared\include
 /I ThirdParty\PhysX3\PxShared\include\cudamanager
 /I ThirdParty\PhysX3\PxShared\include\filebuf
@@ -252,10 +252,10 @@ D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Wi
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"
-/FI"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\PCH.Debug.h"
-/Yu"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\PCH.Debug.h"
-/Fp"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\PCH.Debug.h.pch"
-/Fo"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.cpp.obj"
+/FI"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\PCH.Debug.h"
+/Yu"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\PCH.Debug.h"
+/Fp"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\PCH.Debug.h.pch"
+/Fo"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.cpp.obj"
 /Zc:inline
 /nologo
 /Oi

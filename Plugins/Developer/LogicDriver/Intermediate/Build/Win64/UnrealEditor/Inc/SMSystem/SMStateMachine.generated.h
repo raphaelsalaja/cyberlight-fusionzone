@@ -13,7 +13,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SMSYSTEM_SMStateMachine_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h_19_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h_19_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMStateMachine_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	FORCEINLINE static uint32 __PPO__PreviousTransactions() { return STRUCT_OFFSET(FSMStateMachine, PreviousTransactions); } \
@@ -27,7 +27,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMStateMachine>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h
+#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

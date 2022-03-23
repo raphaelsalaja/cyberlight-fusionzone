@@ -1,5 +1,5 @@
 /MANIFEST:EMBED
-/MANIFESTINPUT:"D:\Program Files (x86)\UE_5.0EA\Engine\Build\Windows\Resources\Default-Win64.manifest"
+/MANIFESTINPUT:D:\Programs\UE_5.0EA\Engine\Build\Windows\Resources\Default-Win64.manifest
 /NOLOGO
 /DEBUG
 /errorReport:prompt
@@ -33,15 +33,15 @@
 /NODEFAULTLIB:"LIBCD"
 /NODEFAULTLIB:"LIBCPD"
 /FUNCTIONPADMIN
-"D:\Projects\UnrealEngine\Revenant5\Intermediate\Build\Win64\RevenantEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedRuntime\Module.SMExtendedRuntime.cpp.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedRuntime\Module.SMExtendedRuntime.gen.cpp.obj"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedRuntime\Default.rc2.res"
-"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
-"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
-"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
-"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMSystem\UnrealEditor-SMSystem.lib"
-"D:\Program Files (x86)\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\SlateCore\UnrealEditor-SlateCore.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Intermediate\Build\Win64\RevenantEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedRuntime\Module.SMExtendedRuntime.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedRuntime\Module.SMExtendedRuntime.gen.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedRuntime\Default.rc2.res"
+"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
+"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
+"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMSystem\UnrealEditor-SMSystem.lib"
+"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\SlateCore\UnrealEditor-SlateCore.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"
@@ -66,8 +66,8 @@
 "setupapi.lib"
 "dwmapi.lib"
 "imm32.lib"
-/OUT:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Binaries\Win64\UnrealEditor-SMExtendedRuntime.dll"
-/IMPLIB:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedRuntime\UnrealEditor-SMExtendedRuntime.suppressed.lib"
-/PDB:"D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\LogicDriver\Binaries\Win64\UnrealEditor-SMExtendedRuntime.pdb"
+/OUT:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Binaries\Win64\UnrealEditor-SMExtendedRuntime.dll"
+/IMPLIB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Intermediate\Build\Win64\UnrealEditor\Development\SMExtendedRuntime\UnrealEditor-SMExtendedRuntime.suppressed.lib"
+/PDB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LogicDriver\Binaries\Win64\UnrealEditor-SMExtendedRuntime.pdb"
 /ignore:4078
 /INCLUDE:IMPLEMENT_MODULE_SMExtendedRuntime

@@ -13,7 +13,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SMSYSTEM_SMBlueprintFunctions_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMBlueprintFunctions_h_17_GENERATED_BODY \
+#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMBlueprintFunctions_h_17_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMExposedFunctionHandler_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	FORCEINLINE static uint32 __PPO__Function() { return STRUCT_OFFSET(FSMExposedFunctionHandler, Function); } \
@@ -23,7 +23,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMExposedFunctionHandler>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMBlueprintFunctions_h
+#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_SMBlueprintFunctions_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

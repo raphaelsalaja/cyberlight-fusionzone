@@ -1,0 +1,11 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.LockOnTargetEditor.cpp.obj": [
+			"LockOnTargetEditor.cpp.obj",
+			"HelperVisualizer.cpp.obj",
+			"LockOnComponentDetails.cpp.obj",
+			"TargetingHelperComponentDetails.cpp.obj"
+		]
+	}
+}
