@@ -1,0 +1,8 @@
+{
+	"BuildId": "16433597",
+	"Modules": 
+	{
+		"ProInstanceToolsEditorPlugin": "UnrealEditor-ProInstanceToolsEditorPlugin.dll",
+		"ProInstanceToolsPlugin": "UnrealEditor-ProInstanceToolsPlugin.dll"
+	}
+}
