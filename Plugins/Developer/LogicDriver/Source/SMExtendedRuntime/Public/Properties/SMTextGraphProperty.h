@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -96,11 +96,18 @@ public:
 	// FSMGraphProperty_Base
 	virtual bool ShouldAutoAssignVariable() const override { return false; }
 	virtual bool ShouldCompileReadOnlyVariables() const override { return true; }
+#if WITH_EDITORONLY_DATA
+	/**
+	 * If this property is considered thread safe in the editor. Nodes check this during compile
+	 * and will update the overall editor thread safety of the owning node.
+	 */
+	virtual bool IsEditorThreadSafe() const override { return false; }
+#endif
 	// ~FSMGraphProperty_Base
 	
 #if WITH_EDITORONLY_DATA
 public:
-	virtual int32 GetVerticalDisplayOrder() const override { return WidgetInfo.DisplayOrder; }
+	virtual int32 GetVerticalDisplayOrder() const override { return WidgetInfo.DisplayOrder_DEPRECATED; }
 	virtual bool ShouldDefaultToEditMode() const override { return false; }
 	virtual bool AllowToggleGraphEdit() const override { return !IsVariableReadOnly(); }
 

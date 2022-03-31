@@ -1,11 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "UObject/Interface.h"
-#include "SMNode_Base.h"
-#include "ISMStateMachineInterface.generated.h"
+#include "SMTransactions.h"
 
+#include "UObject/Interface.h"
+
+#include "ISMStateMachineInterface.generated.h"
 
 UENUM(BlueprintType)
 enum ESMNetworkConfigurationType
@@ -70,22 +71,34 @@ class SMSYSTEM_API ISMStateMachineNetworkedInterface
 	GENERATED_IINTERFACE_BODY()
 
 public:
-	virtual void ProcessTransaction(const TArray<FSMNetworkedTransaction>& Transactions);
-	virtual bool ShouldReplicateStates() const;
-	virtual bool CanExecuteTransitionEnteredLogic() const;
+	virtual void ServerInitialize(UObject* Context) {}
+	virtual void ServerStart() {}
+	virtual void ServerStop() {}
+	virtual void ServerShutdown() {}
+	virtual void ServerTakeTransition(const FSMTransitionTransaction& TransitionTransactions) {}
+	virtual void ServerActivateState(const FGuid& StateGuid, bool bActive, bool bSetAllParents, bool bActivateNowLocally) {}
+	virtual void ServerFullSync() {}
+
+	virtual bool HandleNewChannelOpen(class UActorChannel* Channel, struct FReplicationFlags* RepFlags) { return false; }
+	virtual void HandleChannelClosed(class UActorChannel* Channel) {}
+	virtual bool CanExecuteTransitionEnteredLogic() const { return false; }
+	virtual bool HasAuthorityToChangeStates() const  { return false; }
+	virtual bool HasAuthorityToChangeStatesLocally() const { return false; }
+	virtual bool HasAuthorityToExecuteLogic() const { return false; }
+	virtual bool HasAuthorityToTick() const { return false; }
 	
 	/** Checks if this interface is networked and replicated. */
 	UFUNCTION(BlueprintCallable, Category = "Network")
-	virtual bool IsConfiguredForNetworking() const;
+	virtual bool IsConfiguredForNetworking() const  { return false; }
 	
 	/**
 	 * If the interface is considered to have authority for Logic Driver. (Such as an instance running on a server)
 	 * This is not necessarily the same as UE's native HasAuthority.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Network")
-	virtual bool HasAuthority() const;
+	virtual bool HasAuthority() const { return false; }
 
 	/** If this interface is only a simulated proxy. */
 	UFUNCTION(BlueprintCallable, Category = "Network")
-	virtual bool IsSimulatedProxy() const;
+	virtual bool IsSimulatedProxy() const { return false; }
 };

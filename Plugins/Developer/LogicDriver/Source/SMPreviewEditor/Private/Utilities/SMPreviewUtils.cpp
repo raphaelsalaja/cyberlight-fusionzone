@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMPreviewUtils.h"
 
@@ -20,6 +20,7 @@
 
 #include "Components/ModelComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/GameEngine.h"
 
 #define LOCTEXT_NAMESPACE "SMPreviewUtils"
 

@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystem/Public/Nodes/States/SMConduit.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMConduit() {}
 // Cross Module References
@@ -17,32 +13,24 @@ void EmptyLinkFunctionForGeneratedCodeSMConduit() {}
 	UPackage* Z_Construct_UPackage__Script_SMSystem();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMState_Base();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMExposedFunctionHandler();
+	SMSYSTEM_API UEnum* Z_Construct_UEnum_SMSystem_ESMConditionalEvaluationType();
 // End Cross Module References
 
 static_assert(std::is_polymorphic<FSMConduit>() == std::is_polymorphic<FSMState_Base>(), "USTRUCT FSMConduit cannot be polymorphic unless super FSMState_Base is polymorphic");
 
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMConduit;
 class UScriptStruct* FSMConduit::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMConduit.OuterSingleton)
 	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMConduit_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMConduit, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMConduit"), sizeof(FSMConduit), Get_Z_Construct_UScriptStruct_FSMConduit_Hash());
+		Z_Registration_Info_UScriptStruct_SMConduit.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMConduit, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMConduit"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMConduit.OuterSingleton;
 }
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMConduit>()
 {
 	return FSMConduit::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMConduit(FSMConduit::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMConduit"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMConduit
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMConduit()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMConduit")),new UScriptStruct::TCppStructOps<FSMConduit>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMConduit;
 	struct Z_Construct_UScriptStruct_FSMConduit_Statics
 	{
 #if WITH_METADATA
@@ -64,11 +52,21 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMConduit
 #endif
 		static void NewProp_bEvalWithTransitions_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_bEvalWithTransitions;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_CanEnterConduitGraphEvaluator_Inner;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_CanEnterConduitGraphEvaluator_MetaData[];
+#endif
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_CanEnterConduitGraphEvaluator;
 		static const UECodeGen_Private::FStructPropertyParams NewProp_ConduitEnteredGraphEvaluator_Inner;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_ConduitEnteredGraphEvaluator_MetaData[];
 #endif
 		static const UECodeGen_Private::FArrayPropertyParams NewProp_ConduitEnteredGraphEvaluator;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_ConditionalEvaluationType_Underlying;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_ConditionalEvaluationType_MetaData[];
+#endif
+		static const UECodeGen_Private::FEnumPropertyParams NewProp_ConditionalEvaluationType;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FStructParams ReturnStructParams;
 	};
@@ -124,7 +122,16 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMConduit
 		((FSMConduit*)Obj)->bEvalWithTransitions = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_bEvalWithTransitions = { "bEvalWithTransitions", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMConduit), &Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_bEvalWithTransitions_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_bEvalWithTransitions_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_bEvalWithTransitions_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator_Inner = { "ConduitEnteredGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_CanEnterConduitGraphEvaluator_Inner = { "CanEnterConduitGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_CanEnterConduitGraphEvaluator_MetaData[] = {
+		{ "Comment", "/** Primary conduit evaluation. */" },
+		{ "ModuleRelativePath", "Public/Nodes/States/SMConduit.h" },
+		{ "ToolTip", "Primary conduit evaluation." },
+	};
+#endif
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_CanEnterConduitGraphEvaluator = { "CanEnterConduitGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMConduit, CanEnterConduitGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_CanEnterConduitGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_CanEnterConduitGraphEvaluator_MetaData)) }; // 163563912
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator_Inner = { "ConduitEnteredGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator_MetaData[] = {
 		{ "Comment", "/** Entry point when the conduit is entered. */" },
@@ -132,13 +139,26 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMConduit
 		{ "ToolTip", "Entry point when the conduit is entered." },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator = { "ConduitEnteredGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMConduit, ConduitEnteredGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator_MetaData)) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator = { "ConduitEnteredGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMConduit, ConduitEnteredGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator_MetaData)) }; // 163563912
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConditionalEvaluationType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConditionalEvaluationType_MetaData[] = {
+		{ "Comment", "/** The conditional evaluation type which determines the type of evaluation required if any. */" },
+		{ "ModuleRelativePath", "Public/Nodes/States/SMConduit.h" },
+		{ "ToolTip", "The conditional evaluation type which determines the type of evaluation required if any." },
+	};
+#endif
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConditionalEvaluationType = { "ConditionalEvaluationType", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMConduit, ConditionalEvaluationType), Z_Construct_UEnum_SMSystem_ESMConditionalEvaluationType, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConditionalEvaluationType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConditionalEvaluationType_MetaData)) }; // 468032148
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMConduit_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_bCanEnterTransition,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_bCanEvaluate,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_bEvalWithTransitions,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_CanEnterConduitGraphEvaluator_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_CanEnterConduitGraphEvaluator,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConduitEnteredGraphEvaluator,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConditionalEvaluationType_Underlying,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMConduit_Statics::NewProp_ConditionalEvaluationType,
 	};
 	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMConduit_Statics::ReturnStructParams = {
 		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
@@ -155,21 +175,21 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMConduit
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FSMConduit()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMConduit_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMConduit"), sizeof(FSMConduit), Get_Z_Construct_UScriptStruct_FSMConduit_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMConduit.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMConduit_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMConduit.InnerSingleton, Z_Construct_UScriptStruct_FSMConduit_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMConduit.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMConduit_Hash() { return 3505983911U; }
+	struct Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_States_SMConduit_h_Statics
+	{
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
+	};
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_States_SMConduit_h_Statics::ScriptStructInfo[] = {
+		{ FSMConduit::StaticStruct, Z_Construct_UScriptStruct_FSMConduit_Statics::NewStructOps, TEXT("SMConduit"), &Z_Registration_Info_UScriptStruct_SMConduit, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMConduit), 3006629386U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_States_SMConduit_h_1795590988(TEXT("/Script/SMSystem"),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_States_SMConduit_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_States_SMConduit_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

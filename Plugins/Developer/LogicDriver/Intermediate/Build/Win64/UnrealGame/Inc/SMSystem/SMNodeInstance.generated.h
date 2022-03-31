@@ -8,11 +8,11 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UInputComponent;
 class APawn;
 class AController;
 enum class ESMExecutionEnvironment : uint8;
 struct FLinearColor;
-struct FVector2D;
 class UTexture2D;
 struct FGuid;
 class ISMStateMachineNetworkedInterface;
@@ -24,20 +24,23 @@ class UObject;
 #endif
 #define SMSYSTEM_SMNodeInstance_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_51_GENERATED_BODY \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_59_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMNodeDescription_Statics; \
 	static class UScriptStruct* StaticStruct();
 
 
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeDescription>();
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_SPARSE_DATA
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_RPC_WRAPPERS \
 	virtual FLinearColor GetNodeIconTintColor_Implementation() const; \
 	virtual FVector2D GetNodeIconSize_Implementation() const; \
 	virtual UTexture2D* GetNodeIcon_Implementation() const; \
 	virtual void ConstructionScript_Implementation(); \
+	virtual void OnRootStateMachineStop_Implementation(); \
+	virtual void OnRootStateMachineStart_Implementation(); \
  \
+	DECLARE_FUNCTION(execGetInputComponent); \
 	DECLARE_FUNCTION(execOnContextPawnControllerChanged); \
 	DECLARE_FUNCTION(execResetVariables); \
 	DECLARE_FUNCTION(execWithExecutionEnvironment); \
@@ -64,11 +67,14 @@ template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeDescription>()
 	DECLARE_FUNCTION(execGetOwningStateMachineNodeInstance); \
 	DECLARE_FUNCTION(execGetStateMachineInstance); \
 	DECLARE_FUNCTION(execConstructionScript); \
+	DECLARE_FUNCTION(execOnRootStateMachineStop); \
+	DECLARE_FUNCTION(execOnRootStateMachineStart); \
 	DECLARE_FUNCTION(execGetContext);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execGetInputComponent); \
 	DECLARE_FUNCTION(execOnContextPawnControllerChanged); \
 	DECLARE_FUNCTION(execResetVariables); \
 	DECLARE_FUNCTION(execWithExecutionEnvironment); \
@@ -95,10 +101,12 @@ template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeDescription>()
 	DECLARE_FUNCTION(execGetOwningStateMachineNodeInstance); \
 	DECLARE_FUNCTION(execGetStateMachineInstance); \
 	DECLARE_FUNCTION(execConstructionScript); \
+	DECLARE_FUNCTION(execOnRootStateMachineStop); \
+	DECLARE_FUNCTION(execOnRootStateMachineStart); \
 	DECLARE_FUNCTION(execGetContext);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_EVENT_PARMS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_EVENT_PARMS \
 	struct SMNodeInstance_eventGetNodeIcon_Parms \
 	{ \
 		UTexture2D* ReturnValue; \
@@ -131,8 +139,8 @@ template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeDescription>()
 	};
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS_NO_PURE_DECLS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_CALLBACK_WRAPPERS
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUSMNodeInstance(); \
 	friend struct Z_Construct_UClass_USMNodeInstance_Statics; \
@@ -142,7 +150,7 @@ public: \
 	virtual UObject* _getUObject() const override { return const_cast<USMNodeInstance*>(this); }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_INCLASS \
 private: \
 	static void StaticRegisterNativesUSMNodeInstance(); \
 	friend struct Z_Construct_UClass_USMNodeInstance_Statics; \
@@ -152,7 +160,7 @@ public: \
 	virtual UObject* _getUObject() const override { return const_cast<USMNodeInstance*>(this); }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_STANDARD_CONSTRUCTORS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USMNodeInstance(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_ABSTRACT_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USMNodeInstance) \
@@ -165,7 +173,7 @@ private: \
 public:
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_ENHANCED_CONSTRUCTORS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API USMNodeInstance(USMNodeInstance&&); \
@@ -176,45 +184,30 @@ public: \
 	DEFINE_ABSTRACT_DEFAULT_CONSTRUCTOR_CALL(USMNodeInstance)
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
-	FORCEINLINE static uint32 __PPO__bHasGameConstructionScripts() { return STRUCT_OFFSET(USMNodeInstance, bHasGameConstructionScripts); } \
-	FORCEINLINE static uint32 __PPO__NodeIcon() { return STRUCT_OFFSET(USMNodeInstance, NodeIcon); } \
-	FORCEINLINE static uint32 __PPO__NodeIconSize() { return STRUCT_OFFSET(USMNodeInstance, NodeIconSize); } \
-	FORCEINLINE static uint32 __PPO__NodeIconTintColor() { return STRUCT_OFFSET(USMNodeInstance, NodeIconTintColor); } \
-	FORCEINLINE static uint32 __PPO__bResetVariablesOnInitialize() { return STRUCT_OFFSET(USMNodeInstance, bResetVariablesOnInitialize); } \
-	FORCEINLINE static uint32 __PPO__InputComponent() { return STRUCT_OFFSET(USMNodeInstance, InputComponent); } \
-	FORCEINLINE static uint32 __PPO__AutoReceiveInput() { return STRUCT_OFFSET(USMNodeInstance, AutoReceiveInput); } \
-	FORCEINLINE static uint32 __PPO__InputPriority() { return STRUCT_OFFSET(USMNodeInstance, InputPriority); } \
-	FORCEINLINE static uint32 __PPO__bBlockInput() { return STRUCT_OFFSET(USMNodeInstance, bBlockInput); } \
-	FORCEINLINE static uint32 __PPO__TemplateGuid() { return STRUCT_OFFSET(USMNodeInstance, TemplateGuid); }
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_101_PROLOG \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_EVENT_PARMS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_87_PROLOG \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_EVENT_PARMS
-
-
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_GENERATED_BODY_LEGACY \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_STANDARD_CONSTRUCTORS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_SPARSE_DATA \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_RPC_WRAPPERS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_CALLBACK_WRAPPERS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_INCLASS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_GENERATED_BODY \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_RPC_WRAPPERS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_INCLASS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h_90_ENHANCED_CONSTRUCTORS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_SPARSE_DATA \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_CALLBACK_WRAPPERS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_INCLASS_NO_PURE_DECLS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h_104_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -222,7 +215,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> SMSYSTEM_API UClass* StaticClass<class USMNodeInstance>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNodeInstance_h
+#define CURRENT_FILE_ID FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_SMNodeInstance_h
 
 
 #define FOREACH_ENUM_ESMEXECUTIONENVIRONMENT(op) \

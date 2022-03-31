@@ -13,15 +13,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SMEXTENDEDRUNTIME_SMTextGraphProperty_generated_h
 
-#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_84_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics; \
-	static class UScriptStruct* StaticStruct(); \
-	typedef FSMGraphProperty_Base Super;
+#define FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_19_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FSMTextSerializer_Statics; \
+	static class UScriptStruct* StaticStruct();
 
 
-template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<struct FSMTextGraphProperty>();
+template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<struct FSMTextSerializer>();
 
-#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_59_GENERATED_BODY \
+#define FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_59_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	typedef FSMGraphProperty_Base_Runtime Super;
@@ -29,15 +28,16 @@ template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<struct FSMTextGraph
 
 template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<struct FSMTextGraphProperty_Runtime>();
 
-#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_19_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FSMTextSerializer_Statics; \
-	static class UScriptStruct* StaticStruct();
+#define FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_84_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics; \
+	static class UScriptStruct* StaticStruct(); \
+	typedef FSMGraphProperty_Base Super;
 
 
-template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<struct FSMTextSerializer>();
+template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<struct FSMTextGraphProperty>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h
+#define CURRENT_FILE_ID FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

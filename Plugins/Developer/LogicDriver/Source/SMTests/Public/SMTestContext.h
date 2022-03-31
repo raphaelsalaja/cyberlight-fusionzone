@@ -1,12 +1,15 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
+
 #include "CoreMinimal.h"
+
 #include "SMNode_Info.h"
 #include "SMStateInstance.h"
 #include "SMConduitInstance.h"
 #include "SMStateMachineComponent.h"
 #include "Properties/SMTextGraphProperty.h"
+
 #include "SMTestContext.generated.h"
 
 class USMInstance;
@@ -24,7 +27,7 @@ struct FSMTestData
 	void Increase(bool bTakeTimeStamp = true)
 	{
 		Count++;
-		if(bTakeTimeStamp)
+		if (bTakeTimeStamp)
 		{
 			TakeTimeStamp();
 		}
@@ -47,7 +50,7 @@ public:
 	void IncreaseEntryInt() { TestEntryInt++;}
 
 	UFUNCTION(BlueprintCallable, Category = "State Machine Tests")
-	void IncreaseUpdateInt(float Value) { TestUpdateInt += Value;}
+	void IncreaseUpdateInt(float Value);
 
 	UFUNCTION(BlueprintCallable, Category = "State Machine Tests")
 	void IncreaseEndInt() { TestEndInt++;}
@@ -56,7 +59,7 @@ public:
 	int32 GetEntryInt() const { return TestEntryInt; }
 
 	UFUNCTION(BlueprintCallable, Category = "State Machine Tests")
-	int32 GetUpdateInt() const { return TestUpdateInt; }
+	int32 GetUpdateFromDeltaSecondsInt() const { return TestUpdateFromDeltaSecondsInt; }
 
 	UFUNCTION(BlueprintCallable, Category = "State Machine Tests")
 	int32 GetEndInt() const { return TestEndInt; }
@@ -65,10 +68,10 @@ public:
 	bool CanTransition() const { return bCanTransition; }
 
 	UFUNCTION(BlueprintCallable, Category = "State Machine Tests")
-	void IncreaseTransitionInit() { TestTransitionInit.Increase(); }
+	void IncreaseTransitionInit();
 
 	UFUNCTION(BlueprintCallable, Category = "State Machine Tests")
-	void IncreaseTransitionShutdown() { TestTransitionShutdown.Increase(); }
+	void IncreaseTransitionShutdown();
 
 	UFUNCTION(BlueprintCallable, Category = "State Machine Tests")
 	void IncreaseTransitionPreEval() { TestTransitionPreEval.Increase(); }
@@ -116,7 +119,7 @@ public:
 	int32 TestEntryInt = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "State Machine Tests")
-	int32 TestUpdateInt = 0;
+	int32 TestUpdateFromDeltaSecondsInt = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "State Machine Tests")
 	int32 TestEndInt = 0;
@@ -144,6 +147,8 @@ public:
 
 	UPROPERTY()
 	FSMTestData TestTransitionEntered;
+
+	FSMTestData TimesUpdateHit;
 
 	UPROPERTY()
 	USMInstance* TestReference;
@@ -214,6 +219,11 @@ protected:
 	virtual void OnStateInitialized_Implementation() override;
 	virtual void OnStateShutdown_Implementation() override;
 	virtual void ConstructionScript_Implementation() override;
+
+	virtual void NativeInitialize() override { check(!bNativeInitialized); bNativeInitialized = true; Super::NativeInitialize(); }
+	virtual void NativeShutdown() override { check(bNativeInitialized); bNativeInitialized = false; Super::NativeShutdown(); }
+
+	bool bNativeInitialized = false;
 
 public:
 	UPROPERTY(BlueprintAssignable, Category = "State Machine Tests")
@@ -292,7 +302,10 @@ public:
 	
 protected:
 	virtual void ConstructionScript_Implementation() override;
+	virtual void NativeInitialize() override { check(!bNativeInitialized); bNativeInitialized = true; Super::NativeInitialize(); }
+	virtual void NativeShutdown() override { check(bNativeInitialized); bNativeInitialized = false; Super::NativeShutdown(); }
 
+	bool bNativeInitialized = false;
 };
 
 UCLASS(Blueprintable)
@@ -374,7 +387,33 @@ protected:
 	virtual void OnStateShutdown_Implementation() override;
 
 	virtual void OnEndStateReached_Implementation() override;
-	virtual  void OnStateMachineCompleted_Implementation() override;
+	virtual void OnStateMachineCompleted_Implementation() override;
+
+	virtual void NativeInitialize() override { check(!bNativeInitialized); bNativeInitialized = true; Super::NativeInitialize(); }
+	virtual void NativeShutdown() override { check(bNativeInitialized); bNativeInitialized = false; Super::NativeShutdown(); }
+
+	bool bNativeInitialized = false;
+};
+
+UCLASS(Blueprintable)
+class USMStateMachineReferenceTestInstance : public USMStateMachineTestInstance
+{
+public:
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite, Category = "State Machine Tests")
+	FString SetByConstructionScript;
+
+	UPROPERTY(BlueprintReadWrite, Category = "State Machine Tests")
+	int32 CanReadNextStates;
+
+	UPROPERTY(BlueprintReadWrite, Category = "State Machine Tests")
+	int32 CanReadPreviousStates;
+
+protected:
+	virtual void ConstructionScript_Implementation() override;
+	virtual void OnStateBegin_Implementation() override;
+
 };
 
 UCLASS(Blueprintable)
@@ -385,6 +424,30 @@ public:
 	
 	UPROPERTY()
 	int32 IntValue;
+
+	UPROPERTY()
+	bool bCanTransition = false;
+
+	UPROPERTY()
+	FSMTestData ConduitEnteredEventHit;
+
+	UPROPERTY()
+	FSMTestData ConduitInitializedHit;
+
+	UPROPERTY()
+	FSMTestData ConduitShutdownHit;
+
+protected:
+	virtual bool CanEnterTransition_Implementation() const override { return bCanTransition; }
+
+	virtual void OnConduitEntered_Implementation() override { ConduitEnteredEventHit.Increase(); }
+	virtual void OnConduitInitialized_Implementation() override { ConduitInitializedHit.Increase(); }
+	virtual void OnConduitShutdown_Implementation() override { ConduitShutdownHit.Increase(); }
+
+	virtual void NativeInitialize() override { check(!bNativeInitialized); bNativeInitialized = true; Super::NativeInitialize(); }
+	virtual void NativeShutdown() override { check(bNativeInitialized); bNativeInitialized = false; Super::NativeShutdown(); }
+
+	bool bNativeInitialized = false;
 };
 
 UCLASS(Blueprintable)
@@ -405,6 +468,12 @@ public:
 	UPROPERTY()
 	FSMTestData TransitionShutdownHit;
 	
+	UPROPERTY()
+	FSMTestData TransitionRootSMStartHit;
+	
+	UPROPERTY()
+	FSMTestData TransitionRootSMStopHit;
+	
 	UFUNCTION()
 	void OnTransitionEnteredEventFunc(USMTransitionInstance* TransitionInstance);
 
@@ -413,6 +482,21 @@ protected:
 	virtual void OnTransitionInitialized_Implementation() override;
 	virtual void OnTransitionShutdown_Implementation() override;
 	virtual bool CanEnterTransition_Implementation() const override { return bCanTransition; }
+
+	virtual void OnRootStateMachineStart_Implementation() override;
+	virtual void OnRootStateMachineStop_Implementation() override;
+
+	virtual void NativeInitialize() override { check(!bNativeInitialized); bNativeInitialized = true; Super::NativeInitialize(); }
+	virtual void NativeShutdown() override { check(bNativeInitialized); bNativeInitialized = false; Super::NativeShutdown(); }
+
+	bool bNativeInitialized = false;
+};
+
+UCLASS(Blueprintable)
+class USMTransitionStackTestInstance : public USMTransitionInstance
+{
+public:
+	GENERATED_BODY()
 };
 
 UCLASS(Blueprintable)
@@ -429,7 +513,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Test")
 	FSMTextGraphProperty TextGraph;
 
-	UPROPERTY(BlueprintReadWrite, meta = (HideOnNode))
+	UPROPERTY(BlueprintReadWrite, Category = "Test", meta = (HideOnNode))
 	FText EvaluatedText;
 
 protected:
@@ -470,4 +554,270 @@ public:
 	void SetTickInterval(bool bAllowOverride, float TickInterval);
 
 	void ImportDeprecatedProperties_Public();
+};
+
+static void RecordTime(double& InOutVariable)
+{
+#if !PLATFORM_WINDOWS
+	FPlatformProcess::Sleep(0.001f);
+#endif
+	InOutVariable = FPlatformTime::Cycles64();
+}
+
+UCLASS(Blueprintable)
+class USMOrderState : public USMStateTestInstance
+{
+public:
+	GENERATED_BODY()
+	
+	USMOrderState() {}
+
+	double Time_Start = 0.f;
+	double Time_Update = 0.f;
+	double Time_End = 0.f;
+
+	double Time_Initialize = 0.f;
+	double Time_Shutdown = 0.f;
+
+	double Time_RootStart = 0.f;
+	double Time_RootStop = 0.f;
+	
+protected:
+	virtual void OnStateBegin_Implementation() override
+	{
+		RecordTime(Time_Start);
+		Super::OnStateBegin_Implementation();
+	}
+
+	virtual void OnStateUpdate_Implementation(float DeltaSeconds) override
+	{
+		RecordTime(Time_Update);
+		Super::OnStateUpdate_Implementation(DeltaSeconds);
+	}
+
+	virtual void OnStateEnd_Implementation() override
+	{
+		RecordTime(Time_End);
+		Super::OnStateEnd_Implementation();
+	}
+
+	virtual void OnStateInitialized_Implementation() override
+	{
+		RecordTime(Time_Initialize);
+		Super::OnStateInitialized_Implementation();
+	}
+	
+	virtual void OnStateShutdown_Implementation() override
+	{
+		RecordTime(Time_Shutdown);
+		Super::OnStateShutdown_Implementation();
+	}
+
+	virtual void OnRootStateMachineStart_Implementation() override
+	{
+		RecordTime(Time_RootStart);
+		Super::OnRootStateMachineStart_Implementation();
+	}
+
+	virtual void OnRootStateMachineStop_Implementation() override
+	{
+		RecordTime(Time_RootStop);
+		Super::OnRootStateMachineStop_Implementation();
+	}
+};
+
+UCLASS(Blueprintable)
+class USMOrderTransition : public USMTransitionTestInstance
+{
+public:
+	GENERATED_BODY()
+	
+	USMOrderTransition() {}
+
+	double Time_Entered = 0.f;
+	
+	double Time_Initialize = 0.f;
+	double Time_Shutdown = 0.f;
+
+	double Time_RootStart = 0.f;
+	double Time_RootStop = 0.f;
+	
+protected:
+	virtual void OnTransitionEntered_Implementation() override
+	{
+		RecordTime(Time_Entered);
+		Super::OnTransitionEntered_Implementation();
+	}
+	
+	virtual void OnTransitionInitialized_Implementation() override
+	{
+		RecordTime(Time_Initialize);
+		Super::OnTransitionInitialized_Implementation();
+	}
+	
+	virtual void OnTransitionShutdown_Implementation() override
+	{
+		RecordTime(Time_Shutdown);
+		Super::OnTransitionShutdown_Implementation();
+	}
+
+	virtual void OnRootStateMachineStart_Implementation() override
+	{
+		RecordTime(Time_RootStart);
+		Super::OnRootStateMachineStart_Implementation();
+	}
+
+	virtual void OnRootStateMachineStop_Implementation() override
+	{
+		RecordTime(Time_RootStop);
+		Super::OnRootStateMachineStop_Implementation();
+	}
+
+	virtual bool CanEnterTransition_Implementation() const override
+	{
+		return true;
+	}
+};
+
+UCLASS(Blueprintable)
+class USMOrderConduit : public USMConduitTestInstance
+{
+public:
+	GENERATED_BODY()
+	
+	USMOrderConduit() {}
+
+	double Time_Start = 0.f;
+	double Time_Update = 0.f;
+	double Time_End = 0.f;
+
+	double Time_Initialize = 0.f;
+	double Time_Shutdown = 0.f;
+
+	double Time_RootStart = 0.f;
+	double Time_RootStop = 0.f;
+
+	double Time_Entered = 0.f;
+	
+protected:
+	virtual void OnStateBegin_Implementation() override
+	{
+		RecordTime(Time_Start);
+		Super::OnStateBegin_Implementation();
+	}
+
+	virtual void OnStateUpdate_Implementation(float DeltaSeconds) override
+	{
+		RecordTime(Time_Update);
+		Super::OnStateUpdate_Implementation(DeltaSeconds);
+	}
+
+	virtual void OnStateEnd_Implementation() override
+	{
+		RecordTime(Time_End);
+		Super::OnStateEnd_Implementation();
+	}
+
+	virtual void OnRootStateMachineStart_Implementation() override
+	{
+		RecordTime(Time_RootStart);
+		Super::OnRootStateMachineStart_Implementation();
+	}
+
+	virtual void OnRootStateMachineStop_Implementation() override
+	{
+		RecordTime(Time_RootStop);
+		Super::OnRootStateMachineStop_Implementation();
+	}
+
+	virtual void OnConduitInitialized_Implementation() override
+	{
+		RecordTime(Time_Initialize);
+		Super::OnConduitInitialized_Implementation();
+	}
+
+	virtual void OnConduitShutdown_Implementation() override
+	{
+		RecordTime(Time_Shutdown);
+		Super::OnConduitShutdown_Implementation();
+	}
+
+	virtual void OnConduitEntered_Implementation() override
+	{
+		RecordTime(Time_Entered);
+		Super::OnConduitEntered_Implementation();
+	}
+
+	virtual bool CanEnterTransition_Implementation() const override
+	{
+		return true;
+	}
+};
+
+UCLASS(Blueprintable)
+class USMOrderStateMachine : public USMStateMachineInstance
+{
+public:
+	GENERATED_BODY()
+	
+	USMOrderStateMachine() {}
+
+	double Time_Start = 0.f;
+	double Time_Update = 0.f;
+	double Time_End = 0.f;
+
+	double Time_Initialize = 0.f;
+	double Time_Shutdown = 0.f;
+
+	double Time_RootStart = 0.f;
+	double Time_RootStop = 0.f;
+	
+	double Time_EndState = 0.f;
+	double Time_OnCompleted = 0.f;
+	
+protected:
+	virtual void OnStateBegin_Implementation() override
+	{
+		RecordTime(Time_Start);
+	}
+
+	virtual void OnStateUpdate_Implementation(float DeltaSeconds) override
+	{
+		RecordTime(Time_Update);
+	}
+
+	virtual void OnStateEnd_Implementation() override
+	{
+		RecordTime(Time_End);
+	}
+
+	virtual void OnStateInitialized_Implementation() override
+	{
+		RecordTime(Time_Initialize);
+	}
+	
+	virtual void OnStateShutdown_Implementation() override
+	{
+		RecordTime(Time_Shutdown);
+	}
+
+	virtual void OnRootStateMachineStart_Implementation() override
+	{
+		RecordTime(Time_RootStart);
+	}
+
+	virtual void OnRootStateMachineStop_Implementation() override
+	{
+		RecordTime(Time_RootStop);
+	}
+
+	virtual void OnEndStateReached_Implementation() override
+	{
+		RecordTime(Time_End);
+	}
+
+	virtual void OnStateMachineCompleted_Implementation() override
+	{
+		RecordTime(Time_OnCompleted);
+	}
 };

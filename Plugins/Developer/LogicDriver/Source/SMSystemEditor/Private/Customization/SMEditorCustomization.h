@@ -1,23 +1,21 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
-
-#include "Blueprints/SMBlueprintGeneratedClass.h"
 
 #include "CoreMinimal.h"
 #include "IDetailCustomization.h"
 #include "DetailLayoutBuilder.h"
 #include "IPropertyUtilities.h"
-
+#include "Modules/ModuleManager.h"
 
 template<typename T>
 static T* GetObjectBeingCustomized(IDetailLayoutBuilder& DetailBuilder)
 {
 	TArray<TWeakObjectPtr<UObject>> Objects;
 	DetailBuilder.GetObjectsBeingCustomized(Objects);
-	for(TWeakObjectPtr<UObject> Object : Objects)
+	for (TWeakObjectPtr<UObject> Object : Objects)
 	{
-		if(T* CastedObject = Cast<T>(Object.Get()))
+		if (T* CastedObject = Cast<T>(Object.Get()))
 		{
 			return CastedObject;
 		}
@@ -33,18 +31,22 @@ static EVisibility VisibilityConverter(bool bValue)
 
 class FSMBaseCustomization : public IDetailCustomization
 {
+public:
 	// IDetailCustomization
 	virtual void CustomizeDetails(const TSharedPtr<IDetailLayoutBuilder>& DetailBuilder) override;
 	virtual void CustomizeDetails(IDetailLayoutBuilder& DetailBuilder) override {}
 	// ~IDetailCustomization
 
+	/** Recursively hide all handles. */
+	static void HideNestedCategoryHandles(const TSharedPtr<IPropertyHandle>& InHandle);
 protected:
 	void ForceUpdate();
 	
 	TWeakPtr<IDetailLayoutBuilder> DetailBuilderPtr;
 };
 
-class FSMNodeCustomization : public FSMBaseCustomization {
+class FSMNodeCustomization : public FSMBaseCustomization
+{
 public:
 	// IDetailCustomization
 	virtual void CustomizeDetails(IDetailLayoutBuilder& DetailBuilder) override;
@@ -54,34 +56,6 @@ public:
 
 protected:
 	TWeakObjectPtr<class USMGraphNode_Base> SelectedGraphNode;
-};
-
-class FSMStateMachineReferenceCustomization : public FSMNodeCustomization {
-public:
-	// IDetailCustomization
-	virtual void CustomizeDetails(IDetailLayoutBuilder& DetailBuilder) override;
-	// ~IDetailCustomization
-
-	static TSharedRef<IDetailCustomization> MakeInstance();
-
-protected:
-	void CustomizeParentSelection(IDetailLayoutBuilder& DetailBuilder);
-	void OnUseTemplateChange();
-	
-	TArray<TSharedPtr<FName>> AvailableClasses;
-	TMap<FName, USMBlueprintGeneratedClass*> MappedClasses;
-};
-
-class FSMTransitionEdgeCustomization : public FSMNodeCustomization {
-public:
-	// IDetailCustomization
-	virtual void CustomizeDetails(IDetailLayoutBuilder& DetailBuilder) override;
-	// ~IDetailCustomization
-
-	static TSharedRef<IDetailCustomization> MakeInstance();
-
-protected:
-	TArray<TSharedPtr<FString>> AvailableDelegates;
 };
 
 class FSMNodeInstanceCustomization : public FSMBaseCustomization {
@@ -96,28 +70,70 @@ public:
 	 * @param GraphNode					The selected graph node.
 	 * @param TemplateProperties		All template properties to check.
 	 * @param NodeInstance				The node instance template containing the properties.
-	 * @param ExposedPropertiesName		The name of the category to use for exposed properties.
-	 * @param DetailBuilder				The detail builder to use if ChildrenBuilder is not supplied.
-	 * @param ChildrenBuilder			An optional DetailChildrenBuilder such as for child structs.
+	 * @param DetailBuilder				The detail builder to use.
 	 * 
 	 */
-	static void ProcessNodeInstance(TWeakObjectPtr<USMGraphNode_Base> GraphNode, TArray<TSharedRef<IPropertyHandle>> TemplateProperties,
-		class USMNodeInstance* NodeInstance, FName ExposedPropertiesName, IDetailLayoutBuilder& DetailBuilder, IDetailChildrenBuilder* ChildrenBuilder = nullptr);
+	static void ProcessNodeInstance(TWeakObjectPtr<USMGraphNode_Base> GraphNode, const TArray<TSharedRef<IPropertyHandle>>& TemplateProperties,
+		class USMNodeInstance* NodeInstance, IDetailLayoutBuilder& DetailBuilder);
+
+	/**
+	 * Display a single exposed property widget in the details panel. Can be called from either state base or state stack.
+	 *
+	 * @param GraphNode					The selected graph node.
+	 * @param PropertyHandle			The specific template property.
+	 * @param NodeInstance				The node instance template containing the properties.
+	 * @param DetailBuilder				The detail builder to use if ChildrenBuilder is not supplied.
+	 * @param ChildrenBuilder			A child builder if being called from struct customization, such as for the state stack.
+	 */
+	static void DisplayExposedPropertyWidget(TWeakObjectPtr<USMGraphNode_Base> GraphNode, const TSharedRef<IPropertyHandle>& PropertyHandle, class USMNodeInstance* NodeInstance,
+		IDetailLayoutBuilder* DetailBuilder = nullptr, IDetailChildrenBuilder* ChildrenBuilder = nullptr);
 	
 	static TSharedRef<IDetailCustomization> MakeInstance();
 
 protected:
 	static void GenerateGraphArrayWidget(TSharedRef<IPropertyHandle> PropertyHandle, int32 ArrayIndex, IDetailChildrenBuilder& ChildrenBuilder,
 		TWeakObjectPtr<USMGraphNode_Base> SelectedNode, class USMNodeInstance* NodeInstance, FText FilterString);
-	TWeakObjectPtr<class USMGraphNode_Base> SelectedGraphNode;
+
+	static void SortCategories(const TMap<FName, IDetailCategoryBuilder*>& AllCategoryMap);
+
+protected:
+	TWeakObjectPtr<USMGraphNode_Base> SelectedGraphNode;
 };
 
 class FSMStructCustomization : public IPropertyTypeCustomization
 {
 public:
-
+	virtual void CustomizeHeader(TSharedRef<IPropertyHandle> InPropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& CustomizationUtils) override
+	{
+		PropertyHandle = InPropertyHandle;
+		check(PropertyHandle.IsValid());
+	}
+	
 	class USMGraphNode_Base* GetGraphNodeBeingCustomized(IPropertyTypeCustomizationUtils& StructCustomizationUtils, bool bCheckParent = false) const;
 
+	/** Register the given struct with the Property Editor. */
+	template<typename T>
+	static void RegisterNewStruct(const FName& Name)
+	{
+		if (RegisteredStructs.Contains(Name))
+		{
+			return;
+		}
+		RegisteredStructs.Add(Name);
+		FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
+		PropertyModule.RegisterCustomPropertyTypeLayout(Name, FOnGetPropertyTypeCustomizationInstance::CreateStatic(&T::MakeInstance));
+	}
+
+	/** Unregister all previously registered structs from the Property Editor. */
+	static void UnregisterAllStructs()
+	{
+		FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
+		for (const FName& Name : RegisteredStructs)
+		{
+			PropertyModule.UnregisterCustomPropertyTypeLayout(Name);
+		}
+	}
+	
 	template<typename T>
 	T* GetObjectBeingCustomized(IPropertyTypeCustomizationUtils& StructCustomizationUtils,
 	                            bool bCheckParent = false) const
@@ -142,6 +158,12 @@ public:
 
 		return nullptr;
 	}
+
+protected:
+	TSharedPtr<IPropertyHandle> PropertyHandle;
+
+private:
+	static TSet<FName> RegisteredStructs;
 };
 
 class FSMGraphPropertyCustomization : public FSMStructCustomization
@@ -150,33 +172,6 @@ public:
 	static TSharedRef<IPropertyTypeCustomization> MakeInstance();
 
 	/** IPropertyTypeCustomization interface */
-	virtual void CustomizeHeader(TSharedRef<class IPropertyHandle> StructPropertyHandle, class FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& StructCustomizationUtils) override;
-	virtual void CustomizeChildren(TSharedRef<class IPropertyHandle> StructPropertyHandle, class IDetailChildrenBuilder& StructBuilder, IPropertyTypeCustomizationUtils& StructCustomizationUtils) override;
-
-	/** Register the given struct with the Property Editor. */
-	static void RegisterNewStruct(const FName& Name);
-
-	/** Unregister all previously registered structs from the Property Editor. */
-	static void UnregisterAllStructs();
-	
-private:
-	TSharedPtr<IPropertyHandle> PropertyHandle;
-};
-
-class FSMStateStackCustomization : public FSMStructCustomization
-{
-public:
-	static TSharedRef<IPropertyTypeCustomization> MakeInstance();
-
-	/** IPropertyTypeCustomization interface */
-	virtual void CustomizeHeader(TSharedRef<class IPropertyHandle> StructPropertyHandle, class FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& StructCustomizationUtils) override;
-	virtual void CustomizeChildren(TSharedRef<class IPropertyHandle> StructPropertyHandle, class IDetailChildrenBuilder& StructBuilder, IPropertyTypeCustomizationUtils& StructCustomizationUtils) override;
-
-	/** Register the given struct with the Property Editor. */
-	static void RegisterNewStruct(const FName& Name);
-
-	/** Unregister all previously registered structs from the Property Editor. */
-	static void UnregisterAllStructs();
-private:
-	TSharedPtr<IPropertyHandle> PropertyHandle;
+	virtual void CustomizeHeader(TSharedRef<IPropertyHandle> StructPropertyHandle, FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& StructCustomizationUtils) override;
+	virtual void CustomizeChildren(TSharedRef<IPropertyHandle> StructPropertyHandle, IDetailChildrenBuilder& StructBuilder, IPropertyTypeCustomizationUtils& StructCustomizationUtils) override;
 };

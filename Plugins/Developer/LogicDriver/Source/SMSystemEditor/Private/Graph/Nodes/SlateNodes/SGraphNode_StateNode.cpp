@@ -1,6 +1,21 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SGraphNode_StateNode.h"
+#include "Graph/Nodes/SMGraphNode_StateNode.h"
+#include "Graph/Nodes/SMGraphNode_ConduitNode.h"
+#include "Graph/Nodes/PropertyNodes/SMGraphK2Node_GraphPropertyNode.h"
+#include "Graph/Pins/SGraphPin_StatePin.h"
+#include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
+#include "Graph/Nodes/SMGraphNode_StateMachineParentNode.h"
+#include "Graph/Nodes/SMGraphNode_AnyStateNode.h"
+#include "Properties/SGraphNode_PropertyContent.h"
+#include "Graph/Nodes/SlateNodes/Properties/SSMGraphProperty.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+#include "Utilities/SMNodeInstanceUtils.h"
+#include "Configuration/SMEditorStyle.h"
+
+#include "SMConduit.h"
+
 #include "SLevelOfDetailBranchNode.h"
 #include "SCommentBubble.h"
 #include "SlateOptMacros.h"
@@ -14,20 +29,9 @@
 #include "Widgets/SWidget.h"
 #include "Widgets/SBoxPanel.h"
 #include "Widgets/Text/SInlineEditableTextBlock.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-#include "SMConduit.h"
-#include "Configuration/SMEditorStyle.h"
-#include "Graph/Nodes/SMGraphNode_StateNode.h"
-#include "Graph/Nodes/SMGraphNode_ConduitNode.h"
-#include "Graph/Nodes/PropertyNodes/SMGraphK2Node_GraphPropertyNode.h"
-#include "Graph/Pins/SGraphPin_StatePin.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineParentNode.h"
-#include "Widgets/SSMGraphProperty.h"
-#include "Utilities/SMNodeInstanceUtils.h"
+#include "Kismet2/KismetEditorUtilities.h"
 
 #define LOCTEXT_NAMESPACE "SGraphStateNode"
-
 
 void SGraphNode_StateNode::Construct(const FArguments& InArgs, USMGraphNode_StateNodeBase* InNode)
 {
@@ -42,18 +46,13 @@ void SGraphNode_StateNode::Construct(const FArguments& InArgs, USMGraphNode_Stat
 
 	const USMEditorSettings* EditorSettings = FSMBlueprintEditorUtils::GetEditorSettings();
 	{
-		const FSlateBrush* ImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.StateModifier"));
+		const FSlateBrush* FastPathImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.FastPath"));
 		
-		FLinearColor AnyStateColor = EditorSettings->AnyStateDefaultColor;
-		AnyStateColor.A = 0.72f;
-		
-		AnyStateImpactWidget =
+		FastPathWidget =
 			SNew(SImage)
-			.Image(ImageBrush)
-			.ToolTipText(NSLOCTEXT("StateNode", "StateNodeAnyStateTooltip", "An `Any State` node is adding one or more transitions to this state."))
-			.ColorAndOpacity(AnyStateColor)
+			.Image(FastPathImageBrush)
+			.ToolTipText(NSLOCTEXT("StateNode", "StateNodeFastPathTooltip", "Fast path enabled: All execution points avoid going through the blueprint graph."))
 			.Visibility(EVisibility::Visible);
-
 
 		if (EditorSettings->bEnableAnimations)
 		{
@@ -82,9 +81,9 @@ void SGraphNode_StateNode::Tick(const FGeometry& AllottedGeometry, const double 
 	}
 }
 
-void SGraphNode_StateNode::MoveTo(const FVector2D& NewPosition, FNodeSet& NodeFilter)
+void SGraphNode_StateNode::MoveTo(const FVector2D& NewPosition, FNodeSet& NodeFilter, bool bMarkDirty)
 {
-	SGraphNode::MoveTo(NewPosition, NodeFilter);
+	SGraphNode::MoveTo(NewPosition, NodeFilter, bMarkDirty);
 	USMGraphNode_Base* StateNode = CastChecked<USMGraphNode_Base>(GraphNode);
 	StateNode->OnNodeMoved(NewPosition);
 }
@@ -99,14 +98,14 @@ void SGraphNode_StateNode::UpdateGraphNode()
 	RightNodeBox.Reset();
 	LeftNodeBox.Reset();
 
-	const FSlateBrush* NodeTypeIcon = GetNameIcon();
 	const FLinearColor TitleShadowColor(0.6f, 0.6f, 0.6f);
 
 	const float PinPadding = FSMBlueprintEditorUtils::GetEditorSettings()->StateConnectionSize;
 	
 	SetupErrorReporting();
 	TSharedPtr<SErrorText> ErrorText;
-	const TSharedPtr<SVerticalBox> ContentBox = CreateContentBox();
+	const TSharedPtr<SWidget> ContentBox = CreateContentBox();
+	const TAttribute<const FSlateBrush*> SelectedBrush = TAttribute<const FSlateBrush*>::Create(TAttribute<const FSlateBrush*>::FGetter::CreateSP(this, &SGraphNode_StateNode::GetNameIcon));
 	
 	this->ContentScale.Bind(this, &SGraphNode::GetContentScale);
 	this->GetOrAddSlot(ENodeZone::Center)
@@ -159,8 +158,8 @@ void SGraphNode_StateNode::UpdateGraphNode()
 						.AutoWidth()
 						.VAlign(VAlign_Center)
 						[
-							SNew(SImage)
-							.Image(NodeTypeIcon)
+							SAssignNew(NodeIcon, SImage)
+							.Image(SelectedBrush)
 						]
 						+ SHorizontalBox::Slot()
 						.Padding(ContentPadding)
@@ -173,9 +172,9 @@ void SGraphNode_StateNode::UpdateGraphNode()
 		];
 
 	// Finalize all property widgets now that parent - child relationship is complete.
-	for (auto& PropertyWidget : PropertyWidgets)
+	if (PropertyContent.IsValid())
 	{
-		PropertyWidget.Key->Finalize();
+		PropertyContent->Finalize();
 	}
 	
 	// Create comment bubble
@@ -205,6 +204,8 @@ void SGraphNode_StateNode::UpdateGraphNode()
 	ErrorReporting = ErrorText;
 	ErrorReporting->SetError(ErrorMsg);
 	CreatePinWidgets();
+
+	CalculateAnyStateImpact();
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
@@ -237,11 +238,11 @@ void SGraphNode_StateNode::AddPin(const TSharedRef<SGraphPin>& PinToAdd)
 TSharedPtr<SToolTip> SGraphNode_StateNode::GetComplexTooltip()
 {
 	/* Display a pop-up on mouse hover with useful information. */
-	TSharedRef<SVerticalBox> Widget = BuildComplexTooltip();
+	const TSharedPtr<SVerticalBox> Widget = BuildComplexTooltip();
 
 	return SNew(SToolTip)
 		[
-			Widget
+			Widget.ToSharedRef()
 		];
 }
 
@@ -252,15 +253,26 @@ TArray<FOverlayWidgetInfo> SGraphNode_StateNode::GetOverlayWidgets(bool bSelecte
 	const USMEditorSettings* EditorSettings = FSMBlueprintEditorUtils::GetEditorSettings();
 	if (!EditorSettings->bDisableVisualCues)
 	{
-		if (USMGraphNode_StateNodeBase* StateNode = Cast<USMGraphNode_StateNodeBase>(GraphNode))
+		if (const USMGraphNode_StateNodeBase* StateNode = Cast<USMGraphNode_StateNodeBase>(GraphNode))
 		{
-			if (FSMBlueprintEditorUtils::IsNodeImpactedFromAnyStateNode(StateNode))
+			const FSlateBrush* AnyStateImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.AnyState"));
+			for (const TSharedPtr<SWidget>& AnyStateWidget : AnyStateImpactWidgets)
 			{
-				const FSlateBrush* ImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.StateModifier"));
+				FOverlayWidgetInfo Info;
+				Info.OverlayOffset = FVector2D(WidgetSize.X - (AnyStateImageBrush->ImageSize.X * 0.5f) - (Widgets.Num() * OverlayWidgetPadding),
+					-(AnyStateImageBrush->ImageSize.Y * 0.5f));
+				Info.Widget = AnyStateWidget;
+
+				Widgets.Add(Info);
+			}
+			if (EditorSettings->bDisplayFastPath && StateNode->IsNodeFastPathEnabled())
+			{
+				const FSlateBrush* FastPathImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.FastPath"));
 
 				FOverlayWidgetInfo Info;
-				Info.OverlayOffset = FVector2D(WidgetSize.X - (ImageBrush->ImageSize.X * 0.5f) - (Widgets.Num() * OverlayWidgetPadding), -(ImageBrush->ImageSize.Y * 0.5f));
-				Info.Widget = AnyStateImpactWidget;
+				Info.OverlayOffset = FVector2D(WidgetSize.X - (FastPathImageBrush->ImageSize.X * 0.5f) - (Widgets.Num() * OverlayWidgetPadding),
+					-(FastPathImageBrush->ImageSize.Y * 0.5f));
+				Info.Widget = FastPathWidget;
 
 				Widgets.Add(Info);
 			}
@@ -274,11 +286,14 @@ FReply SGraphNode_StateNode::OnMouseButtonDoubleClick(const FGeometry& InMyGeome
 {
 	// Prevent double click from stealing interaction with widget.
 	// TODO: See if property has any handling and call that, continue, or cancel.
-	for(const auto& KeyVal : PropertyWidgets)
+	if (PropertyContent.IsValid())
 	{
-		if(KeyVal.Key->GetCachedGeometry().IsUnderLocation(InMouseEvent.GetScreenSpacePosition()))
+		for (const auto& KeyVal : PropertyContent->GetPropertyWidgets())
 		{
-			return FReply::Handled();
+			if (KeyVal.Key->GetCachedGeometry().IsUnderLocation(InMouseEvent.GetScreenSpacePosition()))
+			{
+				return FReply::Handled();
+			}
 		}
 	}
 	
@@ -287,26 +302,30 @@ FReply SGraphNode_StateNode::OnMouseButtonDoubleClick(const FGeometry& InMyGeome
 
 void SGraphNode_StateNode::RequestRenameOnSpawn()
 {
-	if (USMGraphNode_Base* Node = Cast<USMGraphNode_Base>(GraphNode))
+	if (PropertyContent.IsValid())
 	{
-		if (USMStateInstance_Base* NodeInstance = Cast<USMStateInstance_Base>(Node->GetNodeTemplate()))
+		if (const USMGraphNode_Base* Node = Cast<USMGraphNode_Base>(GraphNode))
 		{
-			if (!NodeInstance->ShouldDisplayNameWidget() || NodeInstance->ShouldUseDisplayNameOnly())
+			if (const USMStateInstance_Base* NodeInstance = Cast<USMStateInstance_Base>(Node->GetNodeTemplate()))
 			{
-				// No name widget to display -- see if there are other widgets to display.
-				for(const auto& KeyVal : PropertyWidgets)
+				if (!NodeInstance->ShouldDisplayNameWidget() || NodeInstance->ShouldUseDisplayNameOnly())
 				{
-					if(KeyVal.Value->IsConsideredForDefaultProperty())
+					// No name widget to display -- see if there are other widgets to display.
+					for (const auto& KeyVal : PropertyContent->GetPropertyWidgets())
 					{
-						KeyVal.Value->DefaultPropertyActionWhenPlaced(StaticCastSharedPtr<SWidget>(KeyVal.Key));
-						break;
+						if (KeyVal.Value->IsConsideredForDefaultProperty())
+						{
+							KeyVal.Value->DefaultPropertyActionWhenPlaced(StaticCastSharedPtr<SWidget>(KeyVal.Key));
+							break;
+						}
 					}
-				}
 				
-				return;
+					return;
+				}
 			}
 		}
 	}
+	
 	SGraphNode::RequestRenameOnSpawn();
 }
 
@@ -315,7 +334,7 @@ FReply SGraphNode_StateNode::OnDrop(const FGeometry& MyGeometry, const FDragDrop
 	return FReply::Handled();
 }
 
-TSharedRef<SVerticalBox> SGraphNode_StateNode::BuildComplexTooltip()
+TSharedPtr<SVerticalBox> SGraphNode_StateNode::BuildComplexTooltip()
 {
 	USMGraphNode_StateNodeBase* StateNode = CastChecked<USMGraphNode_StateNodeBase>(GraphNode);
 
@@ -328,7 +347,7 @@ TSharedRef<SVerticalBox> SGraphNode_StateNode::BuildComplexTooltip()
 	{
 		NodeType = "Parent";
 	}
-	else if(USMGraphNode_StateMachineStateNode* StateMachineNode = Cast<USMGraphNode_StateMachineStateNode>(StateNode))
+	else if (const USMGraphNode_StateMachineStateNode* StateMachineNode = Cast<USMGraphNode_StateMachineStateNode>(StateNode))
 	{
 		NodeType = StateMachineNode->IsStateMachineReference() ? "State Machine Reference" : "State Machine";
 	}
@@ -340,31 +359,54 @@ TSharedRef<SVerticalBox> SGraphNode_StateNode::BuildComplexTooltip()
 
 	const bool bAnyStateImpactsThisNode = !bIsAnyState && FSMBlueprintEditorUtils::IsNodeImpactedFromAnyStateNode(StateNode);
 	
-	TSharedRef<SVerticalBox> Widget = SNew(SVerticalBox);
+	const FSlateBrush* FastPathImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.FastPath_32x"));
+	
+	TSharedPtr<SVerticalBox> Widget = SNew(SVerticalBox);
 	Widget->AddSlot()
 		.AutoHeight()
 		.Padding(FMargin(0.f, 0.f, 0.f, 4.f))
 		[
-			SNew(STextBlock)
-			.TextStyle(FSMEditorStyle::Get(), "SMGraph.Tooltip.Title")
-			.Text(FText::Format(LOCTEXT("StatePopupTitle", "{0} ({1})"), FText::FromString(StateNode->GetStateName()), FText::FromString(NodeType)))
+			SNew(SHorizontalBox)
+			+ SHorizontalBox::Slot()
+			.AutoWidth()
+			[
+				SNew(STextBlock)
+				.TextStyle(FSMEditorStyle::Get(), "SMGraph.Tooltip.Title")
+				.Text(FText::Format(LOCTEXT("StatePopupTitle", "{0} ({1})"), FText::FromString(StateNode->GetStateName()), FText::FromString(NodeType)))
+			]
+			+ SHorizontalBox::Slot()
+			.AutoWidth()
+			.Padding(0.f, -4.f, 0.f, 0.f)
+			[
+				SNew(SImage)
+				.Image(FastPathImageBrush)
+				.Visibility_Lambda([StateNode]()
+				{
+					return StateNode && StateNode->IsNodeFastPathEnabled() ? EVisibility::Visible : EVisibility::Collapsed;
+				})
+			]
 		];
 
-	if (USMNodeInstance* NodeTemplate = StateNode->GetNodeTemplate())
+	if (!StateNode->IsUsingDefaultNodeClass())
 	{
-		Widget->AddSlot()
+		if (const USMNodeInstance* NodeTemplate = StateNode->GetNodeTemplate())
+		{
+			const TSharedPtr<SWidget> NodeClassWidget =
+				FSMNodeInstanceUtils::CreateNodeClassWidgetDisplay(NodeTemplate);
+		
+			Widget->AddSlot()
 			.AutoHeight()
-			.Padding(FMargin(0.f, 0.f, 0.f, 4.f))
 			[
-				FSMNodeInstanceUtils::CreateNodeClassWidgetDisplay(NodeTemplate).ToSharedRef()
+				NodeClassWidget.ToSharedRef()
 			];
+		}
 	}
 	if (UEdGraph* Graph = GetGraphToUseForTooltip())
 	{
 		Widget->AddSlot()
 			.AutoHeight()
 			[
-				SAssignNew(GraphPreviewer, SGraphPreviewer, Graph)
+				SNew(SGraphPreviewer, Graph)
 				.ShowGraphStateOverlay(false)
 			];
 	}
@@ -411,14 +453,115 @@ TSharedRef<SVerticalBox> SGraphNode_StateNode::BuildComplexTooltip()
 
 UEdGraph* SGraphNode_StateNode::GetGraphToUseForTooltip() const
 {
-	USMGraphNode_StateNodeBase* StateNode = CastChecked<USMGraphNode_StateNodeBase>(GraphNode);
+	const USMGraphNode_StateNodeBase* StateNode = CastChecked<USMGraphNode_StateNodeBase>(GraphNode);
 	return StateNode->GetBoundGraph();
 }
 
-void SGraphNode_StateNode::GetNodeInfoPopups(FNodeInfoContext* Context,
-	TArray<FGraphInformationPopupInfo>& Popups) const
+void SGraphNode_StateNode::CalculateAnyStateImpact()
 {
-	USMGraphNode_StateNodeBase* Node = CastChecked<USMGraphNode_StateNodeBase>(GraphNode);
+	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SGraphNode_StateNode::CalculateAnyStateImpact"), STAT_CalculateAnyStateImpact, STATGROUP_LogicDriverEditor);
+
+	AnyStateImpactWidgets.Reset();
+	
+	const USMGraphNode_StateNodeBase* StateNode = CastChecked<USMGraphNode_StateNodeBase>(GraphNode);
+	TArray<USMGraphNode_AnyStateNode*> AnyStates;
+
+	const USMEditorSettings* EditorSettings = FSMBlueprintEditorUtils::GetEditorSettings();
+	if (EditorSettings->MaxAnyStateIcons > 0 && FSMBlueprintEditorUtils::IsNodeImpactedFromAnyStateNode(StateNode, &AnyStates))
+	{
+		// Sort first so similar colors are grouped. Luminance seems to provide quickest and best results.
+		AnyStates.Sort([](const USMGraphNode_AnyStateNode& AnyStateA, const USMGraphNode_AnyStateNode& AnyStateB)
+		{
+			return AnyStateA.GetAnyStateColor().GetLuminance() >= AnyStateB.GetAnyStateColor().GetLuminance();
+		});
+		
+		int32 ColorsOverLimit = 1;
+		for (int32 AnyStateIdx = 0; AnyStateIdx < AnyStates.Num(); ++AnyStateIdx)
+		{
+			const USMGraphNode_AnyStateNode* AnyState = AnyStates[AnyStateIdx];
+			const bool bIsGrouped = AnyStateIdx >= EditorSettings->MaxAnyStateIcons;
+			const bool bIsLastIteration = AnyStateIdx == AnyStates.Num() - 1;
+			
+			FLinearColor AnyStateColor = AnyState->GetAnyStateColor();
+			
+			if (bIsGrouped)
+			{
+				ColorsOverLimit++;
+				if (!bIsLastIteration)
+				{
+					// Skip until end.
+					continue;
+				}
+			}
+			
+			FText TooltipText;
+
+			if (bIsGrouped)
+			{
+				// Replace the last one with the grouped widget.
+				AnyStateImpactWidgets.RemoveAt(0);
+				
+				TooltipText = FText::FromString(FString::Printf(TEXT("An additional %s Any State nodes are adding transitions to this node."),
+					*FString::FromInt(ColorsOverLimit)));
+
+				AnyStateColor = FLinearColor::White;
+			}
+			else
+			{
+				// Display individual any state.
+				TooltipText = FText::FromString(FString::Printf(TEXT("The Any State node '%s' is adding one or more transitions to this state."),
+					*AnyState->GetStateName()));
+			}
+
+			AnyStateColor.A = 0.72f;
+			
+			const FSlateBrush* ImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.AnyState"));
+			TSharedPtr<SWidget> Widget =
+				SNew(SBorder)
+				.BorderImage(FEditorStyle::GetBrush("NoBorder"))
+				.Cursor(bIsGrouped ? EMouseCursor::Default : EMouseCursor::Hand)
+				.Padding(0.f)
+				.VAlign(VAlign_Center)
+				.OnMouseDoubleClick_Lambda([AnyState, bIsGrouped](const FGeometry&, const FPointerEvent&)
+				{
+					if (!bIsGrouped && AnyState)
+					{
+						FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(AnyState);
+					}
+					return FReply::Handled();
+				})
+				[
+					SNew(SOverlay)
+					+ SOverlay::Slot()
+					.VAlign(VAlign_Center)
+					[
+						SNew(SImage)
+						.Image(ImageBrush)
+						.ToolTipText(TooltipText)
+						.ColorAndOpacity(AnyStateColor)
+						.Visibility(EVisibility::Visible)
+					]
+					+ SOverlay::Slot()
+					.VAlign(VAlign_Center)
+					.HAlign(HAlign_Center)
+					[
+						SNew(STextBlock)
+						.Visibility(bIsGrouped ? EVisibility::HitTestInvisible : EVisibility::Collapsed)
+						.Text(FText::FromString(FString::FromInt(ColorsOverLimit)))
+						.Font(FCoreStyle::GetDefaultFontStyle("Regular", 8))
+						.ColorAndOpacity(FLinearColor::Black)
+					]
+				];
+
+			AnyStateImpactWidgets.Insert(Widget, 0);
+		}
+	}
+}
+
+void SGraphNode_StateNode::GetNodeInfoPopups(FNodeInfoContext* Context,
+                                             TArray<FGraphInformationPopupInfo>& Popups) const
+{
+	const USMGraphNode_StateNodeBase* Node = CastChecked<USMGraphNode_StateNodeBase>(GraphNode);
 	if (const FSMNode_Base* DebugNode = Node->GetDebugNode())
 	{
 		// Show active time or last active time over the node.
@@ -459,7 +602,25 @@ void SGraphNode_StateNode::GetNodeInfoPopups(FNodeInfoContext* Context,
 	}
 }
 
-TSharedPtr<SVerticalBox> SGraphNode_StateNode::CreateContentBox()
+void SGraphNode_StateNode::OnRefreshRequested(USMGraphNode_Base* InNode, bool bFullRefresh)
+{
+	CalculateAnyStateImpact();
+	
+	if (!bFullRefresh && PropertyContent.IsValid())
+	{
+		// Optimized refresh.
+		const bool bRefreshSuccess = PropertyContent->RefreshAllProperties();
+		if (ensure(bRefreshSuccess))
+		{
+			return;
+		}
+	}
+	
+	// Full refresh
+	SGraphNode_BaseNode::OnRefreshRequested(InNode, bFullRefresh);
+}
+
+TSharedPtr<SWidget> SGraphNode_StateNode::CreateContentBox()
 {
 	TSharedPtr<SVerticalBox> Content;
 	TSharedPtr<SNodeTitle> NodeTitle = SNew(SNodeTitle, GraphNode);
@@ -494,355 +655,14 @@ TSharedPtr<SVerticalBox> SGraphNode_StateNode::CreateContentBox()
 		[
 			NodeTitle.ToSharedRef()
 		];
-	
-	PropertyWidgets.Reset();
-	
-	// Add custom property widgets sorted by user specification.
-	USMGraphNode_StateNodeBase* StateNodeBase = CastChecked<USMGraphNode_StateNodeBase>(GraphNode);
-	TArray<USMGraphK2Node_PropertyNode_Base*> GraphPropertyNodes = StateNodeBase->GetAllPropertyGraphNodesAsArray();
-	
-	TArray<USMGraphK2Node_PropertyNode_Base*> GraphPropertyBPVariablesOrdered;
-	// Each property node mapped to its instance.
-	TMap<USMGraphK2Node_PropertyNode_Base*, USMNodeInstance*> PropertiesToTemplates;
-	
-	// Populate all used state classes, in order.
-	TArray<USMNodeInstance*> NodeTemplates;
 
-	auto IsValidClass = [](USMGraphNode_Base* Node, UClass* NodeClass) {return NodeClass && NodeClass != Node->GetDefaultNodeClass(); };
-
-	if (IsValidClass(StateNodeBase, StateNodeBase->GetNodeClass()))
-	{
-		NodeTemplates.Add(StateNodeBase->GetNodeTemplate());
-	}
-	
-	if (USMGraphNode_StateNode* StateNode = Cast<USMGraphNode_StateNode>(StateNodeBase))
-	{
-		for (const auto& StackTemplate : StateNode->StateStack)
-		{
-			if (StackTemplate.NodeStackInstanceTemplate)
-			{
-				if (IsValidClass(StateNodeBase, StackTemplate.NodeStackInstanceTemplate->GetClass()))
-				{
-					NodeTemplates.Add(StackTemplate.NodeStackInstanceTemplate);
-				}
-			}
-		}
-	}
-
-	/*
-	 * Look for array types and build out templates.
-	 */
-	auto ExpandAndSortProperty = [&GraphPropertyNodes, &GraphPropertyBPVariablesOrdered, &PropertiesToTemplates](USMGraphK2Node_PropertyNode_Base* GraphProperty, USMNodeInstance* NodeTemplate)
-	{
-		if (GraphProperty)
-		{
-			GraphPropertyNodes.Remove(GraphProperty);
-			GraphPropertyBPVariablesOrdered.Add(GraphProperty);
-
-			FSMGraphProperty_Base* RealPropertyNode = GraphProperty->GetPropertyNode();
-			if (!RealPropertyNode)
-			{
-				return false;
-			}
-
-			// Look for array items that may belong to this property.
-			TArray<USMGraphK2Node_PropertyNode_Base*> ArrayItems = GraphPropertyNodes.
-				FilterByPredicate([&RealPropertyNode](USMGraphK2Node_PropertyNode_Base* PropertyNode)
-			{
-				FSMGraphProperty_Base* TestProperty = PropertyNode->GetPropertyNodeConst();
-				if (!TestProperty)
-				{
-					return false;
-				}
-				return TestProperty->VariableName == RealPropertyNode->VariableName && TestProperty->GetTemplateGuid() == RealPropertyNode->GetTemplateGuid();
-			});
-			ArrayItems.Sort([&](USMGraphK2Node_PropertyNode_Base& lhs, USMGraphK2Node_PropertyNode_Base& rhs)
-			{
-				// Should never be null unless something was forcibly deleted or an underlying class removed.
-				FSMGraphProperty_Base* PropertyLhs = lhs.GetPropertyNode();
-				if (!PropertyLhs)
-				{
-					return false;
-				}
-
-				FSMGraphProperty_Base* PropertyRhs = rhs.GetPropertyNode();
-				if (!PropertyRhs)
-				{
-					return false;
-				}
-
-				return PropertyLhs->ArrayIndex <= PropertyRhs->ArrayIndex;
-			});
-
-			// Add on array items in the correct order directly after the first element.
-			for (USMGraphK2Node_PropertyNode_Base* ArrItem : ArrayItems)
-			{
-				GraphPropertyNodes.Remove(ArrItem);
-				PropertiesToTemplates.Add(ArrItem, NodeTemplate);
-			}
-			
-			GraphPropertyBPVariablesOrdered.Append(ArrayItems);
-			PropertiesToTemplates.Add(GraphProperty, NodeTemplate);
-			
-			return true;
-		}
-
-		return false;
-	};
-	
-	for (USMNodeInstance* NodeTemplate : NodeTemplates)
-	{
-		{
-			// Check native properties first. Reference PropertyEditor/Private/PropertyEditorHelpers.cpp  ~ OrderPropertiesFromMetadata()
-			
-			TArray<FProperty*> NativeProperties;
-			TArray<TTuple<FProperty*, int32>> NativePropertiesOrdered;
-			for (TFieldIterator<FProperty> It(NodeTemplate->GetClass()); It; ++It)
-			{
-				FProperty* NativeProperty = *It;
-				if (!NativeProperty->GetOwnerUField()->HasAnyInternalFlags(EInternalObjectFlags::Native) ||
-					(!FSMNodeInstanceUtils::IsPropertyExposedToGraphNode(NativeProperty) && !FSMNodeInstanceUtils::IsPropertyGraphProperty(NativeProperty)))
-				{
-					// Blueprint properties checked later.
-					continue;
-				}
-
-				NativeProperties.Add(NativeProperty);
-			}
-
-			NativePropertiesOrdered.Reserve(NativeProperties.Num());
-			for (FProperty* NativeProperty : NativeProperties)
-			{
-				// Sort native properties based on their display order only.
-				const FString& DisplayPriorityStr = NativeProperty->GetMetaData("DisplayPriority");
-				int32 DisplayPriority = (DisplayPriorityStr.IsEmpty() ? MAX_int32 : FCString::Atoi(*DisplayPriorityStr));
-				if (DisplayPriority == 0 && !FCString::IsNumeric(*DisplayPriorityStr))
-				{
-					// If there was a malformed display priority str Atoi will say it is 0, but we want to treat it as unset
-					DisplayPriority = MAX_int32;
-				}
-
-				auto InsertProperty = [NativeProperty, DisplayPriority](TArray<TTuple<FProperty*, int32>>& InsertToArray)
-				{
-					bool bInserted = false;
-					if (DisplayPriority != MAX_int32)
-					{
-						for (int32 InsertIndex = 0; InsertIndex < InsertToArray.Num(); ++InsertIndex)
-						{
-							const int32 PriorityAtIndex = InsertToArray[InsertIndex].Get<1>();
-							if (DisplayPriority < PriorityAtIndex)
-							{
-								InsertToArray.Insert(MakeTuple(NativeProperty, DisplayPriority), InsertIndex);
-								bInserted = true;
-								break;
-							}
-						}
-					}
-
-					if (!bInserted)
-					{
-						InsertToArray.Emplace(MakeTuple(NativeProperty, DisplayPriority));
-					}
-				};
-
-				InsertProperty(NativePropertiesOrdered);
-			}
-
-			// Reload back into array.
-			NativeProperties.Reset();
-			for (const TTuple<FProperty*, int32>& Property : NativePropertiesOrdered)
-			{
-				NativeProperties.Add(Property.Get<0>());
-			}
-
-			for (FProperty* NativeProperty : NativeProperties)
-			{
-				FSMGraphProperty_Base Property;
-				Property.SetTemplateGuid(NodeTemplate->GetTemplateGuid());
-				FSMNodeInstanceUtils::SetGraphPropertyFromProperty(Property, NativeProperty, NodeTemplate);
-
-				const FGuid& CalculatedGuid = Property.GetGuid();
-
-				// First lookup by var guid. This is the standard lookup.
-				USMGraphK2Node_PropertyNode_Base* GraphProperty = StateNodeBase->GetGraphPropertyNode(CalculatedGuid);
-
-				// Attempt lookup by name -- Only can happen on extended graph properties.
-				if (!GraphProperty)
-				{
-					// TODO: This may not be necessary, at least for native properties.
-					GraphProperty = StateNodeBase->GetGraphPropertyNode(NativeProperty->GetFName(), NodeTemplate);
-				}
-
-				if (!ExpandAndSortProperty(GraphProperty, NodeTemplate))
-				{
-					continue;
-				}
-			}
-		}
-
-		// Blueprint variable sorting. Grab the blueprint and all parents.
-		{
-			TArray<UBlueprint*> BlueprintParents;
-			UBlueprint::GetBlueprintHierarchyFromClass(NodeTemplate->GetClass(), BlueprintParents);
-
-			TArray<FBPVariableDescription> Variables;
-			for (UBlueprint* Blueprint : BlueprintParents)
-			{
-				Variables.Append(Blueprint->NewVariables);
-			}
-
-			// Check blueprint properties.
-			for (const FBPVariableDescription& Variable : Variables)
-			{
-				FSMGraphProperty_Base Property;
-				Property.SetTemplateGuid(NodeTemplate->GetTemplateGuid());
-				const FGuid& CalculatedGuid = Property.SetGuid(Variable.VarGuid, 0);
-
-				// First lookup by var guid. This is the standard lookup.
-				USMGraphK2Node_PropertyNode_Base* GraphProperty = StateNodeBase->GetGraphPropertyNode(CalculatedGuid);
-
-				// Attempt lookup by name -- Only can happen on extended graph properties.
-				if (!GraphProperty)
-				{
-					GraphProperty = StateNodeBase->GetGraphPropertyNode(Variable.VarName, NodeTemplate);
-				}
-
-				if (!ExpandAndSortProperty(GraphProperty, NodeTemplate))
-				{
-					continue;
-				}
-			}
-		}
-	}
-
-	// GraphPropertyNodes are just native / non-variable properties. Add sorted BP on after.
-	GraphPropertyNodes.Append(GraphPropertyBPVariablesOrdered);
-
-	TMap<int32, TArray<USMGraphK2Node_PropertyNode_Base*>> CustomOrderMap;
-	{
-		// Perform custom sorting using widget vertical order override. Maintain the desired order accounting for combined states.
-		// TODO: Consider deprecating the vertical order attribute in favor of DisplayOrder (native) or variable order in BP. Both already work.
-		int32 BaseCount = 0;
-		int32 TotalCount = 0;
-		USMNodeInstance* LastTemplate = nullptr;
-		for (USMGraphK2Node_PropertyNode_Base* PropertyNode : GraphPropertyNodes)
-		{
-			USMNodeInstance* CurrentTemplate = PropertiesToTemplates.FindRef(PropertyNode);
-			if (CurrentTemplate && CurrentTemplate != LastTemplate && CurrentTemplate->GetTemplateGuid().IsValid())
-			{
-				BaseCount = TotalCount;
-			} 
-			TotalCount++;
-			LastTemplate = CurrentTemplate;
-
-			if (FSMGraphProperty_Base* Property = PropertyNode->GetPropertyNode())
-			{
-				const int32 Order = Property->GetVerticalDisplayOrder();
-				if (Order != 0)
-				{
-					// Look for all related elements since this could be an array that is being re-ordered.
-					TArray<USMGraphK2Node_PropertyNode_Base*> PropertiesToMove = GraphPropertyNodes.
-						FilterByPredicate([&Property](USMGraphK2Node_PropertyNode_Base* PropertyNode)
-					{
-						FSMGraphProperty_Base* TestProperty = PropertyNode->GetPropertyNodeConst();
-						if (!TestProperty)
-						{
-							return false;
-						}
-						return TestProperty->VariableName == Property->VariableName && TestProperty->GetTemplateGuid() == Property->GetTemplateGuid();
-					});
-
-					CustomOrderMap.Add(BaseCount + Order, MoveTemp(PropertiesToMove));
-				}
-			}
-		}
-	}
-
-	// Insert or add the elements to the array.
-	for(auto& KeyVal : CustomOrderMap)
-	{
-		TArray<USMGraphK2Node_PropertyNode_Base*>& PropertyNodes = KeyVal.Value;
-		for (USMGraphK2Node_PropertyNode_Base* PropertyNode : PropertyNodes)
-		{
-			GraphPropertyNodes.Remove(PropertyNode);
-		}
-
-		const int32 Index = FMath::Clamp(KeyVal.Key, 0, GraphPropertyNodes.Num());
-		if(Index > GraphPropertyNodes.Num() - 1)
-		{
-			GraphPropertyNodes.Append(PropertyNodes);
-		}
-		else
-		{
-			GraphPropertyNodes.Insert(PropertyNodes, Index);
-		}
-	}
-
-	const USMEditorSettings* EditorSettings = FSMBlueprintEditorUtils::GetEditorSettings();
-	
-	USMNodeInstance* LastTemplate = nullptr;
-	TSharedPtr<SBorder> NodeStackBorder;
-	TSharedPtr<SVerticalBox> NodeStackBox;
-	for (USMGraphK2Node_PropertyNode_Base* PropertyNode : GraphPropertyNodes)
-	{
-		if (PropertyNode->GetPropertyNodeChecked()->IsVariableHidden())
-		{
-			continue;
-		}
-		
-		if (TSharedPtr<SSMGraphProperty_Base> PropertyWidget = PropertyNode->GetGraphNodeWidget())
-		{
-			// Must call finalize on these after the context box has been created and assigned.
-			PropertyWidgets.Add(PropertyWidget, PropertyNode);
-
-			USMNodeInstance* CurrentTemplate = PropertiesToTemplates.FindRef(PropertyNode);
-			if (CurrentTemplate && CurrentTemplate != LastTemplate && CurrentTemplate->GetTemplateGuid().IsValid())
-			{
-				FLinearColor BackgroundColor = StateNodeBase->GetBackgroundColorForNodeInstance(CurrentTemplate);
-				BackgroundColor.A *= 0.25f;
-
-				FString StateStackName = CurrentTemplate->GetClass()->GetName();
-				StateStackName.RemoveFromEnd("_C");
-				
-				Content->AddSlot()
-					.AutoHeight()
-					[
-						SNew(SVerticalBox)
-						+ SVerticalBox::Slot()
-						.AutoHeight()
-						.Padding(0.f, 1.f, 0.f, 0.f)
-						[
-							SNew(STextBlock)
-							.Text(FText::FromString(StateStackName))
-							.TextStyle(FEditorStyle::Get(), "SmallText")
-							.Visibility(EditorSettings->bDisplayStateStackClassNames ? EVisibility::Visible : EVisibility::Collapsed)
-						]
-						+ SVerticalBox::Slot()
-						.AutoHeight()
-						[
-							SAssignNew(NodeStackBorder, SBorder)
-							.BorderImage(FEditorStyle::GetBrush("Graph.StateNode.Body"))
-							.Padding(2)
-							.BorderBackgroundColor(BackgroundColor)
-							[
-								SAssignNew(NodeStackBox, SVerticalBox)
-							]
-						]
-					];
-			}
-
-			TSharedPtr<SVerticalBox> ContentBoxToUse = NodeStackBox.IsValid() ? NodeStackBox : Content;
-
-			ContentBoxToUse->AddSlot()
-				.Padding(0.f, 2.5f)
-				.AutoHeight()
-				[
-					StaticCastSharedRef<SWidget>(PropertyWidget.ToSharedRef())
-				];
-
-			LastTemplate = CurrentTemplate;
-		}
-	}
+	// Graph properties.
+	Content->AddSlot()
+		.AutoHeight()
+		[
+			SAssignNew(PropertyContent, SSMGraphNode_PropertyContent)
+			.GraphNode(CastChecked<USMGraphNode_Base>(GraphNode))
+		];
 	
 	return Content;
 }
@@ -860,7 +680,7 @@ FSlateColor SGraphNode_StateNode::GetBorderBackgroundColor() const
 const FSlateBrush* SGraphNode_StateNode::GetNameIcon() const
 {
 	USMGraphNode_StateNodeBase* StateNode = CastChecked<USMGraphNode_StateNodeBase>(GraphNode);
-	if(const FSlateBrush* Brush = StateNode->GetNodeIcon())
+	if (const FSlateBrush* Brush = StateNode->GetNodeIcon())
 	{
 		return Brush;
 	}

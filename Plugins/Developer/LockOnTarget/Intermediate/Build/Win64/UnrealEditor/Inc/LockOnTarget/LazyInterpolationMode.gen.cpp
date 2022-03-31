@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/LockOnSubobjects/RotationModes/LazyInterpolationMode.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeLazyInterpolationMode() {}
 // Cross Module References
@@ -102,10 +98,11 @@ void EmptyLinkFunctionForGeneratedCodeLazyInterpolationMode() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULazyInterpolationMode_CanLazyInterpolate_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULazyInterpolationMode_CanLazyInterpolate_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ULazyInterpolationMode);
 	UClass* Z_Construct_UClass_ULazyInterpolationMode_NoRegister()
 	{
 		return ULazyInterpolationMode::StaticClass();
@@ -151,7 +148,7 @@ void EmptyLinkFunctionForGeneratedCodeLazyInterpolationMode() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_LockOnTarget,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_ULazyInterpolationMode_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_ULazyInterpolationMode_CanLazyInterpolate, "CanLazyInterpolate" }, // 690571263
+		{ &Z_Construct_UFunction_ULazyInterpolationMode_CanLazyInterpolate, "CanLazyInterpolate" }, // 1644911780
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ULazyInterpolationMode_Statics::Class_MetaDataParams[] = {
@@ -260,21 +257,26 @@ void EmptyLinkFunctionForGeneratedCodeLazyInterpolationMode() {}
 	};
 	UClass* Z_Construct_UClass_ULazyInterpolationMode()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_ULazyInterpolationMode.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_ULazyInterpolationMode_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_ULazyInterpolationMode.OuterSingleton, Z_Construct_UClass_ULazyInterpolationMode_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_ULazyInterpolationMode.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(ULazyInterpolationMode, 1765856460);
 	template<> LOCKONTARGET_API UClass* StaticClass<ULazyInterpolationMode>()
 	{
 		return ULazyInterpolationMode::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_ULazyInterpolationMode(Z_Construct_UClass_ULazyInterpolationMode, &ULazyInterpolationMode::StaticClass, TEXT("/Script/LockOnTarget"), TEXT("ULazyInterpolationMode"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ULazyInterpolationMode);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationMode_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationMode_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_ULazyInterpolationMode, ULazyInterpolationMode::StaticClass, TEXT("ULazyInterpolationMode"), &Z_Registration_Info_UClass_ULazyInterpolationMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ULazyInterpolationMode), 2212529859U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationMode_h_1489119185(TEXT("/Script/LockOnTarget"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationMode_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationMode_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

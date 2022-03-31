@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphSchema.h"
 
@@ -10,11 +10,12 @@
 #include "Graph/Nodes/SMGraphNode_StateMachineParentNode.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
+#include "Graph/Nodes/SMGraphNode_AnyStateNode.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
+#include "Graph/ConnectionDrawing/SMGraphConnectionDrawingPolicy.h"
 #include "Blueprints/SMBlueprintEditor.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Construction/SMEditorConstructionManager.h"
-#include "Graph/ConnectionDrawing/SMGraphConnectionDrawingPolicy.h"
 
 #include "Blueprints/SMBlueprint.h"
 
@@ -33,7 +34,6 @@
 #include "ToolMenu.h"
 
 #define LOCTEXT_NAMESPACE "SMGraphSchema"
-
 
 template<typename T>
 TSharedPtr<T> AddNewStateNodeAction(FGraphContextMenuBuilder& ContextMenuBuilder, const FText& Category, const FText& MenuDesc, const FText& Tooltip, const int32 Grouping = 0)
@@ -103,10 +103,10 @@ UEdGraphNode* FSMGraphSchemaAction_NewNode::PerformAction(class UEdGraph* Parent
 			// Custom rules will still override these.
 			
 			const USMProjectEditorSettings* Settings = FSMBlueprintEditorUtils::GetProjectEditorSettings();
-			if(Cast<USMGraphNode_StateNode>(NodeTemplate))
+			if (Cast<USMGraphNode_StateNode>(NodeTemplate))
 			{
 				UClass* DefaultClass = Settings->DefaultStateClass.LoadSynchronous();
-				if(!FSMNodeClassRule::IsBaseClass(DefaultClass))
+				if (!FSMNodeClassRule::IsBaseClass(DefaultClass))
 				{
 					NodeClass = DefaultClass;
 				}
@@ -116,7 +116,7 @@ UEdGraphNode* FSMGraphSchemaAction_NewNode::PerformAction(class UEdGraph* Parent
 				if (!StateMachineNode->IsA<USMGraphNode_StateMachineParentNode>() /* bDontOverrideDefaultClass set for references */)
 				{
 					UClass* DefaultClass = Settings->DefaultStateMachineClass.LoadSynchronous();
-					if(!FSMNodeClassRule::IsBaseClass(DefaultClass))
+					if (!FSMNodeClassRule::IsBaseClass(DefaultClass))
 					{
 						NodeClass = DefaultClass;
 					}
@@ -125,7 +125,7 @@ UEdGraphNode* FSMGraphSchemaAction_NewNode::PerformAction(class UEdGraph* Parent
 			else if (Cast<USMGraphNode_ConduitNode>(NodeTemplate))
 			{
 				UClass* DefaultClass = Settings->DefaultConduitClass.LoadSynchronous();
-				if(!FSMNodeClassRule::IsBaseClass(DefaultClass))
+				if (!FSMNodeClassRule::IsBaseClass(DefaultClass))
 				{
 					NodeClass = DefaultClass;
 				}
@@ -133,7 +133,7 @@ UEdGraphNode* FSMGraphSchemaAction_NewNode::PerformAction(class UEdGraph* Parent
 			else if (Cast<USMGraphNode_TransitionEdge>(NodeTemplate))
 			{
 				UClass* DefaultClass = Settings->DefaultTransitionClass.LoadSynchronous();
-				if(!FSMNodeClassRule::IsBaseClass(DefaultClass))
+				if (!FSMNodeClassRule::IsBaseClass(DefaultClass))
 				{
 					NodeClass = DefaultClass;
 				}
@@ -163,7 +163,7 @@ UEdGraphNode* FSMGraphSchemaAction_NewNode::PerformAction(class UEdGraph* Parent
 		}
 
 		// Check for transition that needs to be set from the previous state to this one.
-		if(USMGraphNode_StateNodeBase* StateNode = Cast<USMGraphNode_StateNodeBase>(NodeTemplate))
+		if (USMGraphNode_StateNodeBase* StateNode = Cast<USMGraphNode_StateNodeBase>(NodeTemplate))
 		{
 			if (USMGraphNode_TransitionEdge* TransitionNode = StateNode->GetPreviousTransition())
 			{
@@ -231,10 +231,9 @@ UEdGraphNode* FSMGraphSchemaAction_NewStateMachineReferenceNode::PerformAction(U
 	TArray<FAssetData> AssetData = ContentBrowserModule.Get().CreateModalOpenAssetDialog(SelectAssetConfig);
 	if (AssetData.Num() == 1)
 	{
-		USMBlueprint *ReferencedBlueprint = Cast<USMBlueprint>(AssetData[0].GetAsset());
-		if (ReferencedBlueprint != nullptr)
+		if (USMBlueprint *ReferencedBlueprint = Cast<USMBlueprint>(AssetData[0].GetAsset()))
 		{
-			if (!ReferencedBlueprint->HasAnyFlags(RF_Transient) && !ReferencedBlueprint->IsPendingKill())
+			if (!ReferencedBlueprint->HasAnyFlags(RF_Transient) && IsValid(ReferencedBlueprint))
 			{
 				// Create the new node.
 				if (USMGraphNode_StateMachineStateNode* NewStateMachineNode = Cast<USMGraphNode_StateMachineStateNode>(Super::PerformAction(ParentGraph, FromPin, Location, bSelectNewNode)))
@@ -303,7 +302,7 @@ void USMGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder& ContextMen
 	bool bParentsAllowed = true;
 	
 	UClass* BaseStateMachineClass = nullptr;
-	if(StateMachineDefault)
+	if (StateMachineDefault)
 	{
 		const FSMStateMachineNodePlacementValidator& Rules = StateMachineDefault->GetAllowedStates();
 		bBaseStatesAllowed = Rules.IsStateAllowed(USMStateInstance::StaticClass());
@@ -403,12 +402,12 @@ void USMGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder& ContextMen
 
 		for (UClass* NodeClass : NodeClasses)
 		{
-			if (NodeClass->HasAnyClassFlags(CLASS_Abstract))
+			if (FSMNodeClassRule::IsBaseClass(NodeClass) || NodeClass->HasAnyClassFlags(CLASS_Abstract))
 			{
 				continue;
 			}
 			
-			if (USMStateInstance_Base* NodeDefault = Cast<USMStateInstance_Base>(NodeClass->GetDefaultObject()))
+			if (const USMStateInstance_Base* NodeDefault = Cast<USMStateInstance_Base>(NodeClass->GetDefaultObject()))
 			{
 				if (!NodeDefault->IsRegisteredWithContextMenu())
 				{
@@ -509,7 +508,7 @@ void USMGraphSchema::GetContextMenuActions(class UToolMenu* Menu, class UGraphNo
 						NAME_None,
 						LOCTEXT("NodeActionsReplaceWith", "Replace With..."),
 						LOCTEXT("NodeActionsReplaceWithToolTip", "Perform a destructive replacement of the selected node"),
-						FNewMenuDelegate::CreateUObject((USMGraphSchema*const)this, &USMGraphSchema::GetReplaceWithMenuActions, InGraphNode));
+						FNewMenuDelegate::CreateUObject(this, &USMGraphSchema::GetReplaceWithMenuActions, InGraphNode));
 				}
 
 				if (const USMGraphNode_StateMachineStateNode* StateMachineNode = Cast<USMGraphNode_StateMachineStateNode>(InGraphNode))
@@ -562,6 +561,15 @@ void USMGraphSchema::GetContextMenuActions(class UToolMenu* Menu, class UGraphNo
 			if (const USMGraphNode_StateNode* StateNode = Cast<USMGraphNode_StateNode>(InGraphNode))
 			{
 				GraphSection.AddMenuEntry(FSMEditorCommands::Get().GoToPropertyBlueprint);
+			}
+			if (const USMGraphNode_TransitionEdge* TransitionEdge = Cast<USMGraphNode_TransitionEdge>(InGraphNode))
+			{
+				USMGraphNode_TransitionEdge* TransitionEdgeNonConst = const_cast<USMGraphNode_TransitionEdge*>(TransitionEdge);
+				TransitionEdgeNonConst->ClearCachedHoveredStackTemplate();
+				if (TransitionEdge->GetHoveredStackTemplate() != nullptr)
+				{
+					GraphSection.AddMenuEntry(FSMEditorCommands::Get().GoToTransitionStackBlueprint);
+				}
 			}
 		}
 
@@ -657,7 +665,7 @@ const FPinConnectionResponse USMGraphSchema::CanCreateConnection(const UEdGraphP
 
 	// Check for user defined rules.
 	FPinConnectionResponse UserResponse;
-	if(!DoesUserAllowPlacement(PinA->GetOwningNode(), PinB->GetOwningNode(), UserResponse))
+	if (!DoesUserAllowPlacement(PinA->GetOwningNode(), PinB->GetOwningNode(), UserResponse))
 	{
 		return UserResponse;
 	}

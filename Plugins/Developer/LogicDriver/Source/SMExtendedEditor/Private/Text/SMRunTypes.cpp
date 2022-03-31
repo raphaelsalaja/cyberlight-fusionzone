@@ -1,18 +1,20 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMRunTypes.h"
+#include "SMRichTextPropertyLink.h"
+#include "Configuration/SMExtendedEditorSettings.h"
+#include "Configuration/SMExtendedEditorStyle.h"
+
+#include "Utilities/SMBlueprintEditorUtils.h"
+
 #include "Widgets/DeclarativeSyntaxSupport.h"
 #include "Fonts/FontMeasure.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Framework/Text/WidgetLayoutBlock.h"
 #include "Framework/Text/ShapedTextCache.h"
 #include "Framework/Text/RunUtils.h"
-#include "SMRichTextPropertyLink.h"
 #include "BlueprintVariableNodeSpawner.h"
-#include "Configuration/SMExtendedEditorStyle.h"
-#include "Configuration/SMExtendedEditorSettings.h"
 #include "EdGraphSchema_K2.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
 
 TSharedRef< FSMPropertyRun > FSMPropertyRun::Create(const FRunInfo& InRunInfo, const TSharedRef< const FString >& InButtonText,
                                                     const FButtonStyle& InStyle, FTextBlockStyle InTextStyle, FOnClick NavigateDelegate, FOnGenerateTooltip InTooltipDelegate, FOnGetTooltipText InTooltipTextDelegate)
@@ -115,32 +117,32 @@ void FSMPropertyRun::OnNavigate()
 
 FLinearColor FSMPropertyRun::GetBackgroundColor() const
 {
-	if(!IsRunValid())
+	if (!IsRunValid())
 	{
 		return FLinearColor::Red;
 	}
 
-	if(const FString* ColorStr = RunInfo.MetaData.Find(RUN_INFO_METADATA_COLOR))
+	if (const FString* ColorStr = RunInfo.MetaData.Find(RUN_INFO_METADATA_COLOR))
 	{
 		FLinearColor Color;
-		if(Color.InitFromString(*ColorStr))
+		if (Color.InitFromString(*ColorStr))
 		{
 			return Color;
 		}
 	}
 	
-	return FLinearColor(0.05f, 0.833f, 0.f, 0.843f);;
+	return FLinearColor(0.05f, 0.833f, 0.f, 0.843f);
 }
 
-int32 FSMPropertyRun::OnPaint(const FPaintArgs& Args, const FTextLayout::FLineView& Line, const TSharedRef< ILayoutBlock >& Block, const FTextBlockStyle& DefaultStyle, const FGeometry& AllottedGeometry, const FSlateRect& MyCullingRect, FSlateWindowElementList& OutDrawElements, int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const
+int32 FSMPropertyRun::OnPaint(const FPaintArgs& PaintArgs, const FTextArgs& TextArgs, const FGeometry& AllottedGeometry, const FSlateRect& MyCullingRect, FSlateWindowElementList& OutDrawElements, int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled) const
 {
-	const TSharedRef< FWidgetLayoutBlock > WidgetBlock = StaticCastSharedRef< FWidgetLayoutBlock >(Block);
+	const TSharedRef< FWidgetLayoutBlock > WidgetBlock = StaticCastSharedRef< FWidgetLayoutBlock >(TextArgs.Block);
 
 	// The block size and offset values are pre-scaled, so we need to account for that when converting the block offsets into paint geometry
 	const float InverseScale = Inverse(AllottedGeometry.Scale);
 
-	const FGeometry WidgetGeometry = AllottedGeometry.MakeChild(TransformVector(InverseScale, Block->GetSize()), FSlateLayoutTransform(TransformPoint(InverseScale, Block->GetLocationOffset())));
-	return WidgetBlock->GetWidget()->Paint(Args, WidgetGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
+	const FGeometry WidgetGeometry = AllottedGeometry.MakeChild(TransformVector(InverseScale, TextArgs.Block->GetSize()), FSlateLayoutTransform(TransformPoint(InverseScale, TextArgs.Block->GetLocationOffset())));
+	return WidgetBlock->GetWidget()->Paint(PaintArgs, WidgetGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
 }
 
 const TArray< TSharedRef<SWidget> >& FSMPropertyRun::GetChildren()
@@ -243,7 +245,7 @@ ERunAttributes FSMPropertyRun::GetRunAttributes() const
 bool FSMPropertyRun::IsRunValid() const
 {
 	const FString* Function = RunInfo.MetaData.Find(RUN_INFO_METADATA_FUNCTION);
-	if(Function)
+	if (Function)
 	{
 		return true;
 	}
@@ -361,7 +363,7 @@ TSharedRef< ISlateRun > FPropertyDecorator::Create(const TSharedRef<class FTextL
 	}
 
 	const FString FoundName = FSMPropertyRun::GetRunName(RunParseResult, OriginalText);
-	if(!FoundName.IsEmpty())
+	if (!FoundName.IsEmpty())
 	{
 		VarName = FoundName;
 	}
@@ -440,7 +442,7 @@ FRunInfo FRunTypeUtils::CreateFunctionRunInfo(UFunction* Function)
 	if (Function != nullptr)
 	{
 		TArray<FProperty*> Outputs;
-		if(FSMBlueprintEditorUtils::GetOutputProperties(Function, Outputs))
+		if (FSMBlueprintEditorUtils::GetOutputProperties(Function, Outputs))
 		{
 			const UEdGraphSchema_K2* Schema = GetDefault<UEdGraphSchema_K2>();
 			FEdGraphPinType PinType;

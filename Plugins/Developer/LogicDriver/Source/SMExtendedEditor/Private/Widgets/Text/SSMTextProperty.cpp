@@ -1,16 +1,17 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SSMTextProperty.h"
 #include "SSMEditableTextBlock.h"
 #include "SSMEditableTextBox.h"
 #include "Graph/Nodes/PropertyNodes/SMGraphK2Node_TextPropertyNode.h"
 #include "Graph/SMTextPropertyGraph.h"
-#include "Widgets/Layout/SBox.h"
-#include "EditorStyle.h"
-#include "NodeFactory.h"
+
 #include "Blueprints/SMBlueprintEditor.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 
+#include "Widgets/Layout/SBox.h"
+#include "EditorStyleSet.h"
+#include "NodeFactory.h"
 
 SSMTextProperty::SSMTextProperty(): SSMGraphProperty_Base()
 {
@@ -77,6 +78,14 @@ void SSMTextProperty::Construct(const FArguments& InArgs)
 					.MultiLine(true)
 				]
 			]
+			+ SHorizontalBox::Slot()
+			.AutoWidth()
+			.HAlign(HAlign_Left)
+			.VAlign(VAlign_Center)
+			.Padding(2.f) // Padding needed to help with zoom resize issues.
+			[
+				SAssignNew(InputPinContainer, SBox)
+			]
 		]
 	];
 }
@@ -126,7 +135,7 @@ void SSMTextProperty::Finalize()
 							 */
 							if (FChildren* GrandChildren = Children->GetChildAt(1)->GetChildren())
 							{
-								if(GrandChildren->Num() > 0)
+								if (GrandChildren->Num() > 0)
 								{
 									if (FChildren* GreatGrandChildren = GrandChildren->GetChildAt(1)->GetChildren())
 									{
@@ -134,7 +143,7 @@ void SSMTextProperty::Finalize()
 										{
 											FChildren* GreatGreatGrandChildren = GreatGrandChildren->GetChildAt(0)->GetChildren();
 
-											if(GreatGreatGrandChildren->Num() > 0)
+											if (GreatGreatGrandChildren->Num() > 0)
 											{
 												FChildren* MoreGreatGrandChildren = GreatGreatGrandChildren->GetChildAt(0)->GetChildren();
 
@@ -156,13 +165,8 @@ void SSMTextProperty::Finalize()
 				}
 
 				// To the center right of the main text body.
-				HorizontalBox->AddSlot()
-					.AutoWidth()
-					.HAlign(HAlign_Left)
-					.VAlign(VAlign_Center)
-					[
-						InputPin.ToSharedRef()
-					];
+				check(InputPinContainer.IsValid());
+				InputPinContainer->SetContent(InputPin.ToSharedRef());
 			}
 		}
 	}
@@ -236,7 +240,7 @@ void SSMTextProperty::OnBodyTextCommited(const FText& InText, ETextCommit::Type 
 float SSMTextProperty::GetWrapText() const
 {
 	// Set to most of max width. Extra padding needed to prevent cutoff.
-	if(WidgetInfo.WrapTextAt == 0)
+	if (WidgetInfo.WrapTextAt == 0)
 	{
 		return WidgetInfo.MaxWidth * .9f;
 	}

@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/LockOnSubobjects/TargetHandlers/DefaultTargetHandler.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeDefaultTargetHandler() {}
 // Cross Module References
@@ -103,10 +99,11 @@ void EmptyLinkFunctionForGeneratedCodeDefaultTargetHandler() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UDefaultTargetHandler_CalculateTargetModifier_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UDefaultTargetHandler_CalculateTargetModifier_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UDefaultTargetHandler);
 	UClass* Z_Construct_UClass_UDefaultTargetHandler_NoRegister()
 	{
 		return UDefaultTargetHandler::StaticClass();
@@ -204,7 +201,7 @@ void EmptyLinkFunctionForGeneratedCodeDefaultTargetHandler() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_LockOnTarget,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UDefaultTargetHandler_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UDefaultTargetHandler_CalculateTargetModifier, "CalculateTargetModifier" }, // 3855811048
+		{ &Z_Construct_UFunction_UDefaultTargetHandler_CalculateTargetModifier, "CalculateTargetModifier" }, // 1357293091
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDefaultTargetHandler_Statics::Class_MetaDataParams[] = {
@@ -362,7 +359,7 @@ void EmptyLinkFunctionForGeneratedCodeDefaultTargetHandler() {}
 		((UDefaultTargetHandler*)Obj)->bLineOfSightCheck = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_bLineOfSightCheck = { "bLineOfSightCheck", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(UDefaultTargetHandler), &Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_bLineOfSightCheck_SetBit, METADATA_PARAMS(Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_bLineOfSightCheck_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_bLineOfSightCheck_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels_Inner = { "TraceObjectChannels", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UEnum_Engine_ECollisionChannel, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels_Inner = { "TraceObjectChannels", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UEnum_Engine_ECollisionChannel, METADATA_PARAMS(nullptr, 0) }; // 727872708
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels_MetaData[] = {
 		{ "Category", "Line Of Sight" },
@@ -372,7 +369,7 @@ void EmptyLinkFunctionForGeneratedCodeDefaultTargetHandler() {}
 		{ "ToolTip", "Object channel for tracing. If trace hit something then Line of Sight fails. Target and Owner will be ignored." },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels = { "TraceObjectChannels", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDefaultTargetHandler, TraceObjectChannels), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels_MetaData)) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels = { "TraceObjectChannels", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDefaultTargetHandler, TraceObjectChannels), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_TraceObjectChannels_MetaData)) }; // 727872708
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDefaultTargetHandler_Statics::NewProp_LostTargetDelay_MetaData[] = {
 		{ "Category", "Line Of Sight" },
@@ -465,21 +462,26 @@ void EmptyLinkFunctionForGeneratedCodeDefaultTargetHandler() {}
 	};
 	UClass* Z_Construct_UClass_UDefaultTargetHandler()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_UDefaultTargetHandler.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_UDefaultTargetHandler_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UDefaultTargetHandler.OuterSingleton, Z_Construct_UClass_UDefaultTargetHandler_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_UDefaultTargetHandler.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(UDefaultTargetHandler, 3741921713);
 	template<> LOCKONTARGET_API UClass* StaticClass<UDefaultTargetHandler>()
 	{
 		return UDefaultTargetHandler::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_UDefaultTargetHandler(Z_Construct_UClass_UDefaultTargetHandler, &UDefaultTargetHandler::StaticClass, TEXT("/Script/LockOnTarget"), TEXT("UDefaultTargetHandler"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UDefaultTargetHandler);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_DefaultTargetHandler_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_DefaultTargetHandler_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UDefaultTargetHandler, UDefaultTargetHandler::StaticClass, TEXT("UDefaultTargetHandler"), &Z_Registration_Info_UClass_UDefaultTargetHandler, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDefaultTargetHandler), 185333488U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_DefaultTargetHandler_h_3143492069(TEXT("/Script/LockOnTarget"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_DefaultTargetHandler_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_DefaultTargetHandler_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

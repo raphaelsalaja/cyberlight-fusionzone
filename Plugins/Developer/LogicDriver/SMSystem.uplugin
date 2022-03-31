@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 31,
-	"VersionName": "2.5.2",
+	"Version": 33,
+	"VersionName": "2.6.1",
 	"FriendlyName": "Logic Driver Pro - State Machine Blueprint Editor",
 	"Description": "Create State Machines in Blueprints using graphs to define state and transition logic.",
 	"Category": "Editor",
@@ -12,48 +12,69 @@
 	"SupportURL": "https://logicdriver.com",
 	"EngineVersion": "5.0.0",
 	"CanContainContent": true,
-	"IsBetaVersion": true,
 	"Installed": true,
 	"Modules": [
 		{
 			"Name": "SMSystem",
 			"Type": "Runtime",
 			"LoadingPhase": "PreDefault",
-			"WhitelistPlatforms": [
-				"Win64"
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux",
+				"Android",
+				"IOS",
+				"TVOS"
 			]
 		},
 		{
 			"Name": "SMSystemEditor",
 			"Type": "UncookedOnly",
 			"LoadingPhase": "PreDefault",
-			"WhitelistPlatforms": [
-				"Win64"
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux"
 			]
 		},
 		{
 			"Name": "SMPreviewEditor",
-			"Type": "Editor",
+			"Type": "UncookedOnly",
 			"LoadingPhase": "PreDefault",
-			"WhitelistPlatforms": [
-				"Win64"
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux"
 			]
 		},
 		{
 			"Name": "SMExtendedRuntime",
 			"Type": "Runtime",
 			"LoadingPhase": "PreDefault",
-			"WhitelistPlatforms": [
-				"Win64"
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux",
+				"Android",
+				"IOS",
+				"TVOS"
 			]
 		},
 		{
 			"Name": "SMExtendedEditor",
 			"Type": "UncookedOnly",
 			"LoadingPhase": "PreDefault",
-			"WhitelistPlatforms": [
-				"Win64"
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux"
 			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "GameplayTagsEditor",
+			"Enabled": true
 		}
 	]
 }

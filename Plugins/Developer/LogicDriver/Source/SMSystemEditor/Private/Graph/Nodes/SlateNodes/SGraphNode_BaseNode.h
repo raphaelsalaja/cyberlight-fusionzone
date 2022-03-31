@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -24,7 +24,7 @@ public:
 	// ~SGraphNode
 	
 	bool IsMouseOverNode() const { return bIsMouseOver; }
-	void OnRefreshRequested(USMGraphNode_Base* InNode);
+	virtual void OnRefreshRequested(USMGraphNode_Base* InNode, bool bFullRefresh);
 
 protected:
 	bool bIsMouseOver = false;

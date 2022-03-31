@@ -1,8 +1,6 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
-
-#include "CoreMinimal.h"
 
 #include "SMGraphNode_Base.h"
 #include "RootNodes/SMGraphK2Node_RuntimeNodeContainer.h"
@@ -11,9 +9,8 @@
 
 #include "SMGraphNode_StateMachineEntryNode.generated.h"
 
-
 /** Created for normal state machine UEdGraphs. */
-UCLASS(MinimalAPI)
+UCLASS(MinimalAPI, HideCategories = (Class, Display))
 class USMGraphNode_StateMachineEntryNode : public USMGraphNode_Base
 {
 	GENERATED_UCLASS_BODY()
@@ -25,7 +22,7 @@ class USMGraphNode_StateMachineEntryNode : public USMGraphNode_Base
 	UPROPERTY(EditAnywhere, Category = "Parallel States")
 	bool bAllowParallelEntryStates;
 	
-	//~ Begin UEdGraphNode Interface
+	// UEdGraphNode
 	virtual void AllocateDefaultPins() override;
 	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
 	virtual FText GetTooltipText() const override;
@@ -33,10 +30,11 @@ class USMGraphNode_StateMachineEntryNode : public USMGraphNode_Base
 	virtual bool CanUserDeleteNode() const override { return false; }
 	virtual bool CanDuplicateNode() const override { return false; }
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
 
 	// USMGraphNode_Base
 	virtual UClass* GetNodeClass() const override;
+	virtual bool CanRunConstructionScripts() const override { return false; }
 	// ~USMGraphNode_Base
 };
 
@@ -51,7 +49,7 @@ class USMGraphK2Node_StateMachineEntryNode : public USMGraphK2Node_RuntimeNodeCo
 
 	virtual FSMNode_Base* GetRunTimeNode()  override { return &StateMachineNode; }
 
-	//~ Begin UEdGraphNode Interface
+	// UEdGraphNode
 	virtual void AllocateDefaultPins() override;
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
 };

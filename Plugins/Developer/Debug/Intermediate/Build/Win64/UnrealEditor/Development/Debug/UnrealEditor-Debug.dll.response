@@ -1,7 +1,7 @@
 /MANIFEST:EMBED
-/MANIFESTINPUT:D:\Programs\UE_5.0EA\Engine\Build\Windows\Resources\Default-Win64.manifest
+/MANIFESTINPUT:"..\Build\Windows\Resources\Default-Win64.manifest"
 /NOLOGO
-/DEBUG
+/DEBUG:FULL
 /errorReport:prompt
 /MACHINE:x64
 /SUBSYSTEM:WINDOWS
@@ -37,9 +37,9 @@
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.cpp.obj"
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Module.Debug.gen.cpp.obj"
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Default.rc2.res"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"
@@ -68,4 +68,3 @@
 /IMPLIB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\UnrealEditor-Debug.suppressed.lib"
 /PDB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Binaries\Win64\UnrealEditor-Debug.pdb"
 /ignore:4078
-/INCLUDE:IMPLEMENT_MODULE_Debug

@@ -1,27 +1,30 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "Kismet2/CompilerResultsLog.h"
-#include "KismetCompilerModule.h"
 #include "KismetCompiler.h"
-#include "Blueprints/SMBlueprint.h"
+#include "KismetCompilerModule.h"
+#include "Kismet2/CompilerResultsLog.h"
 #include "K2Node_CustomEvent.h"
+
+#include "Blueprints/SMBlueprint.h"
 #include "Blueprints/SMBlueprintGeneratedClass.h"
 #include "SMNode_Base.h"
 
-
 class USMGraphK2Node_FunctionNode;
-class USMGraphNode_StateMachineStateNode;
 class UK2Node_StructMemberSet;
 class USMGraphK2Node_StateWriteNode;
 class USMGraphK2Node_StateReadNode;
 class USMGraph;
-class USMGraphK2Node_RuntimeNodeContainer;
 class USMGraphK2Node_RootNode;
+class USMGraphK2Node_RuntimeNode_Base;
+class USMGraphK2Node_RuntimeNodeContainer;
 class USMGraphK2Node_StateMachineNode;
+class USMGraphNode_StateMachineStateNode;
+class USMGraphNode_StateMachineParentNode;
 class USMGraphK2Node_StateMachineEntryNode;
-
+class USMGraphK2Node_PropertyNode_Base;
+class USMGraphK2Node_Base;
 
 struct FTemplateContainer
 {
@@ -122,19 +125,19 @@ protected:
 
 public:
 	/** Creates and wires an entry point and runtime function. */
-	UK2Node_CustomEvent* SetupStateEntry(USMGraphK2Node_RuntimeNodeContainer* ContainerNode, FStructProperty* Property);
+	UK2Node_CustomEvent* SetupStateEntry(USMGraphK2Node_RuntimeNodeContainer* ContainerNode, TArray<FSMExposedFunctionHandler>& InOutHandlerContainer);
 
 	/** Creates and wires an entry point and runtime function. */
-	UK2Node_CustomEvent* SetupTransitionEntry(USMGraphK2Node_RuntimeNodeContainer* ContainerNode, FStructProperty* Property);
+	UK2Node_CustomEvent* SetupTransitionEntry(USMGraphK2Node_RuntimeNodeContainer* ContainerNode, FStructProperty* Property, TArray<FSMExposedFunctionHandler>& InOutHandlerContainer);
 	
 	/** Creates proper k2 node representing a state machine entry point. */
 	USMGraphK2Node_StateMachineEntryNode* ProcessNestedStateMachineNode(USMGraphNode_StateMachineStateNode* StateMachineStateNode);
 
 	/** Creates and wires an entry point for property evaluation. */
-	UK2Node_CustomEvent* SetupPropertyEntry(class USMGraphK2Node_PropertyNode_Base* PropertyNode, FStructProperty* Property);
+	UK2Node_CustomEvent* SetupPropertyEntry(USMGraphK2Node_PropertyNode_Base* PropertyNode, FStructProperty* Property);
 	
 	/** Finds the parent graph, clones it, and processes it as part of the blueprint compiling. */
-	USMGraph* ProcessParentNode(class USMGraphNode_StateMachineParentNode* ParentStateMachineNode);
+	USMGraph* ProcessParentNode(USMGraphNode_StateMachineParentNode* ParentStateMachineNode);
 	
 	/** Creates a setter for the given node. If the given node doesn't contain all of the desired properties a getter can be made
 	 * so values aren't overwritten. */
@@ -147,21 +150,37 @@ public:
 	FStructProperty* CreateRuntimeProperty(USMGraphK2Node_RuntimeNodeContainer* RuntimeContainerNode);
 
 	/** Creates a runtime property for a property node. */
-	FStructProperty* CreateRuntimeProperty(class USMGraphK2Node_PropertyNode_Base* PropertyNode);
+	FStructProperty* CreateRuntimeProperty(USMGraphK2Node_PropertyNode_Base* PropertyNode);
 
 	/** Add a template to the list for the specified runtime guid. TemplateGuid only needed for state stack templates. */
 	void AddDefaultObjectTemplate(const FGuid& RuntimeGuid, UObject* Template, FTemplateContainer::ETemplateType TemplateType, FGuid TemplateGuid = FGuid());
 
 	/** Create a unique function name which can be used during run-time. */
-	static FName CreateFunctionName(USMGraphK2Node_RootNode* GraphNode, FSMNode_Base* RuntimeNode);
-	static FName CreateFunctionName(USMGraphK2Node_RootNode* GraphNode, FSMGraphProperty_Base* PropertyNode);
+	static FName CreateFunctionName(const USMGraphK2Node_RootNode* GraphNode, const FSMNode_Base* RuntimeNode);
+	static FName CreateFunctionName(const USMGraphK2Node_RootNode* GraphNode, const FSMGraphProperty_Base* PropertyNode);
 	USMBlueprint* GetSMBlueprint() const { return Cast<USMBlueprint>(Blueprint); }
 
 protected:
-	/* Looks for derived blueprints with parent calls and marks the blueprints dirty. */
+	/** Looks for derived blueprints with parent calls and marks the blueprints dirty. */
 	void RecompileChildren();
+
+	/** Attempt to locate the source graph from a node. */
+	UEdGraph* FindSourceGraphFromNode(UK2Node* InNode) const;
+
+	/**
+	 * Configure the handler's properties.
+	 *
+	 * @param InRuntimeNodeBase A container or container reference node.
+	 * @param InRuntimeNodeContainer A runtime node container. Can be the same object as InRuntimeNodeBase as long as it is a container.
+	 * @param OutHandler The handler being configured.
+	 * @param InOutHandlerContainer The container to store the OutHandler.
+	 *
+	 * @return The execution type of the function handler.
+	 */
+	static ESMExposedFunctionExecutionType ConfigureExposedFunctionHandler(USMGraphK2Node_RuntimeNode_Base* InRuntimeNodeBase,
+		USMGraphK2Node_RuntimeNodeContainer* InRuntimeNodeContainer, FSMExposedFunctionHandler& OutHandler, TArray<FSMExposedFunctionHandler>& InOutHandlerContainer);
 	
-protected:
+private:
 	friend class USMGraphNode_Base;
 	friend class USMGraphNode_StateNode;
 	
@@ -169,7 +188,7 @@ protected:
 	USMBlueprintGeneratedClass* NewSMBlueprintClass;
 
 	/** New properties mapped to their nodes. */
-	TMap<FProperty*, class USMGraphK2Node_Base*> AllocatedNodePropertiesToNodes;
+	TMap<FProperty*, USMGraphK2Node_Base*> AllocatedNodePropertiesToNodes;
 
 	/** ContainerOwnerGuid mapped to GraphRuntimeNodeContainer. */
 	TMap<FGuid, USMGraphK2Node_RuntimeNodeContainer*> MappedContainerNodes;
@@ -181,25 +200,28 @@ protected:
 	TMap<FGuid, TArray<FTemplateContainer>> DefaultObjectTemplates;
 
 	/** Node templates mapped to graph property guids mapped to their nodes. Used for setting graph properties in the instance templates stored in the CDO. */
-	TMap<UObject*, TMap<FGuid, class USMGraphK2Node_Base*>> MappedTemplatesToNodeProperties;
+	TMap<UObject*, TMap<FGuid, USMGraphK2Node_Base*>> MappedTemplatesToNodeProperties;
 
 	/** Graph properties may have their guids regenerated. This maps the Node Template -> Original Guid -> New Guid. */
 	TMap<UObject*, TMap<FGuid, FGuid>> GraphPropertyRemap;
 
+	/** Individual node names mapped to their graph. Necessary for nodes and graphs that may get duplicated and only exist on the consolidated graph. */
+	TMap<FName, UEdGraph*> NodeToGraph;
+
 	/** Total number of states in the graph, excluding any states and entry point. */
 	uint32 NumberStates;
 
-	/** Total number of transitions, including valid AnyState transitions. */
+	/** Total number of transitions, including valid Any State transitions. */
 	uint32 NumberTransitions;
+
+	/** Set if at least one input event is detected. */
+	UK2Node* InputConsumingEvent;
 	
 	/**
 	 * Lets us know if the blueprint we're working with is derived from another SMBlueprint type. 
 	 * Current derived behavior allows child graphs to replace parent graphs.
 	 */
 	bool bBlueprintIsDerived;
-
-	/** Set if at least one input event is detected. */
-	UK2Node* InputConsumingEvent;
 };
 
 

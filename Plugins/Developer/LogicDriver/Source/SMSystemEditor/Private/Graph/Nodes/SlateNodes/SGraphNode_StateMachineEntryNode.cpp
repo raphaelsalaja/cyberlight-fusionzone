@@ -1,13 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SGraphNode_StateMachineEntryNode.h"
+#include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
+
 #include "SLevelOfDetailBranchNode.h"
 #include "Widgets/Text/SInlineEditableTextBlock.h"
 #include "SCommentBubble.h"
 #include "SGraphPin.h"
 #include "Components/VerticalBox.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
-
 
 void SGraphNode_StateMachineEntryNode::Construct(const FArguments& InArgs, USMGraphNode_StateMachineEntryNode* InNode)
 {
@@ -26,7 +26,6 @@ void SGraphNode_StateMachineEntryNode::GetNodeInfoPopups(FNodeInfoContext* Conte
 FSlateColor SGraphNode_StateMachineEntryNode::GetBorderBackgroundColor() const
 {
 	const FLinearColor InactiveStateColor(0.08f, 0.08f, 0.08f);
-
 	return InactiveStateColor;
 }
 

@@ -1,10 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SGraphNode_BaseNode.h"
 #include "Graph/Nodes/SMGraphNode_Base.h"
 
 #define LOCTEXT_NAMESPACE "SGraphBaseNode"
-
 
 SGraphNode_BaseNode::~SGraphNode_BaseNode()
 {
@@ -37,7 +36,7 @@ void SGraphNode_BaseNode::OnMouseLeave(const FPointerEvent& MouseEvent)
 	bIsMouseOver = false;
 }
 
-void SGraphNode_BaseNode::OnRefreshRequested(USMGraphNode_Base* InNode)
+void SGraphNode_BaseNode::OnRefreshRequested(USMGraphNode_Base* InNode, bool bFullRefresh)
 {
 	UpdateGraphNode();
 }

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMBlueprintEditorToolbar.h"
 #include "SMBlueprintEditor.h"
@@ -9,33 +9,9 @@
 #include "ISMPreviewEditorModule.h"
 
 #include "WorkflowOrientedApp/SModeWidget.h"
+#include "Widgets/Layout/SSpacer.h"
 
 #define LOCTEXT_NAMESPACE "SMBlueprintEditorToolbar"
-
-class SSMBlueprintEditorModeSeparator : public SBorder {
-public:
-	SLATE_BEGIN_ARGS(SSMBlueprintEditorModeSeparator) {}
-	SLATE_END_ARGS()
-
-		void Construct(const FArguments& InArg)
-	{
-		SBorder::Construct(
-			SBorder::FArguments()
-			.BorderImage(FEditorStyle::GetBrush("BlueprintEditor.PipelineSeparator"))
-			.Padding(0.0f)
-		);
-	}
-
-	// SWidget interface
-	virtual FVector2D ComputeDesiredSize(float) const override
-	{
-		const float Height = 20.0f;
-		const float Thickness = 16.0f;
-		return FVector2D(Thickness, Height);
-	}
-	// End of SWidget interface
-};
-
 
 void FSMBlueprintEditorToolbar::AddModesToolbar(TSharedPtr<FExtender> Extender)
 {
@@ -81,11 +57,11 @@ void FSMBlueprintEditorToolbar::FillModesToolbar(FToolBarBuilder& ToolbarBuilder
 		.ToolTipText(LOCTEXT("SMGraphMode", "Edit the state machine graph"))
 		.IconImage(FSMEditorStyle::Get()->GetBrush("SMGraphThumbnail"))
 	);
+
+	EditorPtr->AddToolbarWidget(SNew(SSpacer).Size(FVector2D(10.0f, 1.0f)));
 	
 	// Preview mode
 	{
-		EditorPtr->AddToolbarWidget(SNew(SSMBlueprintEditorModeSeparator));
-
 		EditorPtr->AddToolbarWidget(
 			SNew(SModeWidget, FSMBlueprintEditorModes::GetLocalizedMode(FSMBlueprintEditorModes::SMPreviewMode),
 				FSMBlueprintEditorModes::SMPreviewMode)

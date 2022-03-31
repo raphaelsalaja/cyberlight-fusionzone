@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -6,6 +6,7 @@
 
 DECLARE_LOG_CATEGORY_EXTERN(LogLogicDriver, Log, All);
 
+#define LD_LOG_VERBOSE(FMT, ...) UE_LOG(LogLogicDriver, Verbose, (FMT), ##__VA_ARGS__)
 #define LD_LOG_INFO(FMT, ...) UE_LOG(LogLogicDriver, Log, (FMT), ##__VA_ARGS__)
 #define LD_LOG_WARNING(FMT, ...) UE_LOG(LogLogicDriver, Warning, (FMT), ##__VA_ARGS__)
 #define LD_LOG_ERROR(FMT, ...) UE_LOG(LogLogicDriver, Error, (FMT), ##__VA_ARGS__)

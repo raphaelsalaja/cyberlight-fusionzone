@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMExtendedEditor/Private/Graph/SMTextPropertyGraph.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMTextPropertyGraph() {}
 // Cross Module References
@@ -23,6 +19,7 @@ void EmptyLinkFunctionForGeneratedCodeSMTextPropertyGraph() {}
 	void USMTextPropertyGraph::StaticRegisterNativesUSMTextPropertyGraph()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMTextPropertyGraph);
 	UClass* Z_Construct_UClass_USMTextPropertyGraph_NoRegister()
 	{
 		return USMTextPropertyGraph::StaticClass();
@@ -157,21 +154,26 @@ void EmptyLinkFunctionForGeneratedCodeSMTextPropertyGraph() {}
 	};
 	UClass* Z_Construct_UClass_USMTextPropertyGraph()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMTextPropertyGraph.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMTextPropertyGraph_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMTextPropertyGraph.OuterSingleton, Z_Construct_UClass_USMTextPropertyGraph_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMTextPropertyGraph.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMTextPropertyGraph, 947130486);
 	template<> SMEXTENDEDEDITOR_API UClass* StaticClass<USMTextPropertyGraph>()
 	{
 		return USMTextPropertyGraph::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMTextPropertyGraph(Z_Construct_UClass_USMTextPropertyGraph, &USMTextPropertyGraph::StaticClass, TEXT("/Script/SMExtendedEditor"), TEXT("USMTextPropertyGraph"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMTextPropertyGraph);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedEditor_Private_Graph_SMTextPropertyGraph_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedEditor_Private_Graph_SMTextPropertyGraph_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMTextPropertyGraph, USMTextPropertyGraph::StaticClass, TEXT("USMTextPropertyGraph"), &Z_Registration_Info_UClass_USMTextPropertyGraph, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMTextPropertyGraph), 830518840U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedEditor_Private_Graph_SMTextPropertyGraph_h_757004092(TEXT("/Script/SMExtendedEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedEditor_Private_Graph_SMTextPropertyGraph_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedEditor_Private_Graph_SMTextPropertyGraph_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

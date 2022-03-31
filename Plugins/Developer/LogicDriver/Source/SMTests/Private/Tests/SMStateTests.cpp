@@ -1,29 +1,29 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTestHelpers.h"
 #include "SMTestContext.h"
+#include "Helpers/SMTestBoilerplate.h"
 
 #include "Blueprints/SMBlueprint.h"
 
 #include "Blueprints/SMBlueprintFactory.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
-#include "Graph/SMConduitGraph.h"
 #include "Graph/SMGraph.h"
 #include "Graph/SMStateGraph.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_StateMachineSelectNode.h"
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
 #include "Graph/Nodes/SMGraphNode_ConduitNode.h"
+#include "Graph/Nodes/SMGraphNode_AnyStateNode.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_StateReadNodes.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionInitializedNode.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionShutdownNode.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionEnteredNode.h"
 
 #include "EdGraph/EdGraph.h"
 #include "Kismet2/KismetEditorUtilities.h"
+
+#include "K2Node_InputKey.h"
+#include "InputCoreTypes.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -32,24 +32,12 @@
 /**
  * Test nested state machines' bWaitForEndState flag.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWaitForEndStateTest, "SMTests.WaitForEndState", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWaitForEndStateTest, "LogicDriver.States.WaitForEndState", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FWaitForEndStateTest::RunTest(const FString& Parameters)
+bool FWaitForEndStateTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 
 	// Total states to test.
 	int32 TotalTopLevelStates = 3;
@@ -111,233 +99,14 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FWaitForEndStateTest, "SMTests.WaitForEndState"
 }
 
 /**
- * Test conduit functionality.
- */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FConduitTest, "SMTests.Conduit", EAutomationTestFlags::ApplicationContextMask |
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
-
-	bool FConduitTest::RunTest(const FString& Parameters)
-{
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	const int32 TotalStates = 5;
-
-	UEdGraphPin* LastStatePin = nullptr;
-
-	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin);
-
-	USMGraphNode_StateNodeBase* FirstNode = CastChecked<USMGraphNode_StateNodeBase>(StateMachineGraph->GetEntryNode()->GetOutputNode());
-
-	// This will become a conduit.
-	USMGraphNode_StateNodeBase* SecondNode = CastChecked<USMGraphNode_StateNodeBase>(FirstNode->GetNextNode());
-	USMGraphNode_ConduitNode* ConduitNode = FSMBlueprintEditorUtils::ConvertNodeTo<USMGraphNode_ConduitNode>(SecondNode);
-	ConduitNode->GetNodeTemplateAs<USMConduitInstance>()->SetEvalWithTransitions(false); // Settings make this true by default.
-	
-	// Eval with the conduit being considered a state. It will end with the active state becoming stuck on a conduit.
-	int32 EntryHits = 0; int32 UpdateHits = 0; int32 EndHits = 0;
-	int32 MaxIterations = TotalStates * 2;
-	USMInstance* Instance = TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, false, false);
-
-	TestTrue("State machine still active", Instance->IsActive());
-	TestTrue("State machine shouldn't have been able to switch states.", !Instance->IsInEndState());
-
-	TestTrue("Active state is conduit", Instance->GetSingleActiveState()->IsConduit());
-	TestEqual("State Machine generated value", EntryHits, 1);
-	TestEqual("State Machine generated value", UpdateHits, 0);
-	TestEqual("State Machine generated value", EndHits, 1); // Ended state and switched to conduit.
-	
-	// Set conduit to true and try again.
-	USMConduitGraph* Graph = CastChecked<USMConduitGraph>(ConduitNode->GetBoundGraph());
-	UEdGraphPin* CanEvalPin = Graph->ResultNode->GetInputPin();
-	CanEvalPin->DefaultValue = "True";
-
-	// Eval normally.
-	TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, true, true);
-
-	// Configure conduit as transition and set to false.
-	ConduitNode->GetNodeTemplateAs<USMConduitInstance>()->SetEvalWithTransitions(true);
-	CanEvalPin->DefaultValue = "False";
-	Instance = TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, false, false);
-
-	TestTrue("State machine still active", Instance->IsActive());
-	TestTrue("State machine shouldn't have been able to switch states.", !Instance->IsInEndState());
-
-	TestFalse("Active state is not conduit", Instance->GetSingleActiveState()->IsConduit());
-	TestEqual("State Machine generated value", EntryHits, 1);
-	TestEqual("State Machine generated value", UpdateHits, MaxIterations); // Updates because state not transitioning out.
-	TestEqual("State Machine generated value", EndHits, 0); // State should never have ended.
-
-	// Set conduit to true but set the next transition to false. Should have same result as when the conduit was false.
-	CanEvalPin->DefaultValue = "True";
-	USMGraphNode_TransitionEdge* Transition = CastChecked<USMGraphNode_TransitionEdge>(ConduitNode->GetOutputNode());
-	USMTransitionGraph* TransitionGraph = CastChecked<USMTransitionGraph>(Transition->GetBoundGraph());
-	UEdGraphPin* TransitionPin = TransitionGraph->ResultNode->GetInputPin();
-	TransitionPin->BreakAllPinLinks(true);
-	TransitionPin->DefaultValue = "False";
-	Instance = TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, false, false);
-
-	TestTrue("State machine still active", Instance->IsActive());
-	TestTrue("State machine shouldn't have been able to switch states.", !Instance->IsInEndState());
-
-	TestFalse("Active state is not conduit", Instance->GetSingleActiveState()->IsConduit());
-	TestEqual("State Machine generated value", EntryHits, 1);
-	TestEqual("State Machine generated value", UpdateHits, MaxIterations); // Updates because state not transitioning out.
-	TestEqual("State Machine generated value", EndHits, 0); // State should never have ended.
-
-	// Set transition to true and should eval normally.
-	TransitionPin->DefaultValue = "True";
-	TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, true, true);
-
-	// Add another conduit node (false) after the last one configured to run as a transition. Result should be the same as the last failure.
-	USMGraphNode_StateNodeBase* ThirdNode = CastChecked<USMGraphNode_StateNodeBase>(ConduitNode->GetNextNode());
-	USMGraphNode_ConduitNode* NextConduitNode = FSMBlueprintEditorUtils::ConvertNodeTo<USMGraphNode_ConduitNode>(ThirdNode);
-	NextConduitNode->GetNodeTemplateAs<USMConduitInstance>()->SetEvalWithTransitions(true);
-	Instance = TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, false, false);
-
-	TestTrue("State machine still active", Instance->IsActive());
-	TestTrue("State machine shouldn't have been able to switch states.", !Instance->IsInEndState());
-
-	TestFalse("Active state is not conduit", Instance->GetSingleActiveState()->IsConduit());
-	TestEqual("State Machine generated value", EntryHits, 1);
-	TestEqual("State Machine generated value", UpdateHits, MaxIterations); // Updates because state not transitioning out.
-	TestEqual("State Machine generated value", EndHits, 0); // State should never have ended.
-
-	// Set new conduit to true and eval again.
-	Graph = CastChecked<USMConduitGraph>(NextConduitNode->GetBoundGraph());
-	CanEvalPin = Graph->ResultNode->GetInputPin();
-	CanEvalPin->DefaultValue = "True";
-	TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, true, true);
-
-	// Test with evaluation disabled.
-	NextConduitNode->GetNodeTemplateAs<USMConduitInstance>()->SetCanEvaluate(false);
-	int32 IterationsRan;
-	Instance = TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, false, false, true, &IterationsRan);
-	TestEqual("Iteration max count ran", IterationsRan, MaxIterations);
-	TestFalse("State machine did not complete", Instance->IsInEndState());
-	FSMConduit* SecondConduit = (FSMConduit*)Instance->GetSingleActiveState()->GetOutgoingTransitions()[0]->GetToState()->GetOutgoingTransitions()[0]->GetToState();
-	TestTrue("Conduit found", SecondConduit->IsConduit());
-	TestFalse("Second state is conduit that doesn't evaluate which prevented first conduit from passing.", SecondConduit->bCanEvaluate);
-
-	// Restore evaluation.
-	NextConduitNode->GetNodeTemplateAs<USMConduitInstance>()->SetCanEvaluate(true);
-	FKismetEditorUtilities::CompileBlueprint(NewBP);
-	
-	// Test correct transition order.
-	USMTestContext* Context = NewObject<USMTestContext>();
-	Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
-	Instance->Start();
-
-	FSMState_Base* CurrentState = Instance->GetRootStateMachine().GetSingleActiveState();
-	TArray<TArray<FSMTransition*>> TransitionChain;
-	TestTrue("Valid transition found", CurrentState->GetValidTransition(TransitionChain));
-
-	FSMState_Base* SecondState = CurrentState->GetOutgoingTransitions()[0]->GetToState();
-	FSMState_Base* ThirdState = SecondState->GetOutgoingTransitions()[0]->GetToState();
-	
-	TestEqual("Transition to and after conduit found", TransitionChain[0].Num(), 3);
-	TestEqual("Correct transition order", TransitionChain[0][0], CurrentState->GetOutgoingTransitions()[0]);
-	TestEqual("Correct transition order", TransitionChain[0][1], SecondState->GetOutgoingTransitions()[0]);
-	TestEqual("Correct transition order", TransitionChain[0][2], ThirdState->GetOutgoingTransitions()[0]);
-
-	// Test conduit initialize & shutdown
-	TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionInitializedNode>(this, ConduitNode,
-		USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionInit)));
-
-	TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionInitializedNode>(this, NextConduitNode,
-		USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionInit)));
-
-	TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionShutdownNode>(this, ConduitNode,
-		USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionShutdown)));
-	
-	TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionShutdownNode>(this, NextConduitNode,
-		USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionShutdown)));
-
-	TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionEnteredNode>(this, ConduitNode,
-		USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionTaken)));
-	
-	TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionEnteredNode>(this, NextConduitNode,
-		USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionTaken)));
-	
-	FKismetEditorUtilities::CompileBlueprint(NewBP);
-	
-	Context = NewObject<USMTestContext>();
-	Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
-	Instance->Start();
-
-	// All transition inits should be fired at once.
-	TestEqual("InitValue", Context->TestTransitionInit.Count, 2);
-	TestEqual("ShutdownValue", Context->TestTransitionShutdown.Count, 0);
-	TestEqual("EnteredValue", Context->TestTransitionEntered.Count, 0);
-	
-	Instance = TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, true, false);
-	Context = CastChecked<USMTestContext>(Instance->GetContext());
-	
-	TestEqual("InitValue", Context->TestTransitionInit.Count, 2);
-	TestEqual("ShutdownValue", Context->TestTransitionShutdown.Count, 2);
-	TestEqual("EnteredValue", Context->TestTransitionEntered.Count, 2);
-
-	// Test having the second conduit go back to the first conduit. When both are set as transitions this caused a stack overflow. Check it's fixed.
-	NextConduitNode->GetOutputPin()->BreakAllPinLinks(true);
-	TestTrue("Next conduit wired to previous conduit", NextConduitNode->GetSchema()->TryCreateConnection(NextConduitNode->GetOutputPin(), ConduitNode->GetInputPin()));
-	USMGraphNode_TransitionEdge* TransitionEdge = CastChecked<USMGraphNode_TransitionEdge>(NextConduitNode->GetOutputNode());
-	TestHelpers::AddTransitionResultLogic(this, TransitionEdge);
-	TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, true, false);
-
-	// Test initial conduit node entry states.
-	{
-		USMGraphNode_ConduitNode* FirstConduitNode = FSMBlueprintEditorUtils::ConvertNodeTo<USMGraphNode_ConduitNode>(FirstNode);
-		FirstConduitNode->GetOutputPin()->BreakAllPinLinks(true);
-
-		TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionInitializedNode>(this, FirstConduitNode,
-			USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionInit)));
-
-		TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionShutdownNode>(this, FirstConduitNode,
-			USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionShutdown)));
-
-		Instance = TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits, MaxIterations, true, false);
-		Context = CastChecked<USMTestContext>(Instance->GetContext());
-		
-		TestEqual("InitValue", Context->TestTransitionInit.Count, 1);
-		TestEqual("ShutdownValue", Context->TestTransitionShutdown.Count, 1);
-	}
-	
-	return true;
-}
-
-/**
  * Test creating an any state node.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAnyStateTest, "SMTests.AnyStateTest", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAnyStateTest, "LogicDriver.States.AnyStateTest", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FAnyStateTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 
 	// Total states to test.
 	UEdGraphPin* LastStatePin = nullptr;
@@ -368,12 +137,33 @@ bool FAnyStateTest::RunTest(const FString& Parameters)
 
 	USMGraphNode_TransitionEdge* TransitionEdge = AnyState->GetNextTransition();
 	TransitionEdge->GetNodeTemplateAs<USMTransitionInstance>()->SetPriorityOrder(1);
+	TestTrue("Graph Transition from Any State", TransitionEdge->IsFromAnyState());
 
 	{
 		FKismetEditorUtilities::CompileBlueprint(NewBP);
 		USMTestContext* Context = NewObject<USMTestContext>();
 		USMInstance* Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
 
+		TArray<USMTransitionInstance*> RuntimeTransitions;
+		Instance->GetAllTransitionInstances(RuntimeTransitions);
+		check(RuntimeTransitions.Num() == 3);
+		TestTrue("Runtime transition from Any State", RuntimeTransitions[0]->IsTransitionFromAnyState());
+		TestTrue("Runtime transition from Any State", RuntimeTransitions[1]->IsTransitionFromAnyState());
+		TestFalse("Runtime transition not from Any State", RuntimeTransitions[2]->IsTransitionFromAnyState());
+		
+		TArray<USMStateInstance_Base*> RuntimeStates;
+		Instance->GetAllStateInstances(RuntimeStates);
+		check(RuntimeStates.Num() == 4);
+		TestFalse("Runtime state outgoing transitions Any State", RuntimeStates[0]->AreAllOutgoingTransitionsFromAnAnyState());
+		TestFalse("Runtime state outgoing transitions Any State", RuntimeStates[1]->AreAllOutgoingTransitionsFromAnAnyState());
+		TestTrue("Runtime state outgoing transitions Any State", RuntimeStates[2]->AreAllOutgoingTransitionsFromAnAnyState());
+		TestFalse("Runtime state outgoing transitions Any State", RuntimeStates[3]->AreAllOutgoingTransitionsFromAnAnyState());
+
+		TestFalse("Runtime state incoming transitions Any State", RuntimeStates[0]->AreAllIncomingTransitionsFromAnAnyState());
+		TestTrue("Runtime state incoming transitions Any State", RuntimeStates[1]->AreAllIncomingTransitionsFromAnAnyState());
+		TestFalse("Runtime state incoming transitions Any State", RuntimeStates[2]->AreAllIncomingTransitionsFromAnAnyState());
+		TestFalse("Runtime state incoming transitions Any State", RuntimeStates[3]->AreAllIncomingTransitionsFromAnAnyState());
+		
 		Instance->Start();
 		TestEqual("State machine still in initial state", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
 
@@ -460,6 +250,30 @@ bool FAnyStateTest::RunTest(const FString& Parameters)
 
 		Instance->Shutdown();
 	}
+
+	// Try input binding.
+	{
+		USMInstance* CDO = CastChecked<USMInstance>(NewBP->GeneratedClass->GetDefaultObject());
+		CDO->SetAutoReceiveInput(ESMStateMachineInput::UseContextController);
+
+		UEdGraph* BoundGraph = TransitionEdge->GetBoundGraph();
+		
+		FGraphNodeCreator<UK2Node_InputKey> InputKeyCreator(*BoundGraph);
+		UK2Node_InputKey* InputKey = InputKeyCreator.CreateNode();
+		InputKey->InputKey = FKey(TEXT("One"));
+		InputKeyCreator.Finalize();
+
+		// Any function will do.
+		UK2Node_CallFunction* CallFunction =
+		TestHelpers::CreateFunctionCall(BoundGraph,
+			USMInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMInstance, Stop)));
+
+		const bool bResult = InputKey->GetGraph()->GetSchema()->TryCreateConnection(InputKey->GetPressedPin(), CallFunction->GetExecPin());
+		ensure(bResult);
+		
+		// No errors is all that needs to be verified. Specific input results verified in project level tests.
+		FKismetEditorUtilities::CompileBlueprint(NewBP);
+	}
 	
 	return true;
 }
@@ -467,24 +281,12 @@ bool FAnyStateTest::RunTest(const FString& Parameters)
 /**
  * Run multiple states in parallel.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FParallelStatesTest, "SMTests.ParallelStates", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FParallelStatesTest, "LogicDriver.States.ParallelStates", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FParallelStatesTest::RunTest(const FString& Parameters)
+bool FParallelStatesTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 
 	// Total states to test.
 	int32 Rows = 2;
@@ -561,6 +363,9 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FParallelStatesTest, "SMTests.ParallelStates", 
 		Instance->GetAllActiveStateGuids(ActiveGuids);
 
 		TestEqual("Active guids match all states.", ActiveGuids.Num(), Instance->GetStateMap().Num() - 1);
+
+		bool bSetActiveNow = true;
+		TestActiveNow:
 		
 		// Reset and reload.
 		Instance->Shutdown();
@@ -573,28 +378,58 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FParallelStatesTest, "SMTests.ParallelStates", 
 
 		// Test manually deactivating states.
 		{
+			auto TestActiveStateIsActive = [&](const USMStateInstance_Base* InState)
+			{
+				if (bSetActiveNow)
+				{
+					TestTrue("State is active", InState->IsActive());
+				}
+				else
+				{
+					TestFalse("State not active", InState->IsActive());
+				}
+			};
+			
 			TArray<USMStateInstance_Base*> StateInstances;
 			Instance->GetAllStateInstances(StateInstances);
 
-			StateInstances[1]->SetActive(false);
+			StateInstances[1]->SetActive(false, true, bSetActiveNow);
 			TestEqual("State active changed", TestHelpers::ArrayContentsInArray(Instance->GetAllActiveStateGuidsCopy(), ActiveGuids), ActiveGuids.Num() - 1);
-
-			StateInstances[1]->SetActive(true);
+			TestFalse("State not active", StateInstances[1]->IsActive());
+			
+			StateInstances[1]->SetActive(true, true, bSetActiveNow);
 			TestEqual("State active changed", TestHelpers::ArrayContentsInArray(Instance->GetAllActiveStateGuidsCopy(), ActiveGuids), ActiveGuids.Num());
-
+			TestActiveStateIsActive(StateInstances[1]);
+			
 			for (USMStateInstance_Base* StateInstance : StateInstances)
 			{
-				StateInstance->SetActive(false);
+				if (StateInstance == Instance->GetRootStateMachineNodeInstance())
+				{
+					continue;
+				}
+				StateInstance->SetActive(false, true, bSetActiveNow);
+				TestFalse("State not active", StateInstance->IsActive());
 			}
 
 			TestEqual("State active changed", Instance->GetAllActiveStateGuidsCopy().Num(), 0);
 
 			for (USMStateInstance_Base* StateInstance : StateInstances)
 			{
-				StateInstance->SetActive(true);
+				if (StateInstance == Instance->GetRootStateMachineNodeInstance())
+				{
+					continue;
+				}
+				StateInstance->SetActive(true, true, bSetActiveNow);
+				TestActiveStateIsActive(StateInstance);
 			}
 
 			TestEqual("State active changed", TestHelpers::ArrayContentsInArray(Instance->GetAllActiveStateGuidsCopy(), ActiveGuids), ActiveGuids.Num());
+		}
+
+		if (bSetActiveNow)
+		{
+			bSetActiveNow = false;
+			goto TestActiveNow;
 		}
 	}
 
@@ -608,18 +443,32 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FParallelStatesTest, "SMTests.ParallelStates", 
 		TestEqual("States hit parallel", EntryHits, Instance->GetStateMap().Num() - 1);
 		TestEqual("States hit parallel", UpdateHits, 1);
 		TestEqual("States hit parallel", EndHits, 0);
-
+		
+		USMTestContext* Context = CastChecked<USMTestContext>(Instance->GetContext());
+		
+		int32 InitCount = Context->TestTransitionInit.Count;
+		int32 ShutdownCount = Context->TestTransitionShutdown.Count;
+		TestEqual("States init correct", InitCount, 1);
+		TestEqual("States shutdown correct", ShutdownCount, 0);
+		
+		UpdateHits = Context->TimesUpdateHit.Count;
+		
 		Instance->Update(1.f);
 
-		USMTestContext* Context = CastChecked<USMTestContext>(Instance->GetContext());
 		EntryHits = Context->GetEntryInt();
-		UpdateHits = Context->GetUpdateInt();
+		UpdateHits = Context->TimesUpdateHit.Count;
 		EndHits = Context->GetEndInt();
-		
+
+		const int32 ExpectedUpdates = 3;
 		TestEqual("States hit parallel", EntryHits, Instance->GetStateMap().Num());
-		TestEqual("States hit parallel", UpdateHits, 3); // Each state updates again. Currently we let a state that was re-entered run its update logic in the same tick.
+		TestEqual("States hit parallel", UpdateHits, ExpectedUpdates); // Each state updates again. Currently we let a state that was re-entered run its update logic in the same tick.
 		TestEqual("States hit parallel", EndHits, 0);
 
+		InitCount = Context->TestTransitionInit.Count;
+		ShutdownCount = Context->TestTransitionShutdown.Count;
+		TestEqual("States init correct", InitCount, 1);
+		TestEqual("States shutdown correct", ShutdownCount, 0);
+		
 		// Without re-entry
 		{
 			LastStatePins.Reset();
@@ -636,12 +485,17 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FParallelStatesTest, "SMTests.ParallelStates", 
 
 			Context = CastChecked<USMTestContext>(Instance->GetContext());
 			EntryHits = Context->GetEntryInt();
-			UpdateHits = Context->GetUpdateInt();
+			UpdateHits = Context->TimesUpdateHit.Count;
 			EndHits = Context->GetEndInt();
 
 			TestEqual("States hit parallel", EntryHits, Instance->GetStateMap().Num() - 1);
 			TestEqual("States hit parallel", UpdateHits, 3); // Each state updates again.
 			TestEqual("States hit parallel", EndHits, 0);
+
+			InitCount = Context->TestTransitionInit.Count;
+			ShutdownCount = Context->TestTransitionShutdown.Count;
+			TestEqual("States init correct", InitCount, 1);
+			TestEqual("States shutdown correct", ShutdownCount, 0);
 		}
 
 		// Without transition evaluation connecting to an already active state.
@@ -660,12 +514,17 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FParallelStatesTest, "SMTests.ParallelStates", 
 
 			Context = CastChecked<USMTestContext>(Instance->GetContext());
 			EntryHits = Context->GetEntryInt();
-			UpdateHits = Context->GetUpdateInt();
+			UpdateHits = Context->TimesUpdateHit.Count;
 			EndHits = Context->GetEndInt();
 
 			TestEqual("States hit parallel", EntryHits, Instance->GetStateMap().Num() - 1);
 			TestEqual("States hit parallel", UpdateHits, 3); // Each state updates again.
 			TestEqual("States hit parallel", EndHits, 0);
+
+			InitCount = Context->TestTransitionInit.Count;
+			ShutdownCount = Context->TestTransitionShutdown.Count;
+			TestEqual("States init correct", InitCount, 1);
+			TestEqual("States shutdown correct", ShutdownCount, 0);
 		}
 	}
 	

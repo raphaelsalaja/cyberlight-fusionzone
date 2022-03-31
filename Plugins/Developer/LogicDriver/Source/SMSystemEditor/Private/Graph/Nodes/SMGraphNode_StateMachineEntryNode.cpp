@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphNode_StateMachineEntryNode.h"
 #include "Graph/Schema/SMGraphSchema.h"
@@ -8,7 +8,6 @@
 #include "EdGraph/EdGraph.h"
 
 #define LOCTEXT_NAMESPACE "SMStateMachineEntryNode"
-
 
 USMGraphNode_StateMachineEntryNode::USMGraphNode_StateMachineEntryNode(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer), bAllowParallelEntryStates(false)

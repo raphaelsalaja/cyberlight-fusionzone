@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "Utilities/SMTextGraphUtils.h"
 #include "SMExtendedPropertyHelpers.h"
@@ -7,7 +7,6 @@
 
 #include "K2Node_VariableGet.h"
 #include "Kismet/KismetTextLibrary.h"
-
 
 void FSMTextGraphUtils::GetAllNodesWithTextPropertiesNested(UBlueprint* Blueprint, TArray<USMGraphNode_Base*>& NodesOut, const FName& ParsedNameFilter)
 {
@@ -108,7 +107,7 @@ void FSMTextGraphUtils::HandleOnPropertyChangedEvent(UObject* InObject, FPropert
 	
 		if (USMNodeInstance* NodeInstance = Cast<USMNodeInstance>(InObject))
 		{
-			if(USMNodeBlueprint* NodeBlueprint = Cast<USMNodeBlueprint>(UBlueprint::GetBlueprintFromClass(NodeInstance->GetClass())))
+			if (USMNodeBlueprint* NodeBlueprint = Cast<USMNodeBlueprint>(UBlueprint::GetBlueprintFromClass(NodeInstance->GetClass())))
 			{
 				TArray<UBlueprint*> OtherBlueprints;
 				FBlueprintEditorUtils::GetDependentBlueprints(NodeBlueprint, OtherBlueprints);
@@ -137,7 +136,7 @@ void FSMTextGraphUtils::HandlePostConditionallyCompileBlueprintEvent(UBlueprint*
 
 		for (USMGraphK2Node_TextPropertyNode* Node : TextNodes)
 		{
-			if(USMTextPropertyGraph* TextGraph = Cast<USMTextPropertyGraph>(Node->GetPropertyGraph()))
+			if (USMTextPropertyGraph* TextGraph = Cast<USMTextPropertyGraph>(Node->GetPropertyGraph()))
 			{
 				const bool bFullReset = true;
 				TextGraph->RefreshTextBody(false, bFullReset);
@@ -153,13 +152,18 @@ UK2Node_CallFunction* FSMTextGraphUtils::CreateTextConversionNode(USMTextPropert
 {
 	const UEdGraphSchema_K2* K2_Schema = Cast<const UEdGraphSchema_K2>(Graph->GetSchema());
 
+	if (!ensure(FromPin))
+	{
+		return nullptr;
+	}
+	
 	bool bUsingCustomFunction = false;
 	bool bIsOurStaticFunction = false;
 	const FName DynamicFunctionName = GetCustomConversionFunctionName(TextSerializer);
 	
 	UFunction* MakeNodeFunction = nullptr;
 	UObject* Object = FromPin->PinType.PinSubCategoryObject.Get();
-	if(Object && TextSerializer.ToTextFunctionNames.Num() > 0)
+	if (Object && TextSerializer.ToTextFunctionNames.Num() > 0)
 	{
 		// Attempt look up of custom function first. This takes priority.
 		for (const FName& CustomFunctionName : TextSerializer.ToTextFunctionNames)
@@ -240,7 +244,7 @@ UK2Node_CallFunction* FSMTextGraphUtils::CreateTextConversionNode(USMTextPropert
 
 		if (bIsOurStaticFunction)
 		{
-			if(UEdGraphPin* FunctionNamePin = GetStaticFunctionPin(ConversionNode))
+			if (UEdGraphPin* FunctionNamePin = GetStaticFunctionPin(ConversionNode))
 			{
 				K2_Schema->TrySetDefaultValue(*FunctionNamePin, DynamicFunctionName.ToString());
 			}
@@ -312,7 +316,7 @@ FName FSMTextGraphUtils::FindTextConversionFunctionName(FName FromType, UObject*
 	{
 		return GET_FUNCTION_NAME_CHECKED(UKismetTextLibrary, Conv_IntToText);
 	}
-	if (FromType == UEdGraphSchema_K2::PC_Float)
+	if (FromType == UEdGraphSchema_K2::PC_Float || FromType == UEdGraphSchema_K2::PC_Real)
 	{
 		return GET_FUNCTION_NAME_CHECKED(UKismetTextLibrary, Conv_FloatToText);
 	}

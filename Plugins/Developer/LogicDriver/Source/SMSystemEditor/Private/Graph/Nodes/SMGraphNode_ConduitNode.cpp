@@ -1,8 +1,7 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphNode_ConduitNode.h"
-#include "Kismet2/Kismet2NameValidators.h"
-#include "Kismet2/BlueprintEditorUtils.h"
+
 #include "Graph/Schema/SMConduitGraphSchema.h"
 #include "Graph/SMConduitGraph.h"
 #include "RootNodes/SMGraphK2Node_IntermediateNodes.h"
@@ -12,6 +11,8 @@
 #include "Helpers/SMGraphK2Node_FunctionNodes_NodeInstance.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 
+#include "Kismet2/Kismet2NameValidators.h"
+#include "Kismet2/BlueprintEditorUtils.h"
 
 #define LOCTEXT_NAMESPACE "SMGraphConduitNode"
 
@@ -82,11 +83,16 @@ void USMGraphNode_ConduitNode::PostEditChangeProperty(FPropertyChangedEvent& Pro
 
 		bStateChange = true;
 	}
+	else
+	{
+		bPostEditChangeConstructionRequiresFullRefresh = false;
+	}
 
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 	bCreatePropertyGraphsOnPropertyChange = true;
+	bPostEditChangeConstructionRequiresFullRefresh = true;
 
-	if (bStateChange && PropertyChangedEvent.ChangeType != EPropertyChangeType::Redirected && AreTemplatesFullyLoaded())
+	if (bStateChange && IsSafeToConditionallyCompile(PropertyChangedEvent.ChangeType))
 	{
 		FSMBlueprintEditorUtils::ConditionallyCompileBlueprint(FSMBlueprintEditorUtils::FindBlueprintForNodeChecked(this), false);
 	}
@@ -99,7 +105,7 @@ void USMGraphNode_ConduitNode::ResetDebugState()
 	// Prevents a previous cycle from showing it as running.
 	if (const FSMConduit* DebugNode = (FSMConduit*)GetDebugNode())
 	{
-		const_cast<FSMConduit*>(DebugNode)->bWasEvaluating = bWasEvaluating = false;
+		DebugNode->bWasEvaluating = bWasEvaluating = false;
 	}
 }
 
@@ -122,7 +128,7 @@ void USMGraphNode_ConduitNode::UpdateTime(float DeltaTime)
 				bIsDebugActive = true;
 				bWasEvaluating = true;
 			}
-			const_cast<FSMConduit*>(DebugNode)->bWasEvaluating = false;
+			DebugNode->bWasEvaluating = false;
 		}
 	}
 
@@ -140,7 +146,10 @@ void USMGraphNode_ConduitNode::ImportDeprecatedProperties()
 
 	if (USMConduitInstance* Instance = Cast<USMConduitInstance>(GetNodeTemplate()))
 	{
-		Instance->SetEvalWithTransitions(bEvalWithTransitions_DEPRECATED);
+		if (GetLoadedVersion() < TEMPLATE_PROPERTY_VERSION)
+		{
+			Instance->SetEvalWithTransitions(bEvalWithTransitions_DEPRECATED);
+		}
 	}
 }
 
@@ -152,7 +161,7 @@ void USMGraphNode_ConduitNode::PlaceDefaultInstanceNodes()
 	USMGraphK2Node_ConduitInstance_CanEnterTransition* InstanceCanEnterTransition = nullptr;
 	if (FSMBlueprintEditorUtils::PlaceNodeIfNotSet<USMGraphK2Node_ConduitInstance_CanEnterTransition>(BoundGraph, ResultNode, &InstanceCanEnterTransition, EGPD_Input, -550))
 	{
-		// Pin names won't match correcty so manually wire.
+		// Pin names won't match correctly so manually wire.
 		InstanceCanEnterTransition->GetSchema()->TryCreateConnection(InstanceCanEnterTransition->FindPin(UEdGraphSchema_K2::PN_ReturnValue), ResultNode->GetInputPin());
 	}
 
@@ -173,10 +182,12 @@ void USMGraphNode_ConduitNode::SetNodeClass(UClass* Class)
 void USMGraphNode_ConduitNode::SetRuntimeDefaults(FSMState_Base& State) const
 {
 	Super::SetRuntimeDefaults(State);
-	((FSMConduit&)State).bEvalWithTransitions = ShouldEvalWithTransitions();
-	if(USMConduitInstance* Instance = Cast<USMConduitInstance>(GetNodeTemplate()))
+	FSMConduit& Conduit = static_cast<FSMConduit&>(State);
+	Conduit.bEvalWithTransitions = ShouldEvalWithTransitions();
+	if (const USMConduitInstance* Instance = Cast<USMConduitInstance>(GetNodeTemplate()))
 	{
-		((FSMConduit&)State).bCanEvaluate = Instance->bCanEvaluate;
+		Conduit.bCanEvaluate = Instance->bCanEvaluate;
+		Conduit.ConditionalEvaluationType = CastChecked<USMConduitGraph>(BoundGraph)->GetConditionalEvaluationType();
 	}
 }
 
@@ -205,6 +216,22 @@ FLinearColor USMGraphNode_ConduitNode::GetActiveBackgroundColor() const
 	}
 
 	return BaseColor;
+}
+
+UObject* USMGraphNode_ConduitNode::GetJumpTargetForDoubleClick() const
+{
+	if (FSMBlueprintEditorUtils::GetEditorSettings()->ConduitDoubleClickBehavior == ESMJumpToGraphBehavior::PreferExternalGraph)
+	{
+		if (const UClass* Class = GetNodeClass())
+		{
+			if (UBlueprint* NodeBlueprint = UBlueprint::GetBlueprintFromClass(Class))
+			{
+				return NodeBlueprint;
+			}
+		}
+	}
+	
+	return Super::GetJumpTargetForDoubleClick();
 }
 
 bool USMGraphNode_ConduitNode::ShouldEvalWithTransitions() const

@@ -13,7 +13,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SMSYSTEM_SMNodeWidgetInfo_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Properties_SMNodeWidgetInfo_h_60_GENERATED_BODY \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Properties_SMNodeWidgetInfo_h_20_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FSMNodeWidgetInfo_Statics; \
+	static class UScriptStruct* StaticStruct();
+
+
+template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeWidgetInfo>();
+
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Properties_SMNodeWidgetInfo_h_63_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMTextDisplayWidgetInfo_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	typedef FSMNodeWidgetInfo Super;
@@ -21,15 +28,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMTextDisplayWidgetInfo>();
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Properties_SMNodeWidgetInfo_h_20_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FSMNodeWidgetInfo_Statics; \
-	static class UScriptStruct* StaticStruct();
-
-
-template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMNodeWidgetInfo>();
-
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Properties_SMNodeWidgetInfo_h
+#define CURRENT_FILE_ID FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Properties_SMNodeWidgetInfo_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

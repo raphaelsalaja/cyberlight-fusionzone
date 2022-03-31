@@ -1,12 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMGraphK2.h"
 #include "Nodes/RootNodes/SMGraphK2Node_TransitionResultNode.h"
-#include "SMTransitionGraph.generated.h"
 
+#include "SMTransitionGraph.generated.h"
 
 class USMGraphNode_TransitionEdge;
 
@@ -25,7 +24,7 @@ public:
 	ESMConditionalEvaluationType GetConditionalEvaluationType() const;
 
 	/** If there is non-const logic which executes on a successful transition. */
-	bool HasTransitionTunnel() const;
+	bool HasTransitionEnteredLogic() const;
 
 	/** If this has the pre eval node and logic executing. */
 	bool HasPreEvalLogic() const;

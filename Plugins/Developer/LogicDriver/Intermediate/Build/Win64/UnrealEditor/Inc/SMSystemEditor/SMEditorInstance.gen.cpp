@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Construction/SMEditorInstance.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMEditorInstance() {}
 // Cross Module References
@@ -24,6 +20,7 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorInstance() {}
 	void USMEditorContext::StaticRegisterNativesUSMEditorContext()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMEditorContext);
 	UClass* Z_Construct_UClass_USMEditorContext_NoRegister()
 	{
 		return USMEditorContext::StaticClass();
@@ -67,23 +64,21 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorInstance() {}
 	};
 	UClass* Z_Construct_UClass_USMEditorContext()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMEditorContext.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMEditorContext_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMEditorContext.OuterSingleton, Z_Construct_UClass_USMEditorContext_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMEditorContext.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMEditorContext, 1231123688);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMEditorContext>()
 	{
 		return USMEditorContext::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMEditorContext(Z_Construct_UClass_USMEditorContext, &USMEditorContext::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMEditorContext"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMEditorContext);
 	void USMEditorInstance::StaticRegisterNativesUSMEditorInstance()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMEditorInstance);
 	UClass* Z_Construct_UClass_USMEditorInstance_NoRegister()
 	{
 		return USMEditorInstance::StaticClass();
@@ -130,21 +125,27 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorInstance() {}
 	};
 	UClass* Z_Construct_UClass_USMEditorInstance()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMEditorInstance.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMEditorInstance_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMEditorInstance.OuterSingleton, Z_Construct_UClass_USMEditorInstance_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMEditorInstance.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMEditorInstance, 2914177887);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMEditorInstance>()
 	{
 		return USMEditorInstance::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMEditorInstance(Z_Construct_UClass_USMEditorInstance, &USMEditorInstance::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMEditorInstance"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMEditorInstance);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Construction_SMEditorInstance_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Construction_SMEditorInstance_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMEditorContext, USMEditorContext::StaticClass, TEXT("USMEditorContext"), &Z_Registration_Info_UClass_USMEditorContext, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMEditorContext), 978479708U) },
+		{ Z_Construct_UClass_USMEditorInstance, USMEditorInstance::StaticClass, TEXT("USMEditorInstance"), &Z_Registration_Info_UClass_USMEditorInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMEditorInstance), 147745260U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Construction_SMEditorInstance_h_2436445454(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Construction_SMEditorInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Construction_SMEditorInstance_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

@@ -1,12 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "EdGraph/EdGraph.h"
 #include "Nodes/SMNode_Base.h"
-#include "SMGraph.generated.h"
 
+#include "EdGraph/EdGraph.h"
+
+#include "SMGraph.generated.h"
 
 class USMGraphK2Node_StateMachineNode;
 class USMGraphNode_StateMachineEntryNode;

@@ -11,21 +11,15 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 class UObject;
 struct FDateTime;
 struct FColor;
-struct FTransform;
-struct FQuat;
-struct FRotator;
-struct FVector2D;
-struct FVector;
 class AActor;
 struct FLinearColor;
-struct FMatrix;
 #ifdef DEBUG_Log_generated_h
 #error "Log.generated.h already included, missing '#pragma once' in Log.h"
 #endif
 #define DEBUG_Log_generated_h
 
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS \
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execUnImplemented); \
 	DECLARE_FUNCTION(execCheckNoRecursion); \
@@ -139,7 +133,7 @@ struct FMatrix;
 	DECLARE_FUNCTION(execObjectValidity);
 
 
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execUnImplemented); \
 	DECLARE_FUNCTION(execCheckNoRecursion); \
@@ -253,7 +247,7 @@ struct FMatrix;
 	DECLARE_FUNCTION(execObjectValidity);
 
 
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS_NO_PURE_DECLS \
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesULog(); \
 	friend struct Z_Construct_UClass_ULog_Statics; \
@@ -262,7 +256,7 @@ public: \
 	DECLARE_SERIALIZER(ULog)
 
 
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS \
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS \
 private: \
 	static void StaticRegisterNativesULog(); \
 	friend struct Z_Construct_UClass_ULog_Statics; \
@@ -271,7 +265,7 @@ public: \
 	DECLARE_SERIALIZER(ULog)
 
 
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_STANDARD_CONSTRUCTORS \
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API ULog(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_ABSTRACT_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(ULog) \
@@ -284,7 +278,7 @@ private: \
 public:
 
 
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_ENHANCED_CONSTRUCTORS \
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API ULog(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
@@ -297,28 +291,25 @@ public: \
 	DEFINE_ABSTRACT_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(ULog)
 
 
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_377_PROLOG
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_GENERATED_BODY_LEGACY \
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_377_PROLOG
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_STANDARD_CONSTRUCTORS \
+	FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA \
+	FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS \
+	FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS \
+	FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_GENERATED_BODY \
+#define FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_PRIVATE_PROPERTY_OFFSET \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS_NO_PURE_DECLS \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS_NO_PURE_DECLS \
-	revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_ENHANCED_CONSTRUCTORS \
+	FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_SPARSE_DATA \
+	FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_INCLASS_NO_PURE_DECLS \
+	FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_380_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -326,48 +317,54 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> DEBUG_API UClass* StaticClass<class ULog>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h
+#define CURRENT_FILE_ID FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h
 
 
-#define FOREACH_ENUM_EDEBUGLOGCOMPARISONMETHOD(op) \
-	op(CM_Equal_To) \
-	op(CM_Not_Equal_To) \
-	op(CM_Greater_Than_Or_Equal_To) \
-	op(CM_Less_Than_Or_Equal_To) \
-	op(CM_Greater_Than) \
-	op(CM_Less_Than) 
-#define FOREACH_ENUM_EDEBUGLOGTIMEUNIT(op) \
-	op(DLTU_Nanoseconds) \
-	op(DLTU_Microseconds) \
-	op(DLTU_Milliseconds) \
-	op(DLTU_Seconds) \
-	op(DLTU_Minutes) \
-	op(DLTU_Hours) \
-	op(DLTU_Days) \
-	op(DLTU_Weeks) \
-	op(DLTU_Months) \
-	op(DLTU_Years) \
-	op(DLTU_Decades) \
-	op(DLTU_Centuries) \
-	op(DLTU_Millennium) 
-#define FOREACH_ENUM_EDEBUGLOGLIGHTUNIT(op) \
-	op(DLLU_Lumens) \
-	op(DLLU_Candela) \
-	op(DLLU_Lux) \
-	op(DLLU_CandelaPerMeter2) 
-#define FOREACH_ENUM_EDEBUGLOGFREQUENCYUNIT(op) \
-	op(DLFU_Hertz) \
-	op(DLFU_Kilohertz) \
-	op(DLFU_Megahertz) \
-	op(DLFU_Gigahertz) \
-	op(DLFU_RevolutionsPerMinute) 
-#define FOREACH_ENUM_EDEBUGLOGFORCEUNIT(op) \
-	op(DLFU_Newtons) \
-	op(DLFU_PoundsForce) \
-	op(DLFU_KilogramsForce) 
-#define FOREACH_ENUM_EDEBUGLOGANGULARUNIT(op) \
-	op(DLAU_Degrees) \
-	op(DLAU_Radians) 
+#define FOREACH_ENUM_EDEBUGLOGNUMBERSYSTEMS(op) \
+	op(DLNS_Decimal) \
+	op(DLNS_Binary) \
+	op(DLNS_Hex) \
+	op(DLNS_Octal) \
+	op(DLNS_Roman) 
+#define FOREACH_ENUM_EDEBUGLOGTEMPERATUREUNIT(op) \
+	op(DLTU_Celsius) \
+	op(DLTU_Fahrenheit) \
+	op(DLTU_Kelvin) 
+#define FOREACH_ENUM_EDEBUGLOGVOLUMEUNIT(op) \
+	op(DLVU_Litre) \
+	op(DLVU_Millilitre) \
+	op(DLVU_Gallon) \
+	op(DLVU_Pint) \
+	op(DLVU_Quart) 
+#define FOREACH_ENUM_EDEBUGLOGDATAUNIT(op) \
+	op(DLDU_Bit) \
+	op(DLDU_Byte) \
+	op(DLDU_Kilobyte) \
+	op(DLDU_Megabyte) \
+	op(DLDU_Gigabyte) \
+	op(DLDU_Terabyte) \
+	op(DLDU_Petabyte) 
+#define FOREACH_ENUM_EDEBUGLOGLENGTHUNIT(op) \
+	op(DLLU_Centimeter) \
+	op(DLLU_Micrometer) \
+	op(DLLU_Millimeter) \
+	op(DLLU_Meter) \
+	op(DLLU_Kilometer) \
+	op(DLLU_Inch) \
+	op(DLLU_Feet) \
+	op(DLLU_Mile) \
+	op(DLLU_NauticalMile) \
+	op(DLLU_Yard) \
+	op(DLLU_Lightyears) 
+#define FOREACH_ENUM_EDEBUGLOGMASSUNIT(op) \
+	op(DLMU_Microgram) \
+	op(DLMU_Milligram) \
+	op(DLMU_Gram) \
+	op(DLMU_Kilogram) \
+	op(DLMU_Tonne) \
+	op(DLMU_Ounce) \
+	op(DLMU_Pound) \
+	op(DLMU_Stone) 
 #define FOREACH_ENUM_EDEBUGLOGSPEEDUNIT(op) \
 	op(DLSU_CentimetersPerSec) \
 	op(DLSU_CentimetersPerHour) \
@@ -388,49 +385,43 @@ template<> DEBUG_API UClass* StaticClass<class ULog>();
 	op(DLSU_YardsPerSec) \
 	op(DLSU_YardsPerHour) \
 	op(DLSU_Knots) 
-#define FOREACH_ENUM_EDEBUGLOGMASSUNIT(op) \
-	op(DLMU_Microgram) \
-	op(DLMU_Milligram) \
-	op(DLMU_Gram) \
-	op(DLMU_Kilogram) \
-	op(DLMU_Tonne) \
-	op(DLMU_Ounce) \
-	op(DLMU_Pound) \
-	op(DLMU_Stone) 
-#define FOREACH_ENUM_EDEBUGLOGLENGTHUNIT(op) \
-	op(DLLU_Centimeter) \
-	op(DLLU_Micrometer) \
-	op(DLLU_Millimeter) \
-	op(DLLU_Meter) \
-	op(DLLU_Kilometer) \
-	op(DLLU_Inch) \
-	op(DLLU_Feet) \
-	op(DLLU_Mile) \
-	op(DLLU_NauticalMile) \
-	op(DLLU_Yard) \
-	op(DLLU_Lightyears) 
-#define FOREACH_ENUM_EDEBUGLOGDATAUNIT(op) \
-	op(DLDU_Bit) \
-	op(DLDU_Byte) \
-	op(DLDU_Kilobyte) \
-	op(DLDU_Megabyte) \
-	op(DLDU_Gigabyte) \
-	op(DLDU_Terabyte) \
-	op(DLDU_Petabyte) 
-#define FOREACH_ENUM_EDEBUGLOGVOLUMEUNIT(op) \
-	op(DLVU_Litre) \
-	op(DLVU_Millilitre) \
-	op(DLVU_Gallon) \
-	op(DLVU_Pint) \
-	op(DLVU_Quart) 
-#define FOREACH_ENUM_EDEBUGLOGTEMPERATUREUNIT(op) \
-	op(DLTU_Celsius) \
-	op(DLTU_Fahrenheit) \
-	op(DLTU_Kelvin) 
-#define FOREACH_ENUM_EDEBUGLOGNUMBERSYSTEMS(op) \
-	op(DLNS_Decimal) \
-	op(DLNS_Binary) \
-	op(DLNS_Hex) \
-	op(DLNS_Octal) \
-	op(DLNS_Roman) 
+#define FOREACH_ENUM_EDEBUGLOGANGULARUNIT(op) \
+	op(DLAU_Degrees) \
+	op(DLAU_Radians) 
+#define FOREACH_ENUM_EDEBUGLOGFORCEUNIT(op) \
+	op(DLFU_Newtons) \
+	op(DLFU_PoundsForce) \
+	op(DLFU_KilogramsForce) 
+#define FOREACH_ENUM_EDEBUGLOGFREQUENCYUNIT(op) \
+	op(DLFU_Hertz) \
+	op(DLFU_Kilohertz) \
+	op(DLFU_Megahertz) \
+	op(DLFU_Gigahertz) \
+	op(DLFU_RevolutionsPerMinute) 
+#define FOREACH_ENUM_EDEBUGLOGLIGHTUNIT(op) \
+	op(DLLU_Lumens) \
+	op(DLLU_Candela) \
+	op(DLLU_Lux) \
+	op(DLLU_CandelaPerMeter2) 
+#define FOREACH_ENUM_EDEBUGLOGTIMEUNIT(op) \
+	op(DLTU_Nanoseconds) \
+	op(DLTU_Microseconds) \
+	op(DLTU_Milliseconds) \
+	op(DLTU_Seconds) \
+	op(DLTU_Minutes) \
+	op(DLTU_Hours) \
+	op(DLTU_Days) \
+	op(DLTU_Weeks) \
+	op(DLTU_Months) \
+	op(DLTU_Years) \
+	op(DLTU_Decades) \
+	op(DLTU_Centuries) \
+	op(DLTU_Millennium) 
+#define FOREACH_ENUM_EDEBUGLOGCOMPARISONMETHOD(op) \
+	op(CM_Equal_To) \
+	op(CM_Not_Equal_To) \
+	op(CM_Greater_Than_Or_Equal_To) \
+	op(CM_Less_Than_Or_Equal_To) \
+	op(CM_Greater_Than) \
+	op(CM_Less_Than) 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

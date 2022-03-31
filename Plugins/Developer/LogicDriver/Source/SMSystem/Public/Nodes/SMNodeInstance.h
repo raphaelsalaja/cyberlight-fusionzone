@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -6,6 +6,7 @@
 #include "SMNodeRules.h"
 #include "SMLogging.h"
 #include "SMInputTypes.h"
+#include "SMGraphProperty_Base.h"
 
 #include "CoreMinimal.h"
 #include "Engine/Texture2D.h"
@@ -14,15 +15,22 @@
 #include "SMNodeInstance.generated.h"
 
 class UWorld;
+class USMInstance;
+class USMStateMachineInstance;
+struct FSMNode_Base;
 
 DECLARE_DWORD_ACCUMULATOR_STAT_EXTERN(TEXT("SMNodeInstances"), STAT_NodeInstances, STATGROUP_LogicDriver, SMSYSTEM_API);
 
+/* Gets the value as defined on the struct. */
+#define GET_NODE_STRUCT_VALUE(StructType, StructVariable) \
+	if (StructType* StructOwner = GetOwningNodeAs<StructType>()) \
+	{ \
+		return StructOwner->StructVariable; \
+	} \
+
 /* Gets the node property value. */
 #define GET_NODE_DEFAULT_VALUE_DIF_VAR(StructType, InstanceVariable, StructVariable) \
-		if (StructType* StructOwner = GetOwningNodeAs<StructType>()) \
-		{ \
-			return StructOwner->StructVariable; \
-		} \
+		GET_NODE_STRUCT_VALUE(StructType, StructVariable) \
 		return InstanceVariable;
 
 /* Gets the node property value. */
@@ -71,6 +79,12 @@ enum class ESMExecutionEnvironment : uint8
 	* during editor time construction scripts. Use this to allow the construction script
 	* to set default values during compile instead of recalculating values during run-time.
 	*
+	* When running with Editor Execution, only default values entered into public properties
+	* from the state machine graph will be available. Connecting a variable to a public
+	* property within the state machine graph will not evaluate until run-time. Additionally,
+	* the owning SMInstance will not be available at editor time since that is the class
+	* being compiled.
+	*
 	* To configure editor construction script settings, go under
 	* Project Settings -> Logic Driver -> Editor Node Construction Script Setting.
 	*/
@@ -109,13 +123,28 @@ public:
 	/** Perform native cleanup, called after Shutdown for all node types. This API is subject to change. */
 	virtual void NativeShutdown();
 
+	/** Called when the immediate owning state machine blueprint is starting. If this is part of a reference
+	 * then it will be called when the reference starts. If this is for a state machine node
+	 * then it will only be called when the top level state machine starts.*/
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Node Instance")
+	void OnRootStateMachineStart();
+
+	/** Called when the immediate owning state machine blueprint is stopping. If this is part of a reference
+	 * then it will be called when the reference stops. If this is for a state machine node
+	 * then it will only be called when the top level state machine stops.*/
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Node Instance")
+	void OnRootStateMachineStop();
+	
 	/** Signal the construction script should start. */
 	void RunConstructionScript();
 
 	/** The name of the protected ConstructionScript function. */
-	static FName GetConstructonScriptFunctionName() { return GET_FUNCTION_NAME_CHECKED(USMNodeInstance, ConstructionScript); }
+	static FName GetConstructionScriptFunctionName() { return GET_FUNCTION_NAME_CHECKED(USMNodeInstance, ConstructionScript); }
 	
 protected:
+	virtual void OnRootStateMachineStart_Implementation() {}
+	virtual void OnRootStateMachineStop_Implementation() {}
+	
 	/**
 	* A construction script that runs in the editor when the blueprint is modified.
 	* During run-time it will run after all nodes have instantiated.
@@ -123,6 +152,12 @@ protected:
 	* CAUTION:
 	* Any values set here while running with editor execution will replace the
 	* instance default values in state machine graphs when that state machine is compiled.
+	*
+	* When running with Editor Execution, only default values entered into public properties
+	* from the state machine graph will be available. Connecting a variable to a public
+	* property within the state machine graph will not evaluate until run-time. Additionally,
+	* the owning SMInstance will not be available at editor time since that is the class
+	* being compiled.
 	*
 	* If construction scripts aren't working in the editor, you may need to adjust your
 	* settings to `Standard`.
@@ -153,6 +188,7 @@ protected:
 
 private:
 	friend class USMGraphNode_StateNode;
+	friend class USMGraphNode_TransitionEdge;
 	
 	// If editor construction scripts are defined; set during bp compile.
 	// Should always match CDO. Variable is looked up by name in several places.
@@ -176,7 +212,7 @@ public:
 	 * @return The state machine instance this node is running for.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	class USMInstance* GetStateMachineInstance(bool bTopMostInstance = false) const;
+	USMInstance* GetStateMachineInstance(bool bTopMostInstance = false) const;
 
 	/** Set during initialization of the state machine. */
 	void SetOwningNode(FSMNode_Base* Node);
@@ -193,7 +229,7 @@ public:
 	
 	/** The instance of the direct state machine node this node is part of. Every node except the root state machine has an owning state machine node. */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	class USMStateMachineInstance* GetOwningStateMachineNodeInstance() const;
+	USMStateMachineInstance* GetOwningStateMachineNodeInstance() const;
 
 	/** Return the server interface if there is one. This may be null. */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance|Network")
@@ -265,7 +301,23 @@ public:
 
 	/** Searches the ExposedPropertyOverrides to find a property by name. */
 	FSMGraphProperty* FindExposedPropertyOverrideByName(const FName& VariableName) const;
-	
+
+	/**
+	 * Should graph properties evaluate even if they only contain default values. This includes properties that
+	 * have values directly entered into a node without any blueprint expressions connected, such as typing a
+	 * value into a string field.
+	 *
+	 * When false default values entered into an exposed property won't ever evaluate and the value at compile time
+	 * will be used until modified at run-time. If any blueprint pins are connected to the property then this setting
+	 * doesn't apply.
+	 *
+	 * Setting this to off is an optimization and may improve performance. However, if you modify the value at
+	 * run-time it will no longer reset (re-evaluate) to the default value On State Begin. This is on by default
+	 * for backwards compatibility and to maintain consistent behavior with variable evaluation.
+	 */
+	UPROPERTY(EditDefaultsOnly, Category = "Properties", meta = (InstancedTemplate, HideOnNode))
+	uint8 bEvalDefaultProperties: 1;
+
 	/**
 	 * Properties marked as public will be exposed on this node as a graph.
 	 * 
@@ -275,7 +327,7 @@ public:
 	 * Graph properties are only valid for nodes deriving from USMStateInstance_Base.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Properties", meta = (InstancedTemplate, HideOnNode))
-	bool bAutoEvalExposedProperties;
+	uint8 bAutoEvalExposedProperties: 1;
 	
 #if WITH_EDITOR
 public:
@@ -391,6 +443,9 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance", Meta = (ExpandEnumAsExecs = "ExecutionEnvironment"))
 	void WithExecutionEnvironment(ESMExecutionEnvironment& ExecutionEnvironment);
+
+	/** If this node can be created on a new thread. */
+	bool IsInitializationThreadSafe() const;
 	
 	/**
 	 * [EXPERIMENTAL] Resets all properties back to their defaults. Exposed graph properties will also be reset and may need to be re-evaluated.
@@ -399,6 +454,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance|Experimental", meta = (Experimental, DisplayName = "Reset Variables (Experimental)"))
 	void ResetVariables();
 
+	bool GetResetVariablesOnInitialize() const { return bResetVariablesOnInitialize; }
+	
 protected:
 	/**
 	 * [EXPERIMENTAL] Resets all properties back to their default values when the node is initialized.
@@ -419,30 +476,52 @@ public:
 
 	/** Sets the template guid. Editor use only. */
 	void SetTemplateGuid(const FGuid& NewTemplateGuid) { TemplateGuid = NewTemplateGuid; }
-
+	
 protected:
 	/** Describe the node. This provides information to the context menu and to tooltips. */
 	UPROPERTY(EditDefaultsOnly, Category = "General", meta = (InstancedTemplate, ShowOnlyInnerProperties))
 	FSMNodeDescription NodeDescription;
 
-	/** Override editor default icon with the custom icon chosen. */
-	UPROPERTY(EditDefaultsOnly, Category = "Display", meta = (DisplayPriority = 0, NodeBaseOnly))
-	bool bDisplayCustomIcon;
-
-	// NodeIcon
-	
-	/** Override editor preference colors. */
-	UPROPERTY(EditDefaultsOnly, Category = "Color", meta = (DisplayPriority = 0))
-	bool bUseCustomColors;
-
 	/** The standard color for this node. */
 	UPROPERTY(EditDefaultsOnly, Category = "Color", meta = (EditCondition = "bUseCustomColors", DisplayPriority = 1))
 	FLinearColor NodeColor;
-
+	
+	/** Override editor default icon with the custom icon chosen. */
+	UPROPERTY(EditDefaultsOnly, Category = "Display", meta = (DisplayPriority = 0, NodeBaseOnly))
+	uint8 bDisplayCustomIcon: 1;
+	
+	/** Override editor preference colors. */
+	UPROPERTY(EditDefaultsOnly, Category = "Color", meta = (DisplayPriority = 0))
+	uint8 bUseCustomColors: 1;
+	
+#endif
+public:
+	void SetIsThreadSafe(bool bNewValue) { bIsThreadSafe = bNewValue; }
+	
 private:
+	/** If this node can be created on a new thread with async initialization. Valid for game and editor sessions. */
+	UPROPERTY(EditDefaultsOnly, Category = "Async Initialization", meta = (InstancedTemplate))
+	uint8 bIsThreadSafe: 1;
+	
+#if WITH_EDITORONLY_DATA
+public:
+	void SetIsEditorThreadSafe(const bool bNewValue) { bIsEditorThreadSafe = bNewValue; }
+	bool GetIsEditorThreadSafe() const { return bIsEditorThreadSafe; }
+	
+private:
+	/**
+	 * If this node can be created on a new thread with async initialization when playing in the editor.
+	 * Nodes may contain editor only code that isn't always thread safe, such as slate styling found in
+	 * TextGraph properties.
+	 *
+	 * If you experience crashes in the editor with async initialization consider turning this off.
+	 */
+	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = "Async Initialization", meta = (InstancedTemplate, EditCondition = "bIsThreadSafe"))
+	uint8 bIsEditorThreadSafe: 1;
+	
 	friend class FSMEditorConstructionManager;
 	/** Set from editor construction manager only. */
-	bool bIsEditorExecution = false;
+	uint8 bIsEditorExecution: 1;
 
 #endif
 
@@ -464,6 +543,16 @@ public:
 	TEnumAsByte<ESMNodeInput::Type> GetInputType() const { return AutoReceiveInput; }
 	int32 GetInputPriority() const { return InputPriority; }
 	bool GetBlockInput() const { return bBlockInput; }
+
+	/**
+	 * Retrieve the input component this node created with #AutoReceiveInput.
+	 * The input component will only be valid if AutoReceiveInput is not disabled
+	 * and this node is initialized.
+	 *
+	 * @return The UInputComponent or nullptr.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Input (Node)")
+	UInputComponent* GetInputComponent() const { return InputComponent; }
 	
 protected:
 	UPROPERTY(Transient)
@@ -486,19 +575,19 @@ protected:
 	 * Whether any components lower on the input stack should be allowed to receive input.
 	 * If AutoReceiveInput is set to UseOwningStateMachine this has no effect. */
 	UPROPERTY(EditDefaultsOnly, Category = "Input (Node)", meta = (InstancedTemplate))
-	bool bBlockInput = false;
+	uint8 bBlockInput: 1;
 	///////////////////////
 	/// End Input
 	///////////////////////
 	
 private:
+	/** True from NativeInitialize. */
+	uint8 bIsInitialized: 1;
+	
 	/** The owning node in the state machine instance. */
 	FSMNode_Base* OwningNode;
 
 	/** Assigned from the editor and used in tracking specific templates. */
 	UPROPERTY()
 	FGuid TemplateGuid;
-
-	/** True from NativeInitialize. */
-	bool bIsInitialized;
 };

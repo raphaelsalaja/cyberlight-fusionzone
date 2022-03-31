@@ -1,14 +1,15 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SGraphNode_BaseNode.h"
-#include "SGraphPreviewer.h"
 
+#include "SGraphPreviewer.h"
+#include "Widgets/Images/SImage.h"
 
 class USMGraphNode_ConduitNode;
 class USMGraphNode_StateNodeBase;
+class SSMGraphNode_PropertyContent;
 
 class SGraphNode_StateNode : public SGraphNode_BaseNode
 {
@@ -21,7 +22,7 @@ public:
 
 	// SGraphNode
 	virtual void Tick(const FGeometry& AllottedGeometry, const double InCurrentTime, const float InDeltaTime) override;
-	virtual void MoveTo(const FVector2D& NewPosition, FNodeSet& NodeFilter) override;
+	virtual void MoveTo(const FVector2D& NewPosition, FNodeSet& NodeFilter, bool bMarkDirty = true) override;
 	virtual void UpdateGraphNode() override;
 	virtual void CreatePinWidgets() override;
 	virtual void AddPin(const TSharedRef<SGraphPin>& PinToAdd) override;
@@ -36,19 +37,26 @@ public:
 	virtual void GetNodeInfoPopups(FNodeInfoContext* Context, TArray<FGraphInformationPopupInfo>& Popups) const override;
 	// ~SNodePanel::SNode
 
-protected:
-	virtual TSharedPtr<SVerticalBox> CreateContentBox();
-	virtual FSlateColor GetBorderBackgroundColor() const;
-	virtual const FSlateBrush* GetNameIcon() const;
-	virtual TSharedRef<SVerticalBox> BuildComplexTooltip();
-	virtual UEdGraph* GetGraphToUseForTooltip() const;
+	// SGraphNode_BaseNode
+	virtual void OnRefreshRequested(USMGraphNode_Base* InNode, bool bFullRefresh) override;
+	// ~SGraphNode_BaseNode
 
 protected:
-	TSharedPtr<SGraphPreviewer> GraphPreviewer;
-	TSharedPtr<SWidget> AnyStateImpactWidget;
-	TMap<TSharedPtr<class SSMGraphProperty_Base>, class USMGraphK2Node_PropertyNode_Base*> PropertyWidgets;
+	virtual TSharedPtr<SWidget> CreateContentBox();
+	virtual FSlateColor GetBorderBackgroundColor() const;
+	virtual const FSlateBrush* GetNameIcon() const;
+	virtual TSharedPtr<SVerticalBox> BuildComplexTooltip();
+	virtual UEdGraph* GetGraphToUseForTooltip() const;
+
+	void CalculateAnyStateImpact();
+
+protected:
+	TArray<TSharedPtr<SWidget>> AnyStateImpactWidgets;
+	TSharedPtr<SWidget> FastPathWidget;
+	TSharedPtr<SSMGraphNode_PropertyContent> PropertyContent;
+	TSharedPtr<SImage> NodeIcon;
 	FMargin ContentPadding;
-	const int32 OverlayWidgetPadding = 25;
+	const int32 OverlayWidgetPadding = 20;
 };
 
 class SGraphNode_ConduitNode : public SGraphNode_StateNode

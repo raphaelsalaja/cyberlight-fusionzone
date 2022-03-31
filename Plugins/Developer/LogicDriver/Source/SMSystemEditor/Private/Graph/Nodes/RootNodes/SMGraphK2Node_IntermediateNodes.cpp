@@ -1,15 +1,17 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_IntermediateNodes.h"
-#include "EdGraph/EdGraph.h"
 #include "Graph/Schema/SMGraphSchema.h"
 #include "Graph/SMStateGraph.h"
 #include "Graph/SMConduitGraph.h"
 #include "Graph/SMIntermediateGraph.h"
-#include "Blueprints/SMBlueprint.h"
-#include "BlueprintActionFilter.h"
+#include "Graph/SMTransitionGraph.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 
+#include "Blueprints/SMBlueprint.h"
+
+#include "EdGraph/EdGraph.h"
+#include "BlueprintActionFilter.h"
 
 #define LOCTEXT_NAMESPACE "SMIntermediateEntryNode"
 
@@ -92,7 +94,8 @@ FText USMGraphK2Node_IntermediateStateMachineStartNode::GetMenuCategory() const
 
 bool USMGraphK2Node_IntermediateStateMachineStartNode::IsCompatibleWithGraph(UEdGraph const* Graph) const
 {
-	return (Graph->IsA<USMIntermediateGraph>() || Graph->IsA<USMStateGraph>() || Graph->IsA<USMConduitGraph>()) && !FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_IntermediateStateMachineStartNode>(Graph);
+	return (Graph->IsA<USMIntermediateGraph>() || Graph->IsA<USMStateGraph>() || Graph->IsA<USMTransitionGraph>() ||
+	Graph->IsA<USMConduitGraph>()) && !FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_IntermediateStateMachineStartNode>(Graph);
 }
 
 void USMGraphK2Node_IntermediateStateMachineStartNode::GetMenuActions(
@@ -111,9 +114,10 @@ bool USMGraphK2Node_IntermediateStateMachineStartNode::IsActionFilteredOut(FBlue
 		}
 	}
 
-	for (UEdGraph* Graph : Filter.Context.Graphs)
+	for (const UEdGraph* Graph : Filter.Context.Graphs)
 	{
-		if (!(Graph->IsA<USMIntermediateGraph>() || Graph->IsA<USMStateGraph>() || Graph->IsA<USMConduitGraph>()) || FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_IntermediateStateMachineStartNode>(Graph))
+		if (!(Graph->IsA<USMIntermediateGraph>() || Graph->IsA<USMStateGraph>() || Graph->IsA<USMTransitionGraph>()
+			|| Graph->IsA<USMConduitGraph>()) || FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_IntermediateStateMachineStartNode>(Graph))
 		{
 			return true;
 		}
@@ -164,7 +168,8 @@ FText USMGraphK2Node_IntermediateStateMachineStopNode::GetMenuCategory() const
 
 bool USMGraphK2Node_IntermediateStateMachineStopNode::IsCompatibleWithGraph(UEdGraph const* Graph) const
 {
-	return (Graph->IsA<USMIntermediateGraph>() || Graph->IsA<USMStateGraph>() || Graph->IsA<USMConduitGraph>()) && !FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_IntermediateStateMachineStopNode>(Graph);
+	return (Graph->IsA<USMIntermediateGraph>() || Graph->IsA<USMStateGraph>() || Graph->IsA<USMTransitionGraph>() ||
+		Graph->IsA<USMConduitGraph>()) && !FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_IntermediateStateMachineStopNode>(Graph);
 }
 
 void USMGraphK2Node_IntermediateStateMachineStopNode::GetMenuActions(
@@ -183,9 +188,10 @@ bool USMGraphK2Node_IntermediateStateMachineStopNode::IsActionFilteredOut(FBluep
 		}
 	}
 
-	for (UEdGraph* Graph : Filter.Context.Graphs)
+	for (const UEdGraph* Graph : Filter.Context.Graphs)
 	{
-		if (!(Graph->IsA<USMIntermediateGraph>() || Graph->IsA<USMStateGraph>() || Graph->IsA<USMConduitGraph>()) || FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_IntermediateStateMachineStopNode>(Graph))
+		if (!(Graph->IsA<USMIntermediateGraph>() || Graph->IsA<USMStateGraph>() || Graph->IsA<USMTransitionGraph>()
+			|| Graph->IsA<USMConduitGraph>()) || FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_IntermediateStateMachineStopNode>(Graph))
 		{
 			return true;
 		}

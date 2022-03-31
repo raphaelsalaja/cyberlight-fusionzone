@@ -1,15 +1,15 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SSMEditableText.h"
+
+#include "Types/SlateConstants.h"
 #include "Types/ReflectionMetadata.h"
 #include "Framework/Text/PlainTextLayoutMarshaller.h"
 #include "Rendering/DrawElements.h"
 #include "Framework/Application/SlateApplication.h"
-#include "Types/SlateConstants.h"
 #include "Slate/Private/Framework/Text/TextEditHelper.h"
 
 #define LOCTEXT_NAMESPACE "SMEditableText"
-
 
 SSMEditableText::SSMEditableText()
 	: bSelectAllTextWhenFocused(false)

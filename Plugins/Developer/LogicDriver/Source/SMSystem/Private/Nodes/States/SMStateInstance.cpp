@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMStateInstance.h"
 #include "SMInstance.h"
@@ -6,12 +6,11 @@
 #include "SMLogging.h"
 #include "SMStateMachine.h"
 #include "SMTransitionInstance.h"
-#if WITH_EDITORONLY_DATA
-#include "Engine/BlueprintGeneratedClass.h"
-#endif
+#include "SMUtils.h"
 
 USMStateInstance_Base::USMStateInstance_Base() : Super(),
-bEvalGraphsOnStart(true), bEvalGraphsOnUpdate(false), bEvalGraphsOnEnd(false), bEvalGraphsOnRootStateMachineStart(false), bEvalGraphsOnRootStateMachineStop(false)
+bEvalGraphsOnStart(true), bEvalGraphsOnUpdate(false), bEvalGraphsOnEnd(false), bEvalGraphsOnRootStateMachineStart(false),
+bEvalGraphsOnRootStateMachineStop(false)
 {
 #if WITH_EDITORONLY_DATA
 	// TODO: Read editor settings.
@@ -55,22 +54,19 @@ bool USMStateInstance_Base::IsStateMachine() const
 	return false;
 }
 
-void USMStateInstance_Base::SetActive(bool bValue)
+bool USMStateInstance_Base::IsEntryState() const
 {
 	if (FSMState_Base* State = (FSMState_Base*)GetOwningNode())
 	{
-		if (FSMStateMachine* StateMachine = (FSMStateMachine*)State->GetOwnerNode())
-		{
-			if (bValue)
-			{
-				StateMachine->AddActiveState(State, true);
-			}
-			else
-			{
-				StateMachine->RemoveActiveState(State, true);
-			}
-		}
+		return State->bIsRootNode;
 	}
+
+	return false;
+}
+
+void USMStateInstance_Base::SetActive(bool bValue, bool bSetAllParents, bool bActivateNow)
+{
+	USMUtils::ActivateStateNetOrLocal(GetOwningNodeAs<FSMState_Base>(), bValue, bSetAllParents, bActivateNow);
 }
 
 void USMStateInstance_Base::EvaluateTransitions()
@@ -93,9 +89,9 @@ bool USMStateInstance_Base::GetOutgoingTransitions(TArray<USMTransitionInstance*
 			{
 				continue;
 			}
-			if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(Transition->GetNodeInstance()))
+			if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(Transition->GetOrCreateNodeInstance()))
 			{
-				Transitions.AddUnique(TransitionInstance);
+				Transitions.Add(TransitionInstance);
 			}
 		}
 	}
@@ -116,9 +112,9 @@ bool USMStateInstance_Base::GetIncomingTransitions(TArray<USMTransitionInstance*
 			{
 				continue;
 			}
-			if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(Transition->GetNodeInstance()))
+			if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(Transition->GetOrCreateNodeInstance()))
 			{
-				Transitions.AddUnique(TransitionInstance);
+				Transitions.Add(TransitionInstance);
 			}
 		}
 	}
@@ -132,16 +128,16 @@ USMTransitionInstance* USMStateInstance_Base::GetTransitionToTake() const
 	{
 		if (const FSMTransition* Transition = State->GetTransitionToTake())
 		{
-			return Cast<USMTransitionInstance>(Transition->GetNodeInstance());
+			return Cast<USMTransitionInstance>(const_cast<FSMTransition*>(Transition)->GetOrCreateNodeInstance());
 		}
 	}
 
 	return nullptr;
 }
 
-bool USMStateInstance_Base::SwitchToLinkedState(USMStateInstance_Base* NextStateInstance, bool bRequireTransitionToPass)
+bool USMStateInstance_Base::SwitchToLinkedState(USMStateInstance_Base* NextStateInstance, bool bRequireTransitionToPass, bool bActivateNow)
 {
-	if (FSMState_Base* Node = (FSMState_Base*)GetOwningNode())
+	if (const FSMState_Base* Node = GetOwningNodeAs<FSMState_Base>())
 	{
 		if (!Node->IsActive())
 		{
@@ -154,16 +150,7 @@ bool USMStateInstance_Base::SwitchToLinkedState(USMStateInstance_Base* NextState
 		{
 			if (NextStateInstance == Transition->GetToState()->GetNodeInstance())
 			{
-				if (bRequireTransitionToPass && !Transition->DoesTransitionPass())
-				{
-					return false;
-				}
-
-				FSMState_Base* DestinationState = (FSMState_Base*)NextStateInstance->GetOwningNode();
-				
-				// Notify the owning state machine to take this transition.
-				((FSMStateMachine*)Transition->GetOwnerNode())->ProcessTransition(Transition, Node, DestinationState, nullptr, 0.f);
-				return true;
+				return SwitchToLinkedStateByTransition_Internal(Transition, bRequireTransitionToPass, bActivateNow);
 			}
 		}
 
@@ -173,11 +160,68 @@ bool USMStateInstance_Base::SwitchToLinkedState(USMStateInstance_Base* NextState
 	return false;
 }
 
-bool USMStateInstance_Base::SwitchToLinkedStateByName(const FString& NextStateName, bool bRequireTransitionToPass)
+bool USMStateInstance_Base::SwitchToLinkedStateByName(const FString& NextStateName, bool bRequireTransitionToPass, bool bActivateNow)
 {
 	if (USMStateInstance_Base* NextState = GetNextStateByName(NextStateName))
 	{
-		return SwitchToLinkedState(NextState, bRequireTransitionToPass);
+		return SwitchToLinkedState(NextState, bRequireTransitionToPass, bActivateNow);
+	}
+
+	return false;
+}
+
+bool USMStateInstance_Base::SwitchToLinkedStateByTransition(USMTransitionInstance* TransitionInstance,
+	bool bRequireTransitionToPass, bool bActivateNow)
+{
+	if (TransitionInstance != nullptr)
+	{
+		if (TransitionInstance->GetPreviousStateInstance() != this)
+		{
+			LD_LOG_WARNING(TEXT("Attempted to switch to linked state by transition %s from state %s but this transition is from state %s."),
+				*TransitionInstance->GetNodeName(), *GetNodeName(), *TransitionInstance->GetPreviousStateInstance()->GetNodeName());
+			return false;
+		}
+		return SwitchToLinkedStateByTransition_Internal(TransitionInstance->GetOwningNodeAs<FSMTransition>(), bRequireTransitionToPass, bActivateNow);
+	}
+
+	return false;
+}
+
+bool USMStateInstance_Base::SwitchToLinkedStateByTransition_Internal(FSMTransition* Transition,
+	bool bRequireTransitionToPass, bool bActivateNow)
+{
+	check(Transition);
+	if (FSMState_Base* Node = GetOwningNodeAs<FSMState_Base>())
+	{
+		if (!Node->IsActive())
+		{
+			LD_LOG_WARNING(TEXT("Attempted to switch to linked state by transition %s but this state %s is not currently active."),
+				*Transition->GetNodeName(), *Node->GetNodeName());
+			return false;
+		}
+		
+		if (bRequireTransitionToPass && !Transition->DoesTransitionPass())
+		{
+			return false;
+		}
+
+		// Notify the owning state machine to take this transition.
+		FSMStateMachine* StateMachineNode = static_cast<FSMStateMachine*>(Node->GetOwnerNode());
+		if (StateMachineNode->CanProcessExternalTransition())
+		{
+			FSMState_Base* DestinationState = Transition->GetToState();
+			
+			if (StateMachineNode->ProcessTransition(Transition, Node,
+				DestinationState, nullptr, 0.f))
+			{
+				if (bActivateNow)
+				{
+					// This branch can't be true if owner doesn't have state change authority.
+					StateMachineNode->TryStartState(DestinationState);
+				}
+			}
+			return true;
+		}
 	}
 
 	return false;
@@ -208,7 +252,7 @@ USMStateInstance_Base* USMStateInstance_Base::GetNextStateByName(const FString& 
 	if (USMStateMachineInstance* OwningStateMachineInstance = GetOwningStateMachineNodeInstance())
 	{
 		// Search for a state in the same FSM scope.
-		if(USMStateInstance_Base* NeighborState = OwningStateMachineInstance->GetContainedStateByName(StateName))
+		if (USMStateInstance_Base* NeighborState = OwningStateMachineInstance->GetContainedStateByName(StateName))
 		{
 			TArray<USMTransitionInstance*> OutgoingTransitions;
 			GetOutgoingTransitions(OutgoingTransitions, false);
@@ -232,7 +276,7 @@ USMStateInstance_Base* USMStateInstance_Base::GetPreviousStateByName(const FStri
 	if (USMStateMachineInstance* OwningStateMachineInstance = GetOwningStateMachineNodeInstance())
 	{
 		// Search for a state in the same FSM scope.
-		if(USMStateInstance_Base* NeighborState = OwningStateMachineInstance->GetContainedStateByName(StateName))
+		if (USMStateInstance_Base* NeighborState = OwningStateMachineInstance->GetContainedStateByName(StateName))
 		{
 			TArray<USMTransitionInstance*> IncomingTransitions;
 			GetIncomingTransitions(IncomingTransitions, false);
@@ -257,7 +301,7 @@ USMStateInstance_Base* USMStateInstance_Base::GetPreviousActiveState() const
 	{
 		if (FSMState_Base* PreviousEnteredState = Node->GetPreviousActiveState())
 		{
-			return Cast<USMStateInstance_Base>(PreviousEnteredState->GetNodeInstance());
+			return Cast<USMStateInstance_Base>(PreviousEnteredState->GetOrCreateNodeInstance());
 		}
 	}
 
@@ -270,11 +314,46 @@ USMTransitionInstance* USMStateInstance_Base::GetPreviousActiveTransition() cons
 	{
 		if (FSMTransition* PreviousEnteredTransition = Node->GetPreviousActiveTransition())
 		{
-			return Cast<USMTransitionInstance>(PreviousEnteredTransition->GetNodeInstance());
+			return Cast<USMTransitionInstance>(PreviousEnteredTransition->GetOrCreateNodeInstance());
 		}
 	}
 
 	return nullptr;
+}
+
+// Checks every transition for IsTransitionFromAnyState().
+static bool AreAllTransitionsFromAnAnyState(const TArray<USMTransitionInstance*>& InTransitions)
+{
+	if (InTransitions.Num() == 0)
+	{
+		return false;
+	}
+	
+	for (const USMTransitionInstance* Transition : InTransitions)
+	{
+		if (!Transition->IsTransitionFromAnyState())
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool USMStateInstance_Base::AreAllOutgoingTransitionsFromAnAnyState() const
+{
+	TArray<USMTransitionInstance*> Transitions;
+	GetOutgoingTransitions(Transitions);
+
+	return AreAllTransitionsFromAnAnyState(MoveTemp(Transitions));
+}
+
+bool USMStateInstance_Base::AreAllIncomingTransitionsFromAnAnyState() const
+{
+	TArray<USMTransitionInstance*> Transitions;
+	GetIncomingTransitions(Transitions);
+
+	return AreAllTransitionsFromAnAnyState(MoveTemp(Transitions));
 }
 
 const FDateTime& USMStateInstance_Base::GetStartTime() const
@@ -337,7 +416,7 @@ void USMStateInstance_Base::GetAllNodesOfType(TArray<USMNodeInstance*>& OutNodes
 		for (FSMTransition* Transition : Node->GetOutgoingTransitions())
 		{
 			FSMState_Base* NextState = Transition->GetToState();
-			if (USMStateInstance_Base* Instance = Cast<USMStateInstance_Base>(NextState->GetNodeInstance()))
+			if (USMStateInstance_Base* Instance = Cast<USMStateInstance_Base>(NextState->GetOrCreateNodeInstance()))
 			{
 				// We break the search when a forbidden type is hit.
 				if (StopIfTypeIsNot.Num() > 0)
@@ -367,9 +446,8 @@ void USMStateInstance_Base::GetAllNodesOfType(TArray<USMNodeInstance*>& OutNodes
 #if WITH_EDITORONLY_DATA
 bool USMStateInstance_Base::IsRegisteredWithContextMenu() const
 {
-	return bRegisterWithContextMenu && Cast<UBlueprintGeneratedClass>(GetClass());
+	return bRegisterWithContextMenu;
 }
-
 #endif
 
 bool USMStateInstance_Base::GetAlwaysUpdate() const
@@ -491,7 +569,7 @@ USMStateInstance_Base* USMStateInstance::GetStackOwnerInstance() const
 {
 	if (const FSMNode_Base* State = GetOwningNode())
 	{
-		return Cast<USMStateInstance_Base>(State->GetNodeInstance());
+		return Cast<USMStateInstance_Base>(const_cast<FSMNode_Base*>(State)->GetOrCreateNodeInstance());
 	}
 
 	return nullptr;
@@ -517,7 +595,7 @@ void USMStateInstance::GetAllStatesInStackOfClass(TSubclassOf<USMStateInstance> 
 	}
 }
 
-int32 USMStateInstance::GetStateIndexInStack(USMStateInstance_Base* StateInstance)
+int32 USMStateInstance::GetStateIndexInStack(USMStateInstance_Base* StateInstance) const
 {
 	if (const FSMNode_Base* State = GetOwningNode())
 	{

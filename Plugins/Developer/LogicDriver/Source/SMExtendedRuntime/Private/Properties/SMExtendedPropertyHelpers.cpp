@@ -1,9 +1,8 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMExtendedPropertyHelpers.h"
 
 #include "SMTextGraphLogging.h"
-
 
 void USMExtendedGraphPropertyHelpers::BreakTextGraphProperty(const FSMTextGraphProperty& GraphProperty, FText& Result)
 {

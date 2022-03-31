@@ -1,9 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateEntryNode.h"
-#include "EdGraph/EdGraph.h"
 #include "Graph/Schema/SMGraphSchema.h"
 #include "Graph/SMStateGraph.h"
+
+#include "EdGraph/EdGraph.h"
 
 #define LOCTEXT_NAMESPACE "SMStateEntryNode"
 

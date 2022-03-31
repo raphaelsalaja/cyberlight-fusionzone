@@ -1,9 +1,8 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "ISMExtendedEditorModule.h"
-
 
 #define LOCTEXT_NAMESPACE "SMSystemEditorModule"
 

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMPreviewModeViewportClient.h"
 #include "Views/Viewport/SSMPreviewModeViewportView.h"
@@ -35,7 +35,6 @@
 #include "Materials/MaterialInstanceConstant.h"
 #include "Slate/SceneViewport.h"
 #include "Widgets/Docking/SDockTab.h"
-
 
 #define LOCTEXT_NAMESPACE "SMPreviewModeViewportClient"
 
@@ -107,7 +106,7 @@ FSMAdvancedPreviewScene::~FSMAdvancedPreviewScene()
 	if (PreviewPackage)
 	{
 		FString PackageFilename;
-		if (FPackageName::DoesPackageExist(PreviewPackage->GetName(), nullptr, &PackageFilename))
+		if (FPackageName::DoesPackageExist(PreviewPackage->GetName(), &PackageFilename))
 		{
 			TArray<UPackage*> PackagesToDelete;
 			PackagesToDelete.Add(PreviewPackage);
@@ -201,7 +200,7 @@ void FSMAdvancedPreviewScene::CheckRefreshLevelOutliner()
 		else
 		{
 			bool bIsMouseOverWindow = false;
-			if(bIsBPEditorInPreviewMode && ParentTabPtr.IsValid() && ParentTabPtr.Pin()->IsForeground())
+			if (bIsBPEditorInPreviewMode && ParentTabPtr.IsValid() && ParentTabPtr.Pin()->IsForeground())
 			{
 				// Check the owning tab is in the foreground.
 				
@@ -260,7 +259,7 @@ void FSMAdvancedPreviewScene::CloneOriginalWorldToPreviewWorld()
 			// and children removed on game viewport client destruction.
 			
 			const TSharedRef<SOverlay> ViewportOverlayWidgetRef = SAssignNew(GameOverlay, SOverlay);
-			SOverlay::FOverlaySlot& NewSlot = OverlayPtr->AddSlot();
+			SOverlay::FScopedWidgetSlotArguments NewSlot = OverlayPtr->AddSlot();
 			NewSlot.AttachWidget(ViewportOverlayWidgetRef);
 			
 			const TSharedPtr<SWindow> Window = FSlateApplication::Get().FindWidgetWindow(OverlayPtr.ToSharedRef());
@@ -564,11 +563,12 @@ void FSMAdvancedPreviewScene::OnPreviewObjectWorldRefreshRequested(USMPreviewObj
 void FSMAdvancedPreviewScene::OnActiveTabChanged(TSharedPtr<SDockTab> PreviouslyActive,
 	TSharedPtr<SDockTab> NewlyActivated)
 {
-	if (NewlyActivated.IsValid())
+	if (NewlyActivated.IsValid() && BlueprintPtr.IsValid())
 	{
-		if (BlueprintPtr.IsValid() && FSMPreviewOutlinerUtils::DoesTabBelongToPreview(NewlyActivated->GetTabManager(), BlueprintPtr.Get()))
+		const TSharedPtr<FTabManager> TabManager = NewlyActivated->GetTabManagerPtr();
+		if (TabManager.IsValid() && FSMPreviewOutlinerUtils::DoesTabBelongToPreview(TabManager, BlueprintPtr.Get()))
 		{
-			ParentTabPtr = NewlyActivated->GetTabManager()->GetOwnerTab();
+			ParentTabPtr = TabManager->GetOwnerTab();
 		}
 	}
 }
@@ -590,11 +590,16 @@ FSMPreviewModeViewportClient::FSMPreviewModeViewportClient(FSMAdvancedPreviewSce
 	ScopedTransaction = nullptr;
 	
 	ViewportViewPtr = InPreviewViewport;
+
+	EngineShowFlags.SetLumenReflections(false);
+	EngineShowFlags.SetLumenGlobalIllumination(false);
+	EngineShowFlags.Grid = false;
+	
 	// Setup defaults for the common draw helper.
 	DrawHelper.bDrawPivot = false;
 	DrawHelper.bDrawWorldBox = false;
 	DrawHelper.bDrawKillZ = false;
-	DrawHelper.bDrawGrid = false;
+	DrawHelper.bDrawGrid = IsSetShowGridChecked();
 	DrawHelper.PerspectiveGridSize = HALF_WORLD_MAX1;
 
 	check(Widget);
@@ -722,7 +727,7 @@ bool FSMPreviewModeViewportClient::InputKey(FViewport* InViewport, int32 Control
 			if (Key == EKeys::Escape && Event == IE_Pressed)
 			{
 				// Cancel out of a simulation.
-				if(USMBlueprint* BlueprintOwner = Cast<USMBlueprint>(PreviewObject->GetOuter()))
+				if (USMBlueprint* BlueprintOwner = Cast<USMBlueprint>(PreviewObject->GetOuter()))
 				{
 					FSMPreviewUtils::StopSimulation(BlueprintOwner);
 					return true;
@@ -740,7 +745,8 @@ bool FSMPreviewModeViewportClient::InputKey(FViewport* InViewport, int32 Control
 						{
 							if (LocalPlayer->GetControllerId() == ControllerId)
 							{
-								PlayerController->InputKey(Key, Event, AmountDepressed, bGamepad);
+								const FInputKeyParams InputKeyParams(Key, Event, static_cast<double>(AmountDepressed), bGamepad);
+								PlayerController->InputKey(InputKeyParams);
 								break;
 							}
 						}
@@ -869,6 +875,7 @@ bool FSMPreviewModeViewportClient::GetShowGrid() const
 void FSMPreviewModeViewportClient::ToggleShowGrid()
 {
 	SetShowGrid();
+	DrawHelper.bDrawGrid = EngineShowFlags.Grid;
 }
 
 void FSMPreviewModeViewportClient::CaptureThumbnail(UObject* InOwner, FOnThumbnailCaptured InOnThumbnailCaptured, FIntPoint InCaptureSize)

@@ -1,10 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_TransitionResultNode.h"
+#include "Graph/SMTransitionGraph.h"
+#include "Graph/Schema/SMTransitionGraphSchema.h"
+#include "Graph/Nodes/Helpers/SMGraphK2Node_FunctionNodes_NodeInstance.h"
+
 #include "EdGraph/EdGraph.h"
 #include "GraphEditorSettings.h"
-#include "Graph/Schema/SMTransitionGraphSchema.h"
-#include "Graph/SMTransitionGraph.h"
 
 #define LOCTEXT_NAMESPACE "SMTransitionResultNode"
 
@@ -39,6 +41,18 @@ FText USMGraphK2Node_TransitionResultNode::GetTooltipText() const
 bool USMGraphK2Node_TransitionResultNode::IsCompatibleWithGraph(UEdGraph const* Graph) const
 {
 	return Graph->IsA<USMTransitionGraph>();
+}
+
+UEdGraphPin* USMGraphK2Node_TransitionResultNode::GetCorrectEntryPin() const
+{
+	return GetTransitionEvaluationPin();
+}
+
+UEdGraphPin* USMGraphK2Node_TransitionResultNode::GetCorrectNodeInstanceOutputPin(
+	USMGraphK2Node_FunctionNode_NodeInstance* InInstance) const
+{
+	check(InInstance);
+	return InInstance->FindPin(USMGraphK2Schema::PN_ReturnValue, EGPD_Output);
 }
 
 UEdGraphPin* USMGraphK2Node_TransitionResultNode::GetTransitionEvaluationPin() const

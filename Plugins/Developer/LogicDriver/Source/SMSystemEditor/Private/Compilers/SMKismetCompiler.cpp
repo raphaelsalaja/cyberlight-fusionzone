@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMKismetCompiler.h"
 #include "EdGraphUtilities.h"
@@ -34,6 +34,7 @@
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineParentNode.h"
+#include "Graph/Nodes/SMGraphNode_AnyStateNode.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_StateReadNodes.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_StateWriteNodes.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_FunctionNodes.h"
@@ -301,7 +302,7 @@ void FSMKismetCompilerContext::CopyTermDefaultsToDefaultObject(UObject* DefaultO
 					}
 					
 					// Can't deep copy properties from the reference template CDO if it's still being compiled.
-					ensure(!TemplateInstance->GetClass()->HasAnyClassFlags(CLASS_LayoutChanging));
+					ensure(!TemplateInstance->GetClass()->bLayoutChanging);
 
 					// Template name starts with class level in case of duplicate runtime nodes in the parent.
 					FString NodeName = RunTimeNode->GetNodeName();
@@ -311,7 +312,11 @@ void FSMKismetCompilerContext::CopyTermDefaultsToDefaultObject(UObject* DefaultO
 					if (Template.TemplateType == FTemplateContainer::StackTemplate)
 					{
 						ensureAlways(Template.TemplateGuid.IsValid());
-						TemplateName += "_" + Template.TemplateGuid.ToString();
+						TemplateName += TEXT("_") + Template.TemplateGuid.ToString();
+					}
+					else if (Template.TemplateType == FTemplateContainer::ReferenceTemplate)
+					{
+						TemplateName += TEXT("_Reference");
 					}
 
 					UObject* TemplateArchetype = nullptr;
@@ -348,7 +353,7 @@ void FSMKismetCompilerContext::CopyTermDefaultsToDefaultObject(UObject* DefaultO
 
 						// These templates can contain other references which need to be cleaned.
 						FSMBlueprintEditorUtils::CleanReferenceTemplates(Cast<USMInstance>(ReferenceTemplate));
-						((FSMStateMachine*)RunTimeNode)->SetReferencedTemplateName(TemplateArchetype->GetFName());
+						static_cast<FSMStateMachine*>(RunTimeNode)->SetReferencedTemplateName(TemplateArchetype->GetFName());
 					}
 					else
 					{
@@ -396,7 +401,8 @@ void FSMKismetCompilerContext::CopyTermDefaultsToDefaultObject(UObject* DefaultO
 						}
 						else if (Template.TemplateType == FTemplateContainer::StackTemplate)
 						{
-							RunTimeNode->AddStackTemplateName(TemplateArchetype->GetFName());
+							UClass* UpToDateTemplateClass = FSMBlueprintEditorUtils::GetMostUpToDateClass(TemplateArchetype->GetClass());
+							RunTimeNode->AddStackTemplateName(TemplateArchetype->GetFName(), UpToDateTemplateClass);
 						}
 					}
 
@@ -634,7 +640,7 @@ void FSMKismetCompilerContext::PreProcessRuntimeReferences(UEdGraph* Graph)
 
 	for (USMGraphK2Node_RuntimeNodeReference* Reference : References)
 	{
-		if (USMGraphK2Node_RuntimeNodeContainer* Container = Reference->GetRuntimeContainer())
+		if (const USMGraphK2Node_RuntimeNodeContainer* Container = Reference->GetRuntimeContainer())
 		{
 			Reference->ContainerOwnerGuid = Container->ContainerOwnerGuid;
 		}
@@ -683,7 +689,7 @@ void FSMKismetCompilerContext::ExpandParentNodes(UEdGraph* Graph)
 			FSMNode_Base* Node = FSMBlueprintEditorUtils::GetRuntimeNodeFromExactNodeChecked(KeyVal.Value[i]);
 			Node->DuplicateId = i;
 
-			FString AdjustedGuid(*(Node->GetNodeGuid().ToString() + "_" + FString::FromInt(Node->DuplicateId)));
+			FString AdjustedGuid(*(Node->GetNodeGuid().ToString() + TEXT("_") + FString::FromInt(Node->DuplicateId)));
 			FGuid NewGuid;
 			FGuid::Parse(FMD5::HashAnsiString(*AdjustedGuid), NewGuid);
 			Node->SetNodeGuid(NewGuid);
@@ -714,15 +720,15 @@ void FSMKismetCompilerContext::ProcessStateMachineGraph(USMGraph* StateMachineGr
 		}
 
 		// Look for an initial state node.
-		TArray<USMGraphNode_StateNodeBase*> InititalStateNodes;
-		StateMachineEntryNode->GetAllOutputNodesAs(InititalStateNodes);
+		TArray<USMGraphNode_StateNodeBase*> InitialStateNodes;
+		StateMachineEntryNode->GetAllOutputNodesAs(InitialStateNodes);
 
-		if (InititalStateNodes.Num() == 0)
+		if (InitialStateNodes.Num() == 0)
 		{
 			return;
 		}
 		
-		for (USMGraphNode_StateNodeBase* InitialStateNode : InititalStateNodes)
+		for (USMGraphNode_StateNodeBase* InitialStateNode : InitialStateNodes)
 		{
 			// Record the root node so the state machine can be easily constructed later.
 			FSMNode_Base* RunTimeNode = FSMBlueprintEditorUtils::GetRuntimeNodeFromGraph(InitialStateNode->GetBoundGraph());
@@ -744,7 +750,7 @@ void FSMKismetCompilerContext::ProcessStateMachineGraph(USMGraph* StateMachineGr
 			BaseNode->OnCompile(*this);
 
 			// Grab any property graphs.
-			for(const auto& KeyVal : BaseNode->GetAllPropertyGraphs())
+			for (const auto& KeyVal : BaseNode->GetAllPropertyGraphs())
 			{
 				FEdGraphUtilities::CloneAndMergeGraphIn(ConsolidatedEventGraph, KeyVal.Value, MessageLog, true, true);
 			}
@@ -859,6 +865,7 @@ void FSMKismetCompilerContext::ProcessStateMachineGraph(USMGraph* StateMachineGr
 
 							FGraphNodeCreator<USMGraphNode_TransitionEdge> TransitionNodeCreator(*StateMachineGraph);
 							USMGraphNode_TransitionEdge* ClonedTransition = TransitionNodeCreator.CreateNode();
+							ClonedTransition->bFromAnyState = true;
 							TransitionNodeCreator.Finalize();
 
 							ClonedTransition->CopyFrom(*Transition);
@@ -879,27 +886,53 @@ void FSMKismetCompilerContext::ProcessStateMachineGraph(USMGraph* StateMachineGr
 							// Clone original transition graph logic to new graph.
 							USMTransitionGraph* ClonedTransitionGraph = CastChecked<USMTransitionGraph>(FEdGraphUtilities::CloneGraph(Transition->GetBoundGraph(), ClonedTransition, &MessageLog, true));
 							ClonedTransition->SetBoundGraph(ClonedTransitionGraph);
-							
-							TArray<USMGraphK2Node_RuntimeNodeContainer*> Containers;
-							FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNodeContainer>(ClonedTransitionGraph, Containers);
 
-							// Assign container guids so they can be mapped by the references.
-							// Properties will be created normally during container processing.
-							for (USMGraphK2Node_RuntimeNodeContainer* Container : Containers)
+							// Setup container and references. Similar to PreProcessRuntimeReferences.
 							{
-								Container->ContainerOwnerGuid = FGuid::NewGuid();
-								ClonedTransitionGraph->ResultNode = CastChecked<USMGraphK2Node_TransitionResultNode>(Container);
+								TArray<USMGraphK2Node_RuntimeNodeContainer*> Containers;
+								FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNodeContainer>(ClonedTransitionGraph, Containers);
+
+								// Assign container guids so they can be mapped by the references.
+								// Properties will be created normally during container processing.
+								for (USMGraphK2Node_RuntimeNodeContainer* Container : Containers)
+								{
+									Container->ContainerOwnerGuid = FGuid::NewGuid();
+									ClonedTransitionGraph->ResultNode = CastChecked<USMGraphK2Node_TransitionResultNode>(Container);
+
+									// The source node and destination node are the same.
+									SourceContainerToDuplicatedContainer.Add(Container, Container);
+								}
+							
+								TArray<USMGraphK2Node_RuntimeNodeReference*> References;
+								FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNodeReference>(ClonedTransitionGraph, References);
+
+								// Sync reference nodes with their containers.
+								for (USMGraphK2Node_RuntimeNodeReference* Reference : References)
+								{
+									if (USMGraphK2Node_TransitionResultNode* Container = Cast<USMGraphK2Node_TransitionResultNode>(Reference->GetRuntimeContainer()))
+									{
+										Reference->ContainerOwnerGuid = Container->ContainerOwnerGuid;
+										Reference->SyncWithContainer();
+									}
+									else
+									{
+										MessageLog.Error(TEXT("Could not locate TransitionResultNode container for RuntimeNodeReference @@."), Reference);
+									}
+								}
 							}
-							
-							TArray<USMGraphK2Node_RuntimeNodeReference*> References;
-							FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNodeReference>(ClonedTransitionGraph, References);
 
-							// Sync reference nodes with their containers.
-							for (USMGraphK2Node_RuntimeNodeReference* Reference : References)
+							// Map all nodes to the new graph. The correct graph may not be able to be found after this point otherwise.
 							{
-								USMGraphK2Node_TransitionResultNode* Container = CastChecked<USMGraphK2Node_TransitionResultNode>(Reference->GetRuntimeContainer());
-								Reference->ContainerOwnerGuid = Container->ContainerOwnerGuid;
-								Reference->SyncWithContainer();
+								TArray<UK2Node*> AllNodes;
+								FSMBlueprintEditorUtils::GetAllNodesOfClassNested<UK2Node>(ClonedTransitionGraph, AllNodes);
+
+								for (UK2Node* Node : AllNodes)
+								{
+									// Node name needs to be unique if there are multiple Any State transitions.
+									FString NewNodeName = TEXT("AnyState_") + Node->GetName() + TEXT("_") + FGuid::NewGuid().ToString();
+									Node->Rename(*NewNodeName, Node->GetOuter(), REN_DoNotDirty | REN_DontCreateRedirectors | REN_ForceNoResetLoaders);
+									NodeToGraph.Add(Node->GetFName(), ClonedTransitionGraph);
+								}
 							}
 
 							// Check for duplicated events such as from manual binding.
@@ -912,7 +945,7 @@ void FSMKismetCompilerContext::ProcessStateMachineGraph(USMGraph* StateMachineGr
 							for (UK2Node_Event* Event : Events)
 							{
 								FName OriginalFunctionName = Event->CustomFunctionName;
-								FString NewName = Event->CustomFunctionName.ToString() + "_" + FGuid::NewGuid().ToString();
+								FString NewName = Event->CustomFunctionName.ToString() + TEXT("_") + FGuid::NewGuid().ToString();
 								
 								UK2Node_CreateDelegate** MatchingDelegate = CreateDelegates.FindByPredicate([&](const UK2Node_CreateDelegate* Delegate) {
 									return Delegate->GetFunctionName() == OriginalFunctionName;
@@ -1047,27 +1080,22 @@ void FSMKismetCompilerContext::ProcessRuntimeContainers()
 			continue;
 		}
 
+		FSMNode_Base* BaseNode = RuntimeContainerNode->GetRunTimeNodeChecked();
 		if (USMGraphK2Node_StateEntryNode* StateEntryNode = Cast<USMGraphK2Node_StateEntryNode>(RuntimeContainerNode))
 		{
-			if (!SetupStateEntry(StateEntryNode, NewProperty))
-			{
-				continue;
-			}
+			SetupStateEntry(StateEntryNode, static_cast<FSMState*>(BaseNode)->BeginStateGraphEvaluator);
+		}
+		else if (USMGraphK2Node_ConduitResultNode* ConduitResultNode = Cast<USMGraphK2Node_ConduitResultNode>(RuntimeContainerNode))
+		{
+			SetupTransitionEntry(ConduitResultNode, NewProperty, static_cast<FSMConduit*>(BaseNode)->CanEnterConduitGraphEvaluator);
 		}
 		else if (USMGraphK2Node_TransitionResultNode* TransitionResultNode = Cast<USMGraphK2Node_TransitionResultNode>(RuntimeContainerNode))
 		{
-			// This will also cover conduit result nodes.
-			if (!SetupTransitionEntry(TransitionResultNode, NewProperty))
-			{
-				continue;
-			}
+			SetupTransitionEntry(TransitionResultNode, NewProperty, static_cast<FSMTransition*>(BaseNode)->CanEnterTransitionGraphEvaluator);
 		}
 		else if (USMGraphK2Node_IntermediateEntryNode* ReferenceNode = Cast<USMGraphK2Node_IntermediateEntryNode>(RuntimeContainerNode))
 		{
-			if (!SetupStateEntry(ReferenceNode, NewProperty))
-			{
-				continue;
-			}
+			SetupStateEntry(ReferenceNode, static_cast<FSMStateMachine*>(BaseNode)->BeginStateGraphEvaluator);
 		}
 	}
 }
@@ -1089,6 +1117,7 @@ void FSMKismetCompilerContext::ProcessRuntimeReferences()
 	TArray<USMGraphK2Node_RuntimeNodeReference*> RuntimeNodeReferences;
 	ConsolidatedEventGraph->GetNodesOfClass<USMGraphK2Node_RuntimeNodeReference>(/*out*/ RuntimeNodeReferences);
 
+	TArray<USMGraphK2Node_RuntimeNodeReference*> RemainingNodesToProcess;
 	for (USMGraphK2Node_RuntimeNodeReference* RuntimeReferenceNode : RuntimeNodeReferences)
 	{
 		if (RuntimeReferenceNode->IsA<USMGraphK2Node_FunctionNode_TransitionEvent>())
@@ -1097,22 +1126,25 @@ void FSMKismetCompilerContext::ProcessRuntimeReferences()
 			continue;
 		}
 
-		if (USMGraphK2Node_StateReadNode* ReadNode = Cast<USMGraphK2Node_StateReadNode>(RuntimeReferenceNode))
+		// Gather nodes that require an additional pass.
 		{
-			ProcessReadNode(ReadNode);
-			continue;
-		}
+			if (USMGraphK2Node_StateReadNode* ReadNode = Cast<USMGraphK2Node_StateReadNode>(RuntimeReferenceNode))
+			{
+				RemainingNodesToProcess.Add(ReadNode);
+				continue;
+			}
 
-		if (USMGraphK2Node_StateWriteNode* WriteNode = Cast<USMGraphK2Node_StateWriteNode>(RuntimeReferenceNode))
-		{
-			ProcessWriteNode(WriteNode);
-			continue;
-		}
+			if (USMGraphK2Node_StateWriteNode* WriteNode = Cast<USMGraphK2Node_StateWriteNode>(RuntimeReferenceNode))
+			{
+				RemainingNodesToProcess.Add(WriteNode);
+				continue;
+			}
 
-		if (USMGraphK2Node_FunctionNode* FunctionNode = Cast<USMGraphK2Node_FunctionNode>(RuntimeReferenceNode))
-		{
-			ProcessFunctionNode(FunctionNode);
-			continue;
+			if (USMGraphK2Node_FunctionNode* FunctionNode = Cast<USMGraphK2Node_FunctionNode>(RuntimeReferenceNode))
+			{
+				RemainingNodesToProcess.Add(FunctionNode);
+				continue;
+			}
 		}
 
 		// The first logic node of this function.
@@ -1132,114 +1164,107 @@ void FSMKismetCompilerContext::ProcessRuntimeReferences()
 		
 		FSMNode_Base* RuntimeNode = Container->GetRunTimeNodeChecked();
 
-		// Create a unique name to identify this function when it is called during run-time.
-		const FName FunctionName = CreateFunctionName(RuntimeReferenceNode, RuntimeNode);
-
 		bool bCreatePins = false;
 
 		//////////////////////////////////////////////////////////////////////////
 		// Runtime Reference type variation
-
+		
+		FSMExposedFunctionHandler Handler;
 		if (USMGraphK2Node_IntermediateStateMachineStartNode* IntermediateStateMachineStartNode = Cast<USMGraphK2Node_IntermediateStateMachineStartNode>(RuntimeReferenceNode))
 		{
-			FSMExposedFunctionHandler Handler;
-			Handler.BoundFunction = FunctionName;
-			((FSMState_Base*)RuntimeNode)->OnRootStateMachineStartedGraphEvaluator.Add(Handler);
+			ConfigureExposedFunctionHandler(IntermediateStateMachineStartNode, Container, Handler, static_cast<FSMState_Base*>(RuntimeNode)->OnRootStateMachineStartedGraphEvaluator);
 		}
 		else if (USMGraphK2Node_IntermediateStateMachineStopNode* IntermediateOwningStateMachineStartNode = Cast<USMGraphK2Node_IntermediateStateMachineStopNode>(RuntimeReferenceNode))
 		{
-			FSMExposedFunctionHandler Handler;
-			Handler.BoundFunction = FunctionName;
-			((FSMState_Base*)RuntimeNode)->OnRootStateMachineStoppedGraphEvaluator.Add(Handler);
+			ConfigureExposedFunctionHandler(IntermediateOwningStateMachineStartNode, Container, Handler, static_cast<FSMState_Base*>(RuntimeNode)->OnRootStateMachineStoppedGraphEvaluator);
 		}
 		else if (USMGraphK2Node_StateUpdateNode* StateUpdateNode = Cast<USMGraphK2Node_StateUpdateNode>(RuntimeReferenceNode))
 		{
-			if (((FSMState_Base*)RuntimeNode)->IsStateMachine())
+			if (static_cast<FSMState_Base*>(RuntimeNode)->IsStateMachine())
 			{
-				FSMExposedFunctionHandler Handler;
-				Handler.BoundFunction = FunctionName;
-				((FSMStateMachine*)RuntimeNode)->UpdateStateGraphEvaluator.Add(Handler);
+				ConfigureExposedFunctionHandler(StateUpdateNode, Container, Handler, static_cast<FSMStateMachine*>(RuntimeNode)->UpdateStateGraphEvaluator);
 			}
 			else
 			{
-				FSMExposedFunctionHandler Handler;
-				Handler.BoundFunction = FunctionName;
-				((FSMState*)RuntimeNode)->UpdateStateGraphEvaluator.Add(Handler);
+				ConfigureExposedFunctionHandler(StateUpdateNode, Container, Handler, static_cast<FSMState*>(RuntimeNode)->UpdateStateGraphEvaluator);
 			}
 			bCreatePins = true;
 		}
 		else if (USMGraphK2Node_StateEndNode* StateEndNode = Cast<USMGraphK2Node_StateEndNode>(RuntimeReferenceNode))
 		{
-			if (((FSMState_Base*)RuntimeNode)->IsStateMachine())
+			if (static_cast<FSMState_Base*>(RuntimeNode)->IsStateMachine())
 			{
-				FSMExposedFunctionHandler Handler;
-				Handler.BoundFunction = FunctionName;
-				((FSMStateMachine*)RuntimeNode)->EndStateGraphEvaluator.Add(Handler);
+				ConfigureExposedFunctionHandler(StateEndNode, Container, Handler, static_cast<FSMStateMachine*>(RuntimeNode)->EndStateGraphEvaluator);
 			}
 			else
 			{
-				FSMExposedFunctionHandler Handler;
-				Handler.BoundFunction = FunctionName;
-				((FSMState*)RuntimeNode)->EndStateGraphEvaluator.Add(Handler);
+				ConfigureExposedFunctionHandler(StateEndNode, Container, Handler, static_cast<FSMState*>(RuntimeNode)->EndStateGraphEvaluator);
 			}
 		}
 		else if (USMGraphK2Node_TransitionEnteredNode* TransitionEnteredNode = Cast<USMGraphK2Node_TransitionEnteredNode>(RuntimeReferenceNode))
 		{
 			if (RuntimeType == FSMTransition::StaticStruct())
 			{
-				FSMExposedFunctionHandler Handler;
-				Handler.BoundFunction = FunctionName;
-				((FSMTransition*)RuntimeNode)->TransitionEnteredGraphEvaluator.Add(Handler);
+				ConfigureExposedFunctionHandler(TransitionEnteredNode, Container, Handler, static_cast<FSMTransition*>(RuntimeNode)->TransitionEnteredGraphEvaluator);
 			}
 			else if (RuntimeType == FSMConduit::StaticStruct())
 			{
-				FSMExposedFunctionHandler Handler;
-				Handler.BoundFunction = FunctionName;
-				((FSMConduit*)RuntimeNode)->ConduitEnteredGraphEvaluator.Add(Handler);
+				ConfigureExposedFunctionHandler(TransitionEnteredNode, Container, Handler, static_cast<FSMConduit*>(RuntimeNode)->ConduitEnteredGraphEvaluator);
 			}
 		}
 		else if (USMGraphK2Node_TransitionInitializedNode* TransitionInitializedNode = Cast<USMGraphK2Node_TransitionInitializedNode>(RuntimeReferenceNode))
 		{
-			FSMExposedFunctionHandler Handler;
-			Handler.BoundFunction = FunctionName;
-			RuntimeNode->TransitionInitializedGraphEvaluators.Add(Handler);
+			ConfigureExposedFunctionHandler(TransitionInitializedNode, Container, Handler, RuntimeNode->TransitionInitializedGraphEvaluators);
 		}
 		else if (USMGraphK2Node_TransitionShutdownNode* TransitionShutdownNode = Cast<USMGraphK2Node_TransitionShutdownNode>(RuntimeReferenceNode))
 		{
-			FSMExposedFunctionHandler Handler;
-			Handler.BoundFunction = FunctionName;
-			RuntimeNode->TransitionShutdownGraphEvaluators.Add(Handler);
+			ConfigureExposedFunctionHandler(TransitionShutdownNode, Container, Handler, RuntimeNode->TransitionShutdownGraphEvaluators);
 		}
 		else if (USMGraphK2Node_TransitionPreEvaluateNode* TransitionPreEvaluateNode = Cast<USMGraphK2Node_TransitionPreEvaluateNode>(RuntimeReferenceNode))
 		{
-			FSMExposedFunctionHandler Handler;
-			Handler.BoundFunction = FunctionName;
-			((FSMTransition*)RuntimeNode)->TransitionPreEvaluateGraphEvaluator.Add(Handler);
+			ConfigureExposedFunctionHandler(TransitionPreEvaluateNode, Container, Handler, static_cast<FSMTransition*>(RuntimeNode)->TransitionPreEvaluateGraphEvaluator);
 		}
 		else if (USMGraphK2Node_TransitionPostEvaluateNode* TransitionPostEvaluateNode = Cast<USMGraphK2Node_TransitionPostEvaluateNode>(RuntimeReferenceNode))
 		{
-			FSMExposedFunctionHandler Handler;
-			Handler.BoundFunction = FunctionName;
-			((FSMTransition*)RuntimeNode)->TransitionPostEvaluateGraphEvaluator.Add(Handler);
+			ConfigureExposedFunctionHandler(TransitionPostEvaluateNode, Container, Handler, static_cast<FSMTransition*>(RuntimeNode)->TransitionPostEvaluateGraphEvaluator);
 		}
 
 		// End Runtime Reference type variation
 		//////////////////////////////////////////////////////////////////////////
 
 		// Create a custom event in the graph to replace the dummy entry node. This will also link all input pins.
-		UK2Node_CustomEvent* EntryEventNode = CreateEntryNode(RuntimeReferenceNode, FunctionName, bCreatePins);
+		if (Handler.ExecutionType == ESMExposedFunctionExecutionType::SM_Graph)
+		{
+			check(Handler.BoundFunction != NAME_None)
+			const UK2Node_CustomEvent* EntryEventNode = CreateEntryNode(RuntimeReferenceNode, Handler.BoundFunction, bCreatePins);
 
-		// The exec (then) pin of the new event node.
-		UEdGraphPin* EntryNodeOutPin = Schema->FindExecutionPin(*EntryEventNode, EGPD_Output);
+			// The exec (then) pin of the new event node.
+			UEdGraphPin* EntryNodeOutPin = Schema->FindExecutionPin(*EntryEventNode, EGPD_Output);
 
-		// The exec (entry) pin of the logic node
-		UEdGraphPin* ExecLogicInPin = Schema->FindExecutionPin(*StateStartLogicNode, EGPD_Input);
-
-		// Connect the new entry node execution path.
-		EntryNodeOutPin->MakeLinkTo(ExecLogicInPin);
-
+			// The exec (entry) pin of the logic node.
+			EntryNodeOutPin->CopyPersistentDataFromOldPin(*RuntimeReferenceNode->GetThenPin());
+			MessageLog.NotifyIntermediatePinCreation(EntryNodeOutPin, RuntimeReferenceNode->GetThenPin());
+		}
+		
 		// Disconnect the dummy node.
 		RuntimeReferenceNode->BreakAllNodeLinks();
+	}
+
+	// These nodes need to be processed after the main function entry nodes.
+	for (USMGraphK2Node_RuntimeNodeReference* RuntimeReferenceNode : RemainingNodesToProcess)
+	{
+		if (USMGraphK2Node_StateReadNode* ReadNode = Cast<USMGraphK2Node_StateReadNode>(RuntimeReferenceNode))
+		{
+			ProcessReadNode(ReadNode);
+		}
+		else if (USMGraphK2Node_StateWriteNode* WriteNode = Cast<USMGraphK2Node_StateWriteNode>(RuntimeReferenceNode))
+		{
+			ProcessWriteNode(WriteNode);
+		}
+		else if (USMGraphK2Node_FunctionNode* FunctionNode = Cast<USMGraphK2Node_FunctionNode>(RuntimeReferenceNode))
+		{
+			ProcessFunctionNode(FunctionNode);
+		}
 	}
 }
 
@@ -1336,6 +1361,9 @@ void FSMKismetCompilerContext::ProcessInputNodes()
 		UK2Node_IfThenElse* IfElseNode = SpawnIntermediateNode<UK2Node_IfThenElse>(InputNode, ConsolidatedEventGraph);
 		IfElseNode->AllocateDefaultPins();
 
+		// IfThen -> OriginalExecution
+		IfElseNode->GetThenPin()->MovePersistentDataFromOldPin(*FromPin);
+
 		// GetNodeInstance(Instance) -> IsInitialized(self)
 		if (!Schema->TryCreateConnection(InstancePinOut, SelfPinIn))
 		{
@@ -1348,38 +1376,25 @@ void FSMKismetCompilerContext::ProcessInputNodes()
 			MessageLog.Error(TEXT("Failed to wire input arguments (Branch Condition) for @@."), InputNode);
 		}
 		
-		/////////////////////////
-		// Connect execution pins
-		/////////////////////////
-		UEdGraphPin* FromPinLinkedToPin = FromPin->LinkedTo[0];
-		Schema->BreakPinLinks(*FromPin, true);
-
 		// InputPinThen -> IfExec
 		if (!Schema->TryCreateConnection(FromPin, IfElseNode->GetExecPin()))
 		{
 			MessageLog.Error(TEXT("Failed to wire input execution (Branch Exec) for @@."), InputNode);
 		}
-		
-		// IfThen -> OriginalExecution
-		if (!Schema->TryCreateConnection(IfElseNode->GetThenPin(), FromPinLinkedToPin))
-		{
-			MessageLog.Error(TEXT("Failed to wire input execution (Branch Then) for @@."), InputNode);
-		}
 	};
 	
 	auto ExpandInputNode = [&](UK2Node* InputNode) -> bool
 	{
-		UK2Node* SourceNode = Cast<UK2Node>(MessageLog.FindSourceObject(InputNode));
-		if (!SourceNode)
+		UEdGraph* SourceGraph = FindSourceGraphFromNode(InputNode);
+		if (!SourceGraph)
 		{
-			MessageLog.Error(TEXT("Could not find source node for input node @@."), InputNode);
+			MessageLog.Error(TEXT("Could not find source graph for input node @@."), InputNode);
 			return false;
 		}
 
 		UEdGraphPin* PressedPin = InputNode->FindPinChecked(TEXT("Pressed"));
 		UEdGraphPin* ReleasedPin = InputNode->FindPinChecked(TEXT("Released"));
 
-		UEdGraph* SourceGraph = SourceNode->GetGraph();
 		const TSubclassOf<UObject> TargetType = FSMBlueprintEditorUtils::GetNodeTemplateClass(SourceGraph, true);
 		
 		if (!TargetType)
@@ -1430,7 +1445,7 @@ void FSMKismetCompilerContext::ProcessReadNode(USMGraphK2Node_StateReadNode* Rea
 
 	// The property for the container which should have been created already.
 	FProperty* NodeProperty = nullptr;
-	for (auto& KeyVal : AllocatedNodePropertiesToNodes)
+	for (const auto& KeyVal : AllocatedNodePropertiesToNodes)
 	{
 		if (KeyVal.Value == NodeContainer)
 		{
@@ -1507,7 +1522,7 @@ void FSMKismetCompilerContext::ProcessFunctionNode(USMGraphK2Node_FunctionNode* 
 
 	// The property for the container which should have been created already.
 	FProperty* NodeProperty = nullptr;
-	for (auto& KeyVal : AllocatedNodePropertiesToNodes)
+	for (const auto& KeyVal : AllocatedNodePropertiesToNodes)
 	{
 		if (KeyVal.Value == NodeContainer)
 		{
@@ -1522,37 +1537,39 @@ void FSMKismetCompilerContext::ProcessFunctionNode(USMGraphK2Node_FunctionNode* 
 	}
 }
 
-UK2Node_CustomEvent* FSMKismetCompilerContext::SetupStateEntry(USMGraphK2Node_RuntimeNodeContainer* ContainerNode, FStructProperty* Property)
+UK2Node_CustomEvent* FSMKismetCompilerContext::SetupStateEntry(USMGraphK2Node_RuntimeNodeContainer* ContainerNode,
+	TArray<FSMExposedFunctionHandler>& InOutHandlerContainer)
 {
-	FSMNode_Base* BaseNode = ContainerNode->GetRunTimeNodeChecked();
+	FSMExposedFunctionHandler FunctionHandler;
+	const ESMExposedFunctionExecutionType ExecutionType = ConfigureExposedFunctionHandler(ContainerNode, ContainerNode, FunctionHandler, InOutHandlerContainer);
 
-	// The first logic node of this function.
-	UEdGraphNode* StateStartLogicNode = ContainerNode->GetOutputNode();
-	if (!StateStartLogicNode)
+	FName FunctionName;
+	if (ExecutionType != ESMExposedFunctionExecutionType::SM_Graph)
 	{
-		// This can be intentional so no need to flood log with warnings.
-		return nullptr;
+		// Always create an entry point node so we can associate the runtime node with the graph node
+		// to support visual debugging.
+		const FSMNode_Base* RuntimeNode = ContainerNode->GetRunTimeNodeFromContainer(ContainerNode);
+		FunctionName = CreateFunctionName(ContainerNode, RuntimeNode);
 	}
-
-	// Create a unique name to identify this function when it is called during run-time.
-	const FName FunctionName = CreateFunctionName(ContainerNode, BaseNode);
+	else
 	{
-		FSMExposedFunctionHandler Handler;
-		Handler.BoundFunction = FunctionName;
-		BaseNode->GraphEvaluator.Add(Handler);
+		FunctionName = FunctionHandler.BoundFunction;
 	}
 	
 	// Create a custom event in the graph to replace the dummy entry node.
 	UK2Node_CustomEvent* EntryEventNode = CreateEntryNode(ContainerNode, FunctionName);
-
+	if (ExecutionType != ESMExposedFunctionExecutionType::SM_Graph)
+	{
+		// This entry node isn't being used apart from visual debugging.
+		return EntryEventNode;
+	}
+	
 	// The exec (then) pin of the new event node.
 	UEdGraphPin* EntryNodeOutPin = Schema->FindExecutionPin(*EntryEventNode, EGPD_Output);
-
+	
 	// The exec (entry) pin of the logic node.
-	UEdGraphPin* ExecLogicInPin = Schema->FindExecutionPin(*StateStartLogicNode, EGPD_Input);
-
-	// Wire the new connection.
-	EntryNodeOutPin->MakeLinkTo(ExecLogicInPin);
+	EntryNodeOutPin->CopyPersistentDataFromOldPin(*ContainerNode->GetThenPin());
+	MessageLog.NotifyIntermediatePinCreation(EntryNodeOutPin, ContainerNode->GetThenPin());
 
 	// Disconnect the dummy node.
 	ContainerNode->BreakAllNodeLinks();
@@ -1560,21 +1577,17 @@ UK2Node_CustomEvent* FSMKismetCompilerContext::SetupStateEntry(USMGraphK2Node_Ru
 	return EntryEventNode;
 }
 
-UK2Node_CustomEvent* FSMKismetCompilerContext::SetupTransitionEntry(USMGraphK2Node_RuntimeNodeContainer* ContainerNode, FStructProperty* Property)
+UK2Node_CustomEvent* FSMKismetCompilerContext::SetupTransitionEntry(USMGraphK2Node_RuntimeNodeContainer* ContainerNode, FStructProperty* Property,
+	TArray<FSMExposedFunctionHandler>& InOutHandlerContainer)
 {
-	// Locate the runtime node so we can store defaults.
-	FSMNode_Base* BaseNode = ContainerNode->GetRunTimeNodeChecked();
-
-	// Create a unique name to identify this function when it is called during run-time.
-	const FName FunctionName = CreateFunctionName(ContainerNode, BaseNode);
+	FSMExposedFunctionHandler FunctionHandler;
+	if (ConfigureExposedFunctionHandler(ContainerNode, ContainerNode, FunctionHandler, InOutHandlerContainer) != ESMExposedFunctionExecutionType::SM_Graph)
 	{
-		FSMExposedFunctionHandler Handler;
-		Handler.BoundFunction = FunctionName;
-		BaseNode->GraphEvaluator.Add(Handler);
+		return nullptr;
 	}
 
 	// Create a custom event in the graph to start the evaluation.
-	UK2Node_CustomEvent* EntryEventNode = CreateEntryNode(ContainerNode, FunctionName);
+	UK2Node_CustomEvent* EntryEventNode = CreateEntryNode(ContainerNode, FunctionHandler.BoundFunction);
 
 	// The exec (then) pin of the new event node.
 	UEdGraphPin* EntryNodeOutPin = Schema->FindExecutionPin(*EntryEventNode, EGPD_Output);
@@ -1623,7 +1636,7 @@ USMGraphK2Node_StateMachineEntryNode* FSMKismetCompilerContext::ProcessNestedSta
 	{
 		NewEntryNode = IntermediateGraph->IntermediateEntryNode;
 	}
-	else if(USMGraph* StateMachineGraph = Cast<USMGraph>(StateMachineStateNode->GetBoundGraph()))
+	else if (USMGraph* StateMachineGraph = Cast<USMGraph>(StateMachineStateNode->GetBoundGraph()))
 	{
 		// Check if this has already been generated and return that node.
 		const FGuid& ContainerGuid = StateMachineGraph->GetOrGenerateTemporaryContainerGuid();
@@ -1635,7 +1648,7 @@ USMGraphK2Node_StateMachineEntryNode* FSMKismetCompilerContext::ProcessNestedSta
 		// Create a container to store this state machine in the consolidated graph.
 		FGraphNodeCreator<USMGraphK2Node_StateMachineEntryNode> NodeCreator(*ConsolidatedEventGraph);
 		NewEntryNode = NodeCreator.CreateNode();
-		((USMGraphK2Node_StateMachineEntryNode*)NewEntryNode)->StateMachineNode = *StateMachineNode;
+		NewEntryNode->StateMachineNode = *StateMachineNode;
 		NewEntryNode->ContainerOwnerGuid = ContainerGuid;
 		NodeCreator.Finalize();
 
@@ -1650,7 +1663,7 @@ USMGraphK2Node_StateMachineEntryNode* FSMKismetCompilerContext::ProcessNestedSta
 			TArray<USMGraphK2Node_RuntimeNodeReference*> ReferenceNodes;
 			FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNodeReference>(PropertyNode->GetPropertyGraph(), ReferenceNodes);
 
-			for(USMGraphK2Node_RuntimeNodeReference* ReferenceNode : ReferenceNodes)
+			for (USMGraphK2Node_RuntimeNodeReference* ReferenceNode : ReferenceNodes)
 			{
 				ReferenceNode->ContainerOwnerGuid = PropertyNode->ContainerOwnerGuid;
 				ReferenceNode->RuntimeNodeGuid = PropertyNode->RuntimeNodeGuid;
@@ -1674,6 +1687,8 @@ UK2Node_CustomEvent* FSMKismetCompilerContext::SetupPropertyEntry(USMGraphK2Node
 	{
 		FSMExposedFunctionHandler Handler;
 		Handler.BoundFunction = FunctionName;
+		// Always graph evaluate properties. Optimizations configured at node level.
+		Handler.ExecutionType = ESMExposedFunctionExecutionType::SM_Graph;
 		BaseNode->GraphEvaluator.Add(Handler);
 	}
 
@@ -1686,7 +1701,7 @@ UK2Node_CustomEvent* FSMKismetCompilerContext::SetupPropertyEntry(USMGraphK2Node
 	UEdGraphNode* VarSetNode;
 	
 	// Create a variable assign node to record the result of the operation.
-	if(BaseNode->ShouldAutoAssignVariable())
+	if (BaseNode->ShouldAutoAssignVariable())
 	{
 		UEdGraphPin* VariableDataPin = PropertyNode->FindPin(BaseNode->VariableName);
 		if (!VariableDataPin)
@@ -1696,7 +1711,7 @@ UK2Node_CustomEvent* FSMKismetCompilerContext::SetupPropertyEntry(USMGraphK2Node
 		}
 		
 		UEdGraphPin* SelfPin;
-		if(BaseNode->bIsInArray)
+		if (BaseNode->bIsInArray)
 		{
 			UK2Node_VariableGet* VarGet = SpawnIntermediateNode<UK2Node_VariableGet>(PropertyNode, ConsolidatedEventGraph);
 			VarGet->VariableReference = BaseNode->MemberReference;
@@ -1740,7 +1755,7 @@ UK2Node_CustomEvent* FSMKismetCompilerContext::SetupPropertyEntry(USMGraphK2Node
 			VarSet->VariableReference = BaseNode->MemberReference;
 			VarSet->AllocateDefaultPins();
 			SelfPin = Schema->FindSelfPin(*VarSet, EGPD_Input);
-			if(!SelfPin)
+			if (!SelfPin)
 			{
 				MessageLog.Error(TEXT("Could not locate a 'self' pin for node @@. Was the variable removed? Try recompiling the blueprint @@."),
 					PropertyNode, PropertyNode->GetTemplateBlueprint());
@@ -1766,7 +1781,8 @@ UK2Node_CustomEvent* FSMKismetCompilerContext::SetupPropertyEntry(USMGraphK2Node
 		GetNodeInstance->ContainerOwnerGuid = PropertyNode->ContainerOwnerGuid;
 		GetNodeInstance->RuntimeNodeGuid = PropertyNode->RuntimeNodeGuid;
 		GetNodeInstance->NodeInstanceGuid = PropertyNode->GetPropertyNodeConstChecked()->GetGuid();
-
+		GetNodeInstance->bCanCreateNodeInstanceOnDemand = false; // Graph properties will always have an instance created for them.
+		
 		if (USMGraphNode_StateNode* StateNode = Cast<USMGraphNode_StateNode>(PropertyNode->GetOwningGraphNode()))
 		{
 			// This may be part of a state stack template. Store the index so it can be retrieved in GetNodeInstance.
@@ -1952,10 +1968,10 @@ UK2Node_CustomEvent* FSMKismetCompilerContext::CreateEntryNode(USMGraphK2Node_Ro
 FStructProperty* FSMKismetCompilerContext::CreateRuntimeProperty(USMGraphK2Node_RuntimeNodeContainer* RuntimeContainerNode)
 {
 	// Any valid name will do, we will map to runtime node guids for lookup later.
-	const FString NodeVariableName = ClassScopeNetNameMap.MakeValidName(RuntimeContainerNode) + "_" + FGuid::NewGuid().ToString();
+	const FString NodeVariableName = ClassScopeNetNameMap.MakeValidName(RuntimeContainerNode) + TEXT("_") + FGuid::NewGuid().ToString();
 	FEdGraphPinType NodeVariableType;
 	NodeVariableType.PinCategory = USMGraphK2Schema::PC_Struct;
-	NodeVariableType.PinSubCategoryObject = MakeWeakObjectPtr(const_cast<UScriptStruct*>(RuntimeContainerNode->GetRunTimeNodeType()));
+	NodeVariableType.PinSubCategoryObject = MakeWeakObjectPtr(RuntimeContainerNode->GetRunTimeNodeType());
 
 	FStructProperty* NewProperty = CastFieldChecked<FStructProperty>(CreateVariable(FName(*NodeVariableName), NodeVariableType));
 
@@ -1981,7 +1997,7 @@ FStructProperty* FSMKismetCompilerContext::CreateRuntimeProperty(USMGraphK2Node_
 FStructProperty* FSMKismetCompilerContext::CreateRuntimeProperty(USMGraphK2Node_PropertyNode_Base* PropertyNode)
 {
 	// Any valid name will do, we will map to runtime node guids for lookup later.
-	const FString NodeVariableName = ClassScopeNetNameMap.MakeValidName(PropertyNode) + "_" + FGuid::NewGuid().ToString();
+	const FString NodeVariableName = ClassScopeNetNameMap.MakeValidName(PropertyNode) + TEXT("_") + FGuid::NewGuid().ToString();
 	FEdGraphPinType NodeVariableType;
 	NodeVariableType.PinCategory = USMGraphK2Schema::PC_Struct;
 	NodeVariableType.PinSubCategoryObject = MakeWeakObjectPtr(PropertyNode->GetRuntimePropertyNodeType());
@@ -2007,14 +2023,18 @@ void FSMKismetCompilerContext::AddDefaultObjectTemplate(const FGuid& RuntimeGuid
 	Templates.AddUnique(FTemplateContainer(Template, TemplateType, TemplateGuid));
 }
 
-FName FSMKismetCompilerContext::CreateFunctionName(USMGraphK2Node_RootNode* GraphNode, FSMNode_Base* RuntimeNode)
+FName FSMKismetCompilerContext::CreateFunctionName(const USMGraphK2Node_RootNode* GraphNode, const FSMNode_Base* RuntimeNode)
 {
+	check(GraphNode);
+	check(RuntimeNode);
 	// Adding a unique Guid at the end fixes compile errors in the case the entire blueprint was duplicated, then re-parented to the original version.
 	return FName(*FString::Printf(TEXT("%s_%s_%s_%s"), *GraphNode->GetName(), *RuntimeNode->GetNodeName(), *RuntimeNode->GetNodeGuid().ToString(), *FGuid::NewGuid().ToString()));
 }
 
-FName FSMKismetCompilerContext::CreateFunctionName(USMGraphK2Node_RootNode* GraphNode, FSMGraphProperty_Base* PropertyNode)
+FName FSMKismetCompilerContext::CreateFunctionName(const USMGraphK2Node_RootNode* GraphNode, const FSMGraphProperty_Base* PropertyNode)
 {
+	check(GraphNode);
+	check(PropertyNode);
 	return FName(*FString::Printf(TEXT("%s_%s_%s"), *GraphNode->GetName(), *PropertyNode->GetGuid().ToString(), *FGuid::NewGuid().ToString()));
 }
 
@@ -2051,7 +2071,7 @@ void FSMKismetCompilerContext::RecompileChildren()
 			if (UBlueprint* ChildBlueprint = UBlueprint::GetBlueprintFromClass(ChildClass))
 			{
 				// Verify we're only on an SM generated class. It could be a macro library based off of an SM which will crash.
-				if(USMBlueprintGeneratedClass* SMBPGC = Cast<USMBlueprintGeneratedClass>(ChildBlueprint->GeneratedClass))
+				if (USMBlueprintGeneratedClass* SMBPGC = Cast<USMBlueprintGeneratedClass>(ChildBlueprint->GeneratedClass))
 				{
 					if (ChildBlueprint->HasAnyFlags(RF_NeedLoad | RF_NeedPostLoad) || ChildBlueprint->bIsNewlyCreated)
 					{
@@ -2102,6 +2122,60 @@ void FSMKismetCompilerContext::RecompileChildren()
 	}
 }
 
+UEdGraph* FSMKismetCompilerContext::FindSourceGraphFromNode(UK2Node* InNode) const
+{
+	check(InNode);
+	
+	if (UEdGraph* const* FoundGraph = NodeToGraph.Find(InNode->GetFName()))
+	{
+		return *FoundGraph;
+	}
+	
+	if (const UK2Node* FoundNode = Cast<UK2Node>(MessageLog.FindSourceObject(InNode)))
+	{
+		return FoundNode->GetGraph();
+	}
+
+	return nullptr;
+}
+
+ESMExposedFunctionExecutionType FSMKismetCompilerContext::ConfigureExposedFunctionHandler(USMGraphK2Node_RuntimeNode_Base* InRuntimeNodeBase,
+	USMGraphK2Node_RuntimeNodeContainer* InRuntimeNodeContainer, FSMExposedFunctionHandler& OutHandler, TArray<FSMExposedFunctionHandler>& InOutHandlerContainer)
+{
+	FSMExposedFunctionHandler Handler;
+	Handler.ExecutionType = InRuntimeNodeBase->GetGraphExecutionType();
+	if (Handler.ExecutionType != ESMExposedFunctionExecutionType::SM_None)
+	{
+		if (Handler.ExecutionType == ESMExposedFunctionExecutionType::SM_NodeInstance)
+		{
+			USMGraphK2Node_FunctionNode_NodeInstance* NodeInstanceNode = InRuntimeNodeBase->
+				GetConnectedNodeInstanceFunctionIfValidForOptimization();
+			check(NodeInstanceNode);
+			// Use the predefined node instance function name.
+			Handler.BoundFunction = NodeInstanceNode->GetInstanceRuntimeFunctionName();
+		}
+		else if (Handler.ExecutionType == ESMExposedFunctionExecutionType::SM_Graph)
+		{
+			const FSMNode_Base* RuntimeNode = InRuntimeNodeBase->GetRunTimeNodeFromContainer(InRuntimeNodeContainer);
+
+			// Create a unique name to identify this function when it is called during run-time.
+			Handler.BoundFunction = CreateFunctionName(InRuntimeNodeBase, RuntimeNode);
+		}
+
+		check(Handler.BoundFunction != NAME_None);
+	}
+
+	if (Handler.ExecutionType != ESMExposedFunctionExecutionType::SM_None)
+	{
+		OutHandler = InOutHandlerContainer.Add_GetRef(Handler);
+	}
+	else
+	{
+		OutHandler = Handler;
+	}
+	
+	return Handler.ExecutionType;
+}
 
 bool FSMNodeKismetCompiler::CanCompile(const UBlueprint* Blueprint)
 {
@@ -2159,6 +2233,28 @@ void FSMNodeKismetCompilerContext::CopyTermDefaultsToDefaultObject(UObject* Defa
 
 			uint8* CDOContainer = HasGameConstructionScriptsProperty->ContainerPtrToValuePtr<uint8>(DefaultObject);
 			HasGameConstructionScriptsProperty->SetPropertyValue(CDOContainer, bHasGameConstructionScripts);
+		}
+
+		// Check for known thread safety issues.
+		if (NodeInstance->IsInitializationThreadSafe())
+		{
+			for (TFieldIterator<FProperty> It(DefaultObject->GetClass(), EFieldIteratorFlags::IncludeSuper); It; ++It)
+			{
+				if (FSMNodeInstanceUtils::IsPropertyGraphProperty(*It))
+				{
+					TArray<FSMGraphProperty_Base*> GraphProperties;
+					USMUtils::BlueprintPropertyToNativeProperty(*It, NodeInstance, GraphProperties);
+					for (const FSMGraphProperty_Base* RuntimePropertyNode : GraphProperties)
+					{
+						if (!RuntimePropertyNode->IsEditorThreadSafe())
+						{
+							NodeInstance->SetIsEditorThreadSafe(false);
+							MessageLog.Note(TEXT("Setting 'Is Editor Thread Safe' to false because this node contains the graph property @@ which is not editor thread safe."), *It);
+							break;
+						}
+					}
+				}
+			}
 		}
 	}
 }

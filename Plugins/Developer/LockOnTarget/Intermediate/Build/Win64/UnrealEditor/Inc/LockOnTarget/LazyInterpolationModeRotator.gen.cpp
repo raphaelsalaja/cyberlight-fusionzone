@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/LockOnSubobjects/RotationModes/LazyInterpolationModeRotator.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeLazyInterpolationModeRotator() {}
 // Cross Module References
@@ -23,6 +19,7 @@ void EmptyLinkFunctionForGeneratedCodeLazyInterpolationModeRotator() {}
 	void ULazyInterpolationModeRotator::StaticRegisterNativesULazyInterpolationModeRotator()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ULazyInterpolationModeRotator);
 	UClass* Z_Construct_UClass_ULazyInterpolationModeRotator_NoRegister()
 	{
 		return ULazyInterpolationModeRotator::StaticClass();
@@ -153,21 +150,26 @@ void EmptyLinkFunctionForGeneratedCodeLazyInterpolationModeRotator() {}
 	};
 	UClass* Z_Construct_UClass_ULazyInterpolationModeRotator()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_ULazyInterpolationModeRotator.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_ULazyInterpolationModeRotator_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_ULazyInterpolationModeRotator.OuterSingleton, Z_Construct_UClass_ULazyInterpolationModeRotator_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_ULazyInterpolationModeRotator.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(ULazyInterpolationModeRotator, 960577305);
 	template<> LOCKONTARGET_API UClass* StaticClass<ULazyInterpolationModeRotator>()
 	{
 		return ULazyInterpolationModeRotator::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_ULazyInterpolationModeRotator(Z_Construct_UClass_ULazyInterpolationModeRotator, &ULazyInterpolationModeRotator::StaticClass, TEXT("/Script/LockOnTarget"), TEXT("ULazyInterpolationModeRotator"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ULazyInterpolationModeRotator);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationModeRotator_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationModeRotator_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_ULazyInterpolationModeRotator, ULazyInterpolationModeRotator::StaticClass, TEXT("ULazyInterpolationModeRotator"), &Z_Registration_Info_UClass_ULazyInterpolationModeRotator, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ULazyInterpolationModeRotator), 1407395152U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationModeRotator_h_2881681552(TEXT("/Script/LockOnTarget"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationModeRotator_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_LazyInterpolationModeRotator_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

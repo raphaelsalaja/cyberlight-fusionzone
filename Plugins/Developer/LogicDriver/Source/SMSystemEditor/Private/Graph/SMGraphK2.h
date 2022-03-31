@@ -1,12 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
+#include "SMInstance.h"
+
 #include "CoreMinimal.h"
 #include "EdGraph/EdGraph.h"
-#include "SMInstance.h"
-#include "SMGraphK2.generated.h"
 
+#include "SMGraphK2.generated.h"
 
 UCLASS()
 class SMSYSTEMEDITOR_API USMGraphK2 : public UEdGraph
@@ -32,5 +33,5 @@ class SMSYSTEMEDITOR_API USMGraphK2 : public UEdGraph
 	// ~UEdGraph
 
 protected:
-	TOptional<bool> bHasLogicConnectionsCached;	
+	mutable TOptional<bool> bHasLogicConnectionsCached;	
 };

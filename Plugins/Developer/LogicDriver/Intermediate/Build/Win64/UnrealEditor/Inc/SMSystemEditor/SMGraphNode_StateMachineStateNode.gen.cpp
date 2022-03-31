@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 // Cross Module References
@@ -25,6 +21,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	void USMGraphNode_StateMachineStateNode::StaticRegisterNativesUSMGraphNode_StateMachineStateNode()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMGraphNode_StateMachineStateNode);
 	UClass* Z_Construct_UClass_USMGraphNode_StateMachineStateNode_NoRegister()
 	{
 		return USMGraphNode_StateMachineStateNode::StaticClass();
@@ -35,6 +32,10 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_DynamicClassVariable_MetaData[];
+#endif
+		static const UECodeGen_Private::FNamePropertyParams NewProp_DynamicClassVariable;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bReuseCurrentState_MetaData[];
 #endif
@@ -106,6 +107,15 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	};
 #endif
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_DynamicClassVariable_MetaData[] = {
+		{ "Category", "State Machine Reference" },
+		{ "Comment", "/**\n\x09 * Dynamically choose the state machine class for the reference at run-time.\n\x09 * \n\x09 * Select a variable from this state machine of type TSubclassOf<USMInstance>\n\x09 * (State Machine Instance -> Class Reference)\n\x09 * \n\x09 * This variable will be checked during initialization time and the reference will be created\n\x09 * based on the class the variable is set to.\n\x09 *\n\x09 * The class should be a subclass of the default reference provided.\n\x09 */" },
+		{ "ModuleRelativePath", "Private/Graph/Nodes/SMGraphNode_StateMachineStateNode.h" },
+		{ "ToolTip", "Dynamically choose the state machine class for the reference at run-time.\n\nSelect a variable from this state machine of type TSubclassOf<USMInstance>\n(State Machine Instance -> Class Reference)\n\nThis variable will be checked during initialization time and the reference will be created\nbased on the class the variable is set to.\n\nThe class should be a subclass of the default reference provided." },
+	};
+#endif
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_DynamicClassVariable = { "DynamicClassVariable", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMGraphNode_StateMachineStateNode, DynamicClassVariable), METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_DynamicClassVariable_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_DynamicClassVariable_MetaData)) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState_MetaData[] = {
 		{ "Comment", "/**\n\x09 * @deprecated Set on the node template instead.\n\x09 */" },
 		{ "ModuleRelativePath", "Private/Graph/Nodes/SMGraphNode_StateMachineStateNode.h" },
@@ -116,7 +126,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	{
 		((USMGraphNode_StateMachineStateNode*)Obj)->bReuseCurrentState_DEPRECATED = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState = { "bReuseCurrentState", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState = { "bReuseCurrentState", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState_MetaData[] = {
 		{ "Comment", "/**\n\x09 * @deprecated Set on the node template instead.\n\x09 */" },
@@ -128,7 +138,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	{
 		((USMGraphNode_StateMachineStateNode*)Obj)->bReuseIfNotEndState_DEPRECATED = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState = { "bReuseIfNotEndState", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState = { "bReuseIfNotEndState", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick_MetaData[] = {
 		{ "Category", "State Machine Reference" },
@@ -141,7 +151,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	{
 		((USMGraphNode_StateMachineStateNode*)Obj)->bAllowIndependentTick = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick = { "bAllowIndependentTick", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick = { "bAllowIndependentTick", nullptr, (EPropertyFlags)0x0010040000000001, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate_MetaData[] = {
 		{ "Category", "State Machine Reference" },
@@ -154,21 +164,19 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	{
 		((USMGraphNode_StateMachineStateNode*)Obj)->bCallTickOnManualUpdate = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate = { "bCallTickOnManualUpdate", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate = { "bCallTickOnManualUpdate", nullptr, (EPropertyFlags)0x0010040000000001, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bCallTickOnManualUpdate_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference_MetaData[] = {
-		{ "Category", "State Machine Reference" },
-		{ "Comment", "/**\n\x09 * Reuse one instance of this class multiple times in the same blueprint.\n\x09 * Only works with other references of the exact same class that have this flag checked.\n\x09 * Will not work with templating.\n\x09 * Will not work properly with looking up nodes by Guid or for serializing state information.\n\x09 * Do NOT use if the state machine needs to be saved to disk and reloaded during run-time.\n\n\x09 * This is to maintain legacy behavior and not encouraged for use.\n\x09 */" },
-		{ "EditCondition", "!bUseTemplate" },
+		{ "Comment", "/**\n\x09 * Reuse one instance of this class multiple times in the same blueprint.\n\x09 * Only works with other references of the exact same class that have this flag checked.\n\x09 * Will not work with templating.\n\x09 * Will not work properly with looking up nodes by Guid or for serializing state information.\n\x09 * Do NOT use if the state machine needs to be saved to disk and reloaded during run-time.\n\n\x09 * This is to maintain legacy behavior and not encouraged for use.\n\x09 *\n\x09 * @deprecated Reusing references is no longer supported.\n\x09 */" },
 		{ "ModuleRelativePath", "Private/Graph/Nodes/SMGraphNode_StateMachineStateNode.h" },
-		{ "ToolTip", "Reuse one instance of this class multiple times in the same blueprint.\nOnly works with other references of the exact same class that have this flag checked.\nWill not work with templating.\nWill not work properly with looking up nodes by Guid or for serializing state information.\nDo NOT use if the state machine needs to be saved to disk and reloaded during run-time.\n\nThis is to maintain legacy behavior and not encouraged for use." },
+		{ "ToolTip", "Reuse one instance of this class multiple times in the same blueprint.\nOnly works with other references of the exact same class that have this flag checked.\nWill not work with templating.\nWill not work properly with looking up nodes by Guid or for serializing state information.\nDo NOT use if the state machine needs to be saved to disk and reloaded during run-time.\n\nThis is to maintain legacy behavior and not encouraged for use.\n\n@deprecated Reusing references is no longer supported." },
 	};
 #endif
 	void Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference_SetBit(void* Obj)
 	{
-		((USMGraphNode_StateMachineStateNode*)Obj)->bReuseReference = 1;
+		((USMGraphNode_StateMachineStateNode*)Obj)->bReuseReference_DEPRECATED = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference = { "bReuseReference", nullptr, (EPropertyFlags)0x0010040000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference = { "bReuseReference", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseReference_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate_MetaData[] = {
 		{ "Category", "State Machine Reference" },
@@ -181,7 +189,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	{
 		((USMGraphNode_StateMachineStateNode*)Obj)->bUseTemplate = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate = { "bUseTemplate", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate = { "bUseTemplate", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bUseTemplate_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_ReferencedInstanceTemplate_MetaData[] = {
 		{ "Category", "State Machine Reference" },
@@ -195,8 +203,10 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_StateMachineClass_MetaData[] = {
 		{ "BlueprintBaseOnly", "" },
-		{ "Category", "Class" },
+		{ "Category", "State Machine" },
+		{ "Comment", "/** Select a custom node class to use for this node. This can be a blueprint or C++ class. */" },
 		{ "ModuleRelativePath", "Private/Graph/Nodes/SMGraphNode_StateMachineStateNode.h" },
+		{ "ToolTip", "Select a custom node class to use for this node. This can be a blueprint or C++ class." },
 	};
 #endif
 	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_StateMachineClass = { "StateMachineClass", nullptr, (EPropertyFlags)0x0014000002000001, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMGraphNode_StateMachineStateNode, StateMachineClass), Z_Construct_UClass_USMStateMachineInstance_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_StateMachineClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_StateMachineClass_MetaData)) };
@@ -221,7 +231,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	{
 		((USMGraphNode_StateMachineStateNode*)Obj)->bShouldUseIntermediateGraph = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bShouldUseIntermediateGraph = { "bShouldUseIntermediateGraph", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bShouldUseIntermediateGraph_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bShouldUseIntermediateGraph_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bShouldUseIntermediateGraph_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bShouldUseIntermediateGraph = { "bShouldUseIntermediateGraph", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bShouldUseIntermediateGraph_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bShouldUseIntermediateGraph_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bShouldUseIntermediateGraph_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference_MetaData[] = {
 		{ "ModuleRelativePath", "Private/Graph/Nodes/SMGraphNode_StateMachineStateNode.h" },
@@ -231,8 +241,9 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	{
 		((USMGraphNode_StateMachineStateNode*)Obj)->bNeedsNewReference = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference = { "bNeedsNewReference", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference = { "bNeedsNewReference", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMGraphNode_StateMachineStateNode), &Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bNeedsNewReference_MetaData)) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_DynamicClassVariable,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseCurrentState,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bReuseIfNotEndState,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::NewProp_bAllowIndependentTick,
@@ -251,7 +262,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 	};
 	const UECodeGen_Private::FClassParams Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::ClassParams = {
 		&USMGraphNode_StateMachineStateNode::StaticClass,
-		nullptr,
+		"EditorPerProjectUserSettings",
 		&StaticCppClassTypeInfo,
 		DependentSingletons,
 		nullptr,
@@ -261,26 +272,31 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphNode_StateMachineStateNode() {}
 		0,
 		UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::PropPointers),
 		0,
-		0x009000A0u,
+		0x009004A4u,
 		METADATA_PARAMS(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::Class_MetaDataParams))
 	};
 	UClass* Z_Construct_UClass_USMGraphNode_StateMachineStateNode()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMGraphNode_StateMachineStateNode.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMGraphNode_StateMachineStateNode.OuterSingleton, Z_Construct_UClass_USMGraphNode_StateMachineStateNode_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMGraphNode_StateMachineStateNode.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMGraphNode_StateMachineStateNode, 3500024960);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMGraphNode_StateMachineStateNode>()
 	{
 		return USMGraphNode_StateMachineStateNode::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMGraphNode_StateMachineStateNode(Z_Construct_UClass_USMGraphNode_StateMachineStateNode, &USMGraphNode_StateMachineStateNode::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMGraphNode_StateMachineStateNode"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMGraphNode_StateMachineStateNode);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphNode_StateMachineStateNode_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphNode_StateMachineStateNode_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMGraphNode_StateMachineStateNode, USMGraphNode_StateMachineStateNode::StaticClass, TEXT("USMGraphNode_StateMachineStateNode"), &Z_Registration_Info_UClass_USMGraphNode_StateMachineStateNode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMGraphNode_StateMachineStateNode), 427664640U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphNode_StateMachineStateNode_h_849571797(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphNode_StateMachineStateNode_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphNode_StateMachineStateNode_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

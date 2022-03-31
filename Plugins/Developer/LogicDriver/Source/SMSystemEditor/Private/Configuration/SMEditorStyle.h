@@ -1,11 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Styling/SlateStyle.h"
 #include "Styling/SlateTypes.h"
-
 
 class SMSYSTEMEDITOR_API FSMEditorStyle
 {

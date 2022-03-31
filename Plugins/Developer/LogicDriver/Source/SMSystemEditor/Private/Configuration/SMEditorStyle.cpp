@@ -1,10 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMEditorStyle.h"
+
+#include "ISMSystemModule.h"
+
 #include "Styling/SlateStyleRegistry.h"
 #include "Styling/CoreStyle.h"
 #include "Interfaces/IPluginManager.h"
-#include "ISMSystemModule.h"
 
 #define LOCTEXT_NAMESPACE "SMEditorStyle"
 
@@ -21,13 +23,15 @@ FTextBlockStyle FSMEditorStyle::NormalText = FTextBlockStyle()
 .SetHighlightColor(FLinearColor(0.02f, 0.3f, 0.0f));
 
 static const FVector2D Icon16x16(16.0f, 16.0f);
+static const FVector2D Icon20x20(20.0f, 20.0f);
+static const FVector2D Icon32x32(32.0f, 32.0f);
 static const FVector2D Icon40x40(40.0f, 40.0f);
 static const FVector2D Icon128x128(128.0f, 128.0f);
 
 void FSMEditorStyle::Initialize()
 {
 	// Only init once.
-	if(StyleSetInstance.IsValid())
+	if (StyleSetInstance.IsValid())
 	{
 		return;
 	}
@@ -120,16 +124,18 @@ void FSMEditorStyle::SetIcons()
 	// Graph Node Icons.
 	StyleSetInstance->Set("SMGraph.StateMachineReference_16x", new IMAGE_BRUSH(TEXT("Icons/BlueprintStateMachineReferenceIcon_16"), Icon16x16));
 	StyleSetInstance->Set("SMGraph.Clock", new IMAGE_BRUSH(TEXT("Icons/ClockIcon_16"), Icon16x16));
-	StyleSetInstance->Set("SMGraph.StateModifier", new IMAGE_BRUSH(TEXT("Icons/StateModifier_16"), Icon16x16));
+	StyleSetInstance->Set("SMGraph.AnyState", new IMAGE_BRUSH(TEXT("Icons/AnyStateIcon_16"), Icon16x16));
+	StyleSetInstance->Set("SMGraph.IntermediateGraph", new IMAGE_BRUSH(TEXT("Icons/IntermediateIcon_20"), Icon20x20));
+	StyleSetInstance->Set("SMGraph.FastPath", new IMAGE_BRUSH(TEXT("Icons/FastPathIcon_16"), Icon16x16));
+	StyleSetInstance->Set("SMGraph.FastPath_32x", new IMAGE_BRUSH(TEXT("Icons/FastPathIcon_32"), Icon32x32));
 
 	// Mode Icons.
-	StyleSetInstance->Set("SMGraphThumbnail", new IMAGE_BRUSH(TEXT("Icons/GraphModeIcon_40"), Icon40x40));
+	StyleSetInstance->Set("SMGraphThumbnail", new IMAGE_BRUSH(TEXT("Icons/GraphModeIcon_20"), Icon20x20));
+	StyleSetInstance->Set("SMPreviewEditor.PreviewMode", new IMAGE_BRUSH("Icons/PreviewModeIcon_20", Icon20x20));
 	
 	// Preview Style
 	StyleSetInstance->Set("SMPreviewEditor.Simulation.Start", new IMAGE_BRUSH("Icons/SimulateStartIcon_40", Icon40x40));
 	StyleSetInstance->Set("SMPreviewEditor.Simulation.Stop", new IMAGE_BRUSH("Icons/SimulateStopIcon_40", Icon40x40));
-	StyleSetInstance->Set("SMPreviewEditor.PreviewMode", new IMAGE_BRUSH("Icons/PreviewModeIcon_40", Icon40x40));
-	
 }
 
 FString FSMEditorStyle::InResources(const FString& RelativePath, const ANSICHAR* Extension)

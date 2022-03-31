@@ -1,19 +1,20 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_FunctionNodes_NodeInstance.h"
+#include "SMGraphK2Node_StateReadNodes.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+
+#include "SMConduitInstance.h"
+
 #include "BlueprintNodeSpawner.h"
 #include "BlueprintActionDatabaseRegistrar.h"
 #include "BlueprintDelegateNodeSpawner.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
 #include "EdGraph/EdGraph.h"
 #include "K2Node_CallFunction.h"
 #include "K2Node_DynamicCast.h"
-#include "SMConduitInstance.h"
-#include "SMGraphK2Node_StateReadNodes.h"
-#include "SMTransitionInstance.h"
+#include "Kismet2/KismetEditorUtilities.h"
 
 #define LOCTEXT_NAMESPACE "SMFunctionNodeInstances"
-
 
 USMGraphK2Node_FunctionNode_NodeInstance::USMGraphK2Node_FunctionNode_NodeInstance(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -49,6 +50,23 @@ void USMGraphK2Node_FunctionNode_NodeInstance::AllocateDefaultPins()
 	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Exec, USMGraphK2Schema::PN_Then);
 }
 
+UObject* USMGraphK2Node_FunctionNode_NodeInstance::GetJumpTargetForDoubleClick() const
+{
+	if (const UClass* NodeClassToUse = GetNodeInstanceClass())
+	{
+		if (!NodeClassToUse->IsNative())
+		{
+			if (UBlueprint* NodeBlueprint = FSMBlueprintEditorUtils::GetNodeBlueprintFromClassAndSetDebugObject(NodeClassToUse,
+				Cast<USMGraphNode_Base>(GetTypedOuter(USMGraphNode_Base::StaticClass()))))
+			{
+				return NodeBlueprint;
+			}
+		}
+	}
+
+	return Super::GetJumpTargetForDoubleClick();
+}
+
 void USMGraphK2Node_FunctionNode_NodeInstance::PreCompileValidate(FCompilerResultsLog& MessageLog)
 {
 	Super::PreCompileValidate(MessageLog);
@@ -72,6 +90,32 @@ bool USMGraphK2Node_FunctionNode_NodeInstance::ExpandAndWireStandardFunction(UFu
 		return false;
 	}
 
+	// No point in wiring up functions to the base class. Skip this node all together.
+	if (FSMNodeClassRule::IsBaseClass(NodeInstanceClass))
+	{
+		UEdGraphPin* ThenPin = GetThenPin();
+		if (ThenPin->HasAnyConnections())
+		{
+			if (const UEdGraphPin* ExecPin = GetExecPin())
+			{
+				TArray<UEdGraphPin*> FromPins = ExecPin->LinkedTo;
+				UEdGraphPin* DestinationPin = ThenPin->LinkedTo[0];
+				BreakAllNodeLinks();
+
+				for (UEdGraphPin* FromPin : FromPins)
+				{
+					FromPin->MakeLinkTo(DestinationPin);
+				}
+			}
+		}
+		else
+		{
+			BreakAllNodeLinks();
+		}
+		
+		return false;
+	}
+	
 	// Retrieve the getter for the node instance.
 	UK2Node_DynamicCast* CastNode = nullptr;
 	if (!SelfPin)
@@ -81,6 +125,13 @@ bool USMGraphK2Node_FunctionNode_NodeInstance::ExpandAndWireStandardFunction(UFu
 	}
 	
 	return Super::ExpandAndWireStandardFunction(Function, SelfPin ? SelfPin : CastNode->GetCastResultPin(), CompilerContext, RuntimeNodeContainer, NodeProperty);
+}
+
+UClass* USMGraphK2Node_FunctionNode_NodeInstance::GetNodeInstanceClass() const
+{
+	const UBlueprint* Blueprint = FBlueprintEditorUtils::FindBlueprintForNodeChecked(this);
+	return Blueprint->bBeingCompiled ? NodeInstanceClass :
+			FSMBlueprintEditorUtils::GetNodeTemplateClass(GetGraph(), true);
 }
 
 
@@ -105,30 +156,6 @@ bool USMGraphK2Node_StateInstance_Base::IsCompatibleWithGraph(UEdGraph const* Gr
 	}
 
 	return FSMBlueprintEditorUtils::GetNodeTemplateClass(Graph)->IsChildOf(USMStateInstance_Base::StaticClass());
-}
-
-
-USMGraphK2Node_TransitionInstance_Base::USMGraphK2Node_TransitionInstance_Base(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-}
-
-void USMGraphK2Node_TransitionInstance_Base::GetMenuActions(FBlueprintActionDatabaseRegistrar& ActionRegistrar) const
-{
-	if (GetClass() != USMGraphK2Node_TransitionInstance_Base::StaticClass())
-	{
-		return Super::GetMenuActions(ActionRegistrar);
-	}
-}
-
-bool USMGraphK2Node_TransitionInstance_Base::IsCompatibleWithGraph(UEdGraph const* Graph) const
-{
-	if (!Super::IsCompatibleWithGraph(Graph))
-	{
-		return false;
-	}
-
-	return FSMBlueprintEditorUtils::GetNodeTemplateClass(Graph)->IsChildOf(USMTransitionInstance::StaticClass());
 }
 
 
@@ -170,7 +197,7 @@ FText USMGraphK2Node_StateInstance_Begin::GetNodeTitle(ENodeTitleType::Type Titl
 void USMGraphK2Node_StateInstance_Begin::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMStateInstance_Base, OnStateBegin)),
+	ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 
@@ -183,7 +210,7 @@ USMGraphK2Node_StateInstance_Update::USMGraphK2Node_StateInstance_Update(const F
 void USMGraphK2Node_StateInstance_Update::AllocateDefaultPins()
 {
 	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Exec, UEdGraphSchema_K2::PN_Execute);
-	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Float, TEXT("DeltaSeconds"));
+	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Real, USMGraphK2Schema::PC_Float, TEXT("DeltaSeconds"));
 	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Exec, UEdGraphSchema_K2::PN_Then);
 }
 
@@ -201,6 +228,14 @@ void USMGraphK2Node_StateInstance_Update::CustomExpandNode(FSMKismetCompilerCont
 		return;
 	}
 
+	if (FSMNodeClassRule::IsBaseClass(NodeInstanceClass))
+	{
+		const bool bResult = ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
+		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
+		ensure(!bResult);
+		return;
+	}
+
 	// Retrieve the getter for the node instance.
 	UK2Node_DynamicCast* CastNode = nullptr;
 	USMGraphK2Node_StateReadNode_GetNodeInstance::CreateAndWireExpandedNodes(this, NodeInstanceClass, CompilerContext, RuntimeNodeContainer, NodeProperty, &CastNode);
@@ -209,9 +244,10 @@ void USMGraphK2Node_StateInstance_Update::CustomExpandNode(FSMKismetCompilerCont
 	UEdGraphPin* GetInstanceOutputPin = CastNode->GetCastResultPin();
 	
 	// Call update.
-	UFunction* Function = USMStateInstance_Base::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMStateInstance_Base, OnStateUpdate));
+	UFunction* Function = USMStateInstance_Base::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName());
 	UK2Node_CallFunction* StartFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, Function);
-
+	CompilerContext.MessageLog.NotifyIntermediateObjectCreation(StartFunctionNode, this);
+	
 	UEdGraphPin* SelfPinIn = StartFunctionNode->FindPinChecked(UEdGraphSchema_K2::PN_Self);
 	UEdGraphPin* SecondsPinIn = StartFunctionNode->FindPinChecked(FName("DeltaSeconds"));
 	UEdGraphPin* ExecutePinIn = StartFunctionNode->FindPinChecked(UEdGraphSchema_K2::PN_Execute);
@@ -246,7 +282,7 @@ FText USMGraphK2Node_StateInstance_End::GetNodeTitle(ENodeTitleType::Type TitleT
 void USMGraphK2Node_StateInstance_End::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMStateInstance_Base, OnStateEnd)),
+	ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 
@@ -264,7 +300,7 @@ FText USMGraphK2Node_StateInstance_StateMachineStart::GetNodeTitle(ENodeTitleTyp
 void USMGraphK2Node_StateInstance_StateMachineStart::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMStateInstance_Base, OnRootStateMachineStart)),
+	ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 
@@ -282,7 +318,7 @@ FText USMGraphK2Node_StateInstance_StateMachineStop::GetNodeTitle(ENodeTitleType
 void USMGraphK2Node_StateInstance_StateMachineStop::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMStateInstance_Base, OnRootStateMachineStop)),
+	ExpandAndWireStandardFunction(USMStateInstance_Base::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 
@@ -300,7 +336,7 @@ FText USMGraphK2Node_StateInstance_OnStateInitialized::GetNodeTitle(ENodeTitleTy
 void USMGraphK2Node_StateInstance_OnStateInitialized::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMStateInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMStateInstance, OnStateInitialized)),
+	ExpandAndWireStandardFunction(USMStateInstance::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 
@@ -318,111 +354,7 @@ FText USMGraphK2Node_StateInstance_OnStateShutdown::GetNodeTitle(ENodeTitleType:
 void USMGraphK2Node_StateInstance_OnStateShutdown::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMStateInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMStateInstance, OnStateShutdown)),
-		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
-}
-
-
-USMGraphK2Node_TransitionInstance_CanEnterTransition::USMGraphK2Node_TransitionInstance_CanEnterTransition(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-}
-
-void USMGraphK2Node_TransitionInstance_CanEnterTransition::AllocateDefaultPins()
-{
-	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Boolean, USMGraphK2Schema::PN_ReturnValue);
-}
-
-FText USMGraphK2Node_TransitionInstance_CanEnterTransition::GetNodeTitle(ENodeTitleType::Type TitleType) const
-{
-	return LOCTEXT("InstanceCanEnterTransition", "Get Can Enter Transition (Instance)");
-}
-
-void USMGraphK2Node_TransitionInstance_CanEnterTransition::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
-	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
-{
-	if (!NodeInstanceClass)
-	{
-		CompilerContext.MessageLog.Error(TEXT("Can't expand node @@, instance template not set."), this);
-		return;
-	}
-
-	// Retrieve the getter for the node instance.
-	UK2Node_DynamicCast* CastNode = nullptr;
-	USMGraphK2Node_StateReadNode_GetNodeInstance::CreateAndWireExpandedNodes(this, NodeInstanceClass, CompilerContext, RuntimeNodeContainer, NodeProperty, &CastNode);
-	check(CastNode);
-
-	UEdGraphPin* GetInstanceOutputPin = CastNode->GetCastResultPin();
-
-	// Call end function.
-	UFunction* Function = USMTransitionInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTransitionInstance, CanEnterTransition));
-	UK2Node_CallFunction* EvalFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, Function);
-
-	UEdGraphPin* SelfPinIn = EvalFunctionNode->FindPinChecked(FName(USMGraphK2Schema::PN_Self));
-	UEdGraphPin* ResultPinOut = EvalFunctionNode->FindPinChecked(USMGraphK2Schema::PN_ReturnValue);
-
-	UEdGraphPin* OldResultPinIn = FindPinChecked(USMGraphK2Schema::PN_ReturnValue);
-
-	// Wire the reference pin to the self pin so we are calling start on the reference.
-	CompilerContext.ConsolidatedEventGraph->GetSchema()->TryCreateConnection(GetInstanceOutputPin, SelfPinIn);
-
-	// Wire old pins to new pins.
-	ResultPinOut->CopyPersistentDataFromOldPin(*OldResultPinIn);
-
-	BreakAllNodeLinks();
-}
-
-
-USMGraphK2Node_TransitionInstance_OnTransitionTaken::USMGraphK2Node_TransitionInstance_OnTransitionTaken(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-}
-
-FText USMGraphK2Node_TransitionInstance_OnTransitionTaken::GetNodeTitle(ENodeTitleType::Type TitleType) const
-{
-	return LOCTEXT("InstanceTransitionEntered", "Call On Transition Entered (Instance)");
-}
-
-void USMGraphK2Node_TransitionInstance_OnTransitionTaken::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
-	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
-{
-	ExpandAndWireStandardFunction(USMTransitionInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTransitionInstance, OnTransitionEntered)),
-		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
-}
-
-
-USMGraphK2Node_TransitionInstance_OnTransitionInitialized::USMGraphK2Node_TransitionInstance_OnTransitionInitialized(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-}
-
-FText USMGraphK2Node_TransitionInstance_OnTransitionInitialized::GetNodeTitle(ENodeTitleType::Type TitleType) const
-{
-	return LOCTEXT("InstanceTransitionInitialized", "Call On Transition Initialized (Instance)");
-}
-
-void USMGraphK2Node_TransitionInstance_OnTransitionInitialized::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
-	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
-{
-	ExpandAndWireStandardFunction(USMTransitionInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTransitionInstance, OnTransitionInitialized)),
-		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
-}
-
-
-USMGraphK2Node_TransitionInstance_OnTransitionShutdown::USMGraphK2Node_TransitionInstance_OnTransitionShutdown(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-}
-
-FText USMGraphK2Node_TransitionInstance_OnTransitionShutdown::GetNodeTitle(ENodeTitleType::Type TitleType) const
-{
-	return LOCTEXT("InstanceTransitionShutdown", "Call On Transition Shutdown (Instance)");
-}
-
-void USMGraphK2Node_TransitionInstance_OnTransitionShutdown::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
-	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
-{
-	ExpandAndWireStandardFunction(USMTransitionInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTransitionInstance, OnTransitionShutdown)),
+	ExpandAndWireStandardFunction(USMStateInstance::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 
@@ -439,7 +371,7 @@ void USMGraphK2Node_ConduitInstance_CanEnterTransition::AllocateDefaultPins()
 
 FText USMGraphK2Node_ConduitInstance_CanEnterTransition::GetNodeTitle(ENodeTitleType::Type TitleType) const
 {
-	return LOCTEXT("ConduitInstanceCanEnterTransition", "Get Can Enter Transition (Instance)");
+	return LOCTEXT("ConduitInstanceCanEnterTransition", "Can Enter Transition (Instance)");
 }
 
 void USMGraphK2Node_ConduitInstance_CanEnterTransition::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
@@ -451,6 +383,14 @@ void USMGraphK2Node_ConduitInstance_CanEnterTransition::CustomExpandNode(FSMKism
 		return;
 	}
 
+	if (FSMNodeClassRule::IsBaseClass(NodeInstanceClass))
+	{
+		const bool bResult = ExpandAndWireStandardFunction(USMConduitInstance::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
+		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
+		ensure(!bResult);
+		return;
+	}
+	
 	// Retrieve the getter for the node instance.
 	UK2Node_DynamicCast* CastNode = nullptr;
 	USMGraphK2Node_StateReadNode_GetNodeInstance::CreateAndWireExpandedNodes(this, NodeInstanceClass, CompilerContext, RuntimeNodeContainer, NodeProperty, &CastNode);
@@ -459,7 +399,7 @@ void USMGraphK2Node_ConduitInstance_CanEnterTransition::CustomExpandNode(FSMKism
 	UEdGraphPin* GetInstanceOutputPin = CastNode->GetCastResultPin();
 
 	// Call end function.
-	UFunction* Function = USMConduitInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMConduitInstance, CanEnterTransition));
+	UFunction* Function = USMConduitInstance::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName());
 	UK2Node_CallFunction* EvalFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, Function);
 
 	UEdGraphPin* SelfPinIn = EvalFunctionNode->FindPinChecked(FName(USMGraphK2Schema::PN_Self));
@@ -489,7 +429,7 @@ FText USMGraphK2Node_ConduitInstance_OnConduitEntered::GetNodeTitle(ENodeTitleTy
 void USMGraphK2Node_ConduitInstance_OnConduitEntered::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMConduitInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMConduitInstance, OnConduitEntered)),
+	ExpandAndWireStandardFunction(USMConduitInstance::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 
@@ -506,7 +446,7 @@ FText USMGraphK2Node_ConduitInstance_OnConduitInitialized::GetNodeTitle(ENodeTit
 void USMGraphK2Node_ConduitInstance_OnConduitInitialized::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMConduitInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMConduitInstance, OnConduitInitialized)),
+	ExpandAndWireStandardFunction(USMConduitInstance::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 
@@ -524,7 +464,7 @@ FText USMGraphK2Node_ConduitInstance_OnConduitShutdown::GetNodeTitle(ENodeTitleT
 void USMGraphK2Node_ConduitInstance_OnConduitShutdown::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
 	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
-	ExpandAndWireStandardFunction(USMConduitInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMConduitInstance, OnConduitShutdown)),
+	ExpandAndWireStandardFunction(USMConduitInstance::StaticClass()->FindFunctionByName(GetInstanceRuntimeFunctionName()),
 		nullptr, CompilerContext, RuntimeNodeContainer, NodeProperty);
 }
 

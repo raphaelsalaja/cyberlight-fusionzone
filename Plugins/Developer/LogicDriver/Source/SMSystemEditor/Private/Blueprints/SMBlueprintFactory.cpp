@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMBlueprintFactory.h"
 #include "Utilities/SMVersionUtils.h"
@@ -22,7 +22,6 @@
 #include "Kismet2/SClassPickerDialog.h"
 #include "BlueprintEditorSettings.h"
 #include "ClassViewer/Private/UnloadedBlueprintData.h"
-
 
 #define LOCTEXT_NAMESPACE "SMBlueprintFactory"
 
@@ -137,7 +136,7 @@ void USMBlueprintFactory::CreateGraphsForNewBlueprint(USMBlueprint* Blueprint)
 	// Locate the blueprint's event graph or create a new one.
 	UEdGraph* EventGraph = FindObject<UEdGraph>(Blueprint, *(UEdGraphSchema_K2::GN_EventGraph.ToString()));
 
-	if(!EventGraph)
+	if (!EventGraph)
 	{
 #if WITH_EDITORONLY_DATA
 		if (Blueprint->UbergraphPages.Num())
@@ -248,13 +247,14 @@ bool USMNodeBlueprintFactory::ConfigureProperties()
 	Options.InitiallySelectedClass = USMStateInstance_Base::StaticClass();
 	
 	TSharedPtr<FAssetClassParentFilter> Filter = MakeShareable(new FAssetClassParentFilter);
-	Options.ClassFilter = Filter;
 	
 	Filter->DisallowedClassFlags = CLASS_Deprecated | CLASS_NewerVersionExists;
 	Filter->AllowedChildrenOfClasses.Add(USMStateMachineInstance::StaticClass());
 	Filter->AllowedChildrenOfClasses.Add(USMStateInstance::StaticClass());
 	Filter->AllowedChildrenOfClasses.Add(USMConduitInstance::StaticClass());
 	Filter->AllowedChildrenOfClasses.Add(USMTransitionInstance::StaticClass());
+
+	Options.ClassFilters.Add(Filter.ToSharedRef());
 	
 	const FText TitleText = LOCTEXT("CreateNodeAssetOptions", "Pick Node Class");
 	UClass* ChosenClass = nullptr;
@@ -342,10 +342,10 @@ void USMNodeBlueprintFactory::SetupNewBlueprint(USMNodeBlueprint* Blueprint)
 
 	if (Blueprint->GeneratedClass)
 	{
-		if(Blueprint->GeneratedClass->IsChildOf(USMNodeInstance::StaticClass()))
+		if (Blueprint->GeneratedClass->IsChildOf(USMNodeInstance::StaticClass()))
 		{
 			// Construction script.
-			UFunction* ConstructionFunction = USMNodeInstance::StaticClass()->FindFunctionByName(USMNodeInstance::GetConstructonScriptFunctionName());
+			UFunction* ConstructionFunction = USMNodeInstance::StaticClass()->FindFunctionByName(USMNodeInstance::GetConstructionScriptFunctionName());
 			check(ConstructionFunction);
 			UClass* const OverrideConstructionFuncClass = CastChecked<UClass>(ConstructionFunction->GetOuter())->GetAuthoritativeClass();
 
@@ -359,7 +359,7 @@ void USMNodeBlueprintFactory::SetupNewBlueprint(USMNodeBlueprint* Blueprint)
 			if (Nodes.Num() == 1) // If more then maybe UE is autowiring the parent LIKE IT SHOULD.
 			{
 				UK2Node_CallParentFunction* ParentNode = FSMBlueprintEditorUtils::CreateParentFunctionCall(
-					NewGraph, USMNodeInstance::StaticClass()->FindFunctionByName(USMNodeInstance::GetConstructonScriptFunctionName()), Nodes[0], 0.f, 64.f);
+					NewGraph, USMNodeInstance::StaticClass()->FindFunctionByName(USMNodeInstance::GetConstructionScriptFunctionName()), Nodes[0], 0.f, 64.f);
 
 				if (Settings->bSpawnDefaultBlueprintNodes && ensure(ParentNode))
 				{
@@ -372,7 +372,7 @@ void USMNodeBlueprintFactory::SetupNewBlueprint(USMNodeBlueprint* Blueprint)
 					check(EnvironmentFunction);
 
 					UEdGraphNode* CreatedFunctionNode = nullptr;
-					if(ensure(FSMBlueprintEditorUtils::PlaceFunctionOnGraph(NewGraph, EnvironmentFunction, nullptr, &CreatedFunctionNode, nullptr, 256.f, 48.f)))
+					if (ensure(FSMBlueprintEditorUtils::PlaceFunctionOnGraph(NewGraph, EnvironmentFunction, nullptr, &CreatedFunctionNode, nullptr, 256.f, 48.f)))
 					{
 						UK2Node* CreatedK2Node = CastChecked<UK2Node>(CreatedFunctionNode);
 						NewGraph->GetSchema()->TryCreateConnection(ThenPin, CreatedK2Node->GetExecPin());

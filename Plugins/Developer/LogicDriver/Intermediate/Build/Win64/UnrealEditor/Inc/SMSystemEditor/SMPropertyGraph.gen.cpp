@@ -7,10 +7,6 @@
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/SMPropertyGraph.h"
 #include "Serialization/ArchiveUObjectFromStructuredArchive.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMPropertyGraph() {}
 // Cross Module References
@@ -23,6 +19,7 @@ void EmptyLinkFunctionForGeneratedCodeSMPropertyGraph() {}
 	void USMPropertyGraph::StaticRegisterNativesUSMPropertyGraph()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMPropertyGraph);
 	UClass* Z_Construct_UClass_USMPropertyGraph_NoRegister()
 	{
 		return USMPropertyGraph::StaticClass();
@@ -112,22 +109,27 @@ void EmptyLinkFunctionForGeneratedCodeSMPropertyGraph() {}
 	};
 	UClass* Z_Construct_UClass_USMPropertyGraph()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMPropertyGraph.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMPropertyGraph_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMPropertyGraph.OuterSingleton, Z_Construct_UClass_USMPropertyGraph_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMPropertyGraph.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMPropertyGraph, 3273395811);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMPropertyGraph>()
 	{
 		return USMPropertyGraph::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMPropertyGraph(Z_Construct_UClass_USMPropertyGraph, &USMPropertyGraph::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMPropertyGraph"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMPropertyGraph);
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(USMPropertyGraph)
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_SMPropertyGraph_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_SMPropertyGraph_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMPropertyGraph, USMPropertyGraph::StaticClass, TEXT("USMPropertyGraph"), &Z_Registration_Info_UClass_USMPropertyGraph, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMPropertyGraph), 4290012076U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_SMPropertyGraph_h_3538153003(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_SMPropertyGraph_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_SMPropertyGraph_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

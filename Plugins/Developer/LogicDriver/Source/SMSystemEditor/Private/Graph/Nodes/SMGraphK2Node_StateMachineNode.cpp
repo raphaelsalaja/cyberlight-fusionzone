@@ -1,13 +1,7 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateMachineNode.h"
-#include "Kismet2/Kismet2NameValidators.h"
-#include "Kismet2/BlueprintEditorUtils.h"
-#include "BlueprintNodeSpawner.h"
-#include "BlueprintActionDatabaseRegistrar.h"
-#include "Blueprints/SMBlueprint.h"
-#include "EdGraph/EdGraphSchema.h"
-#include "EdGraph/EdGraph.h"
+
 #include "Graph/Schema/SMGraphSchema.h"
 #include "Graph/SMGraph.h"
 #include "Graph/SMGraphK2.h"
@@ -16,8 +10,16 @@
 #include "Graph/SMConduitGraph.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
 
-#define LOCTEXT_NAMESPACE "SMGraphK2StateMachineNode"
+#include "Blueprints/SMBlueprint.h"
 
+#include "EdGraph/EdGraphSchema.h"
+#include "EdGraph/EdGraph.h"
+#include "Kismet2/Kismet2NameValidators.h"
+#include "Kismet2/BlueprintEditorUtils.h"
+#include "BlueprintNodeSpawner.h"
+#include "BlueprintActionDatabaseRegistrar.h"
+
+#define LOCTEXT_NAMESPACE "SMGraphK2StateMachineNode"
 
 class FSMNameValidator : public FStringSetNameValidator
 {
@@ -156,11 +158,11 @@ bool USMGraphK2Node_StateMachineNode::IsActionFilteredOut(class FBlueprintAction
 		}
 	}
 
-	for(UEdGraph* Graph : Filter.Context.Graphs)
+	for (UEdGraph* Graph : Filter.Context.Graphs)
 	{
 		USMGraphK2* TopLevelGraph = Cast<USMGraphK2>(Graph);
 		// Only allow the top level graph to create state machines.
-		if(!TopLevelGraph || Graph->IsA<USMStateGraph>() || Graph->IsA<USMTransitionGraph>())
+		if (!TopLevelGraph || Graph->IsA<USMStateGraph>() || Graph->IsA<USMTransitionGraph>())
 		{
 			return true;
 		}

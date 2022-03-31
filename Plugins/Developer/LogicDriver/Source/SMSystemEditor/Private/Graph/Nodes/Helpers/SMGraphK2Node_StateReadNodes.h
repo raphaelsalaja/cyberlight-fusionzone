@@ -1,11 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_RuntimeNodeContainer.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
-#include "SMGraphK2Node_StateReadNodes.generated.h"
 
+#include "SMGraphK2Node_StateReadNodes.generated.h"
 
 UCLASS(MinimalAPI)
 class USMGraphK2Node_StateReadNode : public USMGraphK2Node_RuntimeNodeReference
@@ -26,7 +26,7 @@ class USMGraphK2Node_StateReadNode : public USMGraphK2Node_RuntimeNodeReference
 	// USMGraphK2Node_Base
 	virtual bool CanCollapseNode() const override { return true; }
 	virtual bool CanCollapseToFunctionOrMacro() const override { return true; }
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
 
 	/** Returns either the current state or the FromState of a transition. */
 	virtual FString GetMostRecentStateName() const;
@@ -147,8 +147,9 @@ class USMGraphK2Node_StateReadNode_GetStateMachineReference : public USMGraphK2N
 	virtual FText GetTooltipText() const override;
 	virtual void GetMenuActions(FBlueprintActionDatabaseRegistrar& ActionRegistrar) const override;
 	virtual void PostPasteNode() override;
-	virtual bool HasExternalDependencies(TArray<class UStruct*>* OptionalOutput) const override;
+	virtual bool HasExternalDependencies(TArray<UStruct*>* OptionalOutput) const override;
 	virtual FBlueprintNodeSignature GetSignature() const override;
+	virtual UObject* GetJumpTargetForDoubleClick() const override;
 	//~ UEdGraphNode
 
 	// USMGraphK2Node_RuntimeNodeReference
@@ -156,13 +157,13 @@ class USMGraphK2Node_StateReadNode_GetStateMachineReference : public USMGraphK2N
 	virtual void CustomExpandNode(FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty) override;
 	// ~USMGraphK2Node_RuntimeNodeReference
 
-	TSubclassOf<class UObject> GetStateMachineReferenceClass() const;
+	TSubclassOf<UObject> GetStateMachineReferenceClass() const;
 
 	/** The class type this is referencing. The output pin will be dynamic cast to this.
 	 * When force replacing references this can cause warnings, but is present in other UE4 blueprints. 
 	 */
 	UPROPERTY()
-	TSubclassOf<class UObject> ReferencedObject;
+	TSubclassOf<UObject> ReferencedObject;
 };
 
 
@@ -173,7 +174,7 @@ class USMGraphK2Node_StateMachineReadNode : public USMGraphK2Node_StateReadNode
 
 	// UEdGraphNode
 	virtual bool IsCompatibleWithGraph(UEdGraph const* Graph) const override;
-	virtual bool IsActionFilteredOut(class FBlueprintActionFilter const& Filter) override;
+	virtual bool IsActionFilteredOut(FBlueprintActionFilter const& Filter) override;
 	virtual void ValidateNodeDuringCompilation(FCompilerResultsLog& MessageLog) const override;
 	// ~UEdGraphNode
 };
@@ -205,23 +206,26 @@ class USMGraphK2Node_StateReadNode_GetNodeInstance : public USMGraphK2Node_State
 	virtual void GetMenuActions(FBlueprintActionDatabaseRegistrar& ActionRegistrar) const override;
 	virtual void PostPasteNode() override;
 	virtual FBlueprintNodeSignature GetSignature() const override;
-	//~ UEdGraphNode
+	virtual UObject* GetJumpTargetForDoubleClick() const override;
+	// ~UEdGraphNode
 
 	// USMGraphK2Node_RuntimeNodeReference
 	virtual bool HandlesOwnExpansion() const override { return true; }
 	virtual void CustomExpandNode(FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty) override;
 	// ~USMGraphK2Node_RuntimeNodeReference
 
-	void AllocatePinsForType(TSubclassOf<class UObject> TargetType);
+	void AllocatePinsForType(TSubclassOf<UObject> TargetType);
 
 	UEdGraphPin* GetInstancePinChecked() const;
+
+	bool RequiresInstance() const { return !bCanCreateNodeInstanceOnDemand || NodeInstanceIndex >= 0; }
 	
 	/**
 	 * The class type this is referencing. The output pin will be dynamic cast to this.
 	 * When force replacing references this can cause warnings, but is present in other UE4 blueprints. 
 	 */
 	UPROPERTY()
-	TSubclassOf<class UObject> ReferencedObject;
+	TSubclassOf<UObject> ReferencedObject;
 
 	/** The guid of a specific node instance. Used for stack state instances. */
 	UPROPERTY()
@@ -229,7 +233,25 @@ class USMGraphK2Node_StateReadNode_GetNodeInstance : public USMGraphK2Node_State
 
 	UPROPERTY()
 	int32 NodeInstanceIndex;
-	
-	static void CreateAndWireExpandedNodes(UEdGraphNode* SourceNode, const TSubclassOf<UObject> Class, FSMKismetCompilerContext& CompilerContext,
+
+	/**
+	 * When true an instance is not required during run-time (function access) and will be created on demand.
+	 * When false the instance is assumed to always be created (struct access) and will not create on demand.
+	 * No effect when used with state stack instances.
+	 */
+	UPROPERTY()
+	bool bCanCreateNodeInstanceOnDemand;
+
+	/** Wire nodes related to the node instance. Will determine whether the instance should be allowed to be created on demand or not. */
+	static void CreateAndWireExpandedNodes(UEdGraphNode* SourceNode, TSubclassOf<UObject> Class, FSMKismetCompilerContext& CompilerContext,
+		USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty, class UK2Node_DynamicCast** CastOutputNode);
+
+private:
+	/** Wire nodes related to retrieving the node instance. A node instance is not required for this call and will be created on demand. */
+	static void CreateAndWireExpandedNodesWithFunction(UEdGraphNode* SourceNode, TSubclassOf<UObject> Class, FSMKismetCompilerContext& CompilerContext,
+		USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty, class UK2Node_DynamicCast** CastOutputNode);
+
+	/** Wire nodes related to retrieving the node instance. A node instance is required at the time of this call there will be run-time errors if the instance is invalid. */
+	static void CreateAndWireExpandedNodesWithStruct(UEdGraphNode* SourceNode, TSubclassOf<UObject> Class, FSMKismetCompilerContext& CompilerContext,
 		USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty, class UK2Node_DynamicCast** CastOutputNode);
 };

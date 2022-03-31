@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Construction/SMEditorConstructionManager.h"
@@ -6,8 +6,10 @@
 #include "Graph/SMTransitionGraph.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_ConduitNode.h"
+#include "Graph/Nodes/SMGraphNode_StateNode.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
+#include "Graph/Nodes/SMGraphNode_AnyStateNode.h"
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_IntermediateNodes.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_FunctionNodes.h"
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_StateMachineSelectNode.h"
@@ -30,7 +32,7 @@
 #include "Framework/Notifications/NotificationManager.h"
 #include "Widgets/Notifications/SNotificationList.h"
 #include "UObject/MetaData.h"
-#include "EditorStyle.h"
+#include "EditorStyleSet.h"
 #include "K2Node_InputAction.h"
 #include "K2Node_InputKey.h"
 #include "ObjectTools.h"
@@ -114,6 +116,19 @@ USMProjectEditorSettings* FSMBlueprintEditorUtils::GetMutableProjectEditorSettin
 FOnBlueprintConditionallyCompiled FSMBlueprintEditorUtils::OnBlueprintPreConditionallyCompiledEvent;
 FOnBlueprintConditionallyCompiled FSMBlueprintEditorUtils::OnBlueprintPostConditionallyCompiledEvent;
 
+void FSMBlueprintEditorUtils::GetAllRuntimeEntryNodes(const UEdGraph* InGraph, TArray<USMGraphK2Node_RuntimeNode_Base*>& OutEntryNodes)
+{
+	TArray<USMGraphK2Node_RuntimeNode_Base*> AllNodes;
+	GetAllNodesOfClassNested(InGraph, AllNodes);
+
+	AllNodes.RemoveAll([](const USMGraphK2Node_RuntimeNode_Base* Node)
+	{
+		return !Node->IsConsideredForEntryConnection();
+	});
+	
+	OutEntryNodes.Append(AllNodes);
+}
+
 void FSMBlueprintEditorUtils::ConditionallyCompileBlueprint(UBlueprint* Blueprint, bool bUpdateDependencies, bool bRecreateGraphProperties)
 {
 	check(Blueprint);
@@ -188,7 +203,7 @@ void FSMBlueprintEditorUtils::GetAllBlueprintSubClasses(UClass* TargetClass, TAr
 	TArray<FAssetData> OutAssets;
 	AssetRegistry.GetAssetsByClass(TargetBlueprintClass->GetFName(), OutAssets, true);
 
-	for(const FAssetData& Asset : OutAssets)
+	for (const FAssetData& Asset : OutAssets)
 	{
 		FAssetDataTagMapSharedView::FFindTagResult Result = Asset.TagsAndValues.FindTag(TEXT("GeneratedClass"));
 		if (Result.IsSet())
@@ -199,7 +214,7 @@ void FSMBlueprintEditorUtils::GetAllBlueprintSubClasses(UClass* TargetClass, TAr
 			const FString ClassName = FPackageName::ObjectPathToObjectName(ClassObjectPath);
 
 			// Store using the path to the generated class
-			if (UClass* Class = TSoftClassPtr< UObject >(FStringClassReference(ClassObjectPath)).LoadSynchronous())
+			if (UClass* Class = TSoftClassPtr<UObject>(FSoftClassPath(ClassObjectPath)).LoadSynchronous())
 			{
 				if (!Class->IsChildOf(TargetClass) ||
 					Class->HasAnyClassFlags(CLASS_Deprecated | CLASS_NewerVersionExists) ||
@@ -252,7 +267,7 @@ void FSMBlueprintEditorUtils::GetAllNodeInstancesWithPropertyGraphs(UBlueprint* 
 {
 	TArray<USMGraphK2Node_PropertyNode_Base*> PropertyNodes;
 	GetAllNodesOfClassNested<USMGraphK2Node_PropertyNode_Base>(GetTopLevelStateMachineGraph(Blueprint), PropertyNodes);
-	for(USMGraphK2Node_PropertyNode_Base* PropertyNode : PropertyNodes)
+	for (USMGraphK2Node_PropertyNode_Base* PropertyNode : PropertyNodes)
 	{
 		NodeInstances.Add(PropertyNode->GetOwningTemplate()->GetClass());
 		
@@ -276,18 +291,18 @@ void FSMBlueprintEditorUtils::HandleRefreshAllNodes(UBlueprint* InBlueprint)
 void FSMBlueprintEditorUtils::GetAllConnectedNodes(UEdGraphNode* StartNode, EEdGraphPinDirection Direction,
 	TSet<UEdGraphNode*>& FoundNodes)
 {
-	if(FoundNodes.Contains(StartNode))
+	if (FoundNodes.Contains(StartNode))
 	{
 		return;
 	}
 
 	FoundNodes.Add(StartNode);
 	
-	for(UEdGraphPin* Pin : StartNode->GetAllPins())
+	for (UEdGraphPin* Pin : StartNode->GetAllPins())
 	{
-		if(Pin->Direction == Direction || Direction == EGPD_MAX)
+		if (Pin->Direction == Direction || Direction == EGPD_MAX)
 		{
-			for(UEdGraphPin* ConnectedPin : Pin->LinkedTo)
+			for (UEdGraphPin* ConnectedPin : Pin->LinkedTo)
 			{
 				GetAllConnectedNodes(ConnectedPin->GetOwningNode(), Direction, FoundNodes);
 			}
@@ -341,17 +356,12 @@ void FSMBlueprintEditorUtils::RemoveNodeSilently(UBlueprint* Blueprint, UEdGraph
 	if (Blueprint != nullptr)
 	{
 		// Remove any breakpoints set on the node
-		if (UBreakpoint* Breakpoint = FKismetDebugUtilities::FindBreakpointForNode(Blueprint, Node))
-		{
-			FKismetDebugUtilities::StartDeletingBreakpoint(Breakpoint, Blueprint);
-		}
+		FKismetDebugUtilities::RemoveBreakpointFromNode(Node, Blueprint);
 
 		// Remove any watches set on the node's pins
 		for (int32 PinIndex = 0; PinIndex < Node->Pins.Num(); ++PinIndex)
 		{
-			// Don't call DebugUtilities, that can trigger a notify.
-			UEdGraphPin* NonConstPin = const_cast<UEdGraphPin*>(Node->Pins[PinIndex]);
-			Blueprint->WatchedPins.Remove(NonConstPin);
+			FKismetDebugUtilities::RemovePinWatch(Blueprint, Node->Pins[PinIndex]);
 		}
 	}
 
@@ -376,6 +386,12 @@ bool FSMBlueprintEditorUtils::IsNodeSelected(UEdGraphNode* Node)
 	}
 
 	return false;
+}
+
+void FSMBlueprintEditorUtils::SplitCategories(const FString& InCategoryString, TArray<FString>& OutCategories)
+{
+	OutCategories.Reset();
+	InCategoryString.ParseIntoArray(OutCategories, TEXT("|"));
 }
 
 bool FSMBlueprintEditorUtils::IsNodeGraphDefault(const UEdGraphNode* Node)
@@ -454,14 +470,14 @@ TSubclassOf<UObject> FSMBlueprintEditorUtils::GetNodeTemplateClass(const UEdGrap
 			}
 		}
 		
-		if(UClass* Class = NodeOwner->GetNodeClass())
+		if (UClass* Class = NodeOwner->GetNodeClass())
 		{
 			return Class;
 		}
 
-		if(bReturnDefaultIfNone)
+		if (bReturnDefaultIfNone)
 		{
-			if(FSMNode_Base* RuntimeNode = NodeOwner->FindRuntimeNode())
+			if (FSMNode_Base* RuntimeNode = NodeOwner->FindRuntimeNode())
 			{
 				return RuntimeNode->GetDefaultNodeInstanceClass();
 			}
@@ -506,7 +522,54 @@ UClass* FSMBlueprintEditorUtils::GetStateMachineClassFromGraph(const UEdGraph* G
 	return nullptr;
 }
 
-const FSMNode_Base* FSMBlueprintEditorUtils::GetDebugNode(USMGraphNode_Base* Node)
+void FSMBlueprintEditorUtils::GoToNodeBlueprint(const USMGraphNode_Base* InGraphNode)
+{
+	if (const UClass* Class = InGraphNode->GetNodeClass())
+	{
+		if (const UBlueprint* NodeBlueprint = GetNodeBlueprintFromClassAndSetDebugObject(Class, InGraphNode))
+		{
+			FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(NodeBlueprint);
+		}
+	}
+}
+
+USMNodeBlueprint* FSMBlueprintEditorUtils::GetNodeBlueprintFromClassAndSetDebugObject(const UClass* InClass,
+                                                                                      const USMGraphNode_Base* InGraphNode, const FGuid* InTemplateGuid)
+{
+	if (USMNodeBlueprint* NodeBlueprint = Cast<USMNodeBlueprint>(UBlueprint::GetBlueprintFromClass(InClass)))
+	{
+		if (const USMGraphNode_Base* OwningNode = Cast<USMGraphNode_Base>(InGraphNode))
+		{
+			if (const FSMNode_Base* DebugNode = GetDebugNode(OwningNode))
+			{
+				if (InTemplateGuid)
+				{
+					const int32 TemplateIndex = InGraphNode->GetIndexOfTemplate(*InTemplateGuid);
+					if (USMNodeInstance* NodeStackInstance = DebugNode->GetNodeInStack(TemplateIndex))
+					{
+						NodeBlueprint->SetObjectBeingDebugged(NodeStackInstance);
+						return NodeBlueprint;
+					}
+				}
+				
+				if (USMNodeInstance* NodeInstance = DebugNode->GetNodeInstance())
+				{
+					// Verify the correct class is used in case this is a stack instance that wasn't found.
+					if (InClass == NodeInstance->GetClass())
+					{
+						NodeBlueprint->SetObjectBeingDebugged(NodeInstance);
+					}
+				}
+			}
+		}
+
+		return NodeBlueprint;
+	}
+
+	return nullptr;
+}
+
+const FSMNode_Base* FSMBlueprintEditorUtils::GetDebugNode(const USMGraphNode_Base* Node)
 {
 	check(Node);
 
@@ -658,7 +721,7 @@ void FSMBlueprintEditorUtils::UpdateRuntimeNodeForBlueprint(const FGuid& Current
 FMulticastDelegateProperty* FSMBlueprintEditorUtils::GetDelegateProperty(const FName& DelegatePropertyName,
 	UClass* DelegateOwnerClass, const UFunction* SignatureFunction)
 {
-	if(DelegatePropertyName == NAME_None)
+	if (DelegatePropertyName == NAME_None)
 	{
 		return nullptr;
 	}
@@ -684,7 +747,7 @@ FMulticastDelegateProperty* FSMBlueprintEditorUtils::GetDelegateProperty(const F
 		}
 	}
 
-	if(SignatureFunction)
+	if (SignatureFunction)
 	{
 		return FindDelegatePropertyByFunction(SignatureFunction);
 	}
@@ -694,13 +757,23 @@ FMulticastDelegateProperty* FSMBlueprintEditorUtils::GetDelegateProperty(const F
 
 FMulticastDelegateProperty* FSMBlueprintEditorUtils::FindDelegatePropertyByFunction(const UFunction* SignatureFunction)
 {
-	for (TFieldIterator<FMulticastDelegateProperty> It(SignatureFunction->GetOuterUClass(), EFieldIteratorFlags::ExcludeSuper); It; ++It)
+	check(SignatureFunction);
+	if (const UClass* OuterUClass = SignatureFunction->GetOuterUClass())
 	{
-		if (FMulticastDelegateProperty* Delegate = CastField<FMulticastDelegateProperty>(*It))
+		const bool bIsPackage = Cast<UPackage>(OuterUClass) != nullptr;
+		if (!bIsPackage)
 		{
-			if (Delegate->SignatureFunction->GetFName() == SignatureFunction->GetFName())
+			// Field iterator on packages will crash and also aren't necessary. If bIsPackage is true likely the delegate doesn't exist,
+			// such as a native delegate that was removed.
+			for (TFieldIterator<FMulticastDelegateProperty> It(OuterUClass, EFieldIteratorFlags::ExcludeSuper); It; ++It)
 			{
-				return Delegate;
+				if (FMulticastDelegateProperty* Delegate = CastField<FMulticastDelegateProperty>(*It))
+				{
+					if (Delegate->SignatureFunction->GetFName() == SignatureFunction->GetFName())
+					{
+						return Delegate;
+					}
+				}
 			}
 		}
 	}
@@ -809,7 +882,7 @@ USMGraphK2Node_StateMachineNode* FSMBlueprintEditorUtils::GetRootStateMachineNod
 	}
 
 	USMGraphK2* TopLevelGraph = GetTopLevelStateMachineGraph(Blueprint);
-	if(!TopLevelGraph)
+	if (!TopLevelGraph)
 	{
 		return nullptr;
 	}
@@ -859,11 +932,11 @@ USMGraph* FSMBlueprintEditorUtils::GetRootStateMachineGraph(UBlueprint* Blueprin
 	return TopLevelNode->GetStateMachineGraph();
 }
 
-USMGraphK2Node_RuntimeNodeContainer* FSMBlueprintEditorUtils::GetRuntimeContainerFromGraph(UEdGraph* Graph)
+USMGraphK2Node_RuntimeNodeContainer* FSMBlueprintEditorUtils::GetRuntimeContainerFromGraph(const UEdGraph* Graph)
 {
 	const UEdGraph* OwningGraph = FindTopLevelOwningGraph(Graph);
 
-	if(const USMGraph* StateMachineGraph = Cast<USMGraph>(OwningGraph))
+	if (const USMGraph* StateMachineGraph = Cast<USMGraph>(OwningGraph))
 	{
 		/* State machine states have a special container which should already be generated by this point, but can be null. */
 		return StateMachineGraph->GeneratedContainerNode;
@@ -872,13 +945,26 @@ USMGraphK2Node_RuntimeNodeContainer* FSMBlueprintEditorUtils::GetRuntimeContaine
 	TArray<USMGraphK2Node_RuntimeNodeContainer*> ResultNodes;
 	GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNodeContainer>(OwningGraph, ResultNodes);
 
-	check(ResultNodes.Num() == 1);
+	if (!ensure(ResultNodes.Num() == 1))
+	{
+		// This was reported being hit on 2.5.2 / 4.27.2 with collapsing nodes to nested state machines, and
+		// copy and pasting them between super/sub graphs. Cannot recreate, but this can't be a check or
+		// projects may not load.
+		if (ResultNodes.Num() == 0)
+		{
+			return nullptr;
+		}
+	}
 	return ResultNodes[0];
 }
 
-bool FSMBlueprintEditorUtils::IsNodeImpactedFromAnyStateNode(const USMGraphNode_StateNodeBase* StateNode)
+bool FSMBlueprintEditorUtils::IsNodeImpactedFromAnyStateNode(const USMGraphNode_StateNodeBase* StateNode, TArray<USMGraphNode_AnyStateNode*>* OutAllAnyStates)
 {
 	check(StateNode)
+	if (OutAllAnyStates)
+	{
+		OutAllAnyStates->Reset();
+	}
 	
 	TArray<USMGraphNode_AnyStateNode*> AnyStates;
 	if (TryGetAnyStateNodesForGraph(StateNode->GetStateMachineGraph(), AnyStates))
@@ -887,27 +973,33 @@ bool FSMBlueprintEditorUtils::IsNodeImpactedFromAnyStateNode(const USMGraphNode_
 		{
 			if (DoesAnyStateImpactOtherNode(AnyState, StateNode))
 			{
+				if (OutAllAnyStates)
+				{
+					OutAllAnyStates->Add(AnyState);
+					continue;
+				}
 				return true;
 			}
 		}
 	}
 
-	return false;
+	return OutAllAnyStates ? OutAllAnyStates->Num() > 0 : false;
 }
 
-bool FSMBlueprintEditorUtils::TryGetAnyStateNodesForGraph(USMGraph* Graph, TArray<USMGraphNode_AnyStateNode*>& Nodes)
+bool FSMBlueprintEditorUtils::TryGetAnyStateNodesForGraph(USMGraph* Graph, TArray<USMGraphNode_AnyStateNode*>& OutNodes)
 {
 	check(Graph)
+	OutNodes.Reset();
 	
 	for (UEdGraphNode* Node : Graph->Nodes)
 	{
 		if (USMGraphNode_AnyStateNode* AnyState = Cast<USMGraphNode_AnyStateNode>(Node))
 		{
-			Nodes.Add(AnyState);
+			OutNodes.Add(AnyState);
 		}
 	}
 
-	return Nodes.Num() > 0;
+	return OutNodes.Num() > 0;
 }
 
 bool FSMBlueprintEditorUtils::DoesAnyStateImpactOtherNode(USMGraphNode_AnyStateNode* AnyStateNode,
@@ -916,13 +1008,23 @@ bool FSMBlueprintEditorUtils::DoesAnyStateImpactOtherNode(USMGraphNode_AnyStateN
 	check(AnyStateNode)
 	check(OtherNode)
 	
-	if (AnyStateNode == OtherNode || OtherNode->IsA<USMGraphNode_AnyStateNode>() || AnyStateNode->GetGraph() != OtherNode->GetGraph() || !AnyStateNode->HasOutputConnections() || OtherNode->ShouldExcludeFromAnyState())
+	if (AnyStateNode == OtherNode || OtherNode->IsA<USMGraphNode_AnyStateNode>()
+		 || AnyStateNode->GetGraph() != OtherNode->GetGraph()
+		 || !AnyStateNode->HasOutputConnections()
+		 || OtherNode->ShouldExcludeFromAnyState())
 	{
 		return false;
 	}
 
+	if (!AnyStateNode->AnyStateTagQuery.IsEmpty())
+	{
+		if (!AnyStateNode->AnyStateTagQuery.Matches(OtherNode->AnyStateTags))
+		{
+			return false;
+		}
+	}
+
 	bool bResult = false;
-	
 	for (int32 Idx = 0; Idx < AnyStateNode->GetOutputPin()->LinkedTo.Num(); ++Idx)
 	{
 		if (USMGraphNode_TransitionEdge* Transition = AnyStateNode->GetNextTransition(Idx))
@@ -931,11 +1033,6 @@ bool FSMBlueprintEditorUtils::DoesAnyStateImpactOtherNode(USMGraphNode_AnyStateN
 			{
 				// Any state only impacts if other state isn't connected directly to it.
 				return false;
-			}
-			
-			if (!Transition->PossibleToTransition())
-			{
-				continue;
 			}
 			
 			bResult = true;
@@ -964,7 +1061,7 @@ bool FSMBlueprintEditorUtils::IsStateMachineInstanceGraph(UEdGraph* GraphIn)
 
 bool FSMBlueprintEditorUtils::IsGraphConfiguredForTransitionEvents(const UEdGraph* Graph)
 {
-	if(!Graph || !Graph->IsA<USMTransitionGraph>())
+	if (!Graph || !Graph->IsA<USMTransitionGraph>())
 	{
 		return false;
 	}
@@ -1034,7 +1131,7 @@ FProperty* FSMBlueprintEditorUtils::GetPropertyForVariable(UBlueprint* Blueprint
 	}
 	
 	Property = FindFProperty<FProperty>(Blueprint->GeneratedClass, Name);
-	if(Property)
+	if (Property)
 	{
 		return Property;
 	}
@@ -1093,7 +1190,7 @@ void FSMBlueprintEditorUtils::TrashObject(UObject* Object)
 	const ERenameFlags RenFlags = REN_DontCreateRedirectors | REN_ForceNoResetLoaders | REN_DoNotDirty;
 	FName TrashName = *("TRASH_" + Object->GetName());
 
-	if(UEdGraph* Graph = Cast<UEdGraph>(Object))
+	if (UEdGraph* Graph = Cast<UEdGraph>(Object))
 	{
 		RemoveAllNodesFromGraph(Graph, nullptr, false, false, true);
 	}
@@ -1110,11 +1207,17 @@ void FSMBlueprintEditorUtils::InvalidateCaches(UBlueprint* InBlueprint)
 	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("FSMBlueprintEditorUtils::InvalidateCaches"), STAT_InvalidateCaches, STATGROUP_LogicDriverEditor);
 	if (InBlueprint)
 	{
-		if (USMGraph* SMGraph = GetRootStateMachineGraph(InBlueprint))
+		if (const USMGraph* SMGraph = GetRootStateMachineGraph(InBlueprint))
 		{
+			TArray<USMGraphNode_Base*> GraphNodes;
+			GetAllNodesOfClassNested(InBlueprint, GraphNodes);
+			for (USMGraphNode_Base* GraphNode : GraphNodes)
+			{
+				GraphNode->ResetCachedValues();
+			}
+			
 			TSet<USMGraphK2*> K2Graphs;
 			GetAllGraphsOfClassNested(SMGraph, K2Graphs);
-
 			for (USMGraphK2* Graph : K2Graphs)
 			{
 				Graph->ResetCachedValues();
@@ -1278,7 +1381,7 @@ int32 FSMBlueprintEditorUtils::FixUpDuplicateRuntimeGuids(UBlueprint* Blueprint,
 
 					if (MessageLog)
 					{
-						MessageLog->Warning(TEXT("Node @@ has duplicate runtime GUID with @@. Automatically fixing. This could have occurred by duplicating certain nodes in earlier versions of the plugin. Please save the package @@."), Node, ThisNode, Blueprint);
+						MessageLog->Warning(TEXT("Node @@ has duplicate runtime GUID with @@. Automatically fixing. This could have occurred by manually setting the NodeGuid or by duplicating certain nodes in earlier versions of the plugin. Please save the package @@."), Node, ThisNode, Blueprint);
 					}
 				}
 			}
@@ -1355,7 +1458,7 @@ void FSMBlueprintEditorUtils::FixUpAutoGeneratedFunctions(UBlueprint* Blueprint,
 	for (USMGraphK2* SMGraphK2 : GraphsToFix)
 	{
 		FString OriginalGraphName = SMGraphK2->GetName();
-		FString TemporaryGraphName = OriginalGraphName + "_" + FGuid::NewGuid().ToString();
+		FString TemporaryGraphName = OriginalGraphName + TEXT("_") + FGuid::NewGuid().ToString();
 
 		if (UEdGraph* NewGraph = CreateNewGraph(Blueprint, *TemporaryGraphName, UEdGraph::StaticClass(), GetDefault<UEdGraphSchema_K2>()->GetClass()))
 		{
@@ -1640,7 +1743,7 @@ bool FSMBlueprintEditorUtils::CanStateMachineBeConvertedToReference(USMGraph* Gr
 	return true;
 }
 
-void FSMBlueprintEditorUtils::CollapseNodesAndCreateStateMachine(const TSet<UObject*>& Nodes)
+USMGraphNode_StateMachineStateNode* FSMBlueprintEditorUtils::CollapseNodesAndCreateStateMachine(const TSet<UObject*>& Nodes)
 {
 	const FScopedTransaction Transaction(NSLOCTEXT("UnrealEd", "CollapseNodesToStateMachine", "Collapse To State Machine"));
 
@@ -1712,7 +1815,7 @@ void FSMBlueprintEditorUtils::CollapseNodesAndCreateStateMachine(const TSet<UObj
 
 	if (SampleState == nullptr)
 	{
-		return;
+		return nullptr;
 	}
 
 	USMGraph* GraphOwner = CastChecked<USMGraph>(SampleState->GetGraph());
@@ -1720,7 +1823,7 @@ void FSMBlueprintEditorUtils::CollapseNodesAndCreateStateMachine(const TSet<UObj
 	FSMStateMachineNodePlacementValidator Validator;
 	if (!CanStateMachineBePlacedInGraph(GraphOwner, Validator))
 	{
-		return;
+		return nullptr;
 	}
 	
 	// Create the new state machine node.
@@ -1808,6 +1911,8 @@ void FSMBlueprintEditorUtils::CollapseNodesAndCreateStateMachine(const TSet<UObj
 
 	GraphOwner->Modify();
 	GraphOwner->NotifyGraphChanged();
+
+	return NewStateMachine;
 }
 
 void FSMBlueprintEditorUtils::CombineStates(UEdGraphNode* DestinationNode, const TSet<UObject*>& NodesToMerge, bool bDestroyStates)
@@ -2149,7 +2254,7 @@ bool FSMBlueprintEditorUtils::PlaceFunctionOnGraph(UEdGraph* Graph, UFunction* F
 				}
 			}
 
-			if(FunctionArgumentPinOut)
+			if (FunctionArgumentPinOut)
 			{
 				*FunctionArgumentPinOut = ArgumentPin;
 			}
@@ -2336,16 +2441,24 @@ USMBlueprint* FSMBlueprintEditorUtils::ConvertStateMachineToReference(USMGraphNo
 	// Set class default values.
 	USMInstance* NewDefaultSM = Cast<USMInstance>(NewBlueprint->GetGeneratedClass()->GetDefaultObject());
 	NewDefaultSM->SetStateMachineClass(StateMachineClass);
+
+	// Needed for the reference template to be applied correctly.
+	FKismetEditorUtilities::CompileBlueprint(NewBlueprint);
 	
 	StateMachineNode->ReferenceStateMachine(NewBlueprint);
 
 	// Remove all nodes since this is now a reference.
 	RemoveAllNodesFromGraph(OldStateMachineGraph, Blueprint);
 
-	// Needed for the reference template to be applied correctly.
-	FKismetEditorUtilities::CompileBlueprint(NewBlueprint);
-
 	return NewBlueprint;
+}
+
+void FSMBlueprintEditorUtils::ClearEditorSelection(const UObject* EditorContextObject)
+{
+	if (FSMBlueprintEditor* Editor = GetStateMachineEditor(EditorContextObject))
+	{
+		Editor->ClearSelectionStateFor(FBlueprintEditor::SelectionState_Graph);
+	}
 }
 
 #undef LOCTEXT_NAMESPACE

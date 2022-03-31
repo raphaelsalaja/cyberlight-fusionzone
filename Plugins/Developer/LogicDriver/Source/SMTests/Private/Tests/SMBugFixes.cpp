@@ -1,24 +1,20 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
+
+#include "SMTestHelpers.h"
+#include "SMTestContext.h"
+#include "Helpers/SMTestBoilerplate.h"
 
 #include "Blueprints/SMBlueprint.h"
-#include "SMTestHelpers.h"
-#include "Blueprints/SMBlueprintGeneratedClass.h"
-#include "Blueprints/SMBlueprintFactory.h"
+
 #include "Utilities/SMBlueprintEditorUtils.h"
-#include "SMTestContext.h"
-#include "EdGraph/EdGraph.h"
-#include "Kismet2/KismetEditorUtilities.h"
-#include "Graph/SMGraphK2.h"
 #include "Graph/SMGraph.h"
-#include "Graph/SMStateGraph.h"
-#include "Graph/Schema/SMGraphK2Schema.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_StateMachineSelectNode.h"
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
-#include "Graph/Nodes/SMGraphNode_ConduitNode.h"
 
+#include "EdGraph/EdGraph.h"
+#include "Kismet2/KismetEditorUtilities.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -27,27 +23,12 @@
 /**
  * Test scenario where state machine has duplicate state and transition runtime guids and that they are properly fixed.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDuplicateRuntimeNodeTest, "SMTests.CheckDuplicateRuntimeNode", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDuplicateRuntimeNodeTest, "LogicDriver.BugFixes.CheckDuplicateRuntimeNode", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FDuplicateRuntimeNodeTest::RunTest(const FString& Parameters)
+bool FDuplicateRuntimeNodeTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 5;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(5)
 
 	UEdGraphPin* LastStatePin = nullptr;
 
@@ -157,27 +138,12 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FDuplicateRuntimeNodeTest, "SMTests.CheckDuplic
 /**
  * Validate node names that special characters won't cause a crash when copying unrelated object properties during a compile.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FInvalidNodeNameTest, "SMTests.CheckInvalidNodeName", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FInvalidNodeNameTest, "LogicDriver.BugFixes.CheckInvalidNodeName", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FInvalidNodeNameTest::RunTest(const FString& Parameters)
+bool FInvalidNodeNameTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test. At least 2 so a transition leading to an invalid state is also checked.
-	int32 TotalStates = 2;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2)
 
 	UEdGraphPin* LastStatePin = nullptr;
 

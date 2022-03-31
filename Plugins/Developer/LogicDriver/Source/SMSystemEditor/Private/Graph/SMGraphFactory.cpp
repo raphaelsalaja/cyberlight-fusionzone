@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphFactory.h"
 #include "Schema/SMGraphK2Schema.h"
@@ -6,15 +6,15 @@
 #include "Nodes/SlateNodes/SGraphNode_StateNode.h"
 #include "Nodes/SlateNodes/SGraphNode_StateMachineNode.h"
 #include "Nodes/SlateNodes/SGraphNode_StateMachineStateNode.h"
-#include "Nodes/SlateNodes/SGraphNode_StateEntryNode.h"
+#include "Nodes/SlateNodes/SGraphNode_ExecutionEntryNode.h"
 #include "Nodes/SlateNodes/SGraphNode_StateMachineEntryNode.h"
 #include "Nodes/SlateNodes/SGraphNode_TransitionEdge.h"
 #include "Nodes/SMGraphK2Node_StateMachineNode.h"
 #include "Nodes/SMGraphNode_StateNode.h"
 #include "Nodes/SMGraphNode_ConduitNode.h"
 #include "Nodes/SMGraphNode_StateMachineStateNode.h"
+#include "Nodes/SMGraphNode_AnyStateNode.h"
 #include "Nodes/SMGraphNode_StateMachineEntryNode.h"
-#include "Nodes/RootNodes/SMGraphK2Node_StateEntryNode.h"
 #include "Pins/SGraphPin_StateMachinePin.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 
@@ -24,8 +24,7 @@
 
 #define LOCTEXT_NAMESPACE "SMGraphFactory"
 
-
-TSharedPtr<class SGraphNode> FSMGraphPanelNodeFactory::CreateNode(class UEdGraphNode* Node) const
+TSharedPtr<SGraphNode> FSMGraphPanelNodeFactory::CreateNode(UEdGraphNode* Node) const
 {
 	if (USMGraphK2Node_StateMachineNode* StateMachineNode = Cast<USMGraphK2Node_StateMachineNode>(Node))
 	{
@@ -54,31 +53,34 @@ TSharedPtr<class SGraphNode> FSMGraphPanelNodeFactory::CreateNode(class UEdGraph
 		return SNew(SGraphNode_StateMachineEntryNode, EntryNode);
 	}
 
-	if (USMGraphK2Node_StateEntryNode* EntryNode = Cast<USMGraphK2Node_StateEntryNode>(Node))
-	{
-		return SNew(SGraphNode_StateEntryNode, EntryNode);
-	}
-
-	if(USMGraphNode_ConduitNode* ConduitNode = Cast<USMGraphNode_ConduitNode>(Node))
+	if (USMGraphNode_ConduitNode* ConduitNode = Cast<USMGraphNode_ConduitNode>(Node))
 	{
 		return SNew(SGraphNode_ConduitNode, ConduitNode);
 	}
 
-	if(USMGraphNode_StateMachineStateNode* StateMachineStateNode = Cast<USMGraphNode_StateMachineStateNode>(Node))
+	if (USMGraphNode_StateMachineStateNode* StateMachineStateNode = Cast<USMGraphNode_StateMachineStateNode>(Node))
 	{
 		return SNew(SGraphNode_StateMachineStateNode, StateMachineStateNode);
+	}
+	
+	if (USMGraphK2Node_RuntimeNode_Base* EntryNode = Cast<USMGraphK2Node_RuntimeNode_Base>(Node))
+	{
+		if (EntryNode->IsConsideredForEntryConnection())
+		{
+			return SNew(SGraphNode_ExecutionEntryNode, EntryNode);
+		}
 	}
 
 	return FGraphPanelNodeFactory::CreateNode(Node);
 }
 
-TSharedPtr<class SGraphPin> FSMGraphPinFactory::CreatePin(class UEdGraphPin* InPin) const
+TSharedPtr<SGraphPin> FSMGraphPinFactory::CreatePin(UEdGraphPin* InPin) const
 {
 	if (InPin->PinType.PinCategory == UEdGraphSchema_K2::PC_Exec)
 	{
 		return SNew(SGraphPinExec, InPin);
 	}
-	if(InPin->PinType.PinCategory == USMGraphK2Schema::PC_StateMachine)
+	if (InPin->PinType.PinCategory == USMGraphK2Schema::PC_StateMachine)
 	{
 		return SNew(SSMGraphPin_StateMachinePin, InPin);
 	}

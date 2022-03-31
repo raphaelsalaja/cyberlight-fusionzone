@@ -1,10 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMConduit.h"
 #include "SMConduitInstance.h"
 #include "SMUtils.h"
 
 FSMConduit::FSMConduit() : Super(), bCanEnterTransition(false), bCanEvaluate(true), bEvalWithTransitions(false),
+                           ConditionalEvaluationType(),
                            bIsEvaluating(false), bCheckedForTransitions(false)
 {
 }
@@ -12,22 +13,39 @@ FSMConduit::FSMConduit() : Super(), bCanEnterTransition(false), bCanEvaluate(tru
 void FSMConduit::Initialize(UObject* Instance)
 {
 	Super::Initialize(Instance);
-	USMUtils::InitializeGraphFunctions(ConduitEnteredGraphEvaluator, Instance);
+}
+
+void FSMConduit::InitializeGraphFunctions()
+{
+	FSMState_Base::InitializeGraphFunctions();
+
+	USMUtils::InitializeGraphFunctions(CanEnterConduitGraphEvaluator, OwningInstance, GetNodeInstance());
+	USMUtils::InitializeGraphFunctions(ConduitEnteredGraphEvaluator, OwningInstance, GetNodeInstance());
 }
 
 void FSMConduit::Reset()
 {
 	Super::Reset();
+	USMUtils::ResetGraphFunctions(CanEnterConduitGraphEvaluator);
 	USMUtils::ResetGraphFunctions(ConduitEnteredGraphEvaluator);
 }
 
 void FSMConduit::ExecuteInitializeNodes()
 {
+	if (IsInitializedForRun())
+	{
+		return;
+	}
+
+	if (bEvalWithTransitions)
+	{
+		TryResetVariables();
+	}
+	
 	TryExecuteGraphProperties(GRAPH_PROPERTY_EVAL_CONDUIT_INIT);
 
-	if (NodeInstance && bEvalWithTransitions)
+	if (NodeInstance)
 	{
-		// NativeInitialize is called OnStateBegin when not configured as a transition.
 		NodeInstance->NativeInitialize();
 	}
 	
@@ -36,13 +54,12 @@ void FSMConduit::ExecuteInitializeNodes()
 
 void FSMConduit::ExecuteShutdownNodes()
 {
-	if (NodeInstance && bEvalWithTransitions)
+	Super::ExecuteShutdownNodes();
+
+	if (NodeInstance)
 	{
-		// NativeShutdown is called OnStateEnd when not configured as a transition.
 		NodeInstance->NativeShutdown();
 	}
-
-	Super::ExecuteShutdownNodes();
 }
 
 bool FSMConduit::CanExecuteGraphProperties(uint32 OnEvent, const USMStateInstance_Base* ForTemplate) const
@@ -83,10 +100,12 @@ bool FSMConduit::StartState()
 
 	USMUtils::ExecuteGraphFunctions(ConduitEnteredGraphEvaluator);
 	
-	if(USMConduitInstance* ConduitInstance = Cast<USMConduitInstance>(GetNodeInstance()))
+	if (USMConduitInstance* ConduitInstance = Cast<USMConduitInstance>(GetNodeInstance()))
 	{
 		ConduitInstance->OnStateBegin();
 	}
+
+	FirePostStartEvents();
 
 	return bResult;
 }
@@ -112,6 +131,8 @@ bool FSMConduit::EndState(float DeltaSeconds, const FSMTransition* TransitionToT
 		ConduitInstance->OnStateEnd();
 	}
 
+	ShutdownTransitions();
+	
 	return bResult;
 }
 
@@ -129,11 +150,26 @@ bool FSMConduit::GetValidTransition(TArray<TArray<FSMTransition*>>& Transitions)
 	
 	// First check that the conduit passes.
 	TryExecuteGraphProperties(GRAPH_PROPERTY_EVAL_CONDUIT_TRANS_CHECK);
-	Execute();
+	PrepareGraphExecution();
+	
+	if (ConditionalEvaluationType == ESMConditionalEvaluationType::SM_AlwaysTrue)
+	{
+		// Skip BP graph eval if not needed.
+		bCanEnterTransition = true;
+	}
+	else if (ConditionalEvaluationType == ESMConditionalEvaluationType::SM_NodeInstance)
+	{
+		bCanEnterTransition = CastChecked<USMConduitInstance>(GetOrCreateNodeInstance())->CanEnterTransition();
+	}
+	else
+	{
+		PrepareGraphExecution();
+		USMUtils::ExecuteGraphFunctions(CanEnterConduitGraphEvaluator);
+	}
 
 	bIsEvaluating = false;
 	
-	if(!bCanEnterTransition)
+	if (!bCanEnterTransition)
 	{
 		return false;
 	}

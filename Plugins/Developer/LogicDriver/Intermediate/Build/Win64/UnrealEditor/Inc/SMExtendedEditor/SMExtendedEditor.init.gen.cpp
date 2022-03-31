@@ -5,31 +5,25 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMExtendedEditor_init() {}
-	UPackage* Z_Construct_UPackage__Script_SMExtendedEditor()
+	static FPackageRegistrationInfo Z_Registration_Info_UPackage__Script_SMExtendedEditor;
+	FORCENOINLINE UPackage* Z_Construct_UPackage__Script_SMExtendedEditor()
 	{
-		static UPackage* ReturnPackage = nullptr;
-		if (!ReturnPackage)
+		if (!Z_Registration_Info_UPackage__Script_SMExtendedEditor.OuterSingleton)
 		{
 			static const UECodeGen_Private::FPackageParams PackageParams = {
 				"/Script/SMExtendedEditor",
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000100,
-				0x1FA73CE6,
-				0x3B23E7CA,
+				0x85B78B63,
+				0x5734544D,
 				METADATA_PARAMS(nullptr, 0)
 			};
-			UECodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);
+			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_SMExtendedEditor.OuterSingleton, PackageParams);
 		}
-		return ReturnPackage;
+		return Z_Registration_Info_UPackage__Script_SMExtendedEditor.OuterSingleton;
 	}
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_SMExtendedEditor(Z_Construct_UPackage__Script_SMExtendedEditor, TEXT("/Script/SMExtendedEditor"), Z_Registration_Info_UPackage__Script_SMExtendedEditor, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x85B78B63, 0x5734544D));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

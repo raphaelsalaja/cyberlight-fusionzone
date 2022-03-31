@@ -1,11 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "EdGraphSchema_K2.h"
-#include "SMGraphK2Schema.generated.h"
 
+#include "SMGraphK2Schema.generated.h"
 
 UCLASS()
 class SMSYSTEMEDITOR_API USMGraphK2Schema : public UEdGraphSchema_K2

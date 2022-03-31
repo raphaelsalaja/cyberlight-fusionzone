@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "Utilities/SMNodeInstanceUtils.h"
 #include "Graph/Nodes/SMGraphNode_Base.h"
@@ -32,21 +32,56 @@ bool FSMNodeInstanceUtils::IsWidgetChildOf(TSharedPtr<SWidget> Parent, TSharedPt
 	return false;
 }
 
-TSharedPtr<SWidget> FSMNodeInstanceUtils::CreateNodeClassWidgetDisplay(USMNodeInstance* NodeInstance)
+FText FSMNodeInstanceUtils::CreateNodeClassTextSummary(const USMNodeInstance* NodeInstance)
 {
+	check(NodeInstance);
+	
 	const FSMNodeDescription& Description = NodeInstance->GetNodeDescription();
-	const FString Name = Description.Name.IsNone() ? NodeInstance->GetClass()->GetName() : Description.Name.ToString();
+
+	FString ClassName = NodeInstance->GetClass()->GetName();
+	ClassName.RemoveFromEnd(TEXT("_C"));
+	const FString Name = Description.Name.IsNone() ? ClassName : Description.Name.ToString();
+	
 	const FText TextFormat = FText::FromString(Description.Description.IsEmpty() ? "{0}" : "{0} - {1}");
-	TSharedPtr<SWidget> Result = SNew(STextBlock)
-		.TextStyle(FSMEditorStyle::Get(), "SMGraph.Tooltip.Info")
-		.Text(FText::Format(TextFormat, FText::FromString(Name), Description.Description));
-	return Result;
+	return FText::Format(TextFormat, FText::FromString(Name), Description.Description);
+}
+
+TSharedPtr<SWidget> FSMNodeInstanceUtils::CreateNodeClassWidgetDisplay(const USMNodeInstance* NodeInstance)
+{
+	check(NodeInstance);
+	
+	const FSMNodeDescription& Description = NodeInstance->GetNodeDescription();
+
+	FString ClassName = NodeInstance->GetClass()->GetName();
+	ClassName.RemoveFromEnd(TEXT("_C"));
+	const FString Name = Description.Name.IsNone() ? ClassName : Description.Name.ToString();
+	
+	const FText TextFormat = FText::FromString(Description.Description.IsEmpty() ? "{0}" : "{0} - {1}");
+	const FText NodeClassSummaryText = CreateNodeClassTextSummary(NodeInstance);
+	
+	return SNew(SOverlay)
+	+ SOverlay::Slot()
+	[
+		SNew(SBorder)
+		.BorderImage(FEditorStyle::GetBrush("Graph.Node.TitleBackground"))
+		.BorderBackgroundColor(FLinearColor(0.4f, 0.4f, 0.4f, 0.4f))
+	]
+	+ SOverlay::Slot()
+	.VAlign(VAlign_Center)
+	.Padding(FMargin(6,4))
+	[
+		SNew(STextBlock)
+			.Text(NodeClassSummaryText)
+			.TextStyle(FEditorStyle::Get(), TEXT("NormalText"))
+			.ColorAndOpacity(FLinearColor::White)
+	];
 }
 
 const FGuid& FSMNodeInstanceUtils::SetGraphPropertyFromProperty(FSMGraphProperty_Base& GraphProperty,
-	FProperty* Property, USMNodeInstance* NodeInstance, int32 Index, bool bSetGuid, bool bUseTemplateInGuid)
+	FProperty* Property, USMNodeInstance* NodeInstance, int32 Index, bool bSetGuid, bool bUseTemplateInGuid, bool bUseTempNativeGuid)
 {
 	check(NodeInstance)
+	check(Property);
 	
 	const UEdGraphSchema_K2* K2Schema = GetDefault<UEdGraphSchema_K2>();
 	
@@ -59,7 +94,7 @@ const FGuid& FSMNodeInstanceUtils::SetGraphPropertyFromProperty(FSMGraphProperty
 	// TemplateGuid is used to calculate final guid.
 	GraphProperty.SetTemplateGuid(NodeInstance->GetTemplateGuid());
 
-	if(!bSetGuid)
+	if (!bSetGuid)
 	{
 		return GraphProperty.GetGuid();
 	}
@@ -70,15 +105,169 @@ const FGuid& FSMNodeInstanceUtils::SetGraphPropertyFromProperty(FSMGraphProperty
 		return GraphProperty.SetGuid(GraphProperty.MemberReference.GetMemberGuid(), Index, bUseTemplateInGuid);
 	}
 
+	// Search string Taken from FMemberReference::GetReferenceSearchString of engine CL 17816129.
+	auto GetTempNativeSearchString = [&] (UClass* InFieldOwner)
+	{
+		const FGuid MemberGuid = GraphProperty.MemberReference.GetMemberGuid();
+		const FName MemberName = GraphProperty.MemberReference.GetMemberName();
+		if (!GraphProperty.MemberReference.IsLocalScope())
+		{
+			if (InFieldOwner)
+			{
+				if (MemberGuid.IsValid())
+				{
+					return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\" && MemberGuid(A=%i && B=%i && C=%i && D=%i)) || Name=\"(%s)\") || Pins(Binding=\"%s\") || Binding=\"%s\""), *MemberName.ToString(), MemberGuid.A, MemberGuid.B, MemberGuid.C, MemberGuid.D, *MemberName.ToString(), *MemberName.ToString(), *MemberName.ToString());
+				}
+				else
+				{
+					FString ExportMemberParentName = InFieldOwner->GetClass()->GetName();
+					ExportMemberParentName.AppendChar('\'');
+					ExportMemberParentName += InFieldOwner->GetAuthoritativeClass()->GetPathName();
+					ExportMemberParentName.AppendChar('\'');
+
+					return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\" && (MemberParent=\"%s\" || bSelfContext=true) ) || Name=\"(%s)\") || Pins(Binding=\"%s\") || Binding=\"%s\""), *MemberName.ToString(), *ExportMemberParentName, *MemberName.ToString(), *MemberName.ToString(), *MemberName.ToString());
+				}
+			}
+			else if (MemberGuid.IsValid())
+			{
+				return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\" && MemberGuid(A=%i && B=%i && C=%i && D=%i)) || Name=\"(%s)\") || Pins(Binding=\"%s\") || Binding=\"%s\""), *MemberName.ToString(), MemberGuid.A, MemberGuid.B, MemberGuid.C, MemberGuid.D, *MemberName.ToString(), *MemberName.ToString(), *MemberName.ToString());
+			}
+			else
+			{
+				return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\") || Name=\"(%s)\") || Pins(Binding=\"%s\") || Binding=\"%s\""), *MemberName.ToString(), *MemberName.ToString(), *MemberName.ToString(), *MemberName.ToString());
+			}
+		}
+		else
+		{
+			return FString::Printf(TEXT("Nodes(VariableReference((MemberName=+\"%s\" && MemberScope=+\"%s\"))) || Binding=\"%s\""), *MemberName.ToString(), *GraphProperty.MemberReference.GetMemberScopeName(), *MemberName.ToString());
+		}
+	};
+
+	// Previous search string, from 4.27 & below. This is what is used currently.
+	auto GetNativeSearchString = [&](UClass* InFieldOwner)
+	{
+		const FGuid MemberGuid = GraphProperty.MemberReference.GetMemberGuid();
+		const FName MemberName = GraphProperty.MemberReference.GetMemberName();
+		if (!GraphProperty.MemberReference.IsLocalScope())
+		{
+			if (InFieldOwner)
+			{
+				if (MemberGuid.IsValid())
+				{
+					return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\" && MemberGuid(A=%i && B=%i && C=%i && D=%i) ))"), *MemberName.ToString(), MemberGuid.A, MemberGuid.B, MemberGuid.C, MemberGuid.D);
+				}
+				else
+				{
+					FString ExportMemberParentName = InFieldOwner->GetClass()->GetName();
+					ExportMemberParentName.AppendChar('\'');
+					ExportMemberParentName += InFieldOwner->GetAuthoritativeClass()->GetPathName();
+					ExportMemberParentName.AppendChar('\'');
+
+					return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\" && (MemberParent=\"%s\" || bSelfContext=true) ))"), *MemberName.ToString(), *ExportMemberParentName);
+				}
+			}
+			else if (MemberGuid.IsValid())
+			{
+				return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\" && MemberGuid(A=%i && B=%i && C=%i && D=%i)))"), *MemberName.ToString(), MemberGuid.A, MemberGuid.B, MemberGuid.C, MemberGuid.D);
+			}
+			else
+			{
+				return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\"))"), *MemberName.ToString());
+			}
+		}
+		else
+		{
+			return FString::Printf(TEXT("Nodes(VariableReference(MemberName=+\"%s\" && MemberScope=+\"%s\"))"), *MemberName.ToString(), *GraphProperty.MemberReference.GetMemberScopeName());
+		}
+	};
+	
 	//  Native variable.
-	const FString SearchString = GraphProperty.MemberReference.GetReferenceSearchString(Property->GetOwnerClass());
+	const FString SearchString = bUseTempNativeGuid ? GetTempNativeSearchString(Property->GetOwnerClass()) : GetNativeSearchString(Property->GetOwnerClass());
 	return GraphProperty.SetGuid(USMUtils::PathToGuid(SearchString), Index, bUseTemplateInGuid);
 }
 
-bool FSMNodeInstanceUtils::IsPropertyExposedToGraphNode(FProperty* Property)
+bool FSMNodeInstanceUtils::IsPropertyExposedToGraphNode(const FProperty* Property)
 {
+	if (!Property)
+	{
+		return false;
+	}
+	
 	return !Property->HasAnyPropertyFlags(CPF_DisableEditOnInstance) && Property->HasAllPropertyFlags(CPF_BlueprintVisible) &&
 		!Property->HasMetaData("HideOnNode");
+}
+
+bool FSMNodeInstanceUtils::IsPropertyHandleExposedContainer(const TSharedPtr<IPropertyHandle>& InHandle)
+{
+	// TODO Containers: If supporting maps or sets this needs to be updated.
+	check(InHandle.IsValid());
+	return InHandle->AsArray().IsValid() && IsPropertyExposedToGraphNode(InHandle->GetProperty());
+}
+
+bool FSMNodeInstanceUtils::ShouldHideNodeStackPropertyFromDetails(const FProperty* InProperty)
+{
+	const bool bHidden = InProperty->HasMetaData("InstancedTemplate") || InProperty->HasMetaData("NodeBaseOnly");
+	return bHidden;
+}
+
+bool FSMNodeInstanceUtils::HideEmptyCategoryHandles(const TSharedPtr<IPropertyHandle>& InHandle, ENodeStackType NodeStackType)
+{
+	if (InHandle.IsValid())
+	{
+		if (const FProperty* Property = InHandle->GetProperty())
+		{
+			bool bHidden = false;
+			if (NodeStackType != ENodeStackType::None)
+			{
+				// Stacks should always hide if this property is exposed since a child builder displays that.
+				bHidden = ShouldHideNodeStackPropertyFromDetails(Property) ||
+					(NodeStackType == ENodeStackType::StateStack && IsPropertyExposedToGraphNode(Property));
+
+				if (!bHidden && NodeStackType == ENodeStackType::TransitionStack)
+				{
+					const FName PropertyName = Property->GetFName();
+					if (PropertyName == TEXT("bUseCustomColors") || PropertyName == TEXT("NodeColor"))
+					{
+						// State stack allows these to be customized, but they aren't relevant to the transition stack.
+						InHandle->MarkHiddenByCustomization();
+						bHidden = true;
+					}
+				}
+			}
+			else
+			{
+				// Base states display the properties in their normal categories unless they are containers.
+				bHidden = IsPropertyHandleExposedContainer(InHandle);
+			}
+			return bHidden;
+		}
+
+		uint32 HandleNumChildren;
+		InHandle->GetNumChildren(HandleNumChildren);
+
+		bool bAreAllChildrenEmpty = true;
+		for (uint32 CIdx = 0; CIdx < HandleNumChildren; ++CIdx)
+		{
+			TSharedPtr<IPropertyHandle> ChildProperty = InHandle->GetChildHandle(CIdx);
+			const bool bIsChildEmpty = HideEmptyCategoryHandles(ChildProperty, NodeStackType);
+			if (!bIsChildEmpty)
+			{
+				bAreAllChildrenEmpty = false;
+				continue;
+			}
+
+			ChildProperty->MarkHiddenByCustomization();
+		}
+
+		if (bAreAllChildrenEmpty)
+		{
+			InHandle->MarkHiddenByCustomization();
+		}
+
+		return bAreAllChildrenEmpty;
+	}
+
+	return true;
 }
 
 FStructProperty* FSMNodeInstanceUtils::IsPropertyGraphProperty(FProperty* Property)
@@ -97,7 +286,7 @@ FStructProperty* FSMNodeInstanceUtils::IsPropertyGraphProperty(FProperty* Proper
 		}
 	}
 
-	if(FArrayProperty* ArrayProperty = CastField<FArrayProperty>(Property))
+	if (FArrayProperty* ArrayProperty = CastField<FArrayProperty>(Property))
 	{
 		if (FStructProperty* StructProperty = CastField<FStructProperty>(ArrayProperty->Inner))
 		{
@@ -145,7 +334,7 @@ bool FSMNodeInstanceUtils::DoesNodeClassPossiblyHaveConstructionScripts(TSubclas
 		UK2Node_CallParentFunction* ParentCall = Cast<UK2Node_CallParentFunction>(ThenPin->LinkedTo[0]->GetOwningNode());
 		if (ParentCall == nullptr)
 		{
-			// Check if instead of the parent we are connected right to the with exection node.
+			// Check if instead of the parent we are connected right to the with execution node.
 			ExecutionEnvironmentFunction = Cast<UK2Node_CallFunction>(ThenPin->LinkedTo[0]->GetOwningNode());
 			if (ExecutionEnvironmentFunction == nullptr)
 			{
@@ -205,7 +394,7 @@ bool FSMNodeInstanceUtils::DoesNodeClassPossiblyHaveConstructionScripts(TSubclas
 	{
 		if (TObjectPtr<UEdGraph>* ConstructionScriptGraph = NodeBlueprint->FunctionGraphs.FindByPredicate([] (UEdGraph* InGraph)
 		{
-			return InGraph->GetFName() == USMNodeInstance::GetConstructonScriptFunctionName();
+			return InGraph->GetFName() == USMNodeInstance::GetConstructionScriptFunctionName();
 		}))
 		{
 			bool bHasParentCall = false;

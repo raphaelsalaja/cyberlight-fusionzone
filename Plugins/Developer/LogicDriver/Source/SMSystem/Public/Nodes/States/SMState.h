@@ -1,9 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMNode_Base.h"
+
 #include "SMState.generated.h"
 
 struct FSMTransition;
@@ -27,35 +27,37 @@ struct SMSYSTEM_API FSMState_Base : public FSMNode_Base
 public:
 	/** Entry node to state machine. */
 	UPROPERTY()
-	uint32 bIsRootNode: 1;
+	uint16 bIsRootNode: 1;
 
 	/** Always call state update at least once before ending. */
 	UPROPERTY()
-	uint32 bAlwaysUpdate: 1;
+	uint16 bAlwaysUpdate: 1;
 
 	/** Allows transitions to be evaluated in the same tick as Start State. */
 	UPROPERTY()
-	uint32 bEvalTransitionsOnStart: 1;
+	uint16 bEvalTransitionsOnStart: 1;
 
 	/** Prevents conditional transitions for this state from being evaluated on Tick. */
 	UPROPERTY()
-	uint32 bDisableTickTransitionEvaluation: 1;
+	uint16 bDisableTickTransitionEvaluation: 1;
 
 	/** If the state should remain active even after a transition is taken from this state. */
 	UPROPERTY()
-	uint32 bStayActiveOnStateChange: 1;
+	uint16 bStayActiveOnStateChange: 1;
 
 	/** If this state can be reentered from a parallel state if this state is already active. */
 	UPROPERTY()
-	uint32 bAllowParallelReentry: 1;
+	uint16 bAllowParallelReentry: 1;
 
-	/** When the owning blueprint's root state machine starts. */
-	UPROPERTY()
-	TArray<FSMExposedFunctionHandler> OnRootStateMachineStartedGraphEvaluator;
+protected:
+	/** True only when already active and entered from a parallel state. */
+	uint16 bReenteredByParallelState: 1;
 
-	/** When the owning blueprint's root state machine stops. */
-	UPROPERTY()
-	TArray<FSMExposedFunctionHandler> OnRootStateMachineStoppedGraphEvaluator;
+	/** If this state machine can execute state logic. */
+	uint16 bCanExecuteLogic: 1;
+
+	/** True while the state is ending and graph execution is occurring. Prevents restarting this state when it triggers transitions while ending. */
+	uint16 bIsStateEnding: 1;
 	
 public:
 	virtual void UpdateReadStates() override;
@@ -66,6 +68,7 @@ public:
 
 	// FSMNode_Base
 	virtual void Initialize(UObject* Instance) override;
+	virtual void InitializeGraphFunctions() override;
 	virtual void Reset() override;
 	virtual bool IsNodeInstanceClassCompatible(UClass* NewNodeInstanceClass) const override;
 	virtual UClass* GetDefaultNodeInstanceClass() const override;
@@ -91,10 +94,10 @@ public:
 	virtual bool EndState(float DeltaSeconds, const FSMTransition* TransitionToTake = nullptr);
 
 	/** Called when the blueprint owning this node is started. */
-	virtual void OnStartedByInstance(USMInstance* Instance);
+	virtual void OnStartedByInstance(USMInstance* Instance) override;
 
 	/** Called when the blueprint owning this node has stopped. */
-	virtual void OnStoppedByInstance(USMInstance* Instance);
+	virtual void OnStoppedByInstance(USMInstance* Instance) override;
 	
 	/**
 	 * Runs through the transitions executing their graphs until a result is found.
@@ -172,9 +175,15 @@ public:
 	/** UTC time the state started. */
 	const FDateTime& GetStartTime() const { return StartTime; }
 
+	/** UTC time the state ended. */
+	const FDateTime& GetEndTime() const { return EndTime; }
+	
 	/** Set the local start time. */
 	virtual void SetStartTime(const FDateTime& InStartTime);
 
+	/** Set the local end time. */
+	virtual void SetEndTime(const FDateTime& InEndTime);
+	
 #if WITH_EDITORONLY_DATA
 public:
 	/** High resolution timer for when this state started. */
@@ -191,6 +200,16 @@ protected:
 	/** Helpers to call any special transition logic. */
 	void InitializeTransitions();
 	void ShutdownTransitions();
+
+	/** Call the owning instance letting it know this state has started. */
+	virtual void NotifyInstanceStateHasStarted();
+
+	/** Fire all instance pre start events. */
+	virtual void FirePreStartEvents();
+
+	/** Fire all instance post start events. */
+	virtual void FirePostStartEvents();
+	
 protected:
 	/** The last active state before this state. Resets on entry. */
 	FSMState_Base* PreviousActiveState;
@@ -201,13 +220,9 @@ protected:
 	/** UTC time the state started. */
 	FDateTime StartTime;
 
-	/** True only when already active and entered from a parallel state. */
-	bool bReenteredByParallelState;
-	bool bCanExecuteLogic = true;
+	/** UTC time the state ended. */
+	FDateTime EndTime;
 
-	/** True while the state is ending and graph execution is occurring. Prevents restarting this state when it triggers transitions while ending. */
-	bool bIsStateEnding = false;
-	
 private:
 	const FSMTransition* NextTransition;
 	TArray<FSMTransition*> IncomingTransitions;
@@ -224,6 +239,9 @@ struct SMSYSTEM_API FSMState : public FSMState_Base
 
 public:
 	UPROPERTY()
+	TArray<FSMExposedFunctionHandler> BeginStateGraphEvaluator;
+	
+	UPROPERTY()
 	TArray<FSMExposedFunctionHandler> UpdateStateGraphEvaluator;
 
 	UPROPERTY()
@@ -234,6 +252,7 @@ public:
 
 	// FSMNode_Base
 	virtual void Initialize(UObject* Instance) override;
+	virtual void InitializeGraphFunctions() override;
 	virtual void Reset() override;
 	virtual void ExecuteInitializeNodes() override;
 	virtual void ExecuteShutdownNodes() override;

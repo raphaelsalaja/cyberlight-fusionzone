@@ -1,24 +1,25 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "EdGraph/EdGraphNode.h"
-#include "SMNodeInstance.h"
 #include "PropertyNodes/SMGraphK2Node_PropertyNode.h"
+
+#include "SMNodeInstance.h"
+
+#include "EdGraph/EdGraphNode.h"
 #include "Styling/SlateBrush.h"
+
 #include "SMGraphNode_Base.generated.h"
-
-
-#define INDEX_PIN_INPUT 0
-#define INDEX_PIN_OUTPUT 1
 
 class USMEditorSettings;
 class USMGraph;
 class FSMKismetCompilerContext;
 struct FSMNode_Base;
 
-DECLARE_MULTICAST_DELEGATE_OneParam(FOnGraphNodeRefreshRequested, class USMGraphNode_Base* /* GraphNode */);
+#define INDEX_PIN_INPUT 0
+#define INDEX_PIN_OUTPUT 1
+
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnGraphNodeRefreshRequested, class USMGraphNode_Base* /* GraphNode */, bool /* bFullRefresh */);
 
 USTRUCT()
 struct FSMGraphNodeLog
@@ -49,15 +50,19 @@ struct FSMGraphNodeLog
 	TArray<UObject*> ReferenceList;
 };
 
-UCLASS(abstract)
+UCLASS(abstract, config = EditorPerProjectUserSettings, PerObjectConfig)
 class SMSYSTEMEDITOR_API USMGraphNode_Base : public UEdGraphNode
 {
 	GENERATED_UCLASS_BODY()
 
 public:
 	bool bGenerateTemplateOnNodePlacement;
+
+	// UObject
+	virtual void Serialize(FArchive& Ar) override;
+	// ~UObject
 	
-	//~ Begin UEdGraphNode Interface
+	// UEdGraphNode
 	virtual void DestroyNode() override;
 	virtual void PostPasteNode() override;
 	virtual void PostEditUndo() override;
@@ -71,7 +76,7 @@ public:
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 	virtual void PinConnectionListChanged(UEdGraphPin* Pin) override;
 	virtual void ValidateNodeDuringCompilation(FCompilerResultsLog& MessageLog) const override;
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
 	
 	/** Called during kismet pre-compile before the bound graph is copied to the consolidated event graph. */
 	virtual void PreCompile(FSMKismetCompilerContext& CompilerContext);
@@ -109,6 +114,12 @@ public:
 	/** Sets the read only position to the current node position. */
 	void SetReadOnlyNodePosition();
 
+	/** Jump to the local graph. */
+	virtual void GoToLocalGraph() const;
+
+	/** If this node is allowed to go to it's local graph. */
+	virtual bool CanGoToLocalGraph() const { return GetBoundGraph() != nullptr; }
+
 private:
 	/** Set the read only position to a manual position. */
 	void SetReadOnlyNodePosition(const FVector2D& Position);
@@ -124,6 +135,9 @@ public:
 	/** Runs all template construction scripts.*/
 	void RunAllConstructionScripts();
 
+	/** If this node can ever run construction scrips. */
+	virtual bool CanRunConstructionScripts() const { return true; }
+	
 	/** Check if this node might have construction scripts. */
 	virtual bool DoesNodePossiblyHaveConstructionScripts() const;
 	
@@ -139,7 +153,12 @@ protected:
 
 	/** Runs all template construction scripts core behavior. */
 	virtual void RunAllConstructionScripts_Internal();
+	
+	bool IsSafeToConditionallyCompile(EPropertyChangeType::Type ChangeType) const;
 
+protected:
+	bool bPostEditChangeConstructionRequiresFullRefresh;
+	
 private:
 	bool bIsRunningConstructionScripts;
 	
@@ -148,11 +167,24 @@ public:
 	virtual UClass* GetNodeClass() const { return nullptr; }
 	virtual void SetNodeClass(UClass* Class);
 	UClass* GetDefaultNodeClass() const;
+	
 	/** Checks if the node template is user created or system supplied. System supplied templates don't get stored on the CDO. */
 	bool IsUsingDefaultNodeClass() const { return GetNodeClass() == GetDefaultNodeClass(); }
+	
+	/** Checks if the node class is native only. */
+	bool IsNodeClassNative() const;
+	
+	/** Checks if all execution points avoid blueprint graph calls. */
+	virtual bool IsNodeFastPathEnabled() const;
+
+private:
+	mutable TOptional<bool> bFastPathEnabledCached;
+	
+public:
 	USMNodeInstance* GetNodeTemplate() const { return NodeInstanceTemplate; }
 	USMNodeInstance* GetNodeTemplateFromGuid(const FGuid& Guid) const;
 	virtual bool AreTemplatesFullyLoaded() const;
+	virtual int32 GetIndexOfTemplate(const FGuid& Guid) const { return INDEX_NONE; }
 	
 	template<typename T>
 	T* GetNodeTemplateAs(bool bCheck = false) const
@@ -185,6 +217,10 @@ public:
 	 * @return true if there has been a change.
 	 */
 	bool CreateGraphPropertyGraphsForTemplate(USMNodeInstance* Template, bool bGenerateNewGuids, TSet<FGuid>& LiveGuidsInOut, bool bResetNonVariableGuids = false);
+
+	/** Destroy all property graphs associated with a template. */
+	void RemoveGraphPropertyGraphsForTemplate(USMNodeInstance* Template);
+	
 	UEdGraph* GetGraphPropertyGraph(const FGuid& Guid) const;
 	USMGraphK2Node_PropertyNode_Base* GetGraphPropertyNode(const FGuid& Guid) const;
 	/** Search for a property node by variable name.
@@ -278,8 +314,14 @@ public:
 	/** If the node is performing an edit undo / redo. */
 	bool IsEditUndo() const { return bIsEditUndo; }
 	
-	/** Request the corresponding slate widget refresh itself. */
-	void RequestSlateRefresh();
+	/**
+	 * Request the corresponding slate widget refresh itself.
+	 * @param bFullRefresh Completely redraw the widget.
+	 */
+	void RequestSlateRefresh(bool bFullRefresh = false);
+
+	/** Reset any cached values saved. */
+	virtual void ResetCachedValues();
 	
 private:
 	friend class SGraphNode_BaseNode;
@@ -291,7 +333,7 @@ protected:
 	 *
 	 * @param NodeInstance If null then the default NodeInstanceTemplate will be used.
 	 */
-	const FLinearColor* GetCustomBackgroundColor(USMNodeInstance* NodeInstance = nullptr) const;
+	const FLinearColor* GetCustomBackgroundColor(const USMNodeInstance* NodeInstance = nullptr) const;
 
 	void RemovePropertyGraph(USMPropertyGraph* PropertyGraph, bool RemoveFromMaps);
 	void HandlePropertyGraphArrayRemoval(TArray<FSMGraphProperty_Base*>& GraphProperties, TArray<FSMGraphProperty>& TempGraphProperties,
@@ -358,9 +400,11 @@ protected:
 	 * Only valid by default during PostEditChangeProperty of this class.
 	 */
 	uint32 bChangeFromRedirect: 1;
+
+private:
+	uint32 bNativeGuidConversion: 1;
 	
 public:
-	
 	/** Member flag for forcing guid regeneration. */
 	uint32 bRequiresGuidRegeneration:	1;
 	
@@ -369,6 +413,13 @@ public:
 
 	/** Testing flag for forcing old guid generation WITHOUT template support. */
 	uint32 bTEST_ForceNoTemplateGuid:	1;
+
+	/** Property category expansion state for slate node. */
+	UPROPERTY(config)
+	TMap<FString, bool> PropertyCategoriesExpanded;
+
+protected:
+	int32 GetLoadedVersion() const { return LoadedVersion; }
 	
 private:
 	// Graph node properties deprecated in favor of being stored on the node template.

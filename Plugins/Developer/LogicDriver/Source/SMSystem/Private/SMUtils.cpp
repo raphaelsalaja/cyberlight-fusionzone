@@ -1,28 +1,51 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMUtils.h"
 #include "Blueprints/SMBlueprintGeneratedClass.h"
 #include "SMLogging.h"
 
-#include "Engine.h"
+#include "Engine/GameEngine.h"
 #include "Engine/World.h"
-#include "Engine/InputActionDelegateBinding.h"
-#include "Engine/InputAxisDelegateBinding.h"
-#include "Engine/InputAxisKeyDelegateBinding.h"
-#include "Engine/InputKeyDelegateBinding.h"
-#include "Engine/InputTouchDelegateBinding.h"
-#include "Engine/InputVectorAxisDelegateBinding.h"
-
-#include "Framework/Commands/InputChord.h"
-
+#include "Engine/InputDelegateBinding.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/InputSettings.h"
 
 USMInstance* USMBlueprintUtils::CreateStateMachineInstance(TSubclassOf<class USMInstance> StateMachineClass, UObject* Context, bool bInitializeNow)
 {
 	return CreateStateMachineInstanceInternal(StateMachineClass, Context, nullptr, bInitializeNow);
 }
 
+void USMBlueprintUtils::CreateStateMachineInstanceAsync(TSubclassOf<USMInstance> StateMachineClass, UObject* Context, const FOnStateMachineInstanceInitializedAsync& OnCompletedDelegate)
+{
+	if (USMInstance* Instance = CreateStateMachineInstanceInternal(StateMachineClass, Context, nullptr, false))
+	{
+		Instance->InitializeAsync(Context, OnCompletedDelegate);
+	}
+}
+
+USMInstance* USMBlueprintUtils::K2_CreateStateMachineInstance(TSubclassOf<USMInstance> StateMachineClass, UObject* Context, bool bInitializeNow)
+{
+	return CreateStateMachineInstanceInternal(StateMachineClass, Context, nullptr, bInitializeNow);
+}
+
+USMInstance* USMBlueprintUtils::K2_CreateStateMachineInstanceAsync(TSubclassOf<USMInstance> StateMachineClass, UObject* Context, FLatentActionInfo LatentInfo)
+{
+	if (USMInstance* Instance = CreateStateMachineInstanceInternal(StateMachineClass, Context, nullptr, false))
+	{
+		Instance->K2_InitializeAsync(Context, LatentInfo);
+		return Instance;
+	}
+
+	return nullptr;
+}
+
+USMInstance* USMBlueprintUtils::K2_CreateStateMachineInstancePure(TSubclassOf<USMInstance> StateMachineClass, UObject* Context, bool bInitializeNow)
+{
+	return CreateStateMachineInstanceInternal(StateMachineClass, Context, nullptr, bInitializeNow);
+}
+
 USMInstance* USMBlueprintUtils::CreateStateMachineInstanceFromTemplate(TSubclassOf<USMInstance> StateMachineClass,
-	UObject* Context, USMInstance* Template, bool bInitializeNow)
+                                                                       UObject* Context, USMInstance* Template, bool bInitializeNow)
 {
 	return CreateStateMachineInstanceInternal(StateMachineClass, Context, Template, bInitializeNow);
 }
@@ -61,16 +84,13 @@ USMInstance* USMBlueprintUtils::CreateStateMachineInstanceInternal(TSubclassOf<U
 bool USMUtils::GenerateStateMachine(UObject* Instance, FSMStateMachine& StateMachineOut,
 	const TSet<FStructProperty*>& RunTimeProperties, bool bDryRun)
 {
-	// State machines that contain references to each other can risk stack overflow. Let's track the ones being generated for a specific thread.
-	static TMap<uint32, GeneratingStateMachines> StateMachinesGeneratingForThread;
-	const uint32 ThreadId = FPlatformTLS::GetCurrentThreadId();
+	GeneratingStateMachines Generation;
+	return GenerateStateMachine_Internal(Instance, StateMachineOut, RunTimeProperties, bDryRun, Generation);
+}
 
-	// Check if we're at the top of the stack for this generation.
-	const bool bIsTopLevel = !StateMachinesGeneratingForThread.Contains(ThreadId);
-	/* TODO: If we ever support multi-threaded initialization we need to re-evaluate how we are retrieving the CurrentGeneration
-	 * as the reference could become invalid after a map resize from a removal. */
-	GeneratingStateMachines& CurrentGeneration = StateMachinesGeneratingForThread.FindOrAdd(ThreadId);
-
+bool USMUtils::GenerateStateMachine_Internal(UObject* Instance, FSMStateMachine& StateMachineOut, const TSet<FStructProperty*>& RunTimeProperties, bool bDryRun, GeneratingStateMachines& CurrentGeneration)
+{
+	const bool bIsTopLevel = 0 == CurrentGeneration.CallCount++;
 	// If the state machine is a reference instantiate its blueprint and pass our context in.
 	if (TSubclassOf<USMInstance> StateMachineClassReference = StateMachineOut.GetClassReference())
 	{
@@ -110,43 +130,18 @@ bool USMUtils::GenerateStateMachine(UObject* Instance, FSMStateMachine& StateMac
 					}
 				}
 			}
-			// Check for circular referencing. Behavior varies based on normal instantiation approach or legacy instance reuse.
+			// Check for circular referencing
 			{
-				// Reuse behavior: Reuse the same instance.
-				if (StateMachineOut.bReuseReference)
+				// Prevent infinite loop if this machine references itself.
+				if (const int32* CurrentInstancesOfClass = CurrentGeneration.InstancesGenerating.Find(StateMachineClassReference))
 				{
-					if (CurrentGeneration.CreatedReferences.Contains(StateMachineClassReference))
+					// This should never be greater than 1 otherwise it means this state machine class has a reference to itself.
+					// If we don't stop here we will be in an infinite loop.
+					if (*CurrentInstancesOfClass > 1)
 					{
-						if (USMInstance* AlreadyInstantiated = CurrentGeneration.CreatedReferences.FindRef(StateMachineClassReference))
-						{
-							StateMachineOut.SetInstanceReference(AlreadyInstantiated);
-						}
-						else
-						{
-							// Currently in process of being instantiated, we can set it later.
-							TSet<FSMStateMachine*>& StateMachinesWithoutReferences = CurrentGeneration.StateMachinesThatNeedReferences.FindOrAdd(StateMachineClassReference);
-							StateMachinesWithoutReferences.Add(&StateMachineOut);
-						}
-						FinishStateMachineGeneration(bIsTopLevel, StateMachinesGeneratingForThread, ThreadId);
-						return true;
-					}
-					// Record instance created.
-					CurrentGeneration.CreatedReferences.Add(StateMachineClassReference, nullptr);
-				}
-				// Normal use.
-				else
-				{
-					// Prevent infinite loop if this machine references itself.
-					if (int32* CurrentInstancesOfClass = CurrentGeneration.InstancesGenerating.Find(StateMachineClassReference))
-					{
-						// This should never be greater than 1 otherwise it means this state machine class has a reference to itself.
-						// If we don't stop here we will be in an infinite loop.
-						if (*CurrentInstancesOfClass > 1)
-						{
-							LD_LOG_ERROR(TEXT("Attempted to generate state machine with circular referencing. This behavior is no longer allowed but can still be achieved by setting bReuseReference to true on the state machine reference node. Offending state machine: %s"), *SMInstance->GetName())
-							FinishStateMachineGeneration(bIsTopLevel, StateMachinesGeneratingForThread, ThreadId);
-							return false;
-						}
+						LD_LOG_ERROR(TEXT("Attempted to generate state machine with circular referencing. This behavior is no longer allowed. Offending state machine: %s"), *SMInstance->GetName())
+						FinishStateMachineGeneration(CurrentGeneration, bIsTopLevel);
+						return false;
 					}
 				}
 			}
@@ -156,35 +151,86 @@ bool USMUtils::GenerateStateMachine(UObject* Instance, FSMStateMachine& StateMac
 				int32& CurrentInstances = CurrentGeneration.InstancesGenerating.FindOrAdd(StateMachineClassReference);
 				CurrentInstances++;
 
-				// Instantiate template.
-				USMInstance* ReferencedInstance = USMBlueprintUtils::CreateStateMachineInstanceFromTemplate(StateMachineClassReference, SMInstance->GetContext(), TemplateInstance, true);
-				if (ReferencedInstance == nullptr)
+				UClass* ClassToUse = StateMachineClassReference;
+				
+				const FName& DynamicVariableName = StateMachineOut.GetDynamicReferenceVariableName();
+				if (!DynamicVariableName.IsNone())
 				{
-					LD_LOG_ERROR(TEXT("Could not create reference %s for use within state machine %s from package %s."), *StateMachineClassReference->GetName(), *StateMachineOut.GetNodeName(), *Instance->GetName());
+					FProperty* Property = SMInstance->GetClass()->FindPropertyByName(DynamicVariableName);
+					if (Property == nullptr)
+					{
+						LD_LOG_ERROR(TEXT("Dynamic state machine reference creation failed. Could not find the property %s within state machine %s from package %s."),
+							*Property->GetName(), *StateMachineOut.GetNodeName(), *Instance->GetName());
+						return false;
+					}
+					
+					FClassProperty* ClassProperty = CastField<FClassProperty>(Property);
+					if (ClassProperty == nullptr)
+					{
+						LD_LOG_ERROR(TEXT("Dynamic state machine reference creation failed. Property %s is not a class variable! Property in state machine %s from package %s."),
+							*Property->GetName(), *StateMachineOut.GetNodeName(), *Instance->GetName());
+						return false;
+					}
+
+					UClass* PropertyValue = static_cast<UClass*>(ClassProperty->GetPropertyValue_InContainer(SMInstance));
+					if (PropertyValue == nullptr)
+					{
+						LD_LOG_WARNING(TEXT("Dynamic state machine reference creation failed. Property %s value is null. Using default reference. Property in state machine %s from package %s."),
+							*Property->GetName(), *StateMachineOut.GetNodeName(), *Instance->GetName());
+					}
+					else
+					{
+						ClassToUse = PropertyValue;
+					}
+
+					if (ClassToUse == SMInstance->GetClass())
+					{
+						LD_LOG_ERROR(TEXT("Dynamic state machine reference creation failed. The class %s is the same as the owner class, you can't recursively reference a state machine. Property %s in state machine %s from package %s."),
+							*ClassToUse->GetName(), *Property->GetName(), *StateMachineOut.GetNodeName(), *Instance->GetName());
+						return false;
+					}
+
+					if (TemplateInstance && TemplateInstance->GetClass() != ClassToUse)
+					{
+						// Template is of the wrong type, which can be expected with dynamic references, but they should preferably be sub classes of the template.
+						if (!ClassToUse->IsChildOf(TemplateInstance->GetClass()))
+						{
+							LD_LOG_INFO(TEXT("Dynamic state machine reference class is not a subclass of the template provided. The template may have missing data. Actual class is %s and expected a subclass of %s. State machine %s from package %s."),
+								*ClassToUse->GetName(), *TemplateInstance->GetClass()->GetName(), *StateMachineOut.GetNodeName(), *Instance->GetName());
+						}
+						
+						USMInstance* NewTemplate = NewObject<USMInstance>(GetTransientPackage(), ClassToUse, NAME_None);
+						UEngine::CopyPropertiesForUnrelatedObjects(TemplateInstance, NewTemplate);
+						TemplateInstance = NewTemplate;
+					}
+				}
+
+				// Instantiate reference, or in the case of the client look for a replicated reference.
+				const FGuid PathGuid = StateMachineOut.CalculatePathGuidConst();
+				check(PathGuid.IsValid());
+
+				USMInstance* ReplicatedReference = SMInstance->FindReplicatedReference(PathGuid);
+				
+				USMInstance* Reference = ReplicatedReference ? ReplicatedReference :
+				NewObject<USMInstance>(SMInstance, ClassToUse, NAME_None, RF_NoFlags, TemplateInstance);
+
+				if (Reference == nullptr)
+				{
+					LD_LOG_ERROR(TEXT("Could not create reference %s for use within state machine %s from package %s."), *ClassToUse->GetName(), *StateMachineOut.GetNodeName(), *Instance->GetName());
 					return false;
 				}
 
-				ReferencedInstance->SetReferenceOwner(SMInstance);
-
-				// Reuse behavior: The instantiation process may have nested state machine references which loop back to this reference.
+				Reference->SetReferenceOwner(SMInstance);
+				if (ReplicatedReference == nullptr && Reference->CanReplicateAsReference())
 				{
-					if (StateMachineOut.bReuseReference)
-					{
-						CurrentGeneration.CreatedReferences[StateMachineClassReference] = ReferencedInstance;
-					}
-
-					if (TSet<FSMStateMachine*>* StateMachinesWithoutReferences = CurrentGeneration.StateMachinesThatNeedReferences.Find(StateMachineClassReference))
-					{
-						for (FSMStateMachine* StateMachine : *StateMachinesWithoutReferences)
-						{
-							if (StateMachine->bReuseReference)
-							{
-								StateMachine->SetInstanceReference(ReferencedInstance);
-							}
-						}
-					}
+					SMInstance->AddReplicatedReference(PathGuid, Reference);
 				}
 				
+				Reference->Initialize(SMInstance->GetContext());
+				
+				// Make sure the container node is aware of the state machine node class to use. This is embedded in the reference.
+				StateMachineOut.SetNodeInstanceClass(Reference->GetStateMachineClass());
+
 				int32* CurrentInstancesAfter = CurrentGeneration.InstancesGenerating.Find(StateMachineClassReference);
 				if (ensureAlwaysMsgf(CurrentInstancesAfter, TEXT("The reference class instance %s should be found."), *StateMachineClassReference->GetName()))
 				{
@@ -193,10 +239,10 @@ bool USMUtils::GenerateStateMachine(UObject* Instance, FSMStateMachine& StateMac
 				}
 
 				// Notify the state machine of the correct instance.
-				StateMachineOut.SetInstanceReference(ReferencedInstance);
+				StateMachineOut.SetInstanceReference(Reference);
 			}
 			
-			FinishStateMachineGeneration(bIsTopLevel, StateMachinesGeneratingForThread, ThreadId);
+			FinishStateMachineGeneration(CurrentGeneration, bIsTopLevel);
 			return true;
 		}
 	}
@@ -209,7 +255,7 @@ bool USMUtils::GenerateStateMachine(UObject* Instance, FSMStateMachine& StateMac
 	TMap<FGuid, FSMTransition*> MappedTransitions;
 	// Retrieve pointers to the runtime states and store in state machine for quick access.
 	for (auto& Property : RunTimeProperties)
-	{
+	{	
 		if (Property->Struct->IsChildOf(FSMState_Base::StaticStruct()))
 		{
 			FSMState_Base* State = Property->ContainerPtrToValuePtr<FSMState_Base>(Instance);
@@ -236,7 +282,11 @@ bool USMUtils::GenerateStateMachine(UObject* Instance, FSMStateMachine& StateMac
 			if (Property->Struct->IsChildOf(FSMStateMachine::StaticStruct()))
 			{
 				FSMStateMachine& NestedStateMachine = *(FSMStateMachine*)State;
-				GenerateStateMachine(Instance, NestedStateMachine, RunTimeProperties, bDryRun);
+				if (!GenerateStateMachine_Internal(Instance, NestedStateMachine, RunTimeProperties, bDryRun, CurrentGeneration))
+				{
+					FinishStateMachineGeneration(CurrentGeneration, bIsTopLevel);
+					return false;
+				}
 			}
 
 			if (State->IsRootNode())
@@ -294,7 +344,7 @@ bool USMUtils::GenerateStateMachine(UObject* Instance, FSMStateMachine& StateMac
 		}
 	}
 
-	FinishStateMachineGeneration(bIsTopLevel, StateMachinesGeneratingForThread, ThreadId);
+	FinishStateMachineGeneration(CurrentGeneration, bIsTopLevel);
 	return true;
 }
 
@@ -319,13 +369,6 @@ bool USMUtils::TryGetStateMachinePropertiesForClass(UClass* Class, TSet<FStructP
 			RootGuid = NextClass->GetRootGuid();
 			return TryGetStateMachinePropertiesForClass(NextClass, PropertiesOut, RootGuid, SuperFlags);
 		}
-		// Nativized parent.
-		if (UDynamicClass* NextClass = Cast<UDynamicClass>(Class->GetSuperClass()))
-		{
-			// Need to set the guid -- The child class instance won't know this.
-			RootGuid = CastChecked<USMInstance>(NextClass->GetDefaultObject())->RootStateMachineGuid;
-			return TryGetStateMachinePropertiesForClass(NextClass, PropertiesOut, RootGuid, SuperFlags);
-		}
 	}
 
 	return PropertiesOut.Num() > 0;
@@ -343,9 +386,9 @@ bool USMUtils::TryGetGraphPropertiesForClass(UClass* Class, TSet<FProperty*>& Pr
 				PropertiesOut.Add(StructProperty);
 			}
 		}
-		else if(FArrayProperty* ArrayProp = CastField<FArrayProperty>(*It))
+		else if (FArrayProperty* ArrayProp = CastField<FArrayProperty>(*It))
 		{
-			if(FStructProperty* InnerProp = CastField<FStructProperty>(ArrayProp->Inner))
+			if (FStructProperty* InnerProp = CastField<FStructProperty>(ArrayProp->Inner))
 			{
 				if (InnerProp->Struct->IsChildOf(FSMGraphProperty_Base_Runtime::StaticStruct()))
 				{
@@ -360,7 +403,7 @@ bool USMUtils::TryGetGraphPropertiesForClass(UClass* Class, TSet<FProperty*>& Pr
 
 void USMUtils::TryGetAllOwners(const FSMNode_Base* Node, TArray<const FSMNode_Base*>& OwnersOrdered, USMInstance* LimitToInstance)
 {
-	for(const FSMNode_Base* CurrentNode = Node; CurrentNode; CurrentNode = CurrentNode->GetOwnerNode())
+	for (const FSMNode_Base* CurrentNode = Node; CurrentNode; CurrentNode = CurrentNode->GetOwnerNode())
 	{
 		USMInstance* Instance = CurrentNode->GetOwningInstance();
 		if (LimitToInstance && Instance != LimitToInstance)
@@ -404,7 +447,7 @@ FString USMUtils::BuildGuidPathFromNodes(const TArray<const FSMNode_Base*>& Node
 FGuid USMUtils::PathToGuid(const FString& UnhashedPath, FGuid* OutGuid)
 {
 	FGuid Guid;
-	if(!OutGuid)
+	if (!OutGuid)
 	{
 		OutGuid = &Guid;
 	}
@@ -436,7 +479,7 @@ bool USMUtils::TryGetAllReferenceTemplatesFromInstance(USMInstance* Instance, TS
 	{
 		USMInstance* ReferenceTemplate = Cast<USMInstance>(Template);
 		
-		if(!ReferenceTemplate)
+		if (!ReferenceTemplate)
 		{
 			continue;
 		}
@@ -465,7 +508,7 @@ void USMUtils::EnableInputForObject(APlayerController* InPlayerController, UObje
 		InOutComponent->bBlockInput = bBlockInput;
 		InOutComponent->Priority = InputPriority;
 
-		BindInputDelegatesToObject(InObject->GetClass(), InOutComponent, InObject);
+		UInputDelegateBinding::BindInputDelegates(InObject->GetClass(), InOutComponent, InObject);
 	}
 	else if (bPushPopInput)
 	{
@@ -498,105 +541,6 @@ void USMUtils::DisableInput(UWorld* InWorld, UInputComponent*& InOutComponent)
 	}
 }
 
-/* https://forums.unrealengine.com/t/input-events-on-uobject-graph/120579/4 */
-void USMUtils::BindInputDelegatesToObject(const UClass* InClass, UInputComponent* InInputComponent, UObject* InObject)
-{
-	static UClass* InputBindingClasses[] =
-	{
-		UInputActionDelegateBinding::StaticClass(),
-		UInputAxisDelegateBinding::StaticClass(),
-		UInputKeyDelegateBinding::StaticClass(),
-		UInputTouchDelegateBinding::StaticClass(),
-		UInputAxisKeyDelegateBinding::StaticClass(),
-		UInputVectorAxisDelegateBinding::StaticClass(),
-	};
-
-	if (InClass)
-	{
-		// Bind parent class input delegates
-		BindInputDelegatesToObject(InClass->GetSuperClass(), InInputComponent, InObject);
-
-		// Bind own graph input delegates
-		for (UClass* InputBindingClass : InputBindingClasses)
-		{
-			if (UInputDelegateBinding* BindingObject = CastChecked<UInputDelegateBinding>(UBlueprintGeneratedClass::GetDynamicBindingObject(InClass, InputBindingClass), ECastCheckedType::NullAllowed))
-			{
-				if (UInputKeyDelegateBinding* KeyBinding = Cast<UInputKeyDelegateBinding>(BindingObject))
-				{
-					TArray<FInputKeyBinding> BindsToAdd;
-
-					for (int32 BindIndex = 0; BindIndex < KeyBinding->InputKeyDelegateBindings.Num(); ++BindIndex)
-					{
-						const FBlueprintInputKeyDelegateBinding& Binding = KeyBinding->InputKeyDelegateBindings[BindIndex];
-						FInputKeyBinding KB(Binding.InputChord, Binding.InputKeyEvent);
-						KB.bConsumeInput = Binding.bConsumeInput;
-						KB.bExecuteWhenPaused = Binding.bExecuteWhenPaused;
-
-						// Originally instead of GraphObject, it said InputComponent->GetOwner() here
-						KB.KeyDelegate.BindDelegate(InObject, Binding.FunctionNameToBind);
-
-						if (Binding.bOverrideParentBinding)
-						{
-							for (int32 ExistingIndex = InInputComponent->KeyBindings.Num() - 1; ExistingIndex >= 0; --ExistingIndex)
-							{
-								const FInputKeyBinding& ExistingBind = InInputComponent->KeyBindings[ExistingIndex];
-								if (ExistingBind.Chord == KB.Chord && ExistingBind.KeyEvent == KB.KeyEvent)
-								{
-									InInputComponent->KeyBindings.RemoveAt(ExistingIndex);
-								}
-							}
-						}
-
-						// To avoid binds in the same layer being removed by the parent override temporarily put them in this array and add later
-						BindsToAdd.Add(KB);
-					}
-
-					for (const FInputKeyBinding& Binding : BindsToAdd)
-					{
-						InInputComponent->KeyBindings.Add(Binding);
-					}
-				}
-				else if (UInputActionDelegateBinding* ActionBinding = Cast<UInputActionDelegateBinding>(BindingObject))
-				{
-					TArray<FInputActionBinding> BindsToAdd;
-
-					for (int32 BindIndex = 0; BindIndex < ActionBinding->InputActionDelegateBindings.Num(); ++BindIndex)
-					{
-						const FBlueprintInputActionDelegateBinding& Binding = ActionBinding->InputActionDelegateBindings[BindIndex];
-
-						FInputActionBinding AB(Binding.InputActionName, Binding.InputKeyEvent);
-						AB.bConsumeInput = Binding.bConsumeInput;
-						AB.bExecuteWhenPaused = Binding.bExecuteWhenPaused;
-
-						// Originally instead of GraphObject, it said InputComponent->GetOwner() here
-						AB.ActionDelegate.BindDelegate(InObject, Binding.FunctionNameToBind);
-
-						if (Binding.bOverrideParentBinding)
-						{
-							for (int32 ExistingIndex = InInputComponent->GetNumActionBindings() - 1; ExistingIndex >= 0; --ExistingIndex)
-							{
-								const FInputActionBinding& ExistingBind = InInputComponent->GetActionBinding(ExistingIndex);
-								if (ExistingBind.GetActionName() == AB.GetActionName() && ExistingBind.KeyEvent == AB.KeyEvent)
-								{
-									InInputComponent->RemoveActionBinding(ExistingIndex);
-								}
-							}
-						}
-
-						// To avoid binds in the same layer being removed by the parent override temporarily put them in this array and add later
-						BindsToAdd.Add(AB);
-					}
-
-					for (const FInputActionBinding& Binding : BindsToAdd)
-					{
-						InInputComponent->AddActionBinding(Binding);
-					}
-				}
-			}
-		}
-	}
-}
-
 void USMUtils::HandlePawnControllerChange(APawn* InPawn, AController* InController, UObject* InObject, UInputComponent*& InOutComponent, int32 InputPriority, bool bBlockInput)
 {
 	check(InObject);
@@ -607,7 +551,7 @@ void USMUtils::HandlePawnControllerChange(APawn* InPawn, AController* InControll
 	}
 	
 	DisableInput(InObject->GetWorld(), InOutComponent);
-	if(InController)
+	if (InController)
 	{
 		if (APlayerController* PlayerController = Cast<APlayerController>(InController))
 		{
@@ -616,48 +560,27 @@ void USMUtils::HandlePawnControllerChange(APawn* InPawn, AController* InControll
 	}
 }
 
-#if WITH_EDITOR
-
-UObject* USMUtils::CreateTemplate(UClass* NewClass, UObject* OldInstance, UObject* CallingObject, FName InstanceName, EObjectFlags ObjectFlags, bool bModify)
+void USMUtils::ActivateStateNetOrLocal(FSMState_Base* InState, bool bValue, bool bSetAllParents, bool bActivateNow)
 {
-	if (CallingObject && bModify)
-	{
-		CallingObject->Modify();
-	}
-	
-	if (NewClass == nullptr)
-	{
-		DestroyTemplate(OldInstance);
-		return nullptr;
-	}
-
-	UObject* NewTemplate = NewObject<UObject>(CallingObject, NewClass, InstanceName, ObjectFlags);
-
-	if (OldInstance)
-	{
-		if (bModify)
-		{
-			OldInstance->Modify();
-		}
-		
-		if (NewTemplate)
-		{
-			UEngine::CopyPropertiesForUnrelatedObjects(OldInstance, NewTemplate);
-		}
-
-		DestroyTemplate(OldInstance);
-	}
-
-	return NewTemplate;
-}
-
-void USMUtils::DestroyTemplate(UObject* Instance)
-{
+	USMInstance* Instance = InState ? InState->GetOwningInstance() : nullptr;
 	if (Instance)
 	{
-		Instance->Rename(nullptr, GetTransientPackage(), REN_DontCreateRedirectors | REN_ForceNoResetLoaders);
+		// Network.
+		if (ISMStateMachineNetworkedInterface* Network = Instance->TryGetNetworkInterface())
+		{
+			Network->ServerActivateState(InState->GetGuid(), bValue, bSetAllParents, bActivateNow);
+			return;
+		}
+
+		// Local.
+		if (InState)
+		{
+			Instance->ActivateStateLocally(InState->GetGuid(), bValue, bSetAllParents, bActivateNow);
+		}
 	}
 }
+
+#if WITH_EDITOR
 
 bool USMUtils::IsObjectPropertyInstanced(FObjectProperty* ObjectProperty)
 {
@@ -725,25 +648,16 @@ void USMUtils::GetAllObjectProperties(const void* InObject, UStruct* PropertySou
 
 #endif
 
-bool USMUtils::FinishStateMachineGeneration(bool bIsTopLevel, TMap<uint32, GeneratingStateMachines>& ThreadMap, uint32 ThreadId)
+void USMUtils::FinishStateMachineGeneration(GeneratingStateMachines& Generation, bool bTopLevel)
 {
-	if (bIsTopLevel)
+	if (bTopLevel)
 	{
-		if (GeneratingStateMachines* Generation = ThreadMap.Find(ThreadId))
-		{
 #if !UE_BUILD_SHIPPING
-			for (const auto& InstanceCount : Generation->InstancesGenerating)
+			for (const auto& InstanceCount : Generation.InstancesGenerating)
 			{
 				ensureAlwaysMsgf(InstanceCount.Value == 0, TEXT("Ref count is %s when it should be 0. Offending class instance %s."), *FString::FromInt(InstanceCount.Value), *InstanceCount.Key->GetName());
 			}
 #endif		
-			Generation->InstancesGenerating.Empty();
-			Generation->CreatedReferences.Empty();
-			Generation->StateMachinesThatNeedReferences.Empty();
-		}
-
-		ThreadMap.Remove(ThreadId);
+			Generation.InstancesGenerating.Empty();
 	}
-
-	return bIsTopLevel;
 }

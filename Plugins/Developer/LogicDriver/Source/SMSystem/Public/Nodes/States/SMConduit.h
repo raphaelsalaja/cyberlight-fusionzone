@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -21,11 +21,11 @@ struct SMSYSTEM_API FSMConduit : public FSMState_Base
 public:
 	/** Set from graph execution. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Result, meta = (AlwaysAsPin))
-	uint32 bCanEnterTransition: 1;
+	uint8 bCanEnterTransition: 1;
 
 	/** Set from graph execution or configurable from details panel. Must be true for the conduit to be evaluated. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Transition)
-	uint32 bCanEvaluate: 1;
+	uint8 bCanEvaluate: 1;
 	
 	/**
 	 * This conduit will be evaluated with inbound and outbound transitions.
@@ -33,17 +33,26 @@ public:
 	 * state leading to this conduit will not take this transition.
 	 */
 	UPROPERTY()
-	uint32 bEvalWithTransitions: 1;
+	uint8 bEvalWithTransitions: 1;
 
+	/** Primary conduit evaluation. */
+	UPROPERTY()
+	TArray<FSMExposedFunctionHandler> CanEnterConduitGraphEvaluator;
+	
 	/** Entry point when the conduit is entered. */
 	UPROPERTY()
 	TArray<FSMExposedFunctionHandler> ConduitEnteredGraphEvaluator;
 
+	/** The conditional evaluation type which determines the type of evaluation required if any. */
+	UPROPERTY()
+	ESMConditionalEvaluationType ConditionalEvaluationType;
+	
 public:
 	FSMConduit();
 
 	// FSMNode_Base
 	virtual void Initialize(UObject* Instance) override;
+	virtual void InitializeGraphFunctions() override;
 	virtual void Reset() override;
 	virtual void ExecuteInitializeNodes() override;
 	virtual void ExecuteShutdownNodes() override;
@@ -77,7 +86,7 @@ public:
 	virtual bool WasDebugActive() const override { return bWasEvaluating ? bWasEvaluating : Super::WasDebugActive(); }
 	
 	/** Helper to display evaluation color in the editor. */
-	bool bWasEvaluating = false;
+	mutable bool bWasEvaluating = false;
 #endif
 	
 private:

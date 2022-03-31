@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/Schema/SMTransitionGraphSchema.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMTransitionGraphSchema() {}
 // Cross Module References
@@ -21,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeSMTransitionGraphSchema() {}
 	void USMTransitionGraphSchema::StaticRegisterNativesUSMTransitionGraphSchema()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMTransitionGraphSchema);
 	UClass* Z_Construct_UClass_USMTransitionGraphSchema_NoRegister()
 	{
 		return USMTransitionGraphSchema::StaticClass();
@@ -64,21 +61,26 @@ void EmptyLinkFunctionForGeneratedCodeSMTransitionGraphSchema() {}
 	};
 	UClass* Z_Construct_UClass_USMTransitionGraphSchema()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMTransitionGraphSchema.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMTransitionGraphSchema_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMTransitionGraphSchema.OuterSingleton, Z_Construct_UClass_USMTransitionGraphSchema_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMTransitionGraphSchema.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMTransitionGraphSchema, 357114776);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMTransitionGraphSchema>()
 	{
 		return USMTransitionGraphSchema::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMTransitionGraphSchema(Z_Construct_UClass_USMTransitionGraphSchema, &USMTransitionGraphSchema::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMTransitionGraphSchema"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMTransitionGraphSchema);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMTransitionGraphSchema_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMTransitionGraphSchema_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMTransitionGraphSchema, USMTransitionGraphSchema::StaticClass, TEXT("USMTransitionGraphSchema"), &Z_Registration_Info_UClass_USMTransitionGraphSchema, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMTransitionGraphSchema), 297165837U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMTransitionGraphSchema_h_1909576893(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMTransitionGraphSchema_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMTransitionGraphSchema_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

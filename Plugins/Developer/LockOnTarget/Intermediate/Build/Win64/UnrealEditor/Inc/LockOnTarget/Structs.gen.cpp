@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/Utilities/Structs.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeStructs() {}
 // Cross Module References
@@ -17,28 +13,19 @@ void EmptyLinkFunctionForGeneratedCodeStructs() {}
 	UPackage* Z_Construct_UPackage__Script_LockOnTarget();
 	LOCKONTARGET_API UClass* Z_Construct_UClass_UTargetingHelperComponent_NoRegister();
 // End Cross Module References
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_TargetInfo;
 class UScriptStruct* FTargetInfo::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_TargetInfo.OuterSingleton)
 	{
-		extern LOCKONTARGET_API uint32 Get_Z_Construct_UScriptStruct_FTargetInfo_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FTargetInfo, Z_Construct_UPackage__Script_LockOnTarget(), TEXT("TargetInfo"), sizeof(FTargetInfo), Get_Z_Construct_UScriptStruct_FTargetInfo_Hash());
+		Z_Registration_Info_UScriptStruct_TargetInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FTargetInfo, Z_Construct_UPackage__Script_LockOnTarget(), TEXT("TargetInfo"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_TargetInfo.OuterSingleton;
 }
 template<> LOCKONTARGET_API UScriptStruct* StaticStruct<FTargetInfo>()
 {
 	return FTargetInfo::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FTargetInfo(FTargetInfo::StaticStruct, TEXT("/Script/LockOnTarget"), TEXT("TargetInfo"), false, nullptr, nullptr);
-static struct FScriptStruct_LockOnTarget_StaticRegisterNativesFTargetInfo
-{
-	FScriptStruct_LockOnTarget_StaticRegisterNativesFTargetInfo()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("TargetInfo")),new UScriptStruct::TCppStructOps<FTargetInfo>);
-	}
-} ScriptStruct_LockOnTarget_StaticRegisterNativesFTargetInfo;
 	struct Z_Construct_UScriptStruct_FTargetInfo_Statics
 	{
 #if WITH_METADATA
@@ -100,21 +87,21 @@ static struct FScriptStruct_LockOnTarget_StaticRegisterNativesFTargetInfo
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FTargetInfo()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FTargetInfo_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_LockOnTarget();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("TargetInfo"), sizeof(FTargetInfo), Get_Z_Construct_UScriptStruct_FTargetInfo_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_TargetInfo.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FTargetInfo_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_TargetInfo.InnerSingleton, Z_Construct_UScriptStruct_FTargetInfo_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_TargetInfo.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FTargetInfo_Hash() { return 1198669891U; }
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_Structs_h_Statics
+	{
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
+	};
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_Structs_h_Statics::ScriptStructInfo[] = {
+		{ FTargetInfo::StaticStruct, Z_Construct_UScriptStruct_FTargetInfo_Statics::NewStructOps, TEXT("TargetInfo"), &Z_Registration_Info_UScriptStruct_TargetInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FTargetInfo), 2314130026U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_Structs_h_2362423423(TEXT("/Script/LockOnTarget"),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_Structs_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_Structs_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

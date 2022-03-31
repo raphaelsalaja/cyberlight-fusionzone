@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMEditorCommands.h"
 
@@ -9,7 +9,8 @@ void FSMEditorCommands::RegisterCommands()
 	UI_COMMAND(GoToGraph, "Go to Local Graph", "Open the graph this node contains within this blueprint", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(GoToNodeBlueprint, "Open Node Blueprint", "Edit the blueprint for this node if one is set", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(GoToPropertyBlueprint, "Open Property Blueprint", "Edit the blueprint for this property which could be the node blueprint or a state stack blueprint", EUserInterfaceActionType::Button, FInputChord());
-
+	UI_COMMAND(GoToTransitionStackBlueprint, "Open Stack Blueprint", "Edit the blueprint for this transition stack element", EUserInterfaceActionType::Button, FInputChord());
+	
 	UI_COMMAND(CutAndMergeStates, "Cut and Merge States", "Combine and stack multiple states into this state destroying the originals\nRequires selecting all desired states including the destination state which is the node this menu is opened for", EUserInterfaceActionType::Button, FInputChord());
 	UI_COMMAND(CopyAndMergeStates, "Copy and Merge States", "Combine and stack multiple states into this state preserving the originals\nRequires selecting all desired states including the destination state which is the node this menu is opened for", EUserInterfaceActionType::Button, FInputChord());
 	

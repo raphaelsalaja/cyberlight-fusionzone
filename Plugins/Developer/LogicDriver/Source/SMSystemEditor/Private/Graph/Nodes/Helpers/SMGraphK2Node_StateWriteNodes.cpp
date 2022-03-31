@@ -1,16 +1,20 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateWriteNodes.h"
-#include "K2Node_StructMemberSet.h"
-#include "BlueprintNodeSpawner.h"
-#include "BlueprintActionDatabaseRegistrar.h"
+
 #include "Utilities/SMBlueprintEditorUtils.h"
-#include "Blueprints/SMBlueprint.h"
-#include "EdGraph/EdGraph.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
 #include "Graph/SMTransitionGraph.h"
 #include "Graph/SMStateGraph.h"
 #include "Graph/SMConduitGraph.h"
+#include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
+
+#include "Blueprints/SMBlueprint.h"
+
+#include "EdGraph/EdGraph.h"
+#include "K2Node_StructMemberSet.h"
+#include "BlueprintNodeSpawner.h"
+#include "BlueprintActionDatabaseRegistrar.h"
 
 #define LOCTEXT_NAMESPACE "SMStateMachineWriteNode"
 
@@ -151,7 +155,7 @@ USMGraphK2Node_StateWriteNode_CanEvaluateFromEvent::USMGraphK2Node_StateWriteNod
 void USMGraphK2Node_StateWriteNode_CanEvaluateFromEvent::AllocateDefaultPins()
 {
 	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Exec, USMGraphK2Schema::PN_Execute);
-	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Boolean, TEXT("bCanEvaluateFromEvent"));
+	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Boolean, GET_MEMBER_NAME_CHECKED(FSMTransition, bCanEvaluateFromEvent));
 	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Exec, USMGraphK2Schema::PN_Then);
 }
 
@@ -186,17 +190,47 @@ void USMGraphK2Node_StateWriteNode_CanEvaluateFromEvent::GetMenuActions(
 
 
 USMGraphK2Node_StateWriteNode_TransitionEventReturn::USMGraphK2Node_StateWriteNode_TransitionEventReturn(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer), bEventTriggersUpdate(true)
+	: Super(ObjectInitializer), bEventTriggersUpdate_DEPRECATED(true), bUseOwningTransitionSettings(true),
+	  bEventTriggersTargetedUpdate(true), bEventTriggersFullUpdate(false)
 {
 	bCanRenameNode = false;
+}
+
+void USMGraphK2Node_StateWriteNode_TransitionEventReturn::PostLoad()
+{
+	Super::PostLoad();
+
+	if (!bEventTriggersUpdate_DEPRECATED)
+	{
+		bEventTriggersUpdate_DEPRECATED = true;
+		bUseOwningTransitionSettings = false;
+		bEventTriggersTargetedUpdate = false;
+	}
+}
+
+void USMGraphK2Node_StateWriteNode_TransitionEventReturn::PostEditChangeProperty(
+	FPropertyChangedEvent& PropertyChangedEvent)
+{
+	Super::PostEditChangeProperty(PropertyChangedEvent);
+
+	const FName PropertyName = PropertyChangedEvent.GetPropertyName();
+	if (PropertyName == GET_MEMBER_NAME_CHECKED(USMGraphK2Node_StateWriteNode_TransitionEventReturn, bUseOwningTransitionSettings) && bUseOwningTransitionSettings)
+	{
+		UpdateEventSettingsFromTransition();
+	}
 }
 
 void USMGraphK2Node_StateWriteNode_TransitionEventReturn::AllocateDefaultPins()
 {
 	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Exec, USMGraphK2Schema::PN_Execute);
-	UEdGraphPin* EvalPin = CreatePin(EGPD_Input, USMGraphK2Schema::PC_Boolean, TEXT("bCanEnterTransitionFromEvent"));
-	EvalPin->DefaultValue = "true";
+	UEdGraphPin* EvalPin = CreatePin(EGPD_Input, USMGraphK2Schema::PC_Boolean, GET_MEMBER_NAME_CHECKED(FSMTransition, bCanEnterTransitionFromEvent));
+	EvalPin->DefaultValue = TEXT("true");
 	EvalPin->PinFriendlyName = FText::FromString(TEXT("CanEnterTransition"));
+
+	if (bUseOwningTransitionSettings)
+	{
+		UpdateEventSettingsFromTransition();
+	}
 }
 
 void USMGraphK2Node_StateWriteNode_TransitionEventReturn::GetMenuActions(
@@ -233,37 +267,67 @@ bool USMGraphK2Node_StateWriteNode_TransitionEventReturn::IsActionFilteredOut(FB
 
 FText USMGraphK2Node_StateWriteNode_TransitionEventReturn::GetNodeTitle(ENodeTitleType::Type TitleType) const
 {
-	return FText::FromString("Event Trigger Result Node");
+	return FText::FromString(TEXT("Event Trigger Result Node"));
+}
+
+FText USMGraphK2Node_StateWriteNode_TransitionEventReturn::GetTooltipText() const
+{
+	return LOCTEXT("TransitionEventReturnToolTip", "This node can trigger transition evaluation from an event and switch to the next state.");
 }
 
 void USMGraphK2Node_StateWriteNode_TransitionEventReturn::CustomExpandNode(FSMKismetCompilerContext& CompilerContext,
                                                                            USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
 	// Manually add an evaluation pin to signal to the transition it is evaluating.
-	UEdGraphPin* EvalPin = CreatePin(EGPD_Input, USMGraphK2Schema::PC_Boolean, TEXT("bIsEvaluating"));
-	EvalPin->DefaultValue = "true";
+	UEdGraphPin* EvalPin = CreatePin(EGPD_Input, USMGraphK2Schema::PC_Boolean, GET_MEMBER_NAME_CHECKED(FSMTransition, bIsEvaluating));
+	EvalPin->DefaultValue = TEXT("true");
 	
 	UK2Node_StructMemberSet* MemberSet = CompilerContext.CreateSetter(this, NodeProperty->GetFName(), RuntimeNodeContainer->GetRunTimeNodeType());
 
 	UEdGraphPin* ThenPin = USMGraphK2Schema::GetThenPin(MemberSet);
-	
-	if(bEventTriggersUpdate)
+	if (bEventTriggersTargetedUpdate)
 	{
-		UFunction* Function = USMInstance::StaticClass()->FindFunctionByName("Internal_Update"); // Protected function.
+		UFunction* Function = USMInstance::StaticClass()->FindFunctionByName(USMInstance::GetInternalEvaluateAndTakeTransitionChainFunctionName());
 		check(Function);
-		UK2Node_CallFunction* UpdateFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, Function);
+		const UK2Node_CallFunction* EvalTransitionFunctionNode =
+			CreateFunctionCallWithGuidInput(Function, CompilerContext, RuntimeNodeContainer, NodeProperty, TEXT("PathGuid"));
 
-		GetSchema()->TryCreateConnection(ThenPin, UpdateFunctionNode->GetExecPin());
-		ThenPin = UpdateFunctionNode->GetThenPin();
+		ensure(GetSchema()->TryCreateConnection(ThenPin, EvalTransitionFunctionNode->GetExecPin()));
+		ThenPin = EvalTransitionFunctionNode->GetThenPin();
+	}
+
+	if (bEventTriggersFullUpdate)
+	{
+		UFunction* Function = USMInstance::StaticClass()->FindFunctionByName(USMInstance::GetInternalEventUpdateFunctionName());
+		check(Function);
+		const UK2Node_CallFunction* UpdateFunctionCall = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, Function);
+
+		ensure(GetSchema()->TryCreateConnection(ThenPin, UpdateFunctionCall->GetExecPin()));
+		ThenPin = UpdateFunctionCall->GetThenPin();
 	}
 
 	// Add special cleanup handling.
 	{
-		UFunction* CleanupFunction = USMInstance::StaticClass()->FindFunctionByName(TEXT("Internal_EventCleanup")); // Protected function.
+		UFunction* CleanupFunction = USMInstance::StaticClass()->FindFunctionByName(USMInstance::GetInternalEventCleanupFunctionName()); 
 		check(CleanupFunction);
-		UK2Node_CallFunction* CleanupFunctionNode = CreateFunctionCallWithGuidInput(CleanupFunction, CompilerContext, RuntimeNodeContainer, NodeProperty, "NodeGuid");
+		const UK2Node_CallFunction* CleanupFunctionNode =
+			CreateFunctionCallWithGuidInput(CleanupFunction, CompilerContext, RuntimeNodeContainer, NodeProperty, "PathGuid");
 
-		GetSchema()->TryCreateConnection(ThenPin, CleanupFunctionNode->GetExecPin());
+		ensure(GetSchema()->TryCreateConnection(ThenPin, CleanupFunctionNode->GetExecPin()));
+	}
+}
+
+void USMGraphK2Node_StateWriteNode_TransitionEventReturn::UpdateEventSettingsFromTransition()
+{
+	if (!bUseOwningTransitionSettings)
+	{
+		return;
+	}
+	
+	if (const USMGraphNode_TransitionEdge* TransitionOwner = Cast<USMGraphNode_TransitionEdge>(GetTypedOuter(USMGraphNode_TransitionEdge::StaticClass())))
+	{
+		bEventTriggersTargetedUpdate = TransitionOwner->bEventTriggersTargetedUpdate;
+		bEventTriggersFullUpdate = TransitionOwner->bEventTriggersFullUpdate;
 	}
 }
 

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -33,6 +33,9 @@ private:
 	void RegisterSettings();
 	void UnregisterSettings();
 
+	void RegisterPinFactories();
+	void UnregisterPinFactories();
+
 	void BeginPIE(bool bValue);
 	void EndPie(bool bValue);
 
@@ -46,12 +49,14 @@ private:
 private:
 	TArray<TSharedPtr<IAssetTypeActions>> CreatedAssetTypeActions;
 
-	TSharedPtr<class FExtensibilityManager> MenuExtensibilityManager;
-	TSharedPtr<class FExtensibilityManager> ToolBarExtensibilityManager;
+	TSharedPtr<FExtensibilityManager> MenuExtensibilityManager;
+	TSharedPtr<FExtensibilityManager> ToolBarExtensibilityManager;
 
 	TSharedPtr<FGraphPanelNodeFactory> SMGraphPanelNodeFactory;
+	
 	TSharedPtr<FGraphPanelPinFactory> SMGraphPinNodeFactory;
-	TSharedPtr<FGraphPanelPinFactory> SMGraphPinSoftActorReferenceFactory;
+	TSharedPtr<FGraphPanelPinFactory> SMPinSoftActorReferenceFactory;
+	TSharedPtr<FGraphPanelPinFactory> SMPinNodeNameFactory;
 	
 	FSMKismetCompiler SMBlueprintCompiler;
 	FSMNodeKismetCompiler SMNodeBlueprintCompiler;

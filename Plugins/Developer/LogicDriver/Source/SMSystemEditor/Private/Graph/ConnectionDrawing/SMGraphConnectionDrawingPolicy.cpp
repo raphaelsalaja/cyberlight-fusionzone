@@ -1,10 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphConnectionDrawingPolicy.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SlateNodes/SGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
+
 #include "Rendering/DrawElements.h"
 
 FSMGraphConnectionDrawingPolicy::FSMGraphConnectionDrawingPolicy(int32 InBackLayerID, int32 InFrontLayerID, float ZoomFactor, const FSlateRect& InClippingRect, FSlateWindowElementList& InDrawElements, UEdGraph* InGraphObj)
@@ -51,7 +52,7 @@ void FSMGraphConnectionDrawingPolicy::DetermineWiringStyle(UEdGraphPin* OutputPi
 			Params.WireColor = TransitionNode->GetTransitionColor(HoveredPins.Contains(InputPin));
 			Params.bDrawBubbles = TransitionNode->WasEvaluating();
 			// Transition connects same states -- special case drawing.
-			if(TransitionNode->GetFromState() == TransitionNode->GetToState())
+			if (TransitionNode->GetFromState() == TransitionNode->GetToState())
 			{
 				Params.bUserFlag2 = true;
 			}
@@ -164,7 +165,7 @@ void FSMGraphConnectionDrawingPolicy::DrawPreviewConnector(const FGeometry& PinG
 
 void FSMGraphConnectionDrawingPolicy::DrawSplineWithArrow(const FVector2D& StartAnchorPoint, const FVector2D& EndAnchorPoint, const FConnectionParams& Params)
 {
-	if(Params.bUserFlag2)
+	if (Params.bUserFlag2)
 	{
 		// Looping back to self.
 		Internal_DrawCurvedLineWithArrow(StartAnchorPoint, Params);
@@ -246,7 +247,7 @@ void FSMGraphConnectionDrawingPolicy::Internal_DrawCurvedLineWithArrow(const FVe
 	TArray<FVector> CurvePoints;
 	FVector::EvaluateBezier(ControlPoints, NumPoints, CurvePoints);
 
-	for(int32 i = 1; i < NumPoints; ++i)
+	for (int32 i = 1; i < NumPoints; ++i)
 	{
 		const FVector2D Start(CurvePoints[i - 1].X, CurvePoints[i - 1].Y);
 		const FVector2D End(CurvePoints[i].X, CurvePoints[i].Y);

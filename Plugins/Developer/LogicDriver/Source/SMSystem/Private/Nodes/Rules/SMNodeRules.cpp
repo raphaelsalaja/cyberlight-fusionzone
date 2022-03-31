@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMNodeRules.h"
 #include "SMConduitInstance.h"
@@ -34,13 +34,13 @@ FSMNodeConnectionRule::FSMNodeConnectionRule()
 
 bool FSMNodeConnectionRule::DoesClassMatch(UClass* ExpectedClass, UClass* ActualClass, const FSMNodeClassRule& Rule)
 {
-	if(!ExpectedClass)
+	if (!ExpectedClass)
 	{
 		// None implies all.
 		return true;
 	}
 
-	if(!ActualClass)
+	if (!ActualClass)
 	{
 		// Check if we're expecting a base class which means no class may be set.
 		return FSMNodeClassRule::IsBaseClass(ExpectedClass) ? !Rule.bNOT : Rule.bNOT;
@@ -58,9 +58,9 @@ bool FSMTransitionConnectionValidator::IsConnectionValid(UClass* FromClass, UCla
 		return true;
 	}
 	
-	for(const FSMNodeConnectionRule& Rule : AllowedConnections)
+	for (const FSMNodeConnectionRule& Rule : AllowedConnections)
 	{
-		if( !FSMNodeConnectionRule::DoesClassMatch(Rule.InStateMachine.StateMachineClass.Get(), StateMachineClass, Rule.InStateMachine) ||
+		if ( !FSMNodeConnectionRule::DoesClassMatch(Rule.InStateMachine.StateMachineClass.Get(), StateMachineClass, Rule.InStateMachine) ||
 			!FSMNodeConnectionRule::DoesClassMatch(Rule.FromState.StateClass.Get(), FromClass, Rule.FromState) ||
 			!FSMNodeConnectionRule::DoesClassMatch(Rule.ToState.StateClass.Get(), ToClass, Rule.ToState))
 		{
@@ -76,7 +76,7 @@ bool FSMTransitionConnectionValidator::IsConnectionValid(UClass* FromClass, UCla
 bool FSMStateConnectionValidator::IsInboundConnectionValid(UClass* FromClass,
 	UClass* StateMachineClass) const
 {
-	if(!FSMNodeConnectionRule::DoRulesPass<FSMStateMachineClassRule>(StateMachineClass, AllowedInStateMachines))
+	if (!FSMNodeConnectionRule::DoRulesPass<FSMStateMachineClassRule>(StateMachineClass, AllowedInStateMachines))
 	{
 		return false;
 	}

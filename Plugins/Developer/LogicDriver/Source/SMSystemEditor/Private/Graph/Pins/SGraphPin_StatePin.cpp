@@ -1,6 +1,7 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SGraphPin_StatePin.h"
+
 #include "Kismet/Private/BPFunctionDragDropAction.h"
 
 FReply SSMGraphPin_StatePin::OnDrop(const FGeometry& MyGeometry, const FDragDropEvent& DragDropEvent)

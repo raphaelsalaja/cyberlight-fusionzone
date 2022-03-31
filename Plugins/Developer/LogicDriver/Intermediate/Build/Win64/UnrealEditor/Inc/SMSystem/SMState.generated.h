@@ -13,15 +13,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SMSYSTEM_SMState_generated_h
 
-#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMState_h_223_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FSMState_Statics; \
-	static class UScriptStruct* StaticStruct(); \
-	typedef FSMState_Base Super;
-
-
-template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMState>();
-
-#define revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMState_h_25_GENERATED_BODY \
+#define FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMState_h_25_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FSMState_Base_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	typedef FSMNode_Base Super;
@@ -29,8 +21,16 @@ template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMState>();
 
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMState_Base>();
 
+#define FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMState_h_238_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FSMState_Statics; \
+	static class UScriptStruct* StaticStruct(); \
+	typedef FSMState_Base Super;
+
+
+template<> SMSYSTEM_API UScriptStruct* StaticStruct<struct FSMState>();
+
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMState_h
+#define CURRENT_FILE_ID FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMState_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

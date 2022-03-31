@@ -6,151 +6,146 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "Debug/Public/DebugLogLibrarySettings.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeDebugLogLibrarySettings() {}
 // Cross Module References
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_ELoggingOptions();
-	UPackage* Z_Construct_UPackage__Script_Debug();
 	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogType();
+	UPackage* Z_Construct_UPackage__Script_Debug();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_ELoggingOptions();
 	DEBUG_API UClass* Z_Construct_UClass_UDebugLogLibrarySettings_NoRegister();
 	DEBUG_API UClass* Z_Construct_UClass_UDebugLogLibrarySettings();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FColor();
 // End Cross Module References
-	static UEnum* ELoggingOptions_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_ELoggingOptions, Z_Construct_UPackage__Script_Debug(), TEXT("ELoggingOptions"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<ELoggingOptions>()
-	{
-		return ELoggingOptions_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ELoggingOptions(ELoggingOptions_StaticEnum, TEXT("/Script/Debug"), TEXT("ELoggingOptions"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_ELoggingOptions_Hash() { return 3625027609U; }
-	UEnum* Z_Construct_UEnum_Debug_ELoggingOptions()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("ELoggingOptions"), 0, Get_Z_Construct_UEnum_Debug_ELoggingOptions_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "LO_Viewport", (int64)LO_Viewport },
-				{ "LO_Console", (int64)LO_Console },
-				{ "LO_Both", (int64)LO_Both },
-				{ "LO_NoLog", (int64)LO_NoLog },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "LO_Both.DisplayName", "Viewport and Console" },
-				{ "LO_Both.Name", "LO_Both" },
-				{ "LO_Console.DisplayName", "Console" },
-				{ "LO_Console.Name", "LO_Console" },
-				{ "LO_NoLog.DisplayName", "Disabled" },
-				{ "LO_NoLog.Name", "LO_NoLog" },
-				{ "LO_Viewport.DisplayName", "Viewport" },
-				{ "LO_Viewport.Name", "LO_Viewport" },
-				{ "ModuleRelativePath", "Public/DebugLogLibrarySettings.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"ELoggingOptions",
-				"ELoggingOptions",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogType;
 	static UEnum* EDebugLogType_StaticEnum()
 	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
+		if (!Z_Registration_Info_UEnum_EDebugLogType.OuterSingleton)
 		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogType, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogType"));
+			Z_Registration_Info_UEnum_EDebugLogType.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogType, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogType"));
 		}
-		return Singleton;
+		return Z_Registration_Info_UEnum_EDebugLogType.OuterSingleton;
 	}
 	template<> DEBUG_API UEnum* StaticEnum<EDebugLogType>()
 	{
 		return EDebugLogType_StaticEnum();
 	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogType(EDebugLogType_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogType"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogType_Hash() { return 190839156U; }
+	struct Z_Construct_UEnum_Debug_EDebugLogType_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogType_Statics::Enumerators[] = {
+		{ "DL_Info", (int64)DL_Info },
+		{ "DL_Success", (int64)DL_Success },
+		{ "DL_Warning", (int64)DL_Warning },
+		{ "DL_Error", (int64)DL_Error },
+		{ "DL_Fatal", (int64)DL_Fatal },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogType_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DL_Error.DisplayName", "Error" },
+		{ "DL_Error.Name", "DL_Error" },
+		{ "DL_Fatal.DisplayName", "Fatal" },
+		{ "DL_Fatal.Name", "DL_Fatal" },
+		{ "DL_Info.DisplayName", "Info" },
+		{ "DL_Info.Name", "DL_Info" },
+		{ "DL_Success.DisplayName", "Success" },
+		{ "DL_Success.Name", "DL_Success" },
+		{ "DL_Warning.DisplayName", "Warning" },
+		{ "DL_Warning.Name", "DL_Warning" },
+		{ "ModuleRelativePath", "Public/DebugLogLibrarySettings.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogType_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogType",
+		"EDebugLogType",
+		Z_Construct_UEnum_Debug_EDebugLogType_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogType_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogType_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogType_Statics::Enum_MetaDataParams))
+	};
 	UEnum* Z_Construct_UEnum_Debug_EDebugLogType()
 	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogType"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogType_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
+		if (!Z_Registration_Info_UEnum_EDebugLogType.InnerSingleton)
 		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DL_Info", (int64)DL_Info },
-				{ "DL_Success", (int64)DL_Success },
-				{ "DL_Warning", (int64)DL_Warning },
-				{ "DL_Error", (int64)DL_Error },
-				{ "DL_Fatal", (int64)DL_Fatal },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DL_Error.DisplayName", "Error" },
-				{ "DL_Error.Name", "DL_Error" },
-				{ "DL_Fatal.DisplayName", "Fatal" },
-				{ "DL_Fatal.Name", "DL_Fatal" },
-				{ "DL_Info.DisplayName", "Info" },
-				{ "DL_Info.Name", "DL_Info" },
-				{ "DL_Success.DisplayName", "Success" },
-				{ "DL_Success.Name", "DL_Success" },
-				{ "DL_Warning.DisplayName", "Warning" },
-				{ "DL_Warning.Name", "DL_Warning" },
-				{ "ModuleRelativePath", "Public/DebugLogLibrarySettings.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogType",
-				"EDebugLogType",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogType.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogType_Statics::EnumParams);
 		}
-		return ReturnEnum;
+		return Z_Registration_Info_UEnum_EDebugLogType.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_ELoggingOptions;
+	static UEnum* ELoggingOptions_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_ELoggingOptions.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_ELoggingOptions.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_ELoggingOptions, Z_Construct_UPackage__Script_Debug(), TEXT("ELoggingOptions"));
+		}
+		return Z_Registration_Info_UEnum_ELoggingOptions.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<ELoggingOptions>()
+	{
+		return ELoggingOptions_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_ELoggingOptions_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_ELoggingOptions_Statics::Enumerators[] = {
+		{ "LO_Viewport", (int64)LO_Viewport },
+		{ "LO_Console", (int64)LO_Console },
+		{ "LO_Both", (int64)LO_Both },
+		{ "LO_NoLog", (int64)LO_NoLog },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_ELoggingOptions_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "LO_Both.DisplayName", "Viewport and Console" },
+		{ "LO_Both.Name", "LO_Both" },
+		{ "LO_Console.DisplayName", "Console" },
+		{ "LO_Console.Name", "LO_Console" },
+		{ "LO_NoLog.DisplayName", "Disabled" },
+		{ "LO_NoLog.Name", "LO_NoLog" },
+		{ "LO_Viewport.DisplayName", "Viewport" },
+		{ "LO_Viewport.Name", "LO_Viewport" },
+		{ "ModuleRelativePath", "Public/DebugLogLibrarySettings.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_ELoggingOptions_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"ELoggingOptions",
+		"ELoggingOptions",
+		Z_Construct_UEnum_Debug_ELoggingOptions_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_ELoggingOptions_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_ELoggingOptions_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_ELoggingOptions_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_ELoggingOptions()
+	{
+		if (!Z_Registration_Info_UEnum_ELoggingOptions.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_ELoggingOptions.InnerSingleton, Z_Construct_UEnum_Debug_ELoggingOptions_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_ELoggingOptions.InnerSingleton;
 	}
 	void UDebugLogLibrarySettings::StaticRegisterNativesUDebugLogLibrarySettings()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UDebugLogLibrarySettings);
 	UClass* Z_Construct_UClass_UDebugLogLibrarySettings_NoRegister()
 	{
 		return UDebugLogLibrarySettings::StaticClass();
@@ -329,9 +324,9 @@ void EmptyLinkFunctionForGeneratedCodeDebugLogLibrarySettings() {}
 		{ "ToolTip", "The place to display the category specifier text along side the final log message" },
 	};
 #endif
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplaySpecifiersIn = { "DisplaySpecifiersIn", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDebugLogLibrarySettings, DisplaySpecifiersIn), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplaySpecifiersIn_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplaySpecifiersIn_MetaData)) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplaySpecifiersIn = { "DisplaySpecifiersIn", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDebugLogLibrarySettings, DisplaySpecifiersIn), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplaySpecifiersIn_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplaySpecifiersIn_MetaData)) }; // 748614807
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers_ValueProp = { "LogCategorySpecifiers", nullptr, (EPropertyFlags)0x0000000000004001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers_Key_KeyProp = { "LogCategorySpecifiers_Key", nullptr, (EPropertyFlags)0x0000000000004001, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UEnum_Debug_EDebugLogType, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers_Key_KeyProp = { "LogCategorySpecifiers_Key", nullptr, (EPropertyFlags)0x0000000000004001, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UEnum_Debug_EDebugLogType, METADATA_PARAMS(nullptr, 0) }; // 3378774514
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers_MetaData[] = {
 		{ "Category", "Specifiers" },
@@ -341,7 +336,7 @@ void EmptyLinkFunctionForGeneratedCodeDebugLogLibrarySettings() {}
 		{ "ToolTip", "The tag specifers to use when logging in these categories" },
 	};
 #endif
-	const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers = { "LogCategorySpecifiers", nullptr, (EPropertyFlags)0x0010000000004041, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDebugLogLibrarySettings, LogCategorySpecifiers), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers_MetaData)) };
+	const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers = { "LogCategorySpecifiers", nullptr, (EPropertyFlags)0x0010000000004041, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDebugLogLibrarySettings, LogCategorySpecifiers), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_LogCategorySpecifiers_MetaData)) }; // 3378774514
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_bLogContext_MetaData[] = {
 		{ "Category", "Context" },
@@ -364,7 +359,7 @@ void EmptyLinkFunctionForGeneratedCodeDebugLogLibrarySettings() {}
 		{ "ToolTip", "The place to display the context along side the final log message" },
 	};
 #endif
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplayContextIn = { "DisplayContextIn", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDebugLogLibrarySettings, DisplayContextIn), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplayContextIn_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplayContextIn_MetaData)) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplayContextIn = { "DisplayContextIn", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDebugLogLibrarySettings, DisplayContextIn), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplayContextIn_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_DisplayContextIn_MetaData)) }; // 748614807
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UDebugLogLibrarySettings_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_bUseTwosComplimentForDecimalToHexConversionOnNegativeNumbers,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDebugLogLibrarySettings_Statics::NewProp_bCrashGameInShippingBuildConfiguration,
@@ -403,21 +398,31 @@ void EmptyLinkFunctionForGeneratedCodeDebugLogLibrarySettings() {}
 	};
 	UClass* Z_Construct_UClass_UDebugLogLibrarySettings()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_UDebugLogLibrarySettings.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_UDebugLogLibrarySettings_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UDebugLogLibrarySettings.OuterSingleton, Z_Construct_UClass_UDebugLogLibrarySettings_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_UDebugLogLibrarySettings.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(UDebugLogLibrarySettings, 273336445);
 	template<> DEBUG_API UClass* StaticClass<UDebugLogLibrarySettings>()
 	{
 		return UDebugLogLibrarySettings::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_UDebugLogLibrarySettings(Z_Construct_UClass_UDebugLogLibrarySettings, &UDebugLogLibrarySettings::StaticClass, TEXT("/Script/Debug"), TEXT("UDebugLogLibrarySettings"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UDebugLogLibrarySettings);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_DebugLogLibrarySettings_h_Statics
+	{
+		static const FEnumRegisterCompiledInInfo EnumInfo[];
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_DebugLogLibrarySettings_h_Statics::EnumInfo[] = {
+		{ EDebugLogType_StaticEnum, TEXT("EDebugLogType"), &Z_Registration_Info_UEnum_EDebugLogType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3378774514U) },
+		{ ELoggingOptions_StaticEnum, TEXT("ELoggingOptions"), &Z_Registration_Info_UEnum_ELoggingOptions, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 748614807U) },
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_DebugLogLibrarySettings_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UDebugLogLibrarySettings, UDebugLogLibrarySettings::StaticClass, TEXT("UDebugLogLibrarySettings"), &Z_Registration_Info_UClass_UDebugLogLibrarySettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDebugLogLibrarySettings), 1290781191U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_DebugLogLibrarySettings_h_1918694849(TEXT("/Script/Debug"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_DebugLogLibrarySettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_DebugLogLibrarySettings_h_Statics::ClassInfo),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_DebugLogLibrarySettings_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_DebugLogLibrarySettings_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

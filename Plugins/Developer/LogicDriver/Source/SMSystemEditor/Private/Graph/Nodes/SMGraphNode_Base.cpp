@@ -1,14 +1,17 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphNode_Base.h"
+#include "SMGraphNode_StateNode.h"
+#include "SMGraphNode_AnyStateNode.h"
 #include "Graph/SMGraph.h"
 #include "Graph/Schema/SMGraphSchema.h"
 #include "Graph/SMPropertyGraph.h"
-#include "SMGraphNode_StateNode.h"
+#include "Helpers/SMGraphK2Node_StateReadNodes.h"
 #include "Customization/SMEditorCustomization.h"
 #include "Blueprints/SMBlueprintEditor.h"
 #include "Utilities/SMNodeInstanceUtils.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
+#include "Utilities/SMCustomVersion.h"
 #include "Construction/SMEditorConstructionManager.h"
 #include "SMSystemEditorLog.h"
 
@@ -17,28 +20,25 @@
 
 #include "Kismet2/BlueprintEditorUtils.h"
 #include "Kismet2/KismetEditorUtilities.h"
-#include "Engine/Engine.h"
 #include "UObject/UObjectThreadContext.h"
 #include "EdGraphUtilities.h"
-
 
 #define LOCTEXT_NAMESPACE "SMGraphNodeBase"
 
 /** Log a message to the message log up to 4 arguments long. */
-#define LOG_MESSAGE(LOG_TYPE, MESSAGE, ARGS, ARGS_COUNT)						\
-	do {																		\
-		if(ARGS_COUNT == 0)														\
-			MessageLog.LOG_TYPE(MESSAGE);										\
-		else if(ARGS_COUNT == 1)												\
-			MessageLog.LOG_TYPE(MESSAGE, ARGS[0]);								\
-		else if(ARGS_COUNT == 2)												\
-			MessageLog.LOG_TYPE(MESSAGE, ARGS[0], ARGS[1]);						\
-		else if(ARGS_COUNT == 3)												\
-			MessageLog.LOG_TYPE(MESSAGE, ARGS[0], ARGS[1], ARGS[2]);			\
-		else if(ARGS_COUNT >= 4)												\
-			MessageLog.LOG_TYPE(MESSAGE, ARGS[0], ARGS[1], ARGS[2], ARGS[3]);	\
-																				\
-	} while(0)
+#define LOG_MESSAGE(LOG_TYPE, MESSAGE, ARGS, ARGS_COUNT) \
+	do { \
+		if (ARGS_COUNT == 0)\
+			MessageLog.LOG_TYPE(MESSAGE); \
+		else if (ARGS_COUNT == 1) \
+			MessageLog.LOG_TYPE(MESSAGE, ARGS[0]); \
+		else if (ARGS_COUNT == 2) \
+			MessageLog.LOG_TYPE(MESSAGE, ARGS[0], ARGS[1]); \
+		else if (ARGS_COUNT == 3) \
+			MessageLog.LOG_TYPE(MESSAGE, ARGS[0], ARGS[1], ARGS[2]); \
+		else if (ARGS_COUNT >= 4) \
+			MessageLog.LOG_TYPE(MESSAGE, ARGS[0], ARGS[1], ARGS[2], ARGS[3]); \
+	} while (0)
 
 USMGraphNode_Base::USMGraphNode_Base(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -59,9 +59,22 @@ USMGraphNode_Base::USMGraphNode_Base(const FObjectInitializer& ObjectInitializer
 	bGenerateTemplateOnNodePlacement = true;
 	bIsPrecompiling = false;
 	bIsRunningConstructionScripts = false;
+	bPostEditChangeConstructionRequiresFullRefresh = true;
+	bNativeGuidConversion = false;
 	bRequiresGuidRegeneration = false;
 	bNeedsStateStackConversion = false;
 	bTEST_ForceNoTemplateGuid = false;
+}
+
+void USMGraphNode_Base::Serialize(FArchive& Ar)
+{
+	Ar.UsingCustomVersion(FSMGraphNodeCustomVersion::GUID);
+	Super::Serialize(Ar);
+
+	if (Ar.IsLoading() && Ar.CustomVer(FSMGraphNodeCustomVersion::GUID) < FSMGraphNodeCustomVersion::NativePropertyGuid)
+	{
+		bNativeGuidConversion = true;
+	}
 }
 
 void USMGraphNode_Base::DestroyNode()
@@ -118,7 +131,7 @@ void USMGraphNode_Base::PostEditUndo()
 	}
 	
 	// No bound graph prevents the property graphs from finding their blueprint. This could happen if a graph deletion was being redone.
-	if(BoundGraph == nullptr)
+	if (BoundGraph == nullptr)
 	{
 		return;
 	}
@@ -157,6 +170,15 @@ void USMGraphNode_Base::JumpToDefinition() const
 {
 	if (UObject* HyperlinkTarget = GetJumpTargetForDoubleClick())
 	{
+		if (HyperlinkTarget->GetPackage() != GetPackage())
+		{
+			if (USMNodeBlueprint* BlueprintTarget = Cast<USMNodeBlueprint>(HyperlinkTarget))
+			{
+				// For node blueprint targets set the debug object.
+				FSMBlueprintEditorUtils::GetNodeBlueprintFromClassAndSetDebugObject(GetNodeClass(), this);
+			}
+		}
+		
 		FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(HyperlinkTarget);
 	}
 }
@@ -180,6 +202,18 @@ void USMGraphNode_Base::ReconstructNode()
 		UBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintForNodeChecked(this);
 		FSMBlueprintEditorUtils::ConditionallyCompileBlueprint(Blueprint);
 	}
+
+	// Node instance references may need to be updated if the node class changed.
+	if (const UEdGraph* Graph = GetBoundGraph())
+	{
+		TArray<USMGraphK2Node_StateReadNode_GetNodeInstance*> NodesToReconstruct;
+		FSMBlueprintEditorUtils::GetAllNodesOfClassNested(Graph, NodesToReconstruct);
+
+		for (USMGraphK2Node_StateReadNode_GetNodeInstance* Node : NodesToReconstruct)
+		{
+			Node->ReconstructNode();
+		}
+	}
 }
 
 void USMGraphNode_Base::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
@@ -191,7 +225,9 @@ void USMGraphNode_Base::PostEditChangeProperty(FPropertyChangedEvent& PropertyCh
 	const ESMEditorConstructionScriptProjectSetting ConstructionProjectSetting = FSMBlueprintEditorUtils::GetProjectEditorSettings()->EditorNodeConstructionScriptSetting;
 	if (ConstructionProjectSetting == ESMEditorConstructionScriptProjectSetting::SM_Standard)
 	{
-		FSMEditorConstructionManager::GetInstance()->RunAllConstructionScriptsForBlueprint(this);
+		FSMConstructionConfiguration Config;
+		Config.bFullRefreshNeeded = bPostEditChangeConstructionRequiresFullRefresh;
+		FSMEditorConstructionManager::GetInstance()->RunAllConstructionScriptsForBlueprint(this, Config);
 	}
 	
 	/* BoundGraph could be null if undoing/redoing deletion. */
@@ -261,9 +297,9 @@ void USMGraphNode_Base::CreateGraphPropertyGraphs(bool bGenerateNewGuids)
 	TArray<FGuid> CurrentKeys;
 	GraphPropertyGraphs.GetKeys(CurrentKeys);
 
-	for(const FGuid& Guid : CurrentKeys)
+	for (const FGuid& Guid : CurrentKeys)
 	{
-		if(!LiveGuids.Contains(Guid))
+		if (!LiveGuids.Contains(Guid))
 		{
 			UEdGraph* GraphToRemove = GraphPropertyGraphs[Guid];
 			RemovePropertyGraph(Cast<USMPropertyGraph>(GraphToRemove), false);
@@ -274,7 +310,7 @@ void USMGraphNode_Base::CreateGraphPropertyGraphs(bool bGenerateNewGuids)
 		}
 	}
 
-	if(bHasChanged && !bJustPasted)
+	if (bHasChanged && !bJustPasted)
 	{
 		ReconstructNode();
 		if (GraphPropertyGraphs.Num() == 0 && !bChangeFromRedirect && AreTemplatesFullyLoaded())
@@ -284,6 +320,8 @@ void USMGraphNode_Base::CreateGraphPropertyGraphs(bool bGenerateNewGuids)
 			UBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintForNodeChecked(this);
 			FSMBlueprintEditorUtils::ConditionallyCompileBlueprint(Blueprint);
 		}
+		
+		PropertyCategoriesExpanded.Reset();
 	}
 
 	bRequiresGuidRegeneration = false;
@@ -323,7 +361,7 @@ bool USMGraphNode_Base::CreateGraphPropertyGraphsForTemplate(USMNodeInstance* Te
 			if (FStructProperty* StructProperty = FSMNodeInstanceUtils::IsPropertyGraphProperty(Property))
 			{
 				bIsActualGraphProperty = true;
-				FSMGraphPropertyCustomization::RegisterNewStruct(StructProperty->Struct->GetFName());
+				FSMStructCustomization::RegisterNewStruct<FSMGraphPropertyCustomization>(StructProperty->Struct->GetFName());
 			}
 
 			// Only properties that are instance editable.
@@ -432,13 +470,34 @@ bool USMGraphNode_Base::CreateGraphPropertyGraphsForTemplate(USMNodeInstance* Te
 								}
 							}
 						}
+
+						if (bNativeGuidConversion && !TempProperty.MemberReference.GetMemberGuid().IsValid()/*Native property*/)
+						{
+							// Special conversion for anyone who was on dev 5.0 / ue5-main after member reference search string was changed.
+							// Native properties will have the wrong guid.
+							const FGuid& CurrentGuid = TempProperty.GetGuid();
+							if (!GraphPropertyGraphs.FindRef(CurrentGuid))
+							{
+								const bool bUseTempNativeGuidForUE5 = true;
+								FSMGraphProperty UpToDateTempProperty;
+								FSMNodeInstanceUtils::SetGraphPropertyFromProperty(UpToDateTempProperty, TargetProperty, Template, Idx,
+									true, !bNeedsStateStackConversion, bUseTempNativeGuidForUE5);
+
+								const FGuid& GuidSetByUE5 = UpToDateTempProperty.GetGuid();
+								if (UEdGraph* ExistingPropertyGraph = GraphPropertyGraphs.FindRef(GuidSetByUE5))
+								{
+									GraphPropertyGraphs.Remove(GuidSetByUE5);
+									GraphPropertyGraphs.Add(CurrentGuid, ExistingPropertyGraph);
+								}
+							}
+						}
 						
 						TempGraphProperties.Add(MoveTemp(TempProperty));
 						GraphProperties.Add(&TempGraphProperties.Last());
 					}
 				}
 			}
-
+			
 			for (int32 i = 0; i < GraphProperties.Num(); ++i)
 			{
 				FSMGraphProperty_Base* GraphProperty = GraphProperties[i];
@@ -563,11 +622,37 @@ bool USMGraphNode_Base::CreateGraphPropertyGraphsForTemplate(USMNodeInstance* Te
 				bHasChanged = true;
 			}
 		}
-
+		
+		bNativeGuidConversion = false;
 		Template->ResetArrayCheck();
 	}
 
 	return bHasChanged;
+}
+
+void USMGraphNode_Base::RemoveGraphPropertyGraphsForTemplate(USMNodeInstance* Template)
+{
+	if (Template == nullptr)
+	{
+		return;
+	}
+	
+	TArray<FGuid> GuidsToRemove;
+	for (const TTuple<FGuid, USMNodeInstance*>& GuidToTemplateKeyVal : GraphPropertyTemplates)
+	{
+		if (GuidToTemplateKeyVal.Value == Template)
+		{
+			GuidsToRemove.Add(GuidToTemplateKeyVal.Key);
+		}
+	}
+
+	for (const FGuid& Guid : GuidsToRemove)
+	{
+		if (USMPropertyGraph* PropertyGraph = Cast<USMPropertyGraph>(GetGraphPropertyGraph(Guid)))
+		{
+			RemovePropertyGraph(PropertyGraph, true);
+		}
+	}
 }
 
 UEdGraph* USMGraphNode_Base::GetGraphPropertyGraph(const FGuid& Guid) const
@@ -606,7 +691,7 @@ TArray<USMGraphK2Node_PropertyNode_Base*> USMGraphNode_Base::GetAllPropertyGraph
 {
 	TArray<USMGraphK2Node_PropertyNode_Base*> Nodes;
 
-	for(const auto& KeyVal : GraphPropertyNodes)
+	for (const auto& KeyVal : GraphPropertyNodes)
 	{
 		if (KeyVal.Value)
 		{
@@ -635,9 +720,9 @@ void USMGraphNode_Base::InitPropertyGraphNodes(UEdGraph* PropertyGraph, FSMGraph
 
 void USMGraphNode_Base::RefreshAllProperties(bool bModify, bool bSetFromPinFirst)
 {
-	for(const auto& KeyVal : GetAllPropertyGraphs())
+	for (const auto& KeyVal : GetAllPropertyGraphs())
 	{
-		if(USMPropertyGraph* PropertyGraph = Cast<USMPropertyGraph>(KeyVal.Value))
+		if (USMPropertyGraph* PropertyGraph = Cast<USMPropertyGraph>(KeyVal.Value))
 		{
 			PropertyGraph->RefreshProperty(bModify, bSetFromPinFirst);
 		}
@@ -668,9 +753,9 @@ void USMGraphNode_Base::SetPinsFromGraphProperties(bool bUpdateTemplateDefaults,
 
 USMGraphK2Node_PropertyNode_Base* USMGraphNode_Base::GetPropertyNodeUnderMouse() const
 {
-	for(const auto& KeyVal : GetAllPropertyGraphNodes())
+	for (const auto& KeyVal : GetAllPropertyGraphNodes())
 	{
-		if(KeyVal.Value->bMouseOverNodeProperty)
+		if (KeyVal.Value->bMouseOverNodeProperty)
 		{
 			return KeyVal.Value;
 		}
@@ -681,7 +766,7 @@ USMGraphK2Node_PropertyNode_Base* USMGraphNode_Base::GetPropertyNodeUnderMouse()
 
 UEdGraphPin* USMGraphNode_Base::GetInputPin() const
 {
-	if(Pins.Num() == 0 || Pins[INDEX_PIN_INPUT]->Direction == EGPD_Output)
+	if (Pins.Num() == 0 || Pins[INDEX_PIN_INPUT]->Direction == EGPD_Output)
 	{
 		return nullptr;
 	}
@@ -691,9 +776,9 @@ UEdGraphPin* USMGraphNode_Base::GetInputPin() const
 
 UEdGraphPin* USMGraphNode_Base::GetOutputPin() const
 {
-	for(UEdGraphPin* Pin : Pins)
+	for (UEdGraphPin* Pin : Pins)
 	{
-		if(Pin->Direction == EGPD_Output)
+		if (Pin->Direction == EGPD_Output)
 		{
 			return Pin;
 		}
@@ -745,7 +830,7 @@ void USMGraphNode_Base::PreCompile(FSMKismetCompilerContext& CompilerContext)
 	ResetLogMessages();
 
 	if (CompilerContext.CompileOptions.CompileType == EKismetCompileType::Full &&
-		GetNodeClass() && !GetNodeClass()->HasAnyClassFlags(CLASS_LayoutChanging) &&
+		GetNodeClass() && !GetNodeClass()->bLayoutChanging &&
 		NodeInstanceTemplate &&
 		NodeInstanceTemplate->GetClass()->GetName().StartsWith(TEXT("REINST_")))
 	{
@@ -778,7 +863,7 @@ void USMGraphNode_Base::PreCompile(FSMKismetCompilerContext& CompilerContext)
 
 void USMGraphNode_Base::OnCompile(FSMKismetCompilerContext& CompilerContext)
 {
-	if(!BoundGraph)
+	if (!BoundGraph)
 	{
 		return;
 	}
@@ -786,7 +871,7 @@ void USMGraphNode_Base::OnCompile(FSMKismetCompilerContext& CompilerContext)
 	FSMNode_Base* RuntimeNode = FSMBlueprintEditorUtils::GetRuntimeNodeFromGraph(BoundGraph);
 	check(RuntimeNode);
 	RuntimeNode->SetNodeInstanceClass(GetNodeClass());
-	if(NodeInstanceTemplate && !IsUsingDefaultNodeClass())
+	if (NodeInstanceTemplate && !IsUsingDefaultNodeClass())
 	{
 		// We don't need the default template at runtime.
 		CompilerContext.AddDefaultObjectTemplate(RuntimeNode->GetNodeGuid(), NodeInstanceTemplate, FTemplateContainer::NodeTemplate);
@@ -798,7 +883,7 @@ void USMGraphNode_Base::ResetDebugState()
 	// Prevents a previous cycle from showing it as running.
 	if (const FSMNode_Base* DebugNode = GetDebugNode())
 	{
-		const_cast<FSMNode_Base*>(DebugNode)->bWasActive = bWasDebugActive = false;
+		DebugNode->bWasActive = bWasDebugActive = false;
 	}
 }
 
@@ -814,12 +899,12 @@ void USMGraphNode_Base::UpdateTime(float DeltaTime)
 		MaxTimeToShowDebug = GetMaxDebugTime();
 		
 		// Toggle active status and reset time if switching active states.
-		if(DebugNode->IsActive() || (DebugNode->bWasActive && !WasDebugNodeActive()))
+		if (DebugNode->IsActive() || (DebugNode->bWasActive && !WasDebugNodeActive()))
 		{
 			bWasDebugActive = false;
 
 			// Was active is debug only data and exists to help us determine if we should draw an active state.
-			const_cast<FSMNode_Base*>(DebugNode)->bWasActive = false;
+			DebugNode->bWasActive = false;
 			if (!IsDebugNodeActive())
 			{
 				bIsDebugActive = true;
@@ -902,6 +987,11 @@ void USMGraphNode_Base::SetReadOnlyNodePosition()
 		FVector2D(
 			static_cast<float>(NodePosX),
 			static_cast<float>(NodePosY)));
+}
+
+void USMGraphNode_Base::GoToLocalGraph() const
+{
+	return JumpToDefinition();
 }
 
 void USMGraphNode_Base::SetReadOnlyNodePosition(const FVector2D& Position)
@@ -1040,8 +1130,6 @@ void USMGraphNode_Base::RunAllConstructionScripts()
 	SetPinsFromGraphProperties(false, false);
 	
 	bIsRunningConstructionScripts = false;
-
-	RequestSlateRefresh();
 }
 
 bool USMGraphNode_Base::DoesNodePossiblyHaveConstructionScripts() const
@@ -1085,6 +1173,11 @@ void USMGraphNode_Base::RunAllConstructionScripts_Internal()
 	}
 }
 
+bool USMGraphNode_Base::IsSafeToConditionallyCompile(EPropertyChangeType::Type ChangeType) const
+{
+	return ChangeType != EPropertyChangeType::Redirected && AreTemplatesFullyLoaded();
+}
+
 void USMGraphNode_Base::SetNodeClass(UClass* Class)
 {
 	InitTemplate();
@@ -1098,6 +1191,46 @@ UClass* USMGraphNode_Base::GetDefaultNodeClass() const
 	}
 
 	return nullptr;
+}
+
+bool USMGraphNode_Base::IsNodeClassNative() const
+{
+	if (const UClass* Class = GetNodeClass())
+	{
+		return Class->IsNative();
+	}
+
+	return false;
+}
+
+bool USMGraphNode_Base::IsNodeFastPathEnabled() const
+{
+	if (BoundGraph == nullptr)
+	{
+		return false;
+	}
+	
+	if (bFastPathEnabledCached.IsSet())
+	{
+		return *bFastPathEnabledCached;
+	}
+
+	bool bIsFastPath = true;
+	
+	TArray<USMGraphK2Node_RuntimeNode_Base*> RootNodeList;
+	FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNode_Base>(BoundGraph, RootNodeList);
+
+	for (const USMGraphK2Node_RuntimeNode_Base* RootNode : RootNodeList)
+	{
+		if (RootNode->IsConsideredForEntryConnection() && !RootNode->IsFastPathEnabled())
+		{
+			bIsFastPath = false;
+			break;
+		}
+	}
+
+	bFastPathEnabledCached = bIsFastPath;
+	return bIsFastPath;
 }
 
 USMNodeInstance* USMGraphNode_Base::GetNodeTemplateFromGuid(const FGuid& Guid) const
@@ -1179,15 +1312,15 @@ FLinearColor USMGraphNode_Base::GetActiveBackgroundColor() const
 
 const FSlateBrush* USMGraphNode_Base::GetNodeIcon()
 {
-	if(USMNodeInstance* Instance = GetNodeTemplate())
+	if (USMNodeInstance* Instance = GetNodeTemplate())
 	{
-		if(Instance->HasCustomIcon())
+		if (Instance->HasCustomIcon())
 		{
 			UTexture2D* Texture = Instance->GetNodeIcon();
 			const FString TextureName = Texture ? Texture->GetFullName() : FString();
 			const FVector2D Size = Instance->GetNodeIconSize();
 			const FLinearColor TintColor = Instance->GetNodeIconTintColor();
-			if(CachedTexture != TextureName || CachedTextureSize != Size || CachedNodeTintColor != TintColor)
+			if (CachedTexture != TextureName || CachedTextureSize != Size || CachedNodeTintColor != TintColor)
 			{
 				CachedTexture = TextureName;
 				CachedTextureSize = Size;
@@ -1268,9 +1401,14 @@ void USMGraphNode_Base::ForceSetVersion(int32 NewVersion)
 	LoadedVersion = NewVersion;
 }
 
-void USMGraphNode_Base::RequestSlateRefresh()
+void USMGraphNode_Base::RequestSlateRefresh(bool bFullRefresh)
 {
-	OnGraphNodeRefreshRequestedEvent.Broadcast(this);
+	OnGraphNodeRefreshRequestedEvent.Broadcast(this, bFullRefresh);
+}
+
+void USMGraphNode_Base::ResetCachedValues()
+{
+	bFastPathEnabledCached.Reset();
 }
 
 FLinearColor USMGraphNode_Base::Internal_GetBackgroundColor() const
@@ -1278,14 +1416,14 @@ FLinearColor USMGraphNode_Base::Internal_GetBackgroundColor() const
 	return FLinearColor::Black;
 }
 
-const FLinearColor* USMGraphNode_Base::GetCustomBackgroundColor(USMNodeInstance* NodeInstance) const
+const FLinearColor* USMGraphNode_Base::GetCustomBackgroundColor(const USMNodeInstance* NodeInstance) const
 {
 	if (!NodeInstance)
 	{
 		NodeInstance = NodeInstanceTemplate;
 	}
 	
-	if(!NodeInstance || !NodeInstance->HasCustomColor())
+	if (!NodeInstance || !NodeInstance->HasCustomColor())
 	{
 		return nullptr;
 	}
@@ -1295,7 +1433,7 @@ const FLinearColor* USMGraphNode_Base::GetCustomBackgroundColor(USMNodeInstance*
 
 void USMGraphNode_Base::RemovePropertyGraph(USMPropertyGraph* PropertyGraph, bool RemoveFromMaps)
 {
-	if(!PropertyGraph)
+	if (!PropertyGraph)
 	{
 		return;
 	}
@@ -1303,7 +1441,7 @@ void USMGraphNode_Base::RemovePropertyGraph(USMPropertyGraph* PropertyGraph, boo
 	PropertyGraph->Modify();
 	PropertyGraph->ResultNode->Modify();
 	
-	if(RemoveFromMaps)
+	if (RemoveFromMaps)
 	{
 		const FGuid& Guid = PropertyGraph->ResultNode->GetPropertyNode()->GetGuid();
 		GraphPropertyGraphs.Remove(Guid);
@@ -1322,7 +1460,7 @@ void USMGraphNode_Base::RemovePropertyGraph(USMPropertyGraph* PropertyGraph, boo
 		ParentGraph->SubGraphs.Remove(PropertyGraph);
 	}
 
-	if(PropertyGraph->HasAnyFlags(RF_NeedLoad | RF_NeedPostLoad))
+	if (PropertyGraph->HasAnyFlags(RF_NeedLoad | RF_NeedPostLoad))
 	{
 		FSMBlueprintEditorUtils::TrashObject(PropertyGraph);
 	}

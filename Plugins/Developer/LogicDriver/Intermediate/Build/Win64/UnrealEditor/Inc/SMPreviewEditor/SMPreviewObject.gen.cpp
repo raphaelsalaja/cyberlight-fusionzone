@@ -7,10 +7,6 @@
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMPreviewEditor/Public/SMPreviewObject.h"
 #include "Serialization/ArchiveUObjectFromStructuredArchive.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMPreviewObject() {}
 // Cross Module References
@@ -34,28 +30,19 @@ void EmptyLinkFunctionForGeneratedCodeSMPreviewObject() {}
 	ENGINE_API UClass* Z_Construct_UClass_AGameModeBase_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UWorld_NoRegister();
 // End Cross Module References
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMPreviewObjectSpawner;
 class UScriptStruct* FSMPreviewObjectSpawner::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMPreviewObjectSpawner.OuterSingleton)
 	{
-		extern SMPREVIEWEDITOR_API uint32 Get_Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMPreviewObjectSpawner, Z_Construct_UPackage__Script_SMPreviewEditor(), TEXT("SMPreviewObjectSpawner"), sizeof(FSMPreviewObjectSpawner), Get_Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Hash());
+		Z_Registration_Info_UScriptStruct_SMPreviewObjectSpawner.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMPreviewObjectSpawner, Z_Construct_UPackage__Script_SMPreviewEditor(), TEXT("SMPreviewObjectSpawner"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMPreviewObjectSpawner.OuterSingleton;
 }
 template<> SMPREVIEWEDITOR_API UScriptStruct* StaticStruct<FSMPreviewObjectSpawner>()
 {
 	return FSMPreviewObjectSpawner::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMPreviewObjectSpawner(FSMPreviewObjectSpawner::StaticStruct, TEXT("/Script/SMPreviewEditor"), TEXT("SMPreviewObjectSpawner"), false, nullptr, nullptr);
-static struct FScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjectSpawner
-{
-	FScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjectSpawner()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMPreviewObjectSpawner")),new UScriptStruct::TCppStructOps<FSMPreviewObjectSpawner>);
-	}
-} ScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjectSpawner;
 	struct Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Statics
 	{
 #if WITH_METADATA
@@ -213,23 +200,16 @@ static struct FScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjec
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FSMPreviewObjectSpawner()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMPreviewEditor();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMPreviewObjectSpawner"), sizeof(FSMPreviewObjectSpawner), Get_Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMPreviewObjectSpawner.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMPreviewObjectSpawner.InnerSingleton, Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMPreviewObjectSpawner.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Hash() { return 1199778268U; }
 	void USMPreviewGameInstance::StaticRegisterNativesUSMPreviewGameInstance()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMPreviewGameInstance);
 	UClass* Z_Construct_UClass_USMPreviewGameInstance_NoRegister()
 	{
 		return USMPreviewGameInstance::StaticClass();
@@ -275,23 +255,21 @@ static struct FScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjec
 	};
 	UClass* Z_Construct_UClass_USMPreviewGameInstance()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMPreviewGameInstance.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMPreviewGameInstance_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMPreviewGameInstance.OuterSingleton, Z_Construct_UClass_USMPreviewGameInstance_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMPreviewGameInstance.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMPreviewGameInstance, 3710909177);
 	template<> SMPREVIEWEDITOR_API UClass* StaticClass<USMPreviewGameInstance>()
 	{
 		return USMPreviewGameInstance::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMPreviewGameInstance(Z_Construct_UClass_USMPreviewGameInstance, &USMPreviewGameInstance::StaticClass, TEXT("/Script/SMPreviewEditor"), TEXT("USMPreviewGameInstance"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMPreviewGameInstance);
 	void ASMPreviewStateMachineActor::StaticRegisterNativesASMPreviewStateMachineActor()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ASMPreviewStateMachineActor);
 	UClass* Z_Construct_UClass_ASMPreviewStateMachineActor_NoRegister()
 	{
 		return ASMPreviewStateMachineActor::StaticClass();
@@ -351,23 +329,21 @@ static struct FScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjec
 	};
 	UClass* Z_Construct_UClass_ASMPreviewStateMachineActor()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_ASMPreviewStateMachineActor.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_ASMPreviewStateMachineActor_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_ASMPreviewStateMachineActor.OuterSingleton, Z_Construct_UClass_ASMPreviewStateMachineActor_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_ASMPreviewStateMachineActor.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(ASMPreviewStateMachineActor, 3502968547);
 	template<> SMPREVIEWEDITOR_API UClass* StaticClass<ASMPreviewStateMachineActor>()
 	{
 		return ASMPreviewStateMachineActor::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_ASMPreviewStateMachineActor(Z_Construct_UClass_ASMPreviewStateMachineActor, &ASMPreviewStateMachineActor::StaticClass, TEXT("/Script/SMPreviewEditor"), TEXT("ASMPreviewStateMachineActor"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ASMPreviewStateMachineActor);
 	void USMPreviewObject::StaticRegisterNativesUSMPreviewObject()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMPreviewObject);
 	UClass* Z_Construct_UClass_USMPreviewObject_NoRegister()
 	{
 		return USMPreviewObject::StaticClass();
@@ -457,7 +433,7 @@ static struct FScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjec
 		{ "ToolTip", "Single object per blueprint to manage simulation data." },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects_Inner = { "PreviewObjects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMPreviewObjectSpawner, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects_Inner = { "PreviewObjects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMPreviewObjectSpawner, METADATA_PARAMS(nullptr, 0) }; // 3909823387
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects_MetaData[] = {
 		{ "Comment", "/** All objects to spawn into the preview world. */" },
@@ -465,7 +441,7 @@ static struct FScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjec
 		{ "ToolTip", "All objects to spawn into the preview world." },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects = { "PreviewObjects", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMPreviewObject, PreviewObjects), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects_MetaData)) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects = { "PreviewObjects", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMPreviewObject, PreviewObjects), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMPreviewObject_Statics::NewProp_PreviewObjects_MetaData)) }; // 3909823387
 	const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_USMPreviewObject_Statics::NewProp_ActorNameToPreviewIndex_ValueProp = { "ActorNameToPreviewIndex", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_USMPreviewObject_Statics::NewProp_ActorNameToPreviewIndex_Key_KeyProp = { "ActorNameToPreviewIndex_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
@@ -627,22 +603,33 @@ static struct FScriptStruct_SMPreviewEditor_StaticRegisterNativesFSMPreviewObjec
 	};
 	UClass* Z_Construct_UClass_USMPreviewObject()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMPreviewObject.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMPreviewObject_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMPreviewObject.OuterSingleton, Z_Construct_UClass_USMPreviewObject_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMPreviewObject.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMPreviewObject, 1123501471);
 	template<> SMPREVIEWEDITOR_API UClass* StaticClass<USMPreviewObject>()
 	{
 		return USMPreviewObject::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMPreviewObject(Z_Construct_UClass_USMPreviewObject, &USMPreviewObject::StaticClass, TEXT("/Script/SMPreviewEditor"), TEXT("USMPreviewObject"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMPreviewObject);
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(USMPreviewObject)
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMPreviewEditor_Public_SMPreviewObject_h_Statics
+	{
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMPreviewEditor_Public_SMPreviewObject_h_Statics::ScriptStructInfo[] = {
+		{ FSMPreviewObjectSpawner::StaticStruct, Z_Construct_UScriptStruct_FSMPreviewObjectSpawner_Statics::NewStructOps, TEXT("SMPreviewObjectSpawner"), &Z_Registration_Info_UScriptStruct_SMPreviewObjectSpawner, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMPreviewObjectSpawner), 3909823387U) },
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMPreviewEditor_Public_SMPreviewObject_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMPreviewGameInstance, USMPreviewGameInstance::StaticClass, TEXT("USMPreviewGameInstance"), &Z_Registration_Info_UClass_USMPreviewGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMPreviewGameInstance), 3586170584U) },
+		{ Z_Construct_UClass_ASMPreviewStateMachineActor, ASMPreviewStateMachineActor::StaticClass, TEXT("ASMPreviewStateMachineActor"), &Z_Registration_Info_UClass_ASMPreviewStateMachineActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASMPreviewStateMachineActor), 1004746808U) },
+		{ Z_Construct_UClass_USMPreviewObject, USMPreviewObject::StaticClass, TEXT("USMPreviewObject"), &Z_Registration_Info_UClass_USMPreviewObject, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMPreviewObject), 2350060098U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMPreviewEditor_Public_SMPreviewObject_h_374945053(TEXT("/Script/SMPreviewEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMPreviewEditor_Public_SMPreviewObject_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMPreviewEditor_Public_SMPreviewObject_h_Statics::ClassInfo),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMPreviewEditor_Public_SMPreviewObject_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMPreviewEditor_Public_SMPreviewObject_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

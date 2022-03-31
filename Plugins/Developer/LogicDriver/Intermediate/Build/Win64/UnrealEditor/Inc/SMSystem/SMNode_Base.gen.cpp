@@ -6,114 +6,39 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystem/Public/Nodes/SMNode_Base.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMNode_Base() {}
 // Cross Module References
-	SMSYSTEM_API UEnum* Z_Construct_UEnum_SMSystem_ESMTransactionType();
-	UPackage* Z_Construct_UPackage__Script_SMSystem();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMNode_Base();
+	UPackage* Z_Construct_UPackage__Script_SMSystem();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMExposedFunctionHandler();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector2D();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FGuid();
 	SMSYSTEM_API UClass* Z_Construct_UClass_USMNodeInstance_NoRegister();
-	SMSYSTEM_API UClass* Z_Construct_UClass_USMInstance_NoRegister();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UObject_NoRegister();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMActiveStateTransaction();
-	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FDateTime();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMNetworkedTransaction();
+	SMSYSTEM_API UClass* Z_Construct_UClass_USMInstance_NoRegister();
+	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner();
 // End Cross Module References
-	static UEnum* ESMTransactionType_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_SMSystem_ESMTransactionType, Z_Construct_UPackage__Script_SMSystem(), TEXT("ESMTransactionType"));
-		}
-		return Singleton;
-	}
-	template<> SMSYSTEM_API UEnum* StaticEnum<ESMTransactionType>()
-	{
-		return ESMTransactionType_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ESMTransactionType(ESMTransactionType_StaticEnum, TEXT("/Script/SMSystem"), TEXT("ESMTransactionType"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_SMSystem_ESMTransactionType_Hash() { return 2677978083U; }
-	UEnum* Z_Construct_UEnum_SMSystem_ESMTransactionType()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("ESMTransactionType"), 0, Get_Z_Construct_UEnum_SMSystem_ESMTransactionType_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "ESMTransactionType::SM_Transition", (int64)ESMTransactionType::SM_Transition },
-				{ "ESMTransactionType::SM_State", (int64)ESMTransactionType::SM_State },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-				{ "SM_State.Name", "ESMTransactionType::SM_State" },
-				{ "SM_Transition.Name", "ESMTransactionType::SM_Transition" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_SMSystem,
-				nullptr,
-				"ESMTransactionType",
-				"ESMTransactionType",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::EnumClass,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMNode_Base;
 class UScriptStruct* FSMNode_Base::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMNode_Base.OuterSingleton)
 	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMNode_Base_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMNode_Base, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMNode_Base"), sizeof(FSMNode_Base), Get_Z_Construct_UScriptStruct_FSMNode_Base_Hash());
+		Z_Registration_Info_UScriptStruct_SMNode_Base.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMNode_Base, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMNode_Base"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMNode_Base.OuterSingleton;
 }
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMNode_Base>()
 {
 	return FSMNode_Base::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMNode_Base(FSMNode_Base::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMNode_Base"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMNode_Base")),new UScriptStruct::TCppStructOps<FSMNode_Base>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base;
 	struct Z_Construct_UScriptStruct_FSMNode_Base_Statics
 	{
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
 #endif
 		static void* NewStructOps();
-		static const UECodeGen_Private::FStructPropertyParams NewProp_GraphEvaluator_Inner;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_GraphEvaluator_MetaData[];
-#endif
-		static const UECodeGen_Private::FArrayPropertyParams NewProp_GraphEvaluator;
 		static const UECodeGen_Private::FStructPropertyParams NewProp_TransitionInitializedGraphEvaluators_Inner;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_TransitionInitializedGraphEvaluators_MetaData[];
@@ -124,6 +49,16 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_TransitionShutdownGraphEvaluators_MetaData[];
 #endif
 		static const UECodeGen_Private::FArrayPropertyParams NewProp_TransitionShutdownGraphEvaluators;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_OnRootStateMachineStartedGraphEvaluator_Inner;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OnRootStateMachineStartedGraphEvaluator_MetaData[];
+#endif
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_OnRootStateMachineStartedGraphEvaluator;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_OnRootStateMachineStoppedGraphEvaluator_Inner;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OnRootStateMachineStoppedGraphEvaluator_MetaData[];
+#endif
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_OnRootStateMachineStoppedGraphEvaluator;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_TimeInState_MetaData[];
 #endif
@@ -176,6 +111,11 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_StackNodeInstances_MetaData[];
 #endif
 		static const UECodeGen_Private::FArrayPropertyParams NewProp_StackNodeInstances;
+		static const UECodeGen_Private::FClassPropertyParams NewProp_NodeStackClasses_Inner;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_NodeStackClasses_MetaData[];
+#endif
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_NodeStackClasses;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_OwningInstance_MetaData[];
 #endif
@@ -210,16 +150,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 	{
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMNode_Base>();
 	}
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_GraphEvaluator_Inner = { "GraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_GraphEvaluator_MetaData[] = {
-		{ "Comment", "/** The primary graph evaluator. */" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "The primary graph evaluator." },
-	};
-#endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_GraphEvaluator = { "GraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, GraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_GraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_GraphEvaluator_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators_Inner = { "TransitionInitializedGraphEvaluators", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators_Inner = { "TransitionInitializedGraphEvaluators", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators_MetaData[] = {
 		{ "Comment", "/** Entry point to when a transition is first initialized. */" },
@@ -227,8 +158,8 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 		{ "ToolTip", "Entry point to when a transition is first initialized." },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators = { "TransitionInitializedGraphEvaluators", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, TransitionInitializedGraphEvaluators), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators_Inner = { "TransitionShutdownGraphEvaluators", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators = { "TransitionInitializedGraphEvaluators", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, TransitionInitializedGraphEvaluators), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators_MetaData)) }; // 163563912
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators_Inner = { "TransitionShutdownGraphEvaluators", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators_MetaData[] = {
 		{ "Comment", "/** Entry point to when a transition is shutdown. */" },
@@ -236,7 +167,25 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 		{ "ToolTip", "Entry point to when a transition is shutdown." },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators = { "TransitionShutdownGraphEvaluators", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, TransitionShutdownGraphEvaluators), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators_MetaData)) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators = { "TransitionShutdownGraphEvaluators", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, TransitionShutdownGraphEvaluators), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators_MetaData)) }; // 163563912
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStartedGraphEvaluator_Inner = { "OnRootStateMachineStartedGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStartedGraphEvaluator_MetaData[] = {
+		{ "Comment", "/** When the owning blueprint's root state machine starts. */" },
+		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
+		{ "ToolTip", "When the owning blueprint's root state machine starts." },
+	};
+#endif
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStartedGraphEvaluator = { "OnRootStateMachineStartedGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, OnRootStateMachineStartedGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStartedGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStartedGraphEvaluator_MetaData)) }; // 163563912
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStoppedGraphEvaluator_Inner = { "OnRootStateMachineStoppedGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStoppedGraphEvaluator_MetaData[] = {
+		{ "Comment", "/** When the owning blueprint's root state machine stops. */" },
+		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
+		{ "ToolTip", "When the owning blueprint's root state machine stops." },
+	};
+#endif
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStoppedGraphEvaluator = { "OnRootStateMachineStoppedGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, OnRootStateMachineStoppedGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStoppedGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStoppedGraphEvaluator_MetaData)) }; // 163563912
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TimeInState_MetaData[] = {
 		{ "Category", "State Machines" },
@@ -290,13 +239,13 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodePosition = { "NodePosition", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, NodePosition), Z_Construct_UScriptStruct_FVector2D, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodePosition_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodePosition_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_Guid_MetaData[] = {
-		{ "Category", "State Machines" },
-		{ "Comment", "/*\n\x09 * NodeGuid used in constructing nodes from a graph. Set initially from the editor graph.\n\x09 * This is not guaranteed to be unique across Blueprints.\n\x09 */" },
+		{ "Category", "Graph Node" },
+		{ "Comment", "/*\n\x09 * NodeGuid must always be unique. Do not duplicate the guid in any other node in any blueprint.\n\x09 *\n\x09 * This is not the same guid that is used at run-time. At run-time all NodeGuids in a path to a node\n\x09 * are hashed to form the PathGuid. This is done to account for multiple references and parent graph calls.\n\x09 *\n\x09 * If you need to change the path of a node (such as collapse it to a nested state machine) and you need to maintain\n\x09 * the old guid for run-time saves to work, you should use the GuidRedirectMap on the primary state machine instance\n\x09 * which accepts PathGuids.\n\x09 */" },
 		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "* NodeGuid used in constructing nodes from a graph. Set initially from the editor graph.\n* This is not guaranteed to be unique across Blueprints." },
+		{ "ToolTip", "* NodeGuid must always be unique. Do not duplicate the guid in any other node in any blueprint.\n*\n* This is not the same guid that is used at run-time. At run-time all NodeGuids in a path to a node\n* are hashed to form the PathGuid. This is done to account for multiple references and parent graph calls.\n*\n* If you need to change the path of a node (such as collapse it to a nested state machine) and you need to maintain\n* the old guid for run-time saves to work, you should use the GuidRedirectMap on the primary state machine instance\n* which accepts PathGuids." },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_Guid = { "Guid", nullptr, (EPropertyFlags)0x0020080000000004, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, Guid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_Guid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_Guid_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_Guid = { "Guid", nullptr, (EPropertyFlags)0x0020080000010005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, Guid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_Guid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_Guid_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OwnerGuid_MetaData[] = {
 		{ "Comment", "/** The state machine's NodeGuid owning this node. */" },
@@ -307,7 +256,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OwnerGuid = { "OwnerGuid", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, OwnerGuid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OwnerGuid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OwnerGuid_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_PathGuid_MetaData[] = {
-		{ "Category", "State Machines" },
+		{ "Category", "Graph Node" },
 		{ "Comment", "/*\n\x09 * Unique identifier calculated from this node's place in an instance.\n\x09 * Calculated by taking the MD5 hash of the full path of all owner NodeGuids and\n\x09 * this NodeGuid.\n\x09 * This is what is returned from GetGuid().\n\x09 * \n\x09 * ReadWrite so it can be easily read from custom graph nodes.\n\x09 */" },
 		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
 		{ "ToolTip", "* Unique identifier calculated from this node's place in an instance.\n* Calculated by taking the MD5 hash of the full path of all owner NodeGuids and\n* this NodeGuid.\n* This is what is returned from GetGuid().\n*\n* ReadWrite so it can be easily read from custom graph nodes." },
@@ -345,6 +294,15 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 	};
 #endif
 	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_StackNodeInstances = { "StackNodeInstances", nullptr, (EPropertyFlags)0x0020080000002004, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, StackNodeInstances), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_StackNodeInstances_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_StackNodeInstances_MetaData)) };
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeStackClasses_Inner = { "NodeStackClasses", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UClass_UObject_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeStackClasses_MetaData[] = {
+		{ "Comment", "/**\n\x09 * All classes used in the node stack. The classes are stored here only to help with dependency loading by the engine,\n\x09 * specifically with BP nativization. This isn't very useful otherwise as the archetypes (dynamically added\n\x09 * default sub-objects) contain instance information which the class won't have.\n\x09 *\n\x09 * Without this there may be runtime errors when trying to access internal resources.\n\x09 * An example is setting a custom node icon for a stack node with the primary node not loading a custom icon.\n\x09 *\n\x09 * The nativization code generated that fails is:\n\x09 * \"NodeIcon = CastChecked<UTexture2D>(CastChecked<UDynamicClass>(UTransitionStackA_C__pf1010915279::StaticClass())->UsedAssets[0], ECastCheckedType::NullAllowed);\"\n\x09 *\n\x09 * TODO: Consider removing with UE 5.0 as nativization is deprecated.\n\x09 */" },
+		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
+		{ "ToolTip", "All classes used in the node stack. The classes are stored here only to help with dependency loading by the engine,\nspecifically with BP nativization. This isn't very useful otherwise as the archetypes (dynamically added\ndefault sub-objects) contain instance information which the class won't have.\n\nWithout this there may be runtime errors when trying to access internal resources.\nAn example is setting a custom node icon for a stack node with the primary node not loading a custom icon.\n\nThe nativization code generated that fails is:\n\"NodeIcon = CastChecked<UTexture2D>(CastChecked<UDynamicClass>(UTransitionStackA_C__pf1010915279::StaticClass())->UsedAssets[0], ECastCheckedType::NullAllowed);\"\n\nTODO: Consider removing with UE 5.0 as nativization is deprecated." },
+	};
+#endif
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeStackClasses = { "NodeStackClasses", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, NodeStackClasses), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeStackClasses_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeStackClasses_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OwningInstance_MetaData[] = {
 		{ "Comment", "/** The state machine instance owning this node. */" },
@@ -362,7 +320,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 	};
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeInstance = { "NodeInstance", nullptr, (EPropertyFlags)0x0020080000002004, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, NodeInstance), Z_Construct_UClass_USMNodeInstance_NoRegister, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeInstance_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeInstance_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_ValueProp = { "TemplateVariableGraphProperties", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_ValueProp = { "TemplateVariableGraphProperties", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner, METADATA_PARAMS(nullptr, 0) }; // 2977899703
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_Key_KeyProp = { "TemplateVariableGraphProperties_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_MetaData[] = {
@@ -371,7 +329,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 		{ "ToolTip", "Set by the BP compiler. Template Guid -> GraphProperties. Contains data necessary to evaluate variables which have instanced BP graphs." },
 	};
 #endif
-	const UECodeGen_Private::FMapPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties = { "TemplateVariableGraphProperties", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, TemplateVariableGraphProperties), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_MetaData)) };
+	const UECodeGen_Private::FMapPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties = { "TemplateVariableGraphProperties", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, TemplateVariableGraphProperties), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_MetaData)) }; // 2977899703
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeInstanceClass_MetaData[] = {
 		{ "Category", "Node Class" },
@@ -382,12 +340,14 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 #endif
 	const UECodeGen_Private::FClassPropertyParams Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeInstanceClass = { "NodeInstanceClass", nullptr, (EPropertyFlags)0x0020080000000004, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNode_Base, NodeInstanceClass), Z_Construct_UClass_UObject_NoRegister, Z_Construct_UClass_UClass, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeInstanceClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeInstanceClass_MetaData)) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMNode_Base_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_GraphEvaluator_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_GraphEvaluator,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionInitializedGraphEvaluators,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TransitionShutdownGraphEvaluators,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStartedGraphEvaluator_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStartedGraphEvaluator,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStoppedGraphEvaluator_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OnRootStateMachineStoppedGraphEvaluator,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TimeInState,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_bIsInEndState,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_bHasUpdated,
@@ -402,6 +362,8 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_StackTemplateNames,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_StackNodeInstances_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_StackNodeInstances,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeStackClasses_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeStackClasses,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_OwningInstance,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_NodeInstance,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewProp_TemplateVariableGraphProperties_ValueProp,
@@ -424,304 +386,21 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNode_Base
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FSMNode_Base()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMNode_Base_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMNode_Base"), sizeof(FSMNode_Base), Get_Z_Construct_UScriptStruct_FSMNode_Base_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMNode_Base.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMNode_Base_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMNode_Base.InnerSingleton, Z_Construct_UScriptStruct_FSMNode_Base_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMNode_Base.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMNode_Base_Hash() { return 3153121628U; }
-class UScriptStruct* FSMActiveStateTransaction::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_Statics
 	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMActiveStateTransaction_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMActiveStateTransaction, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMActiveStateTransaction"), sizeof(FSMActiveStateTransaction), Get_Z_Construct_UScriptStruct_FSMActiveStateTransaction_Hash());
-	}
-	return Singleton;
-}
-template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMActiveStateTransaction>()
-{
-	return FSMActiveStateTransaction::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMActiveStateTransaction(FSMActiveStateTransaction::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMActiveStateTransaction"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMActiveStateTransaction
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMActiveStateTransaction()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMActiveStateTransaction")),new UScriptStruct::TCppStructOps<FSMActiveStateTransaction>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMActiveStateTransaction;
-	struct Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_StateGuid_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_StateGuid;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_StartTime_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_StartTime;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_TimeInState_MetaData[];
-#endif
-		static const UECodeGen_Private::FFloatPropertyParams NewProp_TimeInState;
-		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-		static const UECodeGen_Private::FStructParams ReturnStructParams;
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::Struct_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_Statics::ScriptStructInfo[] = {
+		{ FSMNode_Base::StaticStruct, Z_Construct_UScriptStruct_FSMNode_Base_Statics::NewStructOps, TEXT("SMNode_Base"), &Z_Registration_Info_UScriptStruct_SMNode_Base, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMNode_Base), 2648280320U) },
 	};
-#endif
-	void* Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMActiveStateTransaction>();
-	}
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StateGuid_MetaData[] = {
-		{ "IgnoreForMemberInitializationTest", "" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StateGuid = { "StateGuid", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMActiveStateTransaction, StateGuid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StateGuid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StateGuid_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StartTime_MetaData[] = {
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StartTime = { "StartTime", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMActiveStateTransaction, StartTime), Z_Construct_UScriptStruct_FDateTime, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StartTime_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StartTime_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_TimeInState_MetaData[] = {
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-	};
-#endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_TimeInState = { "TimeInState", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMActiveStateTransaction, TimeInState), METADATA_PARAMS(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_TimeInState_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_TimeInState_MetaData)) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StateGuid,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_StartTime,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::NewProp_TimeInState,
-	};
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
-		nullptr,
-		&NewStructOps,
-		"SMActiveStateTransaction",
-		sizeof(FSMActiveStateTransaction),
-		alignof(FSMActiveStateTransaction),
-		Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::PropPointers,
-		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::PropPointers),
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMActiveStateTransaction()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMActiveStateTransaction_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMActiveStateTransaction"), sizeof(FSMActiveStateTransaction), Get_Z_Construct_UScriptStruct_FSMActiveStateTransaction_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMActiveStateTransaction_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMActiveStateTransaction_Hash() { return 2387049063U; }
-class UScriptStruct* FSMNetworkedTransaction::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
-	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMNetworkedTransaction_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMNetworkedTransaction, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMNetworkedTransaction"), sizeof(FSMNetworkedTransaction), Get_Z_Construct_UScriptStruct_FSMNetworkedTransaction_Hash());
-	}
-	return Singleton;
-}
-template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMNetworkedTransaction>()
-{
-	return FSMNetworkedTransaction::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMNetworkedTransaction(FSMNetworkedTransaction::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMNetworkedTransaction"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMNetworkedTransaction
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMNetworkedTransaction()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMNetworkedTransaction")),new UScriptStruct::TCppStructOps<FSMNetworkedTransaction>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMNetworkedTransaction;
-	struct Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_BaseGuid_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_BaseGuid;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_TransactionGuid_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_TransactionGuid;
-		static const UECodeGen_Private::FStructPropertyParams NewProp_AdditionalGuids_Inner;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_AdditionalGuids_MetaData[];
-#endif
-		static const UECodeGen_Private::FArrayPropertyParams NewProp_AdditionalGuids;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_Timestamp_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_Timestamp;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_ActiveTime_MetaData[];
-#endif
-		static const UECodeGen_Private::FFloatPropertyParams NewProp_ActiveTime;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_TransactionType_MetaData[];
-#endif
-		static void NewProp_TransactionType_SetBit(void* Obj);
-		static const UECodeGen_Private::FBoolPropertyParams NewProp_TransactionType;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_bIsActive_MetaData[];
-#endif
-		static void NewProp_bIsActive_SetBit(void* Obj);
-		static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsActive;
-		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-		static const UECodeGen_Private::FStructParams ReturnStructParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::Struct_MetaDataParams[] = {
-		{ "Comment", "/** Data to send across the network. Default Implementation uses this to record TRANSITIONS which should be taken. */" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "Data to send across the network. Default Implementation uses this to record TRANSITIONS which should be taken." },
-	};
-#endif
-	void* Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMNetworkedTransaction>();
-	}
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_BaseGuid_MetaData[] = {
-		{ "Comment", "/** The node path guid. */" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "The node path guid." },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_BaseGuid = { "BaseGuid", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNetworkedTransaction, BaseGuid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_BaseGuid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_BaseGuid_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionGuid_MetaData[] = {
-		{ "Comment", "/** Unique to this transaction. */" },
-		{ "IgnoreForMemberInitializationTest", "" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "Unique to this transaction." },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionGuid = { "TransactionGuid", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNetworkedTransaction, TransactionGuid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionGuid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionGuid_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_AdditionalGuids_Inner = { "AdditionalGuids", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(nullptr, 0) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_AdditionalGuids_MetaData[] = {
-		{ "Comment", "/**\n\x09 * Additional guids for a transaction. For transitions this can be source and destination states.\n\x09 * When using conduits that information may be required and can't be calculated from a single transition.\n\x09 */" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "Additional guids for a transaction. For transitions this can be source and destination states.\nWhen using conduits that information may be required and can't be calculated from a single transition." },
-	};
-#endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_AdditionalGuids = { "AdditionalGuids", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNetworkedTransaction, AdditionalGuids), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_AdditionalGuids_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_AdditionalGuids_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_Timestamp_MetaData[] = {
-		{ "Comment", "/** A UTC timestamp. Should be set manually. */" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "A UTC timestamp. Should be set manually." },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_Timestamp = { "Timestamp", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNetworkedTransaction, Timestamp), Z_Construct_UScriptStruct_FDateTime, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_Timestamp_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_Timestamp_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_ActiveTime_MetaData[] = {
-		{ "Comment", "/** Source state or this state's time in state. */" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "Source state or this state's time in state." },
-	};
-#endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_ActiveTime = { "ActiveTime", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMNetworkedTransaction, ActiveTime), METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_ActiveTime_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_ActiveTime_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionType_MetaData[] = {
-		{ "Comment", "/** ESMTransactionType. */" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "ESMTransactionType." },
-	};
-#endif
-	void Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionType_SetBit(void* Obj)
-	{
-		((FSMNetworkedTransaction*)Obj)->TransactionType = 1;
-	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionType = { "TransactionType", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMNetworkedTransaction), &Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionType_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionType_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_bIsActive_MetaData[] = {
-		{ "Comment", "/** If the state is active. Valid only for a TransactionType of SM_State. */" },
-		{ "ModuleRelativePath", "Public/Nodes/SMNode_Base.h" },
-		{ "ToolTip", "If the state is active. Valid only for a TransactionType of SM_State." },
-	};
-#endif
-	void Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_bIsActive_SetBit(void* Obj)
-	{
-		((FSMNetworkedTransaction*)Obj)->bIsActive = 1;
-	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_bIsActive = { "bIsActive", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMNetworkedTransaction), &Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_bIsActive_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_bIsActive_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_bIsActive_MetaData)) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_BaseGuid,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionGuid,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_AdditionalGuids_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_AdditionalGuids,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_Timestamp,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_ActiveTime,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_TransactionType,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::NewProp_bIsActive,
-	};
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
-		nullptr,
-		&NewStructOps,
-		"SMNetworkedTransaction",
-		sizeof(FSMNetworkedTransaction),
-		alignof(FSMNetworkedTransaction),
-		Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::PropPointers,
-		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::PropPointers),
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMNetworkedTransaction()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMNetworkedTransaction_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMNetworkedTransaction"), sizeof(FSMNetworkedTransaction), Get_Z_Construct_UScriptStruct_FSMNetworkedTransaction_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMNetworkedTransaction_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMNetworkedTransaction_Hash() { return 2034940397U; }
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_3711837549(TEXT("/Script/SMSystem"),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_SMNode_Base_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "Blueprints/SMBlueprint.h"
 #include "SMTestHelpers.h"
@@ -21,7 +21,7 @@
 
 #if PLATFORM_DESKTOP
 
-bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences, bool bReuseStates, bool bCreateIntermediateReferenceGraphs = false, bool bReuseReferences = false)
+bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences, bool bReuseStates, bool bCreateIntermediateReferenceGraphs = false)
 {
 	FAssetHandler NewAsset;
 	if (!TestHelpers::TryCreateNewStateMachineAsset(Test, NewAsset, false))
@@ -29,6 +29,10 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 		return false;
 	}
 
+	USMProjectEditorSettings* ProjectEditorSettings = FSMBlueprintEditorUtils::GetMutableProjectEditorSettings();
+	const bool bUserTemplateSettings = ProjectEditorSettings->bEnableReferenceTemplatesByDefault;
+	ProjectEditorSettings->bEnableReferenceTemplatesByDefault = false;
+	
 	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
 	
 	// Find root state machine.
@@ -54,7 +58,6 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 	UEdGraphPin* EntryPointForNestedStateMachine = LastTopLevelStatePin;
 	USMGraphNode_StateMachineStateNode* NestedStateMachineNodeToUseDuplicateReference = TestHelpers::BuildNestedStateMachine(Test, StateMachineGraph, 4, &EntryPointForNestedStateMachine, nullptr);
 	NestedStateMachineNodeToUseDuplicateReference->GetNodeTemplateAs<USMStateMachineInstance>()->SetReuseCurrentState(bReuseStates);
-	NestedStateMachineNodeToUseDuplicateReference->bReuseReference = bReuseReferences;
 	LastTopLevelStatePin = NestedStateMachineNodeToUseDuplicateReference->GetOutputPin();
 
 	// Build a nested state machine.
@@ -63,7 +66,6 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 	EntryPointForNestedStateMachine = LastTopLevelStatePin;
 	USMGraphNode_StateMachineStateNode* NestedStateMachineNode = TestHelpers::BuildNestedStateMachine(Test, StateMachineGraph, 4, &EntryPointForNestedStateMachine, &LastNestedPin);
 	NestedStateMachineNode->GetNodeTemplateAs<USMStateMachineInstance>()->SetReuseCurrentState(bReuseStates);
-	NestedStateMachineNode->bReuseReference = bReuseReferences;
 	StateMachineStateNodes.Add(NestedStateMachineNode);
 	LastTopLevelStatePin = NestedStateMachineNode->GetOutputPin();
 
@@ -78,7 +80,6 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 	USMGraphNode_StateMachineStateNode* NestedStateMachineNode_2 = TestHelpers::BuildNestedStateMachine(Test, Cast<USMGraph>(NestedStateMachineNode->GetBoundGraph()),
 		4, &EntryPointFor2xNested, nullptr);
 	NestedStateMachineNode_2->GetNodeTemplateAs<USMStateMachineInstance>()->SetReuseCurrentState(bReuseStates);
-	NestedStateMachineNode_2->bReuseReference = bReuseReferences;
 	StateMachineStateNodes.Insert(NestedStateMachineNode_2, 0);
 	{
 		UEdGraphPin* Nested1xPinOut = NestedStateMachineNode_2->GetOutputPin();
@@ -99,7 +100,6 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 			USMGraphNode_StateMachineStateNode* NestedStateMachineNode_2_2 = TestHelpers::BuildNestedStateMachine(Test, Cast<USMGraph>(NestedStateMachineNode->GetBoundGraph()),
 				4, &Nested1xPinOut, nullptr);
 			NestedStateMachineNode_2_2->GetNodeTemplateAs<USMStateMachineInstance>()->SetReuseCurrentState(bReuseStates);
-			NestedStateMachineNode_2_2->bReuseReference = bReuseReferences;
 			StateMachineStateNodes.Insert(NestedStateMachineNode_2_2, 0);
 			// Add more 1x states nested level (states leading from the second nested state machine).
 			{
@@ -154,7 +154,7 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 			TotalReferences++;
 			GeneratedReferenceClasses.Add(NewReferencedBlueprint->GeneratedClass);
 			
-			if(bCreateIntermediateReferenceGraphs)
+			if (bCreateIntermediateReferenceGraphs)
 			{
 				NestedSM->SetUseIntermediateGraph(true);
 			}
@@ -164,32 +164,24 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 			FBlueprintEditorUtils::AddMemberVariable(NewReferencedBlueprint, TestStringVarName, StringPinType, DefaultStringValue);
 			
 			FKismetEditorUtilities::CompileBlueprint(NewReferencedBlueprint);
+			
+			USMInstance* ReferenceTemplate = NestedSM->GetStateMachineReferenceTemplateDirect();
+			Test->TestNull("Template null because it is not enabled", ReferenceTemplate);
 
-			if (!bReuseReferences)
-			{
-				USMInstance* ReferenceTemplate = NestedSM->GetStateMachineReferenceTemplateDirect();
-				Test->TestNull("Template null because it is not enabled", ReferenceTemplate);
+			// Manually set and update template value. Normally checking the box will trigger the state machine reference to init.
+			NestedSM->bUseTemplate = true;
+			NestedSM->InitStateMachineReferenceTemplate();
 
-				// Manually set and update template value. Normally checking the box will trigger the state machine reference to init.
-				NestedSM->bUseTemplate = true;
-				NestedSM->InitStateMachineReferenceTemplate();
+			ReferenceTemplate = NestedSM->GetStateMachineReferenceTemplateDirect();
+			Test->TestNotNull("Template not null because it is enabled", ReferenceTemplate);
 
-				ReferenceTemplate = NestedSM->GetStateMachineReferenceTemplateDirect();
-				Test->TestNotNull("Template not null because it is enabled", ReferenceTemplate);
+			Test->TestNotNull("New referenced template instantiated", ReferenceTemplate);
+			Test->TestEqual("Direct template has owner of nested node", ReferenceTemplate->GetOuter(), (UObject*)NestedSM);
 
-				Test->TestNotNull("New referenced template instantiated", ReferenceTemplate);
-				Test->TestEqual("Direct template has owner of nested node", ReferenceTemplate->GetOuter(), (UObject*)NestedSM);
-
-				TestHelpers::TestSetTemplate(Test, ReferenceTemplate, DefaultStringValue, NewStringValue);
-			}
+			TestHelpers::TestSetTemplate(Test, ReferenceTemplate, DefaultStringValue, NewStringValue);
 			
 			// Store handler information so we can delete the object.
-			FString ReferencedPath = NewReferencedBlueprint->GetPathName();
-			FAssetHandler ReferencedAsset(NewReferencedBlueprint->GetName(), USMBlueprint::StaticClass(), NewObject<USMBlueprintFactory>(), &ReferencedPath);
-			ReferencedAsset.Object = NewReferencedBlueprint;
-
-			UPackage* Package = FAssetData(NewReferencedBlueprint).GetPackage();
-			ReferencedAsset.Package = Package;
+			FAssetHandler ReferencedAsset = TestHelpers::CreateAssetFromBlueprint(NewReferencedBlueprint);
 
 			ExtraAssets.Add(ReferencedAsset);
 
@@ -201,13 +193,10 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 			NestedStateMachineNodeToUseDuplicateReference->ReferenceStateMachine(NestedStateMachineNode->GetStateMachineReference());
 
 			// Set template value.
-			if (!bReuseReferences)
-			{
-				NestedStateMachineNodeToUseDuplicateReference->bUseTemplate = true;
-				NestedStateMachineNodeToUseDuplicateReference->InitStateMachineReferenceTemplate();
-				USMInstance* ReferenceTemplate = NestedStateMachineNodeToUseDuplicateReference->GetStateMachineReferenceTemplateDirect();
-				TestHelpers::TestSetTemplate(Test, ReferenceTemplate, DefaultStringValue, NewStringValue);
-			}
+			NestedStateMachineNodeToUseDuplicateReference->bUseTemplate = true;
+			NestedStateMachineNodeToUseDuplicateReference->InitStateMachineReferenceTemplate();
+			USMInstance* ReferenceTemplate = NestedStateMachineNodeToUseDuplicateReference->GetStateMachineReferenceTemplateDirect();
+			TestHelpers::TestSetTemplate(Test, ReferenceTemplate, DefaultStringValue, NewStringValue);
 			
 			// This is a reference which contains all of the created references so far.
 			TotalReferences += StateMachineStateNodes.Num();
@@ -236,7 +225,7 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 		StateMachineInstance->Stop();
 
 		int32 CompareEntry = Context->GetEntryInt();
-		int32 CompareUpdate = Context->GetUpdateInt();
+		int32 CompareUpdate = Context->GetUpdateFromDeltaSecondsInt();
 		int32 CompareEnd = Context->GetEndInt();
 
 		Test->TestEqual("Manual transition evaluation matches normal tick", CompareEntry, EntryVal);
@@ -252,14 +241,14 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 
 		// Validate instances retrievable
 		TArray<USMInstance*> AllReferences = StateMachineInstance->GetAllReferencedInstances(true);
-		if(!bCreateReferences)
+		if (!bCreateReferences)
 		{
 			Test->TestEqual("", AllReferences.Num(), 0);
 		}
 		else
 		{
 			TSet<UClass*> ReferenceClasses;
-			for(USMInstance* Ref : AllReferences)
+			for (USMInstance* Ref : AllReferences)
 			{
 				ReferenceClasses.Add(Ref->GetClass());
 			}
@@ -267,20 +256,20 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 			int32 Match = TestHelpers::ArrayContentsInArray(ReferenceClasses.Array(), GeneratedReferenceClasses.Array());
 			Test->TestEqual("Unique reference classes found", Match, GeneratedReferenceClasses.Num());
 
-			Test->TestEqual("All nested references found", AllReferences.Num(), bReuseReferences ? GeneratedReferenceClasses.Num() : TotalReferences);
+			Test->TestEqual("All nested references found", AllReferences.Num(), TotalReferences);
 
 			AllReferences = StateMachineInstance->GetAllReferencedInstances(false);
-			Test->TestEqual("Direct references", AllReferences.Num(), bReuseReferences ? 1 : 2);
+			Test->TestEqual("Direct references", AllReferences.Num(), 2);
 
 			// Templates should only be in CDO.
 			Test->TestEqual("Instance doesn't have templates stored", StateMachineInstance->ReferenceTemplates.Num(), 0);
 			
 			// Validate template stored in default object correctly.
 			USMInstance* DefaultObject = Cast<USMInstance>(StateMachineInstance->GetClass()->GetDefaultObject(false));
-			const int32 TotalTemplates = bReuseReferences ? 0 : 2; // Reuse references don't support templates.
+			const int32 TotalTemplates = 2;
 			Test->TestEqual("Reference template in CDO", DefaultObject->ReferenceTemplates.Num(), TotalTemplates);
 			int32 TemplatesVerified = 0;
-			for(UObject* TemplateObject : DefaultObject->ReferenceTemplates)
+			for (UObject* TemplateObject : DefaultObject->ReferenceTemplates)
 			{
 				if (USMInstance* Template = Cast<USMInstance>(TemplateObject))
 				{
@@ -298,22 +287,19 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 				}
 			}
 			Test->TestEqual("Templates verified in CDO", TemplatesVerified, TotalTemplates);
-
-			if (!bReuseReferences)
+			
+			// Validate template has applied default values to referenced instance.
+			for (USMInstance* ReferenceInstance : AllReferences)
 			{
-				// Validate template has applied default values to referenced instance.
-				for (USMInstance* ReferenceInstance : AllReferences)
+				bool bStringDefaultValueVerified = false;
+				for (TFieldIterator<FStrProperty> It(ReferenceInstance->GetClass(), EFieldIteratorFlags::ExcludeSuper); It; ++It)
 				{
-					bool bStringDefaultValueVerified = false;
-					for (TFieldIterator<FStrProperty> It(ReferenceInstance->GetClass(), EFieldIteratorFlags::ExcludeSuper); It; ++It)
-					{
-						FString* Ptr = (*It)->ContainerPtrToValuePtr<FString>(ReferenceInstance);
-						FString StrValue = *Ptr;
-						Test->TestEqual("Instance has template override string value", StrValue, NewStringValue);
-						bStringDefaultValueVerified = true;
-					}
-					Test->TestTrue("Instance has string property from template verified.", bStringDefaultValueVerified);
+					FString* Ptr = (*It)->ContainerPtrToValuePtr<FString>(ReferenceInstance);
+					FString StrValue = *Ptr;
+					Test->TestEqual("Instance has template override string value", StrValue, NewStringValue);
+					bStringDefaultValueVerified = true;
 				}
+				Test->TestTrue("Instance has string property from template verified.", bStringDefaultValueVerified);
 			}
 		}
 		
@@ -359,19 +345,12 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 			// One state machine is inactive so the states restored depend on if the current state is reused. Reusing states increases count of second nested state machine.
 			// First nested state machine is replaced with a reference to second nested state machine when using references.
 			int32 ExpectedStates = 3;
-			if(bReuseStates)
+			if (bReuseStates)
 			{
 				ExpectedStates += 2;
-				if(bCreateReferences)
+				if (bCreateReferences)
 				{
-					if(bReuseReferences)
-					{
-						ExpectedStates -= 1; // Can't save properly since guids are duplicated.
-					}
-					else
-					{
-						ExpectedStates += 2;
-					}
+					ExpectedStates += 2;
 				}
 			}
 			Test->TestEqual("Current states tracked", SavedStateGuids.Num(), ExpectedStates);
@@ -392,7 +371,7 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 			NewStateMachineInstance->LoadFromState(ActiveNestedState->GetGuid());
 			bool bIsStateMachine = NewStateMachineInstance->GetRootStateMachine().GetSingleInitialState()->IsStateMachine();
 			Test->TestTrue("Initial top level state should be state machine", bIsStateMachine);
-			if(!bIsStateMachine)
+			if (!bIsStateMachine)
 			{
 				return false;
 			}
@@ -406,13 +385,8 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 
 			// Run to the very last state. References won't have states remaining and non references will have the end state left.
 			StatesHit = TestHelpers::RunAllStateMachinesToCompletion(Test, NewStateMachineInstance, &NewStateMachineInstance->GetRootStateMachine(), -1, -1);
-
-			// No point of testing with reusing references. It won't be guaranteed to work properly as the Guid Path needs to be unique for each reference. The state that loads
-			// may be the wrong 'instance' of this state.
-			if (!bReuseReferences)
-			{
-				Test->TestEqual("Correct number of states hit", StatesHit, StatesNotHit);
-			}
+			
+			Test->TestEqual("Correct number of states hit", StatesHit, StatesNotHit);
 			
 			ActiveNestedState = NewStateMachineInstance->GetSingleNestedActiveState();
 			Test->TestNotEqual("Nested state shouldn't equal initial state", ActiveNestedState, NewStateMachineInstance->GetRootStateMachine().GetSingleInitialState());
@@ -484,16 +458,18 @@ bool TestSaveStateMachineState(FAutomationTestBase* Test, bool bCreateReferences
 		Asset.DeleteAsset(Test);
 	}
 
+	ProjectEditorSettings->bEnableReferenceTemplatesByDefault = bUserTemplateSettings;
+	
 	return NewAsset.DeleteAsset(Test);
 }
 
 /**
  * Save and restore the state of a hierarchical state machine, then do it again with bReuseCurrentState.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSaveStateMachineStateTest, "SMTests.SaveRestoreReuseStateMachineState", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSaveStateMachineStateTest, "LogicDriver.SaveRestore.StateMachineState", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FSaveStateMachineStateTest::RunTest(const FString& Parameters)
+bool FSaveStateMachineStateTest::RunTest(const FString& Parameters)
 {
 	const bool bUseReferences = false;
 	return TestSaveStateMachineState(this, bUseReferences, false) &&
@@ -501,33 +477,29 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSaveStateMachineStateTest, "SMTests.SaveRestor
 }
 
 /**
- * Save and restore the state of a hierarchical state machine with references, then do it again with bReuseCurrentState.
+ * Save and restore the state of a hierarchical state machine with references.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSaveStateMachineStateWithReferencesTest, "SMTests.SaveRestoreReuseStateMachineStateWithReferences", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSaveStateMachineStateWithReferencesTest, "LogicDriver.SaveRestore.StateMachineStateWithReferences", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FSaveStateMachineStateWithReferencesTest::RunTest(const FString& Parameters)
+bool FSaveStateMachineStateWithReferencesTest::RunTest(const FString& Parameters)
 {
 	const bool bUseReferences = true;
 	return TestSaveStateMachineState(this, bUseReferences, false) &&
-		TestSaveStateMachineState(this, bUseReferences, true) &&
-		TestSaveStateMachineState(this, bUseReferences, false, false, true) &&
-		TestSaveStateMachineState(this, bUseReferences, true, false, true);
+		TestSaveStateMachineState(this, bUseReferences, true);
 }
 
 /**
- * Save and restore the state of a hierarchical state machine with references which use intermediate graphs, then do it again with bReuseCurrentState.
+ * Save and restore the state of a hierarchical state machine with references which use intermediate graphs.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSaveStateMachineStateWithIntermediateReferencesTest, "SMTests.SaveRestoreReuseStateMachineStateWithIntermediateReferences", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSaveStateMachineStateWithIntermediateReferencesTest, "LogicDriver.SaveRestore.StateMachineStateWithIntermediateReferences", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FSaveStateMachineStateWithIntermediateReferencesTest::RunTest(const FString& Parameters)
+bool FSaveStateMachineStateWithIntermediateReferencesTest::RunTest(const FString& Parameters)
 {
 	const bool bUseReferences = true;
 	return TestSaveStateMachineState(this, bUseReferences, false, true) &&
-		TestSaveStateMachineState(this, bUseReferences, true, true) &&
-		TestSaveStateMachineState(this, bUseReferences, false, true, true) &&
-		TestSaveStateMachineState(this, bUseReferences, true, true, true);
+		TestSaveStateMachineState(this, bUseReferences, true, true);
 }
 
 #endif

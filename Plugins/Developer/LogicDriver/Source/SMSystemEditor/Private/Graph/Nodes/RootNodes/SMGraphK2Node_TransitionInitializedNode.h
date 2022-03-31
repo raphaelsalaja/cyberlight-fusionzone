@@ -1,10 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "SMGraphK2Node_RuntimeNodeContainer.h"
-#include "SMGraphK2Node_TransitionInitializedNode.generated.h"
+#include "Graph/Nodes/Helpers/SMGraphK2Node_FunctionNodes_TransitionInstance.h"
 
+#include "SMGraphK2Node_TransitionInitializedNode.generated.h"
 
 /**
  * Can be used in Transition graphs and Conduit graphs when they're configured as transitions.
@@ -14,7 +15,7 @@ class USMGraphK2Node_TransitionInitializedNode : public USMGraphK2Node_RuntimeNo
 {
 	GENERATED_UCLASS_BODY()
 
-	//~ Begin UEdGraphNode Interface
+	// UEdGraphNode
 	virtual void AllocateDefaultPins() override;
 	virtual void PostPlacedNewNode() override;
 	virtual FText GetMenuCategory() const override;
@@ -28,5 +29,15 @@ class USMGraphK2Node_TransitionInitializedNode : public USMGraphK2Node_RuntimeNo
 	/** User can replace node. */
 	virtual bool CanUserDeleteNode() const override { return true; }
 	virtual bool CanDuplicateNode() const override { return true; }
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
+	
+	// USMGraphK2Node_RuntimeNode_Base
+	virtual bool IsCompatibleWithInstanceGraphNodeClass(TSubclassOf<USMGraphK2Node_FunctionNode_NodeInstance> InGraphNodeClass) const override
+	{
+		return InGraphNodeClass == USMGraphK2Node_TransitionInstance_OnTransitionInitialized::StaticClass() ||
+				InGraphNodeClass == USMGraphK2Node_ConduitInstance_OnConduitInitialized::StaticClass() ||
+				InGraphNodeClass == USMGraphK2Node_StateInstance_OnStateInitialized::StaticClass();
+	}
+	virtual bool IsConsideredForEntryConnection() const override { return true; }
+	// ~USMGraphK2Node_RuntimeNode_Base
 };

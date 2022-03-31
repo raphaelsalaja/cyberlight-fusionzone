@@ -1,13 +1,14 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Kismet/BlueprintFunctionLibrary.h"
 #include "UObject/TextProperty.h" // Required for plugin packaging to work.
 #include "SMTextGraphProperty.h"
-#include "SMExtendedPropertyHelpers.generated.h"
 
+#include "CoreMinimal.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+
+#include "SMExtendedPropertyHelpers.generated.h"
 
 UCLASS(MinimalAPI)
 class USMExtendedGraphPropertyHelpers : public UBlueprintFunctionLibrary

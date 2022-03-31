@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -27,6 +27,10 @@ protected:
 	void OnOutlinerSelectionChanged(FSceneOutlinerTreeItemPtr TreeItem, ESelectInfo::Type Type);
 	
 	void OnSimulationEnded(USMPreviewObject* PreviewObject);
+
+	// Called then the user presses delete on the scene outliner.
+	void OnDelete(const TArray<TWeakPtr<ISceneOutlinerTreeItem>>& InSelectedItem);
+	
 protected:
 	TSharedPtr<SSceneOutliner> SceneOutliner;
 	TWeakPtr<FSMBlueprintEditor> BlueprintEditor;

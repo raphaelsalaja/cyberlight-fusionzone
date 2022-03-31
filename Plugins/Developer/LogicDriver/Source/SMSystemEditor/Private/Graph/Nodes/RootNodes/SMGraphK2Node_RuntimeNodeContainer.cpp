@@ -1,18 +1,132 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_RuntimeNodeContainer.h"
-#include "BlueprintNodeSpawner.h"
-#include "BlueprintActionDatabaseRegistrar.h"
-#include "K2Node_StructMemberGet.h"
-#include "K2Node_CallFunction.h"
 #include "Graph/SMGraph.h"
+#include "Graph/Nodes/Helpers/SMGraphK2Node_FunctionNodes_NodeInstance.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 
+#include "BlueprintNodeSpawner.h"
+#include "BlueprintActionDatabaseRegistrar.h"
+#include "BlueprintEditor.h"
+#include "K2Node_StructMemberGet.h"
+#include "K2Node_CallFunction.h"
+
 #define LOCTEXT_NAMESPACE "SMContainerNode"
+
+USMGraphK2Node_FunctionNode_NodeInstance* USMGraphK2Node_RuntimeNode_Base::GetConnectedNodeInstanceFunction() const
+{
+	if (UEdGraphPin* ThenPin = GetCorrectEntryPin())
+	{
+		if (ThenPin->LinkedTo.Num() > 0)
+		{
+			if (USMGraphK2Node_FunctionNode_NodeInstance* NextNode = Cast<USMGraphK2Node_FunctionNode_NodeInstance>(ThenPin->LinkedTo[0]->GetOwningNode()))
+			{
+				if (IsCompatibleWithInstanceGraphNodeClass(NextNode->GetClass()))
+				{
+					return NextNode;
+				}
+			}
+		}
+	}
+	
+	return nullptr;
+}
+
+USMGraphK2Node_FunctionNode_NodeInstance* USMGraphK2Node_RuntimeNode_Base::
+GetConnectedNodeInstanceFunctionIfValidForOptimization() const
+{
+	if (USMGraphK2Node_FunctionNode_NodeInstance* NextNode = GetConnectedNodeInstanceFunction())
+	{
+		if (const UEdGraphPin* NextNodeThenPin = GetCorrectNodeInstanceOutputPin(NextNode))
+		{
+			// Either there are no nodes, or were linking back to this node (in the case of CanEnterTransition minor hack!).
+			if (NextNodeThenPin->LinkedTo.Num() == 0 ||
+				(NextNodeThenPin->LinkedTo.Num() == 1 && NextNodeThenPin->LinkedTo[0]->GetOwningNode() == this))
+			{
+				return NextNode;
+			}
+		}
+	}
+	
+	return nullptr;
+}
+
+ESMExposedFunctionExecutionType USMGraphK2Node_RuntimeNode_Base::GetGraphExecutionType() const
+{
+	if (const UEdGraphPin* ThenPin = GetCorrectEntryPin())
+	{
+		if (ThenPin->LinkedTo.Num() == 0)
+		{
+			return ESMExposedFunctionExecutionType::SM_None;
+		}
+		
+		if (const USMGraphK2Node_FunctionNode_NodeInstance* NodeInstance = GetConnectedNodeInstanceFunctionIfValidForOptimization())
+		{
+			UClass* InstanceClass = NodeInstance->GetNodeInstanceClass();
+			if (FSMNodeClassRule::IsBaseClass(InstanceClass))
+			{
+				// Don't bother running any execution if this is just to a default class.
+				return ESMExposedFunctionExecutionType::SM_None;
+			}
+			return ESMExposedFunctionExecutionType::SM_NodeInstance;
+		}
+	}
+	
+	return ESMExposedFunctionExecutionType::SM_Graph;
+}
+
+UEdGraphPin* USMGraphK2Node_RuntimeNode_Base::GetCorrectEntryPin() const
+{
+	return GetThenPin();
+}
+
+UEdGraphPin* USMGraphK2Node_RuntimeNode_Base::GetCorrectNodeInstanceOutputPin(USMGraphK2Node_FunctionNode_NodeInstance* InInstance) const
+{
+	return InInstance->FindPin(UEdGraphSchema_K2::PN_Then);
+}
+
 
 USMGraphK2Node_RuntimeNodeContainer::USMGraphK2Node_RuntimeNodeContainer(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer), bHasNodeGuidGeneratedForCopy(false)
 {
+}
+
+bool USMGraphK2Node_RuntimeNode_Base::IsFastPathEnabled() const
+{
+	if (bFastPathEnabledCached.IsSet())
+	{
+		return *bFastPathEnabledCached;
+	}
+	
+	bool bUseFastPath = false;
+	if (IsConsideredForEntryConnection())
+	{
+		const ESMExposedFunctionExecutionType ExecutionType = GetGraphExecutionType();
+		switch(ExecutionType)
+		{
+		case ESMExposedFunctionExecutionType::SM_None:
+			{
+				bUseFastPath = true;
+				break;
+			}
+		case ESMExposedFunctionExecutionType::SM_Graph:
+			{
+				break;
+			}
+		case ESMExposedFunctionExecutionType::SM_NodeInstance:
+			{
+				if (const USMGraphNode_Base* OwningNode = GetTypedOuter<USMGraphNode_Base>())
+				{
+					bUseFastPath = OwningNode->IsNodeClassNative();
+				}
+				break;
+			}
+		}
+	}
+	
+	bFastPathEnabledCached = bUseFastPath;
+
+	return bUseFastPath;
 }
 
 void USMGraphK2Node_RuntimeNodeContainer::PrepareForCopying()
@@ -37,12 +151,12 @@ void USMGraphK2Node_RuntimeNodeContainer::PostPasteNode()
 bool USMGraphK2Node_RuntimeNodeContainer::HasExternalDependencies(TArray<UStruct*>* OptionalOutput) const
 {
 	UClass* OwningClass = nullptr;
-	if(USMGraphNode_Base* GraphNode = Cast<USMGraphNode_Base>(GetGraph()->GetOuter()))
+	if (USMGraphNode_Base* GraphNode = Cast<USMGraphNode_Base>(GetGraph()->GetOuter()))
 	{
 		OwningClass = GraphNode->GetNodeClass();
 	}
 
-	// Add the owning node class here since the USMGraphNode that really owns it doens't have a HasExternalDependencies method.
+	// Add the owning node class here since the USMGraphNode that really owns it doesn't have a HasExternalDependencies method.
 	if (OwningClass && OptionalOutput)
 	{
 		OptionalOutput->AddUnique(OwningClass);
@@ -91,7 +205,7 @@ FStructProperty* USMGraphK2Node_RuntimeNodeContainer::GetRuntimeNodeProperty() c
 void USMGraphK2Node_RuntimeNodeContainer::ForceGenerateNodeGuid()
 {
 	// This has already been called for this copy.
-	if(bHasNodeGuidGeneratedForCopy)
+	if (bHasNodeGuidGeneratedForCopy)
 	{
 		return;
 	}
@@ -99,11 +213,17 @@ void USMGraphK2Node_RuntimeNodeContainer::ForceGenerateNodeGuid()
 	bHasNodeGuidGeneratedForCopy = true;
 }
 
+
+USMGraphK2Node_RuntimeNodeReference::USMGraphK2Node_RuntimeNodeReference(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
+{
+}
+
 void USMGraphK2Node_RuntimeNodeReference::PostPasteNode()
 {
 	Super::PostPasteNode();
 
-	if(bIsBeingDestroyed)
+	if (bIsBeingDestroyed)
 	{
 		return;
 	}
@@ -111,7 +231,7 @@ void USMGraphK2Node_RuntimeNodeReference::PostPasteNode()
 	USMGraphK2Node_RuntimeNodeContainer* ContainerNode = GetRuntimeContainer();
 
 	// Check that the paste operation has completed for this node.
-	if(ContainerNode && !ContainerNode->HasNewNodeGuidGenerated())
+	if (ContainerNode && !ContainerNode->HasNewNodeGuidGenerated())
 	{
 		ContainerNode->ForceGenerateNodeGuid();
 	}
@@ -144,9 +264,16 @@ USMGraphK2Node_RuntimeNodeContainer* USMGraphK2Node_RuntimeNodeReference::GetRun
 	return FSMBlueprintEditorUtils::GetRuntimeContainerFromGraph(GetGraph());
 }
 
+USMGraphK2Node_RuntimeNodeContainer* USMGraphK2Node_RuntimeNodeReference::GetRuntimeContainerChecked() const
+{
+	USMGraphK2Node_RuntimeNodeContainer* Container = GetRuntimeContainer();
+	check(Container);
+	return Container;
+}
+
 UK2Node_CallFunction* USMGraphK2Node_RuntimeNodeReference::CreateFunctionCallWithGuidInput(UFunction* Function,
-	FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer,
-	FProperty* NodeProperty, FName PinName)
+                                                                                           FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer,
+                                                                                           FProperty* NodeProperty, FName PinName)
 {
 	UK2Node_CallFunction* GetReferenceFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, Function);
 
@@ -176,11 +303,6 @@ void USMGraphK2Node_RuntimeNodeReference::GetMenuActions_Internal(
 		check(NodeSpawner != nullptr);
 		ActionRegistrar.AddBlueprintAction(ActionKey, NodeSpawner);
 	}
-}
-
-USMGraphK2Node_RuntimeNodeReference::USMGraphK2Node_RuntimeNodeReference(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
 }
 
 #undef LOCTEXT_NAMESPACE

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMNode_Info.h"
 
@@ -63,7 +63,9 @@ FString FSMTransitionInfo::ToString() const
 		Instance->TryGetStateInfo(ToStateGuid, ToState, bSuccess);
 		const FString ToStateStr = ToState.ToString();
 
-		Result = FString::Printf(TEXT("from %s to %s"), *FromStateStr, *ToStateStr);
+		Result = FString::Printf(TEXT("from %s to %s by transition %s with priority %s."), *FromStateStr, *ToStateStr,
+			OwningTransition && OwningTransition->GetNodeInstanceClass() ? *OwningTransition->GetNodeInstanceClass()->GetName() : TEXT("unknown"),
+			*FString::FromInt(OwningTransition ? OwningTransition->Priority : 0));
 	}
 
 	return Result;

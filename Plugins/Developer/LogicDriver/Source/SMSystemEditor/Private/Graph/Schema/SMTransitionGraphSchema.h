@@ -1,13 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EdGraph/EdGraphSchema.h"
-#include "EdGraphSchema_K2.h"
 #include "SMGraphK2Schema.h"
-#include "SMTransitionGraphSchema.generated.h"
 
+#include "SMTransitionGraphSchema.generated.h"
 
 UCLASS(MinimalAPI)
 class USMTransitionGraphSchema : public USMGraphK2Schema

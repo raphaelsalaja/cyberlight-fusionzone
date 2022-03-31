@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraph.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
@@ -6,8 +6,8 @@
 #include "Nodes/SMGraphNode_StateMachineStateNode.h"
 #include "Nodes/SMGraphNode_StateMachineEntryNode.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
-#include "GraphEditAction.h"
 
+#include "GraphEditAction.h"
 
 USMGraph::USMGraph(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer), GeneratedContainerNode(nullptr), EntryNode(nullptr)
@@ -18,7 +18,7 @@ USMGraphNode_StateMachineEntryNode* USMGraph::GetEntryNode() const
 {
 	for (UEdGraphNode* Node : Nodes)
 	{
-		if(USMGraphNode_StateMachineEntryNode* RealEntryNode = Cast<USMGraphNode_StateMachineEntryNode>(Node))
+		if (USMGraphNode_StateMachineEntryNode* RealEntryNode = Cast<USMGraphNode_StateMachineEntryNode>(Node))
 		{
 			return RealEntryNode;
 		}
@@ -44,7 +44,7 @@ FSMNode_Base* USMGraph::GetRuntimeNode() const
 		return GeneratedContainerNode->GetRunTimeNode();
 	}
 	
-	if(!EntryNode)
+	if (!EntryNode)
 	{
 		return nullptr;
 	}
@@ -54,7 +54,7 @@ FSMNode_Base* USMGraph::GetRuntimeNode() const
 
 bool USMGraph::HasAnyLogicConnections() const
 {
-	if(!EntryNode)
+	if (!EntryNode)
 	{
 		return false;
 	}
@@ -95,7 +95,7 @@ void USMGraph::PostEditUndo()
 {
 	Super::PostEditUndo();
 
-	if(!IsPendingKill())
+	if (IsValid(this))
 	{
 		// If the document is opened when this is called and the graph creation is being undone we will crash.
 		NotifyGraphChanged();
@@ -125,7 +125,7 @@ void USMGraph::NotifyGraphChanged(const FEdGraphEditAction& Action)
 				// Function nodes have terrible handling by UE on their drop behavior.
 				// They do not belong in this graph but assume it is a k2 graph and cast check
 				// their schema to k2 which obviously fails since this isn't a k2 graph.
-				if(UK2Node_CallFunction* FunctionNode = Cast<UK2Node_CallFunction>(K2Node))
+				if (UK2Node_CallFunction* FunctionNode = Cast<UK2Node_CallFunction>(K2Node))
 				{
 					for (UEdGraphNode* OurNode : Nodes)
 					{

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_TextPropertyNode.h"
 #include "Widgets/Text/SSMTextProperty.h"
@@ -14,9 +14,7 @@
 #include "Components/HorizontalBox.h"
 #include "ScopedTransaction.h"
 
-
 #include "ToolMenuSection.h"
-
 
 #define LOCTEXT_NAMESPACE "SMTextPropertyNode"
 
@@ -155,6 +153,7 @@ void USMGraphK2Node_TextPropertyNode::SetPropertyDefaultsFromPin()
 			if (FProperty* Property = GraphProperty->MemberReference.ResolveMember<FProperty>(ClassToUse))
 			{
 				Modify();
+				Template->Modify();
 				
 				FSMTextGraphProperty* TextGraphProperty = Property->ContainerPtrToValuePtr<FSMTextGraphProperty>(Template);
 				
@@ -239,7 +238,7 @@ void USMGraphK2Node_TextPropertyNode::SetPinValueFromPropertyDefaults(bool bUpda
 
 					bGeneratedDefaultValueBeingSet = true;
 					// Already equal, don't update
-					if(!TextGraphProperty->Result.EqualTo(TextGraph->GetPlainTextBody()))
+					if (!TextGraphProperty->Result.EqualTo(TextGraph->GetPlainTextBody(), ETextComparisonLevel::Quinary))
 					{
 						TextGraph->SetTextBody(TextGraphProperty->Result);
 					

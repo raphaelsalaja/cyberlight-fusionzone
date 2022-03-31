@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -78,7 +78,7 @@ struct SMSYSTEM_API FSMNodeConnectionRule
 	template<typename T>
 	static bool DoRulesPass(UClass* Class, const TArray<T>& Rules)
 	{
-		if(Rules.Num() == 0)
+		if (Rules.Num() == 0)
 		{
 			return true;
 		}
@@ -87,7 +87,7 @@ struct SMSYSTEM_API FSMNodeConnectionRule
 		bool bAllInversedPassed = true;
 		for (const FSMNodeClassRule& Rule : Rules)
 		{
-			if(Rule.bNOT)
+			if (Rule.bNOT)
 			{
 				bCheckingInverse = true;
 			}

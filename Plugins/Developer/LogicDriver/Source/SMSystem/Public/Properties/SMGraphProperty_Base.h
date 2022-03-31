@@ -1,12 +1,14 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
+#include "SMExposedFunctions.h"
+#include "SMNodeWidgetInfo.h"
+
 #include "CoreMinimal.h"
-#include "SMBlueprintFunctions.h"
 #include "EdGraph/EdGraphPin.h"
 #include "Engine/MemberReference.h"
-#include "SMNodeWidgetInfo.h"
+
 #include "SMGraphProperty_Base.generated.h"
 
 /**
@@ -39,7 +41,16 @@ public:
 	/** Returns the graph property owner of this node. Likely itself. */
 	const FGuid& GetOwnerGuid() const { return OwnerGuid; }
 
-	/** If set then the linked property is the one that is actually executing, but this struct is the one being read from. */
+	/** Set whether the variable contains a default value only. */
+	void SetIsDefaultValueOnly(bool bNewValue) { bIsDefaultValueOnly = bNewValue; }
+	
+	/** Does this variable only contain a default value. */
+	bool GetIsDefaultValueOnly() const { return bIsDefaultValueOnly; }
+	
+	/**
+	 * If set then the linked property is the one that is actually executing, but this struct
+	 * is the one being read from.
+	 */
 	FSMGraphProperty_Base_Runtime* LinkedProperty;
 	
 protected:
@@ -50,6 +61,10 @@ protected:
 	 * to a state machine then the guid of class CDO is the owner. */
 	UPROPERTY(meta = (IgnoreForMemberInitializationTest))
 	FGuid OwnerGuid;
+
+	/** If only a default value is assigned (no variable connected) */
+	UPROPERTY()
+	uint8 bIsDefaultValueOnly: 1;
 };
 
 /**
@@ -123,6 +138,14 @@ public:
 	 */
 	virtual bool ShouldCompileReadOnlyVariables() const { return false; }
 
+#if WITH_EDITORONLY_DATA
+	/**
+	 * If this property is considered thread safe in the editor. Nodes check this during compile
+	 * and will update the overall editor thread safety of the owning node.
+	 */
+	virtual bool IsEditorThreadSafe() const { return true; }
+#endif
+	
 	/** The node variable name to override. */
 	UPROPERTY(EditDefaultsOnly, Category = "Variable", meta = (ExposeOverrideOnly))
 	FName VariableName;
@@ -164,7 +187,10 @@ public:
 	virtual UPackage* GetEditorModule() const;
 	/** The desired name of this property. This may be used at some display points in the editor. */
 	virtual const FString& GetPropertyDisplayName() const;
-	/** The desired vertical location on the graph node for this widget to be displayed. */
+	/**
+	 * The desired vertical location on the graph node for this widget to be displayed.
+	 * @deprecated Use DisplayOrder metadata for native properties, or adjust the blueprint variable order in blueprints. 
+	 */
 	virtual int32 GetVerticalDisplayOrder() const { return 0; }
 	/** Should property be able to toggle between edit and view modes. */
 	virtual bool AllowToggleGraphEdit() const { return false; }
@@ -190,9 +216,9 @@ protected:
 	FString GraphModuleClassName;
 
 	UPROPERTY(Transient)
-	UClass* CachedGraphClass;
+	mutable UClass* CachedGraphClass;
 	UPROPERTY(Transient)
-	UClass* CachedSchemaClass;
+	mutable UClass* CachedSchemaClass;
 #endif
 	
 protected:
@@ -220,7 +246,7 @@ public:
 	FSMGraphProperty();
 
 #if WITH_EDITORONLY_DATA
-	virtual int32 GetVerticalDisplayOrder() const override { return WidgetInfo.DisplayOrder; }
+	virtual int32 GetVerticalDisplayOrder() const override { return WidgetInfo.DisplayOrder_DEPRECATED; }
 
 	/** Customize the appearance of the node property widget. */
 	UPROPERTY(EditDefaultsOnly, Category = "Widget")

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMStateMachineInstance.h"
 #include "SMStateMachine.h"
@@ -9,12 +9,14 @@ USMStateMachineInstance::USMStateMachineInstance() : Super(), bReuseCurrentState
 
 void USMStateMachineInstance::GetAllStateInstances(TArray<USMStateInstance_Base*>& StateInstances) const
 {
+	StateInstances.Reset();
+	
 	if (FSMStateMachine* StateMachineOwner = (FSMStateMachine*)GetOwningNode())
 	{
 		const TArray<FSMState_Base*>& States = StateMachineOwner->GetStates();
 		for (FSMState_Base* State : States)
 		{
-			if (USMStateInstance_Base* StateInstance = Cast<USMStateInstance_Base>(State->GetNodeInstance()))
+			if (USMStateInstance_Base* StateInstance = Cast<USMStateInstance_Base>(State->GetOrCreateNodeInstance()))
 			{
 				StateInstances.Add(StateInstance);
 			}
@@ -29,7 +31,7 @@ USMStateInstance_Base* USMStateMachineInstance::GetContainedStateByName(const FS
 		const TMap<FString, FSMState_Base*>& StateStructMap = StateMachineOwner->GetStateNameMap();
 		if (FSMState_Base* const* StateBase = StateStructMap.Find(StateName))
 		{
-			return Cast<USMStateInstance_Base>((*StateBase)->GetNodeInstance());
+			return Cast<USMStateInstance_Base>((*StateBase)->GetOrCreateNodeInstance());
 		}
 	}
 
@@ -42,12 +44,12 @@ void USMStateMachineInstance::GetEntryStates(TArray<USMStateInstance_Base*>& Ent
 	
 	if (FSMStateMachine* StateMachineOwner = (FSMStateMachine*)GetOwningNode())
 	{
-		const TSet<FSMState_Base*>& OriginalEntryStates = StateMachineOwner->GetEntryStates();
+		const TArray<FSMState_Base*>& OriginalEntryStates = StateMachineOwner->GetEntryStates();
 		EntryStates.Reserve(OriginalEntryStates.Num());
 		
 		for (FSMState_Base* EntryState : OriginalEntryStates)
 		{
-			if (USMStateInstance_Base* NodeInstance = Cast<USMStateInstance_Base>(EntryState->GetNodeInstance()))
+			if (USMStateInstance_Base* NodeInstance = Cast<USMStateInstance_Base>(EntryState->GetOrCreateNodeInstance()))
 			{
 				EntryStates.Add(NodeInstance);
 			}
@@ -66,12 +68,22 @@ void USMStateMachineInstance::GetActiveStates(TArray<USMStateInstance_Base*>& Ac
 		
 		for (FSMState_Base* ActiveState : OriginalActiveStates)
 		{
-			if (USMStateInstance_Base* NodeInstance = Cast<USMStateInstance_Base>(ActiveState->GetNodeInstance()))
+			if (USMStateInstance_Base* NodeInstance = Cast<USMStateInstance_Base>(ActiveState->GetOrCreateNodeInstance()))
 			{
 				ActiveStates.Add(NodeInstance);
 			}
 		}
 	}
+}
+
+USMInstance* USMStateMachineInstance::GetStateMachineReference() const
+{
+	if (const FSMStateMachine* StateMachineOwner = (FSMStateMachine*)GetOwningNodeContainer())
+	{
+		return StateMachineOwner->GetInstanceReference();
+	}
+
+	return nullptr;
 }
 
 const FSMNode_Base* USMStateMachineInstance::GetOwningNodeContainer() const

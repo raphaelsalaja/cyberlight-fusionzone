@@ -1,13 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMInstance.h"
+
 #include "SMGraphNode_StateNode.h"
 #include "SMStateMachineInstance.h"
-#include "SMGraphNode_StateMachineStateNode.generated.h"
 
+#include "SMGraphNode_StateMachineStateNode.generated.h"
 
 class USMBlueprint;
 
@@ -17,28 +17,42 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateMachineStateNode : public USMGraphNod
 	GENERATED_UCLASS_BODY()
 
 	/**
+	 * Dynamically choose the state machine class for the reference at run-time.
+	 * 
+	 * Select a variable from this state machine of type TSubclassOf<USMInstance>
+	 * (State Machine Instance -> Class Reference)
+	 * 
+	 * This variable will be checked during initialization time and the reference will be created
+	 * based on the class the variable is set to.
+	 *
+	 * The class should be a subclass of the default reference provided.
+	 */
+	UPROPERTY(EditAnywhere, Category = "State Machine Reference")
+	FName DynamicClassVariable;
+	
+	/**
 	 * @deprecated Set on the node template instead.
 	 */
 	UPROPERTY()
-	bool bReuseCurrentState_DEPRECATED;
+	uint8 bReuseCurrentState_DEPRECATED: 1;
 
 	/**
 	 * @deprecated Set on the node template instead.
 	 */
 	UPROPERTY()
-	bool bReuseIfNotEndState_DEPRECATED;
+	uint8 bReuseIfNotEndState_DEPRECATED: 1;
 
 	/**
 	 * Allows the state machine reference to tick on its own.
 	 */
-	UPROPERTY(EditAnywhere, Category = "State Machine Reference")
-	bool bAllowIndependentTick;
+	UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "State Machine Reference")
+	uint8 bAllowIndependentTick: 1;
 
 	/**
 	 * The Update method will call Tick only if Update was not called by native Tick.
 	 */
-	UPROPERTY(EditAnywhere, Category = "State Machine Reference")
-	bool bCallTickOnManualUpdate;
+	UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "State Machine Reference")
+	uint8 bCallTickOnManualUpdate: 1;
 
 	/**
 	 * Reuse one instance of this class multiple times in the same blueprint.
@@ -48,23 +62,27 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateMachineStateNode : public USMGraphNod
 	 * Do NOT use if the state machine needs to be saved to disk and reloaded during run-time.
 
 	 * This is to maintain legacy behavior and not encouraged for use.
+	 *
+	 * @deprecated Reusing references is no longer supported.
 	 */
-	UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "State Machine Reference", meta = (EditCondition = "!bUseTemplate"))
-	bool bReuseReference;
+	UPROPERTY()
+	uint8 bReuseReference_DEPRECATED: 1;
 	
 	/**
 	 * Enable the use of an archetype to allow default values to be set.
 	 */
 	UPROPERTY(EditAnywhere, Category = "State Machine Reference")
-	bool bUseTemplate;
+	uint8 bUseTemplate: 1;
 
 	UPROPERTY(VisibleDefaultsOnly, Export, Category = "State Machine Reference", meta = (DisplayName=Template, DisplayThumbnail=false, ShowInnerProperties))
 	USMInstance* ReferencedInstanceTemplate;
 
-	UPROPERTY(EditAnywhere, NoClear, Category = "Class", meta = (BlueprintBaseOnly))
+	/** Select a custom node class to use for this node. This can be a blueprint or C++ class. */
+	UPROPERTY(EditAnywhere, NoClear, Category = "State Machine", meta = (BlueprintBaseOnly))
 	TSubclassOf<USMStateMachineInstance> StateMachineClass;
-	
-	//~ Begin UEdGraphNode Interface
+
+public:
+	// UEdGraphNode
 	virtual void PostLoad() override;
 	virtual void PostPlacedNewNode() override;
 	virtual void PostPasteNode() override;
@@ -74,28 +92,35 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateMachineStateNode : public USMGraphNod
 	virtual void ValidateNodeDuringCompilation(FCompilerResultsLog& MessageLog) const override;
 	virtual UObject* GetJumpTargetForDoubleClick() const override;
 	virtual void JumpToDefinition() const override;
-	//~ End UEdGraphNode Interface
-	
-	// USMGraphNode_StateNodeBase
-	virtual void SetRuntimeDefaults(FSMState_Base& State) const override;
-	// ~USMGraphNode_StateNodeBase
+	// ~UEdGraphNode
 
 	// USMGraphNode_Base
+	virtual void PreCompile(FSMKismetCompilerContext& CompilerContext) override;
 	virtual void ImportDeprecatedProperties() override;
 	virtual void CheckSetErrorMessages() override;
 	virtual UClass* GetNodeClass() const override { return StateMachineClass; }
 	virtual void SetNodeClass(UClass* Class) override;
 	virtual FName GetFriendlyNodeName() const override { return "StateMachine"; }
+	virtual void GoToLocalGraph() const override;
+	virtual bool CanGoToLocalGraph() const override;
+	virtual bool IsNodeFastPathEnabled() const override;
 	// ~USMGraphNode_Base
 
+	// USMGraphNode_StateNodeBase
+	virtual void SetRuntimeDefaults(FSMState_Base& State) const override;
+	// ~USMGraphNode_StateNodeBase
+	
 	/** Returns the best graph of the reference to jump to. */
 	UObject* GetReferenceToJumpTo() const;
 
 	/** Jumps to the reference regardless of intermediate graph. */
 	void JumpToReference() const;
+
+	/** Tells the hyperlink target to use the current debug object. */
+	void SetDebugObjectForReference() const;
 	
 	/** Signals that this state machine is actually a reference to another blueprint. */
-	virtual bool ReferenceStateMachine(USMBlueprint* OtherStateMachine, bool bRestrictCircularReference = true);
+	virtual bool ReferenceStateMachine(USMBlueprint* OtherStateMachine);
 
 	/** Instantiate a template for use as an archetype. */
 	virtual void InitStateMachineReferenceTemplate(bool bInitialLoad = false);
@@ -132,7 +157,7 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateMachineStateNode : public USMGraphNod
 	/** Enabled and in use. */
 	bool IsUsingIntermediateGraph() const;
 
-	/** Use has indicated to use intermediate graph. */
+	/** User has indicated to use intermediate graph. */
 	bool ShouldUseIntermediateGraph() const;
 
 	/** If true a template will be generated. */
@@ -157,6 +182,13 @@ protected:
 	/** If this state machine contains any actual states. */
 	virtual bool HasLogicStates() const;
 
+	/** First time setup when enabling or disabling templates. */
+	void ConfigureInitialReferenceTemplate();
+	
+	/** Checks the reference template for a node class assigned and sets it to this node if it is different. */
+	void SetNodeClassFromReferenceTemplate();
+	
+protected:
 	UPROPERTY()
 	USMBlueprint* ReferencedStateMachine;
 
@@ -164,10 +196,10 @@ protected:
 	FString DesiredNodeName;
 
 	UPROPERTY()
-	bool bShouldUseIntermediateGraph;
+	uint8 bShouldUseIntermediateGraph: 1;
 
 	UPROPERTY()
-	bool bNeedsNewReference;
+	uint8 bNeedsNewReference: 1;
 
-	bool bSwitchingGraphTypes;
+	uint8 bSwitchingGraphTypes: 1;
 };

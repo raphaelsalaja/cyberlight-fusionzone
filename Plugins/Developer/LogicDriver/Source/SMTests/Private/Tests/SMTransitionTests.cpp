@@ -1,16 +1,19 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
+
+#include "SMTestHelpers.h"
+#include "SMTestContext.h"
+#include "Helpers/SMTestBoilerplate.h"
 
 #include "Blueprints/SMBlueprint.h"
-#include "SMTestHelpers.h"
+
 #include "Blueprints/SMBlueprintFactory.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
-#include "SMTestContext.h"
-#include "K2Node_CallFunction.h"
-#include "Kismet2/KismetEditorUtilities.h"
+
 #include "Graph/SMGraph.h"
 #include "Graph/SMStateGraph.h"
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
+#include "Graph/Nodes/SMGraphNode_ConduitNode.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
@@ -22,6 +25,8 @@
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionEnteredNode.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_FunctionNodes.h"
 
+#include "K2Node_CallFunction.h"
+#include "Kismet2/KismetEditorUtilities.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -30,28 +35,12 @@
 /**
  * Disable tick on a state and manually evaluate from the state instance.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateManualTransitionTest, "SMTests.StateManualTransition", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateManualTransitionTest, "LogicDriver.Transitions.StateManualTransition", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FStateManualTransitionTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	const int32 TotalStates = 2;
-
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2)
 	UEdGraphPin* LastStatePin = nullptr;
 
 	// Test manually calling EvaluateTransitions
@@ -88,7 +77,7 @@ bool FStateManualTransitionTest::RunTest(const FString& Parameters)
 		TestTrue("State machine should still be active.", Instance->IsActive());
 
 		USMTestContext* Context = CastChecked<USMTestContext>(StateInstance->GetContext());
-		TestEqual("Update should NOT have been called from manual transition evaluation.", Context->GetUpdateInt(), MaxIterations);
+		TestEqual("Update should NOT have been called from manual transition evaluation.", Context->GetUpdateFromDeltaSecondsInt(), MaxIterations);
 	}
 
 	// Test the state calling EvaluateTransitions
@@ -109,30 +98,16 @@ bool FStateManualTransitionTest::RunTest(const FString& Parameters)
 }
 
 /**
- * Test optional transition event nodes.
+ * Test CanEvaluate of transitions.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionCanEvaluateTest, "SMTests.TransitionCanEvaluate", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionCanEvaluateTest, "LogicDriver.Transitions.CanEvaluate", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FTransitionCanEvaluateTest::RunTest(const FString& Parameters)
+bool FTransitionCanEvaluateTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 	UEdGraphPin* LastStatePin = nullptr;
-
+	
 	// Build a state machine of only two states.
 	{
 		const int32 CurrentStates = 2;
@@ -243,24 +218,12 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionCanEvaluateTest, "SMTests.Transition
 /**
  * Test optional transition event nodes.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionEventTest, "SMTests.TransitionEvents", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionOptionalEventNodesTest, "LogicDriver.Transitions.OptionalEventNodes", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FTransitionEventTest::RunTest(const FString& Parameters)
+bool FTransitionOptionalEventNodesTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 
 	// Total states to test.
 	UEdGraphPin* LastStatePin = nullptr;
@@ -366,24 +329,169 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionEventTest, "SMTests.TransitionEvents
 /**
  * Test automatically binding to a multi-cast delegate on the context.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionEventAutoBindContextTest, "SMTests.TransitionEventsAutoBindContext", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionEventAutoBindContextUpdateTest, "LogicDriver.Transitions.Events.AutoBind.Update", EAutomationTestFlags::ApplicationContextMask |
+	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
+
+bool FTransitionEventAutoBindContextUpdateTest::RunTest(const FString& Parameters)
+{
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
+
+	// Total states to test.
+	UEdGraphPin* LastStatePin = nullptr;
+	
+	const int32 CurrentStates = 3;
+	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, CurrentStates, &LastStatePin);
+
+	USMGraphNode_TransitionEdge* TransitionEdge =
+		CastChecked<USMGraphNode_TransitionEdge>(CastChecked<USMGraphNode_StateNode>(StateMachineGraph->GetEntryNode()->GetOutputNode())->GetNextTransition());
+	TransitionEdge->GetNodeTemplateAs<USMTransitionInstance>()->SetCanEvaluate(false);
+
+	USMGraphNode_StateNodeBase* MiddleState = CastChecked<USMGraphNode_StateNode>(StateMachineGraph->GetEntryNode()->GetOutputNode())->GetNextNode();
+	
+	USMGraphK2Node_StateWriteNode_TransitionEventReturn* EventTriggerNode = nullptr;
+	
+	{
+		TransitionEdge->DelegateOwnerInstance = SMDO_Context;
+		TransitionEdge->DelegateOwnerClass = USMTestContext::StaticClass();
+		TransitionEdge->DelegatePropertyName = GET_MEMBER_NAME_CHECKED(USMTestContext, TransitionEvent);
+
+		TransitionEdge->InitTransitionDelegate();
+
+		TArray<USMGraphK2Node_StateWriteNode_TransitionEventReturn*> EventReturn;
+		FSMBlueprintEditorUtils::GetAllNodesOfClassNested(TransitionEdge->GetTransitionGraph(), EventReturn);
+		check(EventReturn.Num() == 1);
+
+		EventTriggerNode = EventReturn[0];
+		check(EventTriggerNode);
+	}
+	
+	// Event binding no targeted update.
+	{
+		EventTriggerNode->bEventTriggersTargetedUpdate = false;
+		EventTriggerNode->bEventTriggersFullUpdate = false;
+		
+		FKismetEditorUtilities::CompileBlueprint(NewBP);
+
+		// Create a context we will run the state machine for.
+		USMTestContext* Context = NewObject<USMTestContext>();
+		USMInstance* Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
+
+		Instance->Start();
+		Instance->Update(0.f);
+		TestEqual("State machine still in initial state", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+		TestFalse("State machine shouldn't have switched states due to transition evaluation being false.", Instance->IsInEndState());
+		
+		Context->TransitionEvent.Broadcast();
+		TestEqual("State machine hasn't switched states", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+		Instance->EvaluateTransitions();
+		
+		TestNotEqual("State machine switched states", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+		
+		TestFalse("State machine not in end state.", Instance->IsInEndState());
+	}
+
+	// Full update
+	{
+		EventTriggerNode->bEventTriggersTargetedUpdate = false;
+		EventTriggerNode->bEventTriggersFullUpdate = true;
+		
+		FKismetEditorUtilities::CompileBlueprint(NewBP);
+
+		// Create a context we will run the state machine for.
+		USMTestContext* Context = NewObject<USMTestContext>();
+		USMInstance* Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
+
+		Instance->Start();
+		Instance->Update(0.f);
+		TestEqual("State machine still in initial state", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+		TestFalse("State machine shouldn't have switched states due to transition evaluation being false.", Instance->IsInEndState());
+		
+		Context->TransitionEvent.Broadcast();
+		TestNotEqual("State machine has switched states", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+
+		TestFalse("State machine not in end state.", Instance->IsInEndState());
+	}
+
+	// Targeted + Full update.
+	{
+		EventTriggerNode->bEventTriggersTargetedUpdate = true;
+		EventTriggerNode->bEventTriggersFullUpdate = true;
+		
+		FKismetEditorUtilities::CompileBlueprint(NewBP);
+
+		// Create a context we will run the state machine for.
+		USMTestContext* Context = NewObject<USMTestContext>();
+		USMInstance* Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
+
+		Instance->Start();
+		Instance->Update(0.f);
+		TestEqual("State machine still in initial state", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+		TestFalse("State machine shouldn't have switched states due to transition evaluation being false.", Instance->IsInEndState());
+		
+		Context->TransitionEvent.Broadcast();
+		TestNotEqual("State machine has switched states", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+
+		TestTrue("State machine switched to end state from double update.", Instance->IsInEndState());
+	}
+
+	// Event binding with targeted update.
+	{
+		EventTriggerNode->bEventTriggersTargetedUpdate = true;
+		EventTriggerNode->bEventTriggersFullUpdate = false;
+		
+		FKismetEditorUtilities::CompileBlueprint(NewBP);
+
+		// Create a context we will run the state machine for.
+		USMTestContext* Context = NewObject<USMTestContext>();
+		USMInstance* Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
+
+		Instance->Start();
+		Instance->Update(0.f);
+		TestEqual("State machine still in initial state", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+		TestFalse("State machine shouldn't have switched states due to transition evaluation being false.", Instance->IsInEndState());
+		
+		Context->TransitionEvent.Broadcast();
+		TestNotEqual("State machine switched states", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+
+		TestFalse("State machine not at end.", Instance->IsInEndState());
+	}
+	
+	// Event binding targeted update with eval transitions on start.
+	{
+		EventTriggerNode->bEventTriggersTargetedUpdate = true;
+		EventTriggerNode->bEventTriggersFullUpdate = false;
+
+		MiddleState->GetNodeTemplateAs<USMStateInstance_Base>()->SetEvalTransitionsOnStart(true);
+		
+		FKismetEditorUtilities::CompileBlueprint(NewBP);
+
+		// Create a context we will run the state machine for.
+		USMTestContext* Context = NewObject<USMTestContext>();
+		USMInstance* Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
+
+		Instance->Start();
+		Instance->Update(0.f);
+		TestEqual("State machine still in initial state", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+		TestFalse("State machine shouldn't have switched states due to transition evaluation being false.", Instance->IsInEndState());
+		
+		Context->TransitionEvent.Broadcast();
+		TestNotEqual("State machine switched states", Instance->GetRootStateMachine().GetSingleActiveState(), Instance->GetRootStateMachine().GetSingleInitialState());
+
+		TestTrue("State machine switched to end state from eval with transitions.", Instance->IsInEndState());
+	}
+
+	return NewAsset.DeleteAsset(this);
+}
+
+/**
+ * Test automatically binding to a multi-cast delegate on the context.
+ */
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionEventAutoBindContextTest, "LogicDriver.Transitions.Events.AutoBind.Context", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FTransitionEventAutoBindContextTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 
 	// Total states to test.
 	UEdGraphPin* LastStatePin = nullptr;
@@ -481,30 +589,18 @@ bool FTransitionEventAutoBindContextTest::RunTest(const FString& Parameters)
 		TestFalse("State Machine should have stopped", Instance->IsActive());
 	}
 
-	return true;
+	return NewAsset.DeleteAsset(this);
 }
 
 /**
  * Test automatically binding to a multi-cast delegate for the previous state.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionEventAutoBindPreviousStateTest, "SMTests.TransitionEventsAutoBindPreviousState", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionEventAutoBindPreviousStateTest, "LogicDriver.Transitions.Events.AutoBind.PreviousState", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FTransitionEventAutoBindPreviousStateTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 
 	// Total states to test.
 	UEdGraphPin* LastStatePin = nullptr;
@@ -603,40 +699,25 @@ bool FTransitionEventAutoBindPreviousStateTest::RunTest(const FString& Parameter
 		TestFalse("State Machine should have stopped", Instance->IsActive());
 	}
 
-	return true;
+	return NewAsset.DeleteAsset(this);
 }
 
 /**
  * Check transition optimization type is correct.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionOptimizationTest, "SMTests.TransitionOptimization", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionOptimizationTest, "LogicDriver.Transitions.Optimization", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FTransitionOptimizationTest::RunTest(const FString& Parameters)
+bool FTransitionOptimizationTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	const int32 TotalStates = 2;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2)
 	const int32 MaxIterations = TotalStates;
 	
 	UEdGraphPin* LastStatePin = nullptr;
 	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin);
 
 	USMGraphNode_TransitionEdge* TransitionEdge =
-		CastChecked<USMGraphNode_TransitionEdge>(Cast<USMGraphNode_StateNode>(LastStatePin->GetOwningNode())->GetInputPin()->LinkedTo[0]->GetOwningNode());
+		CastChecked<USMGraphNode_TransitionEdge>(CastChecked<USMGraphNode_StateNode>(LastStatePin->GetOwningNode())->GetInputPin()->LinkedTo[0]->GetOwningNode());
 
 	USMTransitionGraph* TransitionGraph = TransitionEdge->GetTransitionGraph();
 	ESMConditionalEvaluationType EvaluationType;
@@ -668,7 +749,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionOptimizationTest, "SMTests.Transitio
 		EvaluationType = TransitionGraph->GetConditionalEvaluationType();
 		TestEqual("Evaluation type is always true", EvaluationType, ESMConditionalEvaluationType::SM_AlwaysTrue);
 		TestHelpers::RunStateMachineToCompletion(this, NewBP, A, B, C, MaxIterations, true, true, true, &IterationsRan);
-		TestEqual("Exected iterations ran", IterationsRan, 1);
+		TestEqual("Expected iterations ran", IterationsRan, 1);
 	}
 
 	// Always false
@@ -724,33 +805,18 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionOptimizationTest, "SMTests.Transitio
 		TestHelpers::RunStateMachineToCompletion(this, NewBP, A, B, C, MaxIterations);
 	}
 	
-	return true;
+	return NewAsset.DeleteAsset(this);
 }
 
 /**
  * Test project settings that impact transitions.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionSettingsTest, "SMTests.TransitionSettingsTests", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FTransitionSettingsTest, "LogicDriver.Transitions.SettingsTests", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FTransitionSettingsTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	const int32 TotalStates = 2;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2)
 
 	UEdGraphPin* LastStatePin = nullptr;
 	const bool bForceTransitionsToTrue = false;
@@ -786,7 +852,7 @@ bool FTransitionSettingsTest::RunTest(const FString& Parameters)
 
 	FSMBlueprintEditorUtils::GetMutableProjectEditorSettings()->bDefaultNewTransitionsToTrue = bUserNewTransitionValue;
 	
-	return true;
+	return NewAsset.DeleteAsset(this);
 }
 
 #endif

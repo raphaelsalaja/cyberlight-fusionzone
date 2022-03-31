@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/LockOnSubobjects/RotationModes/InterpolationMode.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeInterpolationMode() {}
 // Cross Module References
@@ -21,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeInterpolationMode() {}
 	void UInterpolationMode::StaticRegisterNativesUInterpolationMode()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UInterpolationMode);
 	UClass* Z_Construct_UClass_UInterpolationMode_NoRegister()
 	{
 		return UInterpolationMode::StaticClass();
@@ -86,21 +83,26 @@ void EmptyLinkFunctionForGeneratedCodeInterpolationMode() {}
 	};
 	UClass* Z_Construct_UClass_UInterpolationMode()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_UInterpolationMode.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_UInterpolationMode_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UInterpolationMode.OuterSingleton, Z_Construct_UClass_UInterpolationMode_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_UInterpolationMode.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(UInterpolationMode, 3752713252);
 	template<> LOCKONTARGET_API UClass* StaticClass<UInterpolationMode>()
 	{
 		return UInterpolationMode::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_UInterpolationMode(Z_Construct_UClass_UInterpolationMode, &UInterpolationMode::StaticClass, TEXT("/Script/LockOnTarget"), TEXT("UInterpolationMode"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UInterpolationMode);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_InterpolationMode_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_InterpolationMode_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UInterpolationMode, UInterpolationMode::StaticClass, TEXT("UInterpolationMode"), &Z_Registration_Info_UClass_UInterpolationMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UInterpolationMode), 1195991600U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_InterpolationMode_h_932899647(TEXT("/Script/LockOnTarget"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_InterpolationMode_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_InterpolationMode_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

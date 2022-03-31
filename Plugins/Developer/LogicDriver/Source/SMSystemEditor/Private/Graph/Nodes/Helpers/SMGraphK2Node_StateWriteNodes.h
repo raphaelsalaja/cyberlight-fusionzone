@@ -1,10 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_RuntimeNodeContainer.h"
-#include "SMGraphK2Node_StateWriteNodes.generated.h"
 
+#include "SMGraphK2Node_StateWriteNodes.generated.h"
 
 UCLASS(MinimalAPI)
 class USMGraphK2Node_StateWriteNode : public USMGraphK2Node_RuntimeNodeReference
@@ -26,7 +26,7 @@ class USMGraphK2Node_StateWriteNode : public USMGraphK2Node_RuntimeNodeReference
 	virtual bool CanCollapseNode() const override { return true; }
 	virtual bool CanCollapseToFunctionOrMacro() const override { return true; }
 	virtual UEdGraphPin* GetInputPin() const override;
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
 };
 
 
@@ -66,8 +66,38 @@ class USMGraphK2Node_StateWriteNode_TransitionEventReturn : public USMGraphK2Nod
 {
 	GENERATED_UCLASS_BODY()
 
+	UPROPERTY()
+	bool bEventTriggersUpdate_DEPRECATED;
+
+	/** Use the settings of the owning transition node to determine event updates. */
 	UPROPERTY(EditAnywhere, Category = "Transition Event")
-	bool bEventTriggersUpdate;
+	bool bUseOwningTransitionSettings;
+	
+	/**
+	 * If the event should trigger a targeted update of the state machine limited to this
+	 * transition and destination state.
+	 * 
+	 * This can efficiently allow state machines with tick disabled to update. This
+	 * won't evaluate parallel or super state transitions.
+	 */
+	UPROPERTY(EditAnywhere, Category = "Transition Event", meta = (DisplayName = "Targeted Update", EditCondition = "!bUseOwningTransitionSettings"))
+	bool bEventTriggersTargetedUpdate;
+
+	/**
+	 * If the event should trigger a full update of the state machine. Setting this will be applied
+	 * after 'Targeted Update'. A full update consists of evaluating transitions top down from the
+	 * root state machine, as well as running OnStateUpdate if necessary.
+	 *
+	 * This is a legacy setting. To maintain old legacy behavior enable this setting and
+	 * disable 'Targeted Update'.
+	 */
+	UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "Transition Event", meta = (DisplayName = "Full Update", EditCondition = "!bUseOwningTransitionSettings"))
+	bool bEventTriggersFullUpdate;
+
+	// UObject
+	virtual void PostLoad() override;
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+	// ~UObject
 	
 	// UEdGraphNode
 	virtual void AllocateDefaultPins() override;
@@ -79,11 +109,16 @@ class USMGraphK2Node_StateWriteNode_TransitionEventReturn : public USMGraphK2Nod
 	virtual bool CanDuplicateNode() const override { return true; }
 	virtual bool ShouldShowNodeProperties() const override { return true; }
 	virtual bool DrawNodeAsExit() const override { return true; }
+	virtual FText GetTooltipText() const override;
 	//~ UEdGraphNode
 
 	// USMGraphK2Node_RuntimeNodeReference
 	virtual bool HandlesOwnExpansion() const override { return true; }
 	virtual void CustomExpandNode(FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty) override;
 	// ~USMGraphK2Node_RuntimeNodeReference
+
+protected:
+	/** Use the owning transition's event settings if allowed. */
+	void UpdateEventSettingsFromTransition();
 
 };

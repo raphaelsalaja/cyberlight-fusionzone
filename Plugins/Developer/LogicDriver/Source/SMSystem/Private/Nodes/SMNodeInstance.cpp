@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMNodeInstance.h"
 #include "SMInstance.h"
@@ -13,7 +13,8 @@
 
 DEFINE_STAT(STAT_NodeInstances);
 
-USMNodeInstance::USMNodeInstance() : Super(), bAutoEvalExposedProperties(true), bResetVariablesOnInitialize(false), OwningNode(nullptr), bIsInitialized(false)
+USMNodeInstance::USMNodeInstance() : Super(), bEvalDefaultProperties(true), bAutoEvalExposedProperties(true),
+bResetVariablesOnInitialize(false), bBlockInput(false), bIsInitialized(false), OwningNode(nullptr)
 {
 	INC_DWORD_STAT(STAT_NodeInstances)
 	
@@ -24,7 +25,11 @@ USMNodeInstance::USMNodeInstance() : Super(), bAutoEvalExposedProperties(true), 
 	NodeColor = FLinearColor(1.f, 1.f, 1.f, 0.7f);
 	NodeDescription.Category = FText::FromString("User");
 	bSkipNativeEditorConstructionScripts = false;
+	bIsEditorThreadSafe = true;
+	bIsEditorExecution = false;
 #endif
+
+	bIsThreadSafe = true;
 
 #if WITH_EDITOR
 	ResetArrayCheck();
@@ -34,7 +39,7 @@ USMNodeInstance::USMNodeInstance() : Super(), bAutoEvalExposedProperties(true), 
 
 UWorld* USMNodeInstance::GetWorld() const
 {
-	if(UObject* Context = GetContext())
+	if (UObject* Context = GetContext())
 	{
 		return Context->GetWorld();
 	}
@@ -50,7 +55,7 @@ void USMNodeInstance::BeginDestroy()
 
 UObject* USMNodeInstance::GetContext() const
 {
-	if(USMInstance* SMInstance = GetStateMachineInstance())
+	if (USMInstance* SMInstance = GetStateMachineInstance())
 	{
 		return SMInstance->GetContext();
 	}
@@ -60,11 +65,6 @@ UObject* USMNodeInstance::GetContext() const
 
 void USMNodeInstance::NativeInitialize()
 {
-	if (bResetVariablesOnInitialize)
-	{
-		ResetVariables();
-	}
-	
 	EnableInput();
 	bIsInitialized = true;
 }
@@ -87,11 +87,11 @@ void USMNodeInstance::RunConstructionScript()
 
 USMInstance* USMNodeInstance::GetStateMachineInstance(bool bTopMostInstance) const
 {
-	if(USMInstance* Instance = Cast<USMInstance>(GetOuter()))
+	if (USMInstance* Instance = Cast<USMInstance>(GetOuter()))
 	{
-		if(bTopMostInstance)
+		if (bTopMostInstance)
 		{
-			return Instance->GetMasterReferenceOwner();
+			return Instance->GetPrimaryReferenceOwner();
 		}
 
 		return Instance;
@@ -111,7 +111,7 @@ USMStateMachineInstance* USMNodeInstance::GetOwningStateMachineNodeInstance() co
 	{
 		if (FSMNode_Base* NodeOwner = Node->GetOwnerNode())
 		{
-			return Cast<USMStateMachineInstance>(NodeOwner->GetNodeInstance());
+			return Cast<USMStateMachineInstance>(NodeOwner->GetOrCreateNodeInstance());
 		}
 	}
 
@@ -168,7 +168,7 @@ void USMNodeInstance::EvaluateGraphProperties(bool bTargetOnly)
 {
 	if (const FSMNode_Base* Node = GetOwningNode())
 	{
-		const_cast<FSMNode_Base*>(Node)->ExecuteGraphProperties(bTargetOnly ? &GetTemplateGuid() : nullptr);
+		const_cast<FSMNode_Base*>(Node)->ExecuteGraphProperties(this, bTargetOnly ? &GetTemplateGuid() : nullptr);
 	}
 }
 
@@ -351,6 +351,15 @@ void USMNodeInstance::WithExecutionEnvironment(ESMExecutionEnvironment& Executio
 	ExecutionEnvironment = IsEditorExecution() ? ESMExecutionEnvironment::EditorExecution : ESMExecutionEnvironment::GameExecution;
 }
 
+bool USMNodeInstance::IsInitializationThreadSafe() const
+{
+#if WITH_EDITORONLY_DATA
+	return bIsThreadSafe && bIsEditorThreadSafe;
+#else
+	return bIsThreadSafe;
+#endif
+}
+
 void USMNodeInstance::ResetVariables()
 {
 	check(OwningNode);
@@ -384,7 +393,7 @@ void USMNodeInstance::ResetVariables()
 #if WITH_EDITORONLY_DATA
 FString USMNodeInstance::GetNodeDisplayName() const
 {
-	if(NodeDescription.Name.IsNone())
+	if (NodeDescription.Name.IsNone())
 	{
 		FString ClassName = GetClass()->GetName();
 		ClassName.RemoveFromEnd(TEXT("_C"));
@@ -395,8 +404,6 @@ FString USMNodeInstance::GetNodeDisplayName() const
 
 #endif
 
-#if WITH_EDITOR
-
 FSMGraphProperty* USMNodeInstance::FindExposedPropertyOverrideByName(const FName& VariableName) const
 {
 	return const_cast<FSMGraphProperty*>(ExposedPropertyOverrides.FindByPredicate([VariableName](const FSMGraphProperty& InGraphPropertyOverride)
@@ -404,6 +411,8 @@ FSMGraphProperty* USMNodeInstance::FindExposedPropertyOverrideByName(const FName
 		return InGraphPropertyOverride.VariableName == VariableName;
 	}));
 }
+
+#if WITH_EDITOR
 
 void USMNodeInstance::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
 {

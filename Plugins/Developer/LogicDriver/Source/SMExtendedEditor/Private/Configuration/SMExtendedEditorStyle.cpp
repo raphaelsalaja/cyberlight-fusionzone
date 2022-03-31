@@ -1,9 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMExtendedEditorStyle.h"
+
 #include "Styling/SlateStyleRegistry.h"
 #include "Styling/CoreStyle.h"
-
 
 #define LOCTEXT_NAMESPACE "SMExtendedEditorStyle"
 
@@ -22,7 +22,7 @@ static const FVector2D Icon128x128(128.0f, 128.0f);
 void FSMExtendedEditorStyle::Initialize()
 {
 	// Only init once.
-	if(StyleSetInstance.IsValid())
+	if (StyleSetInstance.IsValid())
 	{
 		return;
 	}

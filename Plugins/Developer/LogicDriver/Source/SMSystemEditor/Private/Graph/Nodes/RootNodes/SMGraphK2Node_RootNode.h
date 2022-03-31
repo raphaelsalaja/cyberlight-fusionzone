@@ -1,18 +1,19 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Graph/Nodes/SMGraphK2Node_Base.h"
-#include "SMGraphK2Node_RootNode.generated.h"
 
+#include "Graph/Nodes/SMGraphK2Node_Base.h"
+
+#include "SMGraphK2Node_RootNode.generated.h"
 
 UCLASS()
 class SMSYSTEMEDITOR_API USMGraphK2Node_RootNode : public USMGraphK2Node_Base
 {
 	GENERATED_UCLASS_BODY()
 
-	//~ Begin UEdGraphNode Interface
+	// UEdGraphNode
 	virtual bool CanUserDeleteNode() const override { return false; }
 	virtual bool CanDuplicateNode() const override { return false; }
 	virtual void PostPasteNode() override;
@@ -20,13 +21,14 @@ class SMSYSTEMEDITOR_API USMGraphK2Node_RootNode : public USMGraphK2Node_Base
 	virtual void GetMenuActions(FBlueprintActionDatabaseRegistrar& ActionRegistrar) const override;
 	virtual FLinearColor GetNodeTitleColor() const override;
 	virtual FSlateIcon GetIconAndTint(FLinearColor& OutColor) const override;
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
 
 	// USMGraphK2Node_Base
 	virtual bool CanCollapseNode() const override { return true; }
 	virtual bool CanCollapseToFunctionOrMacro() const override { return false; }
 	// ~USMGraphK2Node_Base
 
+protected:
 	// If this node is in the process of being destroyed.
 	bool bIsBeingDestroyed;
 

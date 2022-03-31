@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "Construction/SMEditorConstructionManager.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
@@ -39,12 +39,12 @@ void FSMEditorConstructionManager::Tick(float DeltaTime)
 	{
 		DECLARE_SCOPE_CYCLE_COUNTER(TEXT("FSMEditorConstructionManager::Tick"), STAT_ConstructionManagerTick, STATGROUP_LogicDriverEditor);
 		
-		TSet<TWeakObjectPtr<USMBlueprint>> BlueprintsToConstruct = BlueprintsPendingConstruction;
-		for (const TWeakObjectPtr<USMBlueprint>& Blueprint : BlueprintsToConstruct)
+		TMap<TWeakObjectPtr<USMBlueprint>, FSMConstructionConfiguration> BlueprintsToConstruct = BlueprintsPendingConstruction;
+		for (const auto& BlueprintConfigKeyVal : BlueprintsToConstruct)
 		{
-			if (Blueprint.IsValid())
+			if (BlueprintConfigKeyVal.Key.IsValid())
 			{
-				RunAllConstructionScriptsForBlueprint_Internal(Blueprint.Get());
+				RunAllConstructionScriptsForBlueprint_Internal(BlueprintConfigKeyVal.Key.Get(), BlueprintConfigKeyVal.Value);
 			}
 		}
 
@@ -79,7 +79,20 @@ void FSMEditorConstructionManager::ConstructEditorStateMachine(USMGraph* InGraph
 	{
 		return;
 	}
+	
+	USMGraphNode_StateMachineEntryNode* EntryNode = InGraph->GetEntryNode();
+	if (!ensure(EntryNode))
+	{
+		// TODO: check instead.
+		return;
+	}
+			
+	TArray<USMGraphNode_StateNodeBase*> InitialStateNodes;
+	EntryNode->GetAllOutputNodesAs(InitialStateNodes);
 
+	TSet<USMGraphNode_StateNodeBase*> InitialStatesSet(InitialStateNodes);
+	
+	UBlueprint* ThisBlueprint = FSMBlueprintEditorUtils::FindBlueprintForGraph(InGraph);
 	TMap<FGuid, FSMTransition*> AllTransitions;
 	
 	TSet<UEdGraphNode*> GraphNodes;
@@ -89,13 +102,34 @@ void FSMEditorConstructionManager::ConstructEditorStateMachine(USMGraph* InGraph
 		FSMState_Base* RuntimeStateSelected = nullptr;
 		if (USMGraphNode_StateMachineStateNode* StateMachineNode = Cast<USMGraphNode_StateMachineStateNode>(GraphNode))
 		{
-			if (USMGraph* NestedFSMGraph = Cast<USMGraph>(StateMachineNode->GetBoundGraph()))
+			if (StateMachineNode->IsStateMachineReference())
 			{
-				if (USMGraphNode_StateMachineEntryNode* EntryNode = NestedFSMGraph->GetEntryNode())
+				if (USMBlueprint* ReferenceBlueprint = StateMachineNode->GetStateMachineReference())
+				{
+					if (ThisBlueprint == ReferenceBlueprint)
+					{
+						// Circular reference?
+						continue;
+					}
+					
+					GraphStateNodeBaseSelected = StateMachineNode;
+					RuntimeStateSelected = new FSMStateMachine();
+					GraphStateNodeBaseSelected->SetRuntimeDefaults(*RuntimeStateSelected);
+					SetupRootStateMachine(*(FSMStateMachine*)RuntimeStateSelected, ReferenceBlueprint);
+					ConstructEditorStateMachine
+					(
+						FSMBlueprintEditorUtils::GetRootStateMachineGraph(ReferenceBlueprint),
+						*(FSMStateMachine*)RuntimeStateSelected, Storage
+					);
+				}
+			}
+			else if (USMGraph* NestedFSMGraph = Cast<USMGraph>(StateMachineNode->GetBoundGraph()))
+			{
+				if (USMGraphNode_StateMachineEntryNode* NestedEntryNode = NestedFSMGraph->GetEntryNode())
 				{
 					GraphStateNodeBaseSelected = StateMachineNode;
-					GraphStateNodeBaseSelected->SetRuntimeDefaults(EntryNode->StateMachineNode);
-					RuntimeStateSelected = new FSMStateMachine(EntryNode->StateMachineNode);
+					GraphStateNodeBaseSelected->SetRuntimeDefaults(NestedEntryNode->StateMachineNode);
+					RuntimeStateSelected = new FSMStateMachine(NestedEntryNode->StateMachineNode);
 					ConstructEditorStateMachine(NestedFSMGraph, *(FSMStateMachine*)RuntimeStateSelected, Storage);
 				}
 			}
@@ -158,6 +192,7 @@ void FSMEditorConstructionManager::ConstructEditorStateMachine(USMGraph* InGraph
 
 			if (USMGraphNode_StateNode* GraphStateNode = Cast<USMGraphNode_StateNode>(GraphStateNodeBaseSelected))
 			{
+				// State stack.
 				for (const FStateStackContainer& StackTemplate : GraphStateNode->StateStack)
 				{
 					if (StackTemplate.NodeStackInstanceTemplate)
@@ -171,6 +206,12 @@ void FSMEditorConstructionManager::ConstructEditorStateMachine(USMGraph* InGraph
 			
 			StateMachineOut.AddState(RuntimeStateSelected);
 			Storage.Add(RuntimeStateSelected);
+
+			if (InitialStatesSet.Contains(GraphStateNodeBaseSelected))
+			{
+				RuntimeStateSelected->bIsRootNode = true;
+				StateMachineOut.AddInitialState(RuntimeStateSelected);
+			}
 
 			// Input Transitions
 			{
@@ -203,6 +244,17 @@ void FSMEditorConstructionManager::ConstructEditorStateMachine(USMGraph* InGraph
 						{
 							FSMTransition* RuntimeTransition = GetOrCopyTransition((FSMTransition*)Node, Transition);
 							RuntimeTransition->SetFromState(RuntimeStateSelected);
+
+							// Transition stack.
+							for (const FTransitionStackContainer& StackTemplate : Transition->TransitionStack)
+							{
+								if (StackTemplate.NodeStackInstanceTemplate)
+								{
+									StackTemplate.NodeStackInstanceTemplate->bIsEditorExecution = true;
+									StackTemplate.NodeStackInstanceTemplate->SetOwningNode(RuntimeTransition);
+									RuntimeTransition->StackNodeInstances.Add(StackTemplate.NodeStackInstanceTemplate);
+								}
+							}
 						}
 					}
 				}
@@ -260,17 +312,21 @@ void FSMEditorConstructionManager::CleanupEditorStateMachine(USMBlueprint* InBlu
 
 void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprintImmediately(USMBlueprint* InBlueprint)
 {
-	RunAllConstructionScriptsForBlueprint(InBlueprint, false);
+	FSMConstructionConfiguration Configuration;
+	Configuration.bSkipOnCompile = false;
+	Configuration.bFullRefreshNeeded = true;
+	RunAllConstructionScriptsForBlueprint(InBlueprint, MoveTemp(Configuration));
 
 	if (BlueprintsPendingConstruction.Contains(InBlueprint))
 	{
-		RunAllConstructionScriptsForBlueprint_Internal(InBlueprint);
+		const FSMConstructionConfiguration& Data = BlueprintsPendingConstruction.FindChecked(InBlueprint);
+		RunAllConstructionScriptsForBlueprint_Internal(InBlueprint, Data);
 		CleanupEditorStateMachine(InBlueprint);
 		BlueprintsPendingConstruction.Remove(InBlueprint);
 	}
 }
 
-void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint(UObject* InObject, bool bSkipOnCompile)
+void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint(UObject* InObject, const FSMConstructionConfiguration& InConfiguration)
 {
 	const ESMEditorConstructionScriptProjectSetting ConstructionProjectSetting = FSMBlueprintEditorUtils::GetProjectEditorSettings()->EditorNodeConstructionScriptSetting;
 	if (bDisableConstructionScripts || ConstructionProjectSetting == ESMEditorConstructionScriptProjectSetting::SM_Legacy)
@@ -285,11 +341,11 @@ void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint(UObject
 
 	if (USMBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintFromObject(InObject))
 	{
-		if (!(bSkipOnCompile && Blueprint->bBeingCompiled) && !BlueprintsBeingConstructed.Contains(Blueprint) && !BlueprintsPendingConstruction.Contains(Blueprint))
+		if (!(InConfiguration.bSkipOnCompile && Blueprint->bBeingCompiled) && !BlueprintsBeingConstructed.Contains(Blueprint) && !BlueprintsPendingConstruction.Contains(Blueprint))
 		{
 			// Don't add pending if currently being constructed.
 			// Running the construction script itself can trigger property changes triggering this.
-			BlueprintsPendingConstruction.Add(MakeWeakObjectPtr(Blueprint));
+			BlueprintsPendingConstruction.Add(MakeWeakObjectPtr(Blueprint), InConfiguration);
 		}
 	}
 	else
@@ -301,7 +357,7 @@ void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint(UObject
 	}
 }
 
-FSMEditorStateMachine& FSMEditorConstructionManager::RebuildEditorStateMachine(USMBlueprint* InBlueprint)
+FSMEditorStateMachine& FSMEditorConstructionManager::CreateEditorStateMachine(USMBlueprint* InBlueprint)
 {
 	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("FSMEditorConstructionManager::RebuildEditorStateMachine"), STAT_RebuildEditorStateMachine, STATGROUP_LogicDriverEditor);
 	
@@ -319,48 +375,15 @@ FSMEditorStateMachine& FSMEditorConstructionManager::RebuildEditorStateMachine(U
 		CleanupEditorStateMachine(InBlueprint);
 	}
 
-	FSMStateMachine* RootStateMachine = &EditorFSM.StateMachineEditorInstance->GetRootStateMachine();
+	FSMStateMachine& RootStateMachine = EditorFSM.StateMachineEditorInstance->GetRootStateMachine();
 
 	// Setup the root node instance.
-	{
-		RootStateMachine->NodeInstance = nullptr;
-
-		// Use skeleton class if BPGC is being regenerated.
-		if (USMBlueprintGeneratedClass* BPGC = Cast<USMBlueprintGeneratedClass>(!InBlueprint->GeneratedClass || InBlueprint->GeneratedClass->HasAnyClassFlags(CLASS_LayoutChanging) ?
-			InBlueprint->SkeletonGeneratedClass :
-			InBlueprint->GeneratedClass))
-		{
-			TSubclassOf<USMStateMachineInstance> StateMachineClass = nullptr;
-
-			// An old CDO is needed during a compile when the CDO is being rebuilt. This should only be viable from a skeleton class.
-			USMInstance* DefaultInstance = BPGC->GetOldCDO().Get();
-				
-			if (DefaultInstance == nullptr)
-			{
-				// Either we are the BPGC or we are being newly created. Otherwise we should be using the cached CDO.
-				ensure(InBlueprint->GeneratedClass == nullptr || BPGC == InBlueprint->GeneratedClass);
-				DefaultInstance = Cast<USMInstance>(BPGC->GetDefaultObject(false));
-			}
-			else
-			{
-				// Skeletons should use cached CDO.
-				ensure(BPGC == InBlueprint->SkeletonGeneratedClass);
-			}
-			
-			if (ensure(DefaultInstance))
-			{
-				StateMachineClass = DefaultInstance->GetStateMachineClass();
-			}
-
-			RootStateMachine->NodeInstance = NewObject<USMStateMachineInstance>(GetTransientPackage(), StateMachineClass.Get() ? StateMachineClass.Get() : USMStateMachineInstance::StaticClass());
-			RootStateMachine->NodeInstance->SetOwningNode(RootStateMachine);
-		}
-	}
+	SetupRootStateMachine(RootStateMachine, InBlueprint);
 
 	ConstructEditorStateMachine
 	(
 		FSMBlueprintEditorUtils::GetRootStateMachineGraph(InBlueprint),
-		*RootStateMachine, EditorFSM.EditorInstanceNodeStorage
+		RootStateMachine, EditorFSM.EditorInstanceNodeStorage
 	);
 
 	EditorFSM.StateMachineEditorInstance->Initialize(NewObject<USMEditorContext>());
@@ -374,7 +397,7 @@ FSMEditorStateMachine& FSMEditorConstructionManager::GetOrCreateEditorStateMachi
 	{
 		EditorFSM.StateMachineEditorInstance = NewObject<USMEditorInstance>();
 		EditorFSM.StateMachineEditorInstance->GetRootStateMachine().SetNodeGuid(FGuid::NewGuid());
-		EditorFSM.StateMachineEditorInstance->GetRootStateMachine().SetNodeName("Root");
+		EditorFSM.StateMachineEditorInstance->GetRootStateMachine().SetNodeName(USMInstance::GetRootNodeNameDefault());
 
 		EditorFSM.StateMachineEditorInstance->AddToRoot();
 		bWasCreated = true;
@@ -387,7 +410,43 @@ FSMEditorStateMachine& FSMEditorConstructionManager::GetOrCreateEditorStateMachi
 	return EditorFSM;
 }
 
-void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint_Internal(USMBlueprint* InBlueprint)
+void FSMEditorConstructionManager::SetupRootStateMachine(FSMStateMachine& StateMachineInOut, const USMBlueprint* InBlueprint) const
+{
+	StateMachineInOut.NodeInstance = nullptr;
+
+	// Use skeleton class if BPGC is being regenerated.
+	if (USMBlueprintGeneratedClass* BPGC = Cast<USMBlueprintGeneratedClass>(!InBlueprint->GeneratedClass || InBlueprint->GeneratedClass->bLayoutChanging ?
+		InBlueprint->SkeletonGeneratedClass :
+		InBlueprint->GeneratedClass))
+	{
+		TSubclassOf<USMStateMachineInstance> StateMachineClass = nullptr;
+
+		// An old CDO is needed during a compile when the CDO is being rebuilt. This should only be viable from a skeleton class.
+		USMInstance* DefaultInstance = BPGC->GetOldCDO().Get();
+				
+		if (DefaultInstance == nullptr)
+		{
+			// Either we are the BPGC or we are being newly created. Otherwise we should be using the cached CDO.
+			ensure(InBlueprint->GeneratedClass == nullptr || BPGC == InBlueprint->GeneratedClass);
+			DefaultInstance = Cast<USMInstance>(BPGC->GetDefaultObject(false));
+		}
+		else
+		{
+			// Skeletons should use cached CDO.
+			ensure(BPGC == InBlueprint->SkeletonGeneratedClass);
+		}
+			
+		if (ensure(DefaultInstance))
+		{
+			StateMachineClass = DefaultInstance->GetStateMachineClass();
+		}
+
+		StateMachineInOut.NodeInstance = NewObject<USMStateMachineInstance>(GetTransientPackage(), StateMachineClass.Get() ? StateMachineClass.Get() : USMStateMachineInstance::StaticClass());
+		StateMachineInOut.NodeInstance->SetOwningNode(&StateMachineInOut);
+	}
+}
+
+void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint_Internal(USMBlueprint* InBlueprint, const FSMConstructionConfiguration& InConfigurationData)
 {
 	const ESMEditorConstructionScriptProjectSetting ConstructionProjectSetting = FSMBlueprintEditorUtils::GetProjectEditorSettings()->EditorNodeConstructionScriptSetting;
 	if (bDisableConstructionScripts || ConstructionProjectSetting == ESMEditorConstructionScriptProjectSetting::SM_Legacy)
@@ -408,9 +467,11 @@ void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint_Interna
 	}
 
 	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint"), STAT_RunAllBlueprintConstructionScripts, STATGROUP_LogicDriverEditor);
-	BlueprintsBeingConstructed.Add(InBlueprint);
+
+	const TWeakObjectPtr<USMBlueprint> BlueprintWeakPtr = InBlueprint;
+	BlueprintsBeingConstructed.Add(BlueprintWeakPtr);
 	
-	FSMEditorStateMachine& EditorStateMachine = RebuildEditorStateMachine(InBlueprint);
+	FSMEditorStateMachine& EditorStateMachine = CreateEditorStateMachine(InBlueprint);
 
 	// Run the construction script for our root node.
 	if (USMNodeInstance* NodeInstance = EditorStateMachine.StateMachineEditorInstance->GetRootStateMachine().GetNodeInstance())
@@ -426,7 +487,10 @@ void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint_Interna
 
 	for (USMGraphNode_Base* GraphNode : GraphNodes)
 	{
-		GraphNode->RunAllConstructionScripts();
+		if (GraphNode->CanRunConstructionScripts())
+		{
+			GraphNode->RunAllConstructionScripts();
+		}
 	}
 
 	// Perform a second pass -- There was a bug that caused construction scripts to be fired a second time.
@@ -435,10 +499,14 @@ void FSMEditorConstructionManager::RunAllConstructionScriptsForBlueprint_Interna
 	
 	for (USMGraphNode_Base* GraphNode : GraphNodes)
 	{
-		GraphNode->RunAllConstructionScripts();
+		if (GraphNode->CanRunConstructionScripts())
+		{
+			GraphNode->RunAllConstructionScripts();
+			GraphNode->RequestSlateRefresh(InConfigurationData.bFullRefreshNeeded);
+		}
 	}
 
-	BlueprintsBeingConstructed.Remove(InBlueprint);
+	BlueprintsBeingConstructed.Remove(BlueprintWeakPtr);
 }
 
 #undef LOCTEXT_NAMESPACE

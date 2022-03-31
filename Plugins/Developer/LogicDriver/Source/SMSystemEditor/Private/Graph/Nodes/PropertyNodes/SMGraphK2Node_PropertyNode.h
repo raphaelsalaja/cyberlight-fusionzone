@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -8,8 +8,7 @@
 
 #include "SMGraphK2Node_PropertyNode.generated.h"
 
-
-DECLARE_DELEGATE(FForceVisualRefresh);
+DECLARE_MULTICAST_DELEGATE(FForceVisualRefresh);
 
 /**
  * Pure root reference nodes that are placed within a property graph returning a value.
@@ -35,7 +34,7 @@ public:
 	virtual bool IsConnectionDisallowed(const UEdGraphPin* MyPin, const UEdGraphPin* OtherPin, FString& OutReason) const override;
 	virtual bool HasExternalDependencies(TArray<UStruct*>* OptionalOutput) const override;
 	virtual bool CanCollapseNode() const override { return false; }
-	// ~UedGraphNode
+	// ~UEdGraphNode
 
 	// USMGraphK2Node_RuntimeNodeReference
 	virtual void PreCompileValidate(FCompilerResultsLog& MessageLog) override;
@@ -81,7 +80,7 @@ public:
 	UEdGraph* GetOwningGraph() const;
 	/** The state machine graph node which owns this property. */
 	class USMGraphNode_Base* GetOwningGraphNode() const;
-	class USMGraphNode_Base* GetOwningGraphNodeChecked() const;;
+	class USMGraphNode_Base* GetOwningGraphNodeChecked() const;
 	/** Open the property graph for this node. Should be the containing graph. */
 	void JumpToPropertyGraph();
 	/* Opens the template blueprint for this node. */
@@ -114,9 +113,9 @@ public:
 	/** Set from slate widget representing this property. Used to help determine if the context menu creation should
 	 * forward creation to this node as well.
 	 * TODO: There has to be a better way of tracing the cursor to a widget. */
-	bool bMouseOverNodeProperty;
+	mutable bool bMouseOverNodeProperty;
 
-	void ForceVisualRefresh() const { ForceVisualRefreshEvent.ExecuteIfBound(); }
+	void ForceVisualRefresh() const { ForceVisualRefreshEvent.Broadcast(); }
 	FForceVisualRefresh ForceVisualRefreshEvent;
 
 protected:

@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/LockOnSubobjects/TargetHandlers/TargetHandlerBase.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 // Cross Module References
@@ -117,7 +113,7 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_CanContinueTargeting_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_CanContinueTargeting_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -130,7 +126,7 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UTargetHandlerBase_FindTarget_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010008000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(TargetHandlerBase_eventFindTarget_Parms, ReturnValue), Z_Construct_UScriptStruct_FTargetInfo, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UTargetHandlerBase_FindTarget_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010008000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(TargetHandlerBase_eventFindTarget_Parms, ReturnValue), Z_Construct_UScriptStruct_FTargetInfo, METADATA_PARAMS(nullptr, 0) }; // 2314130026
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UTargetHandlerBase_FindTarget_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UTargetHandlerBase_FindTarget_Statics::NewProp_ReturnValue,
 	};
@@ -147,7 +143,7 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_FindTarget_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_FindTarget_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -172,7 +168,7 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_OnTargetLocked_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_OnTargetLocked_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -197,7 +193,7 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_OnTargetUnlocked_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_OnTargetUnlocked_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -213,7 +209,7 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UTargetHandlerBase_SwitchTarget_Statics::NewProp_TargetInfo = { "TargetInfo", nullptr, (EPropertyFlags)0x0010008000000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(TargetHandlerBase_eventSwitchTarget_Parms, TargetInfo), Z_Construct_UScriptStruct_FTargetInfo, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UTargetHandlerBase_SwitchTarget_Statics::NewProp_TargetInfo = { "TargetInfo", nullptr, (EPropertyFlags)0x0010008000000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(TargetHandlerBase_eventSwitchTarget_Parms, TargetInfo), Z_Construct_UScriptStruct_FTargetInfo, METADATA_PARAMS(nullptr, 0) }; // 2314130026
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UTargetHandlerBase_SwitchTarget_Statics::NewProp_PlayerInput = { "PlayerInput", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(TargetHandlerBase_eventSwitchTarget_Parms, PlayerInput), METADATA_PARAMS(nullptr, 0) };
 	void Z_Construct_UFunction_UTargetHandlerBase_SwitchTarget_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 	{
@@ -238,10 +234,11 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_SwitchTarget_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UTargetHandlerBase_SwitchTarget_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UTargetHandlerBase);
 	UClass* Z_Construct_UClass_UTargetHandlerBase_NoRegister()
 	{
 		return UTargetHandlerBase::StaticClass();
@@ -261,11 +258,11 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_LockOnTarget,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UTargetHandlerBase_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UTargetHandlerBase_CanContinueTargeting, "CanContinueTargeting" }, // 2811282134
-		{ &Z_Construct_UFunction_UTargetHandlerBase_FindTarget, "FindTarget" }, // 3768383424
-		{ &Z_Construct_UFunction_UTargetHandlerBase_OnTargetLocked, "OnTargetLocked" }, // 3259548358
-		{ &Z_Construct_UFunction_UTargetHandlerBase_OnTargetUnlocked, "OnTargetUnlocked" }, // 2184734777
-		{ &Z_Construct_UFunction_UTargetHandlerBase_SwitchTarget, "SwitchTarget" }, // 3958241548
+		{ &Z_Construct_UFunction_UTargetHandlerBase_CanContinueTargeting, "CanContinueTargeting" }, // 2246394311
+		{ &Z_Construct_UFunction_UTargetHandlerBase_FindTarget, "FindTarget" }, // 2134937209
+		{ &Z_Construct_UFunction_UTargetHandlerBase_OnTargetLocked, "OnTargetLocked" }, // 4071152321
+		{ &Z_Construct_UFunction_UTargetHandlerBase_OnTargetUnlocked, "OnTargetUnlocked" }, // 3830700755
+		{ &Z_Construct_UFunction_UTargetHandlerBase_SwitchTarget, "SwitchTarget" }, // 2015239335
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTargetHandlerBase_Statics::Class_MetaDataParams[] = {
@@ -298,21 +295,26 @@ void EmptyLinkFunctionForGeneratedCodeTargetHandlerBase() {}
 	};
 	UClass* Z_Construct_UClass_UTargetHandlerBase()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_UTargetHandlerBase.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_UTargetHandlerBase_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UTargetHandlerBase.OuterSingleton, Z_Construct_UClass_UTargetHandlerBase_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_UTargetHandlerBase.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(UTargetHandlerBase, 2866998080);
 	template<> LOCKONTARGET_API UClass* StaticClass<UTargetHandlerBase>()
 	{
 		return UTargetHandlerBase::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_UTargetHandlerBase(Z_Construct_UClass_UTargetHandlerBase, &UTargetHandlerBase::StaticClass, TEXT("/Script/LockOnTarget"), TEXT("UTargetHandlerBase"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UTargetHandlerBase);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_TargetHandlerBase_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_TargetHandlerBase_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UTargetHandlerBase, UTargetHandlerBase::StaticClass, TEXT("UTargetHandlerBase"), &Z_Registration_Info_UClass_UTargetHandlerBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTargetHandlerBase), 1665983970U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_TargetHandlerBase_h_2484948831(TEXT("/Script/LockOnTarget"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_TargetHandlerBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_TargetHandlers_TargetHandlerBase_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

@@ -1,22 +1,22 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateReadNodes.h"
+#include "Graph/Schema/SMGraphK2Schema.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+
 #include "BlueprintNodeSpawner.h"
 #include "BlueprintActionDatabaseRegistrar.h"
-#include "Graph/Schema/SMGraphK2Schema.h"
 #include "K2Node_CallFunction.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
 #include "K2Node_DynamicCast.h"
 #include "K2Node_GetArrayItem.h"
 #include "K2Node_StructMemberGet.h"
-
 
 #define LOCTEXT_NAMESPACE "SMSStateNodeInstance"
 
 #define INSTANCE_PIN_NAME TEXT("Instance")
 
 USMGraphK2Node_StateReadNode_GetNodeInstance::USMGraphK2Node_StateReadNode_GetNodeInstance(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer), NodeInstanceIndex(-1)
+	: Super(ObjectInitializer), NodeInstanceIndex(-1), bCanCreateNodeInstanceOnDemand(true)
 {
 }
 
@@ -42,7 +42,7 @@ FText USMGraphK2Node_StateReadNode_GetNodeInstance::GetNodeTitle(ENodeTitleType:
 			FString Name = NodeClass->GetName();
 			Name.RemoveFromEnd("_C");
 			
-			return FText::FromString(FString::Printf(TEXT("Get Reference '%s'"), *Name));
+			return FText::FromString(FString::Printf(TEXT("Get Node Instance '%s'"), *Name));
 		}
 	}
 
@@ -80,6 +80,20 @@ FBlueprintNodeSignature USMGraphK2Node_StateReadNode_GetNodeInstance::GetSignatu
 	return NodeSignature;
 }
 
+UObject* USMGraphK2Node_StateReadNode_GetNodeInstance::GetJumpTargetForDoubleClick() const
+{
+	if (ReferencedObject.Get() != nullptr && !ReferencedObject->IsNative())
+	{
+		if (UBlueprint* NodeBlueprint = FSMBlueprintEditorUtils::GetNodeBlueprintFromClassAndSetDebugObject(ReferencedObject.Get(),
+			Cast<USMGraphNode_Base>(GetTypedOuter(USMGraphNode_Base::StaticClass()))))
+		{
+			return NodeBlueprint;
+		}
+	}
+	
+	return Super::GetJumpTargetForDoubleClick();
+}
+
 void USMGraphK2Node_StateReadNode_GetNodeInstance::CustomExpandNode(FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
 	if (ReferencedObject == nullptr || ReferencedObject.Get() == nullptr)
@@ -91,21 +105,30 @@ void USMGraphK2Node_StateReadNode_GetNodeInstance::CustomExpandNode(FSMKismetCom
 	UK2Node_DynamicCast* CastNode = nullptr;
 	CreateAndWireExpandedNodes(this, ReferencedObject, CompilerContext, RuntimeNodeContainer, NodeProperty, &CastNode);
 
+	if (CastNode == nullptr)
+	{
+		CompilerContext.MessageLog.Error(TEXT("Could not create cast node for @@."), this);
+		return;
+	}
+	
+	if (CastNode->GetCastResultPin() == nullptr)
+	{
+		CompilerContext.MessageLog.Error(TEXT("Can't create cast node for @@."), this);
+		return;
+	}
+
 	if (GetOutputPin() == nullptr)
 	{
 		CompilerContext.MessageLog.Error(TEXT("No valid output pin for @@."), this);
 		return;
 	}
-	if (!CastNode)
-	{
-		CompilerContext.MessageLog.Error(TEXT("Could not create cast node for @@."), this);
-		return;
-	}
+	
 	CastNode->GetCastResultPin()->CopyPersistentDataFromOldPin(*GetOutputPin());
+	
 	BreakAllNodeLinks();
 }
 
-void USMGraphK2Node_StateReadNode_GetNodeInstance::AllocatePinsForType(TSubclassOf<class UObject> TargetType)
+void USMGraphK2Node_StateReadNode_GetNodeInstance::AllocatePinsForType(TSubclassOf<UObject> TargetType)
 {
 	ReferencedObject = TargetType;
 	const FString CastResultPinName = UEdGraphSchema_K2::PN_CastedValuePrefix + TargetType->GetDisplayNameText().ToString();
@@ -117,19 +140,68 @@ UEdGraphPin* USMGraphK2Node_StateReadNode_GetNodeInstance::GetInstancePinChecked
 	return FindPinChecked(INSTANCE_PIN_NAME, EGPD_Output);
 }
 
-void USMGraphK2Node_StateReadNode_GetNodeInstance::CreateAndWireExpandedNodes(UEdGraphNode* SourceNode, TSubclassOf<UObject> Class,
-                                                                              FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer,
-                                                                              FProperty* NodeProperty, UK2Node_DynamicCast** CastOutputNode)
+void USMGraphK2Node_StateReadNode_GetNodeInstance::CreateAndWireExpandedNodes(UEdGraphNode* SourceNode, TSubclassOf<UObject> Class, FSMKismetCompilerContext& CompilerContext,
+	USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty, UK2Node_DynamicCast** CastOutputNode)
 {
-	if(NodeProperty == nullptr)
+	bool bCreateStruct = true;
+	if (const USMGraphK2Node_StateReadNode_GetNodeInstance* ThisNode = Cast<USMGraphK2Node_StateReadNode_GetNodeInstance>(SourceNode))
 	{
-		CompilerContext.MessageLog.Error(TEXT("Node property not found for node @@."), SourceNode);
-		return;
+		bCreateStruct = ThisNode->RequiresInstance();
 	}
 
 	// Check if there's a newer version of this class. It's possible this compile could have triggered a recompile of dependent classes.
 	Class = FSMBlueprintEditorUtils::GetMostUpToDateClass(Class);
+	
+	if (bCreateStruct)
+	{
+		CreateAndWireExpandedNodesWithStruct(SourceNode, Class, CompilerContext, RuntimeNodeContainer, NodeProperty, CastOutputNode);
+	}
+	else
+	{
+		CreateAndWireExpandedNodesWithFunction(SourceNode, Class, CompilerContext, RuntimeNodeContainer, NodeProperty, CastOutputNode);
+	}
+}
 
+void USMGraphK2Node_StateReadNode_GetNodeInstance::CreateAndWireExpandedNodesWithFunction(UEdGraphNode* SourceNode, TSubclassOf<UObject> Class,
+                                                                                                         FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty, UK2Node_DynamicCast** CastOutputNode)
+{
+	if (NodeProperty == nullptr)
+	{
+		CompilerContext.MessageLog.Error(TEXT("Node property not found for node @@."), SourceNode);
+		return;
+	}
+	
+	if (USMGraphK2Node_StateReadNode_GetNodeInstance* ThisNode = Cast<USMGraphK2Node_StateReadNode_GetNodeInstance>(SourceNode))
+	{
+		UFunction* Function = USMInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMInstance, GetNodeInstanceByGuid));
+		const UK2Node_CallFunction* GetNodeInstanceFunction = ThisNode->CreateFunctionCallWithGuidInput(Function, CompilerContext, RuntimeNodeContainer, NodeProperty);
+		UEdGraphPin* GetReferenceOutputPin = GetNodeInstanceFunction->GetReturnValuePin();
+
+		UK2Node_DynamicCast* CastNode = CompilerContext.SpawnIntermediateNode<UK2Node_DynamicCast>(ThisNode, CompilerContext.ConsolidatedEventGraph);
+		CastNode->TargetType = FSMBlueprintEditorUtils::GetMostUpToDateClass(Class);
+		CastNode->PostPlacedNewNode();
+		CastNode->SetPurity(true);
+		CastNode->ReconstructNode();
+
+		ensure(ThisNode->GetSchema()->TryCreateConnection(GetReferenceOutputPin, CastNode->GetCastSourcePin()));
+
+		if (CastOutputNode)
+		{
+			*CastOutputNode = CastNode;
+		}
+	}
+}
+
+void USMGraphK2Node_StateReadNode_GetNodeInstance::CreateAndWireExpandedNodesWithStruct(UEdGraphNode* SourceNode, TSubclassOf<UObject> Class,
+                                                                                                      FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer,
+                                                                                                      FProperty* NodeProperty, UK2Node_DynamicCast** CastOutputNode)
+{
+	if (NodeProperty == nullptr)
+	{
+		CompilerContext.MessageLog.Error(TEXT("Node property not found for node @@."), SourceNode);
+		return;
+	}
+	
 	const UEdGraphSchema* Schema = SourceNode->GetSchema();
 	
 	UK2Node_StructMemberGet* GetInstanceNode = CompilerContext.SpawnIntermediateNode<UK2Node_StructMemberGet>(SourceNode, CompilerContext.ConsolidatedEventGraph);
@@ -184,7 +256,7 @@ void USMGraphK2Node_StateReadNode_GetNodeInstance::CreateAndWireExpandedNodes(UE
 
 	Schema->TryCreateConnection(NodeInstancePin, CastNode->GetCastSourcePin());
 
-	if(CastOutputNode)
+	if (CastOutputNode)
 	{
 		*CastOutputNode = CastNode;
 	}

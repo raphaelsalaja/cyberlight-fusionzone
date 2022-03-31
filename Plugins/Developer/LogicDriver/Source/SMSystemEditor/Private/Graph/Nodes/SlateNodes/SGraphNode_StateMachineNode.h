@@ -1,12 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Widgets/DeclarativeSyntaxSupport.h"
-#include "KismetNodes/SGraphNodeK2Composite.h"
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
 
+#include "Widgets/DeclarativeSyntaxSupport.h"
+#include "KismetNodes/SGraphNodeK2Composite.h"
 
 class SGraphNode_StateMachineNode : public SGraphNodeK2Composite
 {

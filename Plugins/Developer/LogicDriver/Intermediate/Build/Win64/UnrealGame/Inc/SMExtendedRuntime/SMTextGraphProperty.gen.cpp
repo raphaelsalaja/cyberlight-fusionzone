@@ -6,266 +6,30 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMExtendedRuntime/Public/Properties/SMTextGraphProperty.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMTextGraphProperty() {}
 // Cross Module References
-	SMEXTENDEDRUNTIME_API UScriptStruct* Z_Construct_UScriptStruct_FSMTextGraphProperty();
-	UPackage* Z_Construct_UPackage__Script_SMExtendedRuntime();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base();
 	SMEXTENDEDRUNTIME_API UScriptStruct* Z_Construct_UScriptStruct_FSMTextSerializer();
-	SMEXTENDEDRUNTIME_API UScriptStruct* Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo();
+	UPackage* Z_Construct_UPackage__Script_SMExtendedRuntime();
 	SMEXTENDEDRUNTIME_API UScriptStruct* Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime();
+	SMEXTENDEDRUNTIME_API UScriptStruct* Z_Construct_UScriptStruct_FSMTextGraphProperty();
+	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base();
+	SMEXTENDEDRUNTIME_API UScriptStruct* Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo();
 // End Cross Module References
-
-static_assert(std::is_polymorphic<FSMTextGraphProperty>() == std::is_polymorphic<FSMGraphProperty_Base>(), "USTRUCT FSMTextGraphProperty cannot be polymorphic unless super FSMGraphProperty_Base is polymorphic");
-
-class UScriptStruct* FSMTextGraphProperty::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
-	{
-		extern SMEXTENDEDRUNTIME_API uint32 Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMTextGraphProperty, Z_Construct_UPackage__Script_SMExtendedRuntime(), TEXT("SMTextGraphProperty"), sizeof(FSMTextGraphProperty), Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Hash());
-	}
-	return Singleton;
-}
-template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<FSMTextGraphProperty>()
-{
-	return FSMTextGraphProperty::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMTextGraphProperty(FSMTextGraphProperty::StaticStruct, TEXT("/Script/SMExtendedRuntime"), TEXT("SMTextGraphProperty"), false, nullptr, nullptr);
-static struct FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextGraphProperty
-{
-	FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextGraphProperty()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMTextGraphProperty")),new UScriptStruct::TCppStructOps<FSMTextGraphProperty>);
-	}
-} ScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextGraphProperty;
-	struct Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_Result_MetaData[];
-#endif
-		static const UECodeGen_Private::FTextPropertyParams NewProp_Result;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_TextSerializer_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_TextSerializer;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_WidgetInfo_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_WidgetInfo;
-		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-		static const UECodeGen_Private::FStructParams ReturnStructParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::Struct_MetaDataParams[] = {
-		{ "BlueprintType", "true" },
-		{ "Comment", "/**\n\x09""For Logic Driver node classes only.\n\x09\n\x09The state machine graph node which owns the class will display this property\n\x09""as an editable text box directly on the node and create a blueprint graph\n\x09to parse the text.\n */" },
-		{ "DisplayName", "SM Text Graph Property" },
-		{ "HasNativeBreak", "SMExtendedRuntime.SMExtendedGraphPropertyHelpers.BreakTextGraphProperty" },
-		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
-		{ "ToolTip", "For Logic Driver node classes only.\n\nThe state machine graph node which owns the class will display this property\nas an editable text box directly on the node and create a blueprint graph\nto parse the text." },
-	};
-#endif
-	void* Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMTextGraphProperty>();
-	}
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result_MetaData[] = {
-		{ "AlwaysAsPin", "" },
-		{ "Category", "Result" },
-		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
-	};
-#endif
-	const UECodeGen_Private::FTextPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result = { "Result", nullptr, (EPropertyFlags)0x0010000000010005, UECodeGen_Private::EPropertyGenFlags::Text, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty, Result), METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer_MetaData[] = {
-		{ "Category", "Text Serializer" },
-		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer = { "TextSerializer", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty, TextSerializer), Z_Construct_UScriptStruct_FSMTextSerializer, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo_MetaData[] = {
-		{ "Category", "Node Widget" },
-		{ "Comment", "/** Configure the widget display properties. */" },
-		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
-		{ "ToolTip", "Configure the widget display properties." },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo = { "WidgetInfo", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty, WidgetInfo), Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo_MetaData)) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo,
-	};
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_SMExtendedRuntime,
-		Z_Construct_UScriptStruct_FSMGraphProperty_Base,
-		&NewStructOps,
-		"SMTextGraphProperty",
-		sizeof(FSMTextGraphProperty),
-		alignof(FSMTextGraphProperty),
-		Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::PropPointers,
-		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::PropPointers),
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMTextGraphProperty()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMExtendedRuntime();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMTextGraphProperty"), sizeof(FSMTextGraphProperty), Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Hash() { return 3993666280U; }
-
-static_assert(std::is_polymorphic<FSMTextGraphProperty_Runtime>() == std::is_polymorphic<FSMGraphProperty_Base_Runtime>(), "USTRUCT FSMTextGraphProperty_Runtime cannot be polymorphic unless super FSMGraphProperty_Base_Runtime is polymorphic");
-
-class UScriptStruct* FSMTextGraphProperty_Runtime::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
-	{
-		extern SMEXTENDEDRUNTIME_API uint32 Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime, Z_Construct_UPackage__Script_SMExtendedRuntime(), TEXT("SMTextGraphProperty_Runtime"), sizeof(FSMTextGraphProperty_Runtime), Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Hash());
-	}
-	return Singleton;
-}
-template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<FSMTextGraphProperty_Runtime>()
-{
-	return FSMTextGraphProperty_Runtime::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMTextGraphProperty_Runtime(FSMTextGraphProperty_Runtime::StaticStruct, TEXT("/Script/SMExtendedRuntime"), TEXT("SMTextGraphProperty_Runtime"), false, nullptr, nullptr);
-static struct FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextGraphProperty_Runtime
-{
-	FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextGraphProperty_Runtime()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMTextGraphProperty_Runtime")),new UScriptStruct::TCppStructOps<FSMTextGraphProperty_Runtime>);
-	}
-} ScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextGraphProperty_Runtime;
-	struct Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_Result_MetaData[];
-#endif
-		static const UECodeGen_Private::FTextPropertyParams NewProp_Result;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_TextSerializer_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_TextSerializer;
-		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-		static const UECodeGen_Private::FStructParams ReturnStructParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::Struct_MetaDataParams[] = {
-		{ "BlueprintInternalUseOnly", "true" },
-		{ "BlueprintType", "true" },
-		{ "Comment", "/**\n * DO NOT USE THIS DIRECTLY. Use FSMTextGraphProperty instead.\n * \n * Runtime variant of the text graph property for Logic Driver state machines.\n * This is automatically placed in state machine blueprints when FSMTextGraphProperty is used.\n */" },
-		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
-		{ "ToolTip", "DO NOT USE THIS DIRECTLY. Use FSMTextGraphProperty instead.\n\nRuntime variant of the text graph property for Logic Driver state machines.\nThis is automatically placed in state machine blueprints when FSMTextGraphProperty is used." },
-	};
-#endif
-	void* Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMTextGraphProperty_Runtime>();
-	}
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result_MetaData[] = {
-		{ "AlwaysAsPin", "" },
-		{ "Category", "Result" },
-		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
-	};
-#endif
-	const UECodeGen_Private::FTextPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result = { "Result", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Text, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty_Runtime, Result), METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer_MetaData[] = {
-		{ "Category", "Text Serializer" },
-		{ "Comment", "// ~FSMGraphProperty_Base_Runtime\n" },
-		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
-		{ "ToolTip", "~FSMGraphProperty_Base_Runtime" },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer = { "TextSerializer", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty_Runtime, TextSerializer), Z_Construct_UScriptStruct_FSMTextSerializer, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer_MetaData)) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer,
-	};
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_SMExtendedRuntime,
-		Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime,
-		&NewStructOps,
-		"SMTextGraphProperty_Runtime",
-		sizeof(FSMTextGraphProperty_Runtime),
-		alignof(FSMTextGraphProperty_Runtime),
-		Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::PropPointers,
-		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::PropPointers),
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMExtendedRuntime();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMTextGraphProperty_Runtime"), sizeof(FSMTextGraphProperty_Runtime), Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Hash() { return 777932282U; }
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMTextSerializer;
 class UScriptStruct* FSMTextSerializer::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMTextSerializer.OuterSingleton)
 	{
-		extern SMEXTENDEDRUNTIME_API uint32 Get_Z_Construct_UScriptStruct_FSMTextSerializer_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMTextSerializer, Z_Construct_UPackage__Script_SMExtendedRuntime(), TEXT("SMTextSerializer"), sizeof(FSMTextSerializer), Get_Z_Construct_UScriptStruct_FSMTextSerializer_Hash());
+		Z_Registration_Info_UScriptStruct_SMTextSerializer.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMTextSerializer, Z_Construct_UPackage__Script_SMExtendedRuntime(), TEXT("SMTextSerializer"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMTextSerializer.OuterSingleton;
 }
 template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<FSMTextSerializer>()
 {
 	return FSMTextSerializer::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMTextSerializer(FSMTextSerializer::StaticStruct, TEXT("/Script/SMExtendedRuntime"), TEXT("SMTextSerializer"), false, nullptr, nullptr);
-static struct FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextSerializer
-{
-	FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextSerializer()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMTextSerializer")),new UScriptStruct::TCppStructOps<FSMTextSerializer>);
-	}
-} ScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextSerializer;
 	struct Z_Construct_UScriptStruct_FSMTextSerializer_Statics
 	{
 #if WITH_METADATA
@@ -334,21 +98,212 @@ static struct FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextSerial
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FSMTextSerializer()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMTextSerializer_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMExtendedRuntime();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMTextSerializer"), sizeof(FSMTextSerializer), Get_Z_Construct_UScriptStruct_FSMTextSerializer_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMTextSerializer.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMTextSerializer_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMTextSerializer.InnerSingleton, Z_Construct_UScriptStruct_FSMTextSerializer_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMTextSerializer.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMTextSerializer_Hash() { return 2180105616U; }
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
+
+static_assert(std::is_polymorphic<FSMTextGraphProperty_Runtime>() == std::is_polymorphic<FSMGraphProperty_Base_Runtime>(), "USTRUCT FSMTextGraphProperty_Runtime cannot be polymorphic unless super FSMGraphProperty_Base_Runtime is polymorphic");
+
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMTextGraphProperty_Runtime;
+class UScriptStruct* FSMTextGraphProperty_Runtime::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_SMTextGraphProperty_Runtime.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_SMTextGraphProperty_Runtime.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime, Z_Construct_UPackage__Script_SMExtendedRuntime(), TEXT("SMTextGraphProperty_Runtime"));
+	}
+	return Z_Registration_Info_UScriptStruct_SMTextGraphProperty_Runtime.OuterSingleton;
+}
+template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<FSMTextGraphProperty_Runtime>()
+{
+	return FSMTextGraphProperty_Runtime::StaticStruct();
+}
+	struct Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
 #endif
+		static void* NewStructOps();
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_Result_MetaData[];
+#endif
+		static const UECodeGen_Private::FTextPropertyParams NewProp_Result;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_TextSerializer_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_TextSerializer;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+		static const UECodeGen_Private::FStructParams ReturnStructParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::Struct_MetaDataParams[] = {
+		{ "BlueprintInternalUseOnly", "true" },
+		{ "BlueprintType", "true" },
+		{ "Comment", "/**\n * DO NOT USE THIS DIRECTLY. Use FSMTextGraphProperty instead.\n * \n * Runtime variant of the text graph property for Logic Driver state machines.\n * This is automatically placed in state machine blueprints when FSMTextGraphProperty is used.\n */" },
+		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
+		{ "ToolTip", "DO NOT USE THIS DIRECTLY. Use FSMTextGraphProperty instead.\n\nRuntime variant of the text graph property for Logic Driver state machines.\nThis is automatically placed in state machine blueprints when FSMTextGraphProperty is used." },
+	};
+#endif
+	void* Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMTextGraphProperty_Runtime>();
+	}
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result_MetaData[] = {
+		{ "AlwaysAsPin", "" },
+		{ "Category", "Result" },
+		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
+	};
+#endif
+	const UECodeGen_Private::FTextPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result = { "Result", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Text, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty_Runtime, Result), METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result_MetaData)) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer_MetaData[] = {
+		{ "Category", "Text Serializer" },
+		{ "Comment", "// ~FSMGraphProperty_Base_Runtime\n" },
+		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
+		{ "ToolTip", "~FSMGraphProperty_Base_Runtime" },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer = { "TextSerializer", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty_Runtime, TextSerializer), Z_Construct_UScriptStruct_FSMTextSerializer, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer_MetaData)) }; // 4191688473
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_Result,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewProp_TextSerializer,
+	};
+	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::ReturnStructParams = {
+		(UObject* (*)())Z_Construct_UPackage__Script_SMExtendedRuntime,
+		Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime,
+		&NewStructOps,
+		"SMTextGraphProperty_Runtime",
+		sizeof(FSMTextGraphProperty_Runtime),
+		alignof(FSMTextGraphProperty_Runtime),
+		Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::PropPointers,
+		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::PropPointers),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EStructFlags(0x00000201),
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::Struct_MetaDataParams))
+	};
+	UScriptStruct* Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime()
+	{
+		if (!Z_Registration_Info_UScriptStruct_SMTextGraphProperty_Runtime.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMTextGraphProperty_Runtime.InnerSingleton, Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::ReturnStructParams);
+		}
+		return Z_Registration_Info_UScriptStruct_SMTextGraphProperty_Runtime.InnerSingleton;
+	}
+
+static_assert(std::is_polymorphic<FSMTextGraphProperty>() == std::is_polymorphic<FSMGraphProperty_Base>(), "USTRUCT FSMTextGraphProperty cannot be polymorphic unless super FSMGraphProperty_Base is polymorphic");
+
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMTextGraphProperty;
+class UScriptStruct* FSMTextGraphProperty::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_SMTextGraphProperty.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_SMTextGraphProperty.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMTextGraphProperty, Z_Construct_UPackage__Script_SMExtendedRuntime(), TEXT("SMTextGraphProperty"));
+	}
+	return Z_Registration_Info_UScriptStruct_SMTextGraphProperty.OuterSingleton;
+}
+template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<FSMTextGraphProperty>()
+{
+	return FSMTextGraphProperty::StaticStruct();
+}
+	struct Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
+#endif
+		static void* NewStructOps();
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_Result_MetaData[];
+#endif
+		static const UECodeGen_Private::FTextPropertyParams NewProp_Result;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_TextSerializer_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_TextSerializer;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_WidgetInfo_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_WidgetInfo;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+		static const UECodeGen_Private::FStructParams ReturnStructParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::Struct_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "Comment", "/**\n\x09""For Logic Driver node classes only.\n\x09\n\x09The state machine graph node which owns the class will display this property\n\x09""as an editable text box directly on the node and create a blueprint graph\n\x09to parse the text.\n */" },
+		{ "DisplayName", "SM Text Graph Property" },
+		{ "HasNativeBreak", "SMExtendedRuntime.SMExtendedGraphPropertyHelpers.BreakTextGraphProperty" },
+		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
+		{ "ToolTip", "For Logic Driver node classes only.\n\nThe state machine graph node which owns the class will display this property\nas an editable text box directly on the node and create a blueprint graph\nto parse the text." },
+	};
+#endif
+	void* Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMTextGraphProperty>();
+	}
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result_MetaData[] = {
+		{ "AlwaysAsPin", "" },
+		{ "Category", "Result" },
+		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
+	};
+#endif
+	const UECodeGen_Private::FTextPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result = { "Result", nullptr, (EPropertyFlags)0x0010000000010005, UECodeGen_Private::EPropertyGenFlags::Text, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty, Result), METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result_MetaData)) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer_MetaData[] = {
+		{ "Category", "Text Serializer" },
+		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer = { "TextSerializer", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty, TextSerializer), Z_Construct_UScriptStruct_FSMTextSerializer, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer_MetaData)) }; // 4191688473
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo_MetaData[] = {
+		{ "Category", "Node Widget" },
+		{ "Comment", "/** Configure the widget display properties. */" },
+		{ "ModuleRelativePath", "Public/Properties/SMTextGraphProperty.h" },
+		{ "ToolTip", "Configure the widget display properties." },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo = { "WidgetInfo", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextGraphProperty, WidgetInfo), Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo_MetaData)) }; // 3371374713
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_Result,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_TextSerializer,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewProp_WidgetInfo,
+	};
+	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::ReturnStructParams = {
+		(UObject* (*)())Z_Construct_UPackage__Script_SMExtendedRuntime,
+		Z_Construct_UScriptStruct_FSMGraphProperty_Base,
+		&NewStructOps,
+		"SMTextGraphProperty",
+		sizeof(FSMTextGraphProperty),
+		alignof(FSMTextGraphProperty),
+		Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::PropPointers,
+		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::PropPointers),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EStructFlags(0x00000201),
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::Struct_MetaDataParams))
+	};
+	UScriptStruct* Z_Construct_UScriptStruct_FSMTextGraphProperty()
+	{
+		if (!Z_Registration_Info_UScriptStruct_SMTextGraphProperty.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMTextGraphProperty.InnerSingleton, Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::ReturnStructParams);
+		}
+		return Z_Registration_Info_UScriptStruct_SMTextGraphProperty.InnerSingleton;
+	}
+	struct Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_Statics
+	{
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
+	};
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_Statics::ScriptStructInfo[] = {
+		{ FSMTextSerializer::StaticStruct, Z_Construct_UScriptStruct_FSMTextSerializer_Statics::NewStructOps, TEXT("SMTextSerializer"), &Z_Registration_Info_UScriptStruct_SMTextSerializer, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMTextSerializer), 4191688473U) },
+		{ FSMTextGraphProperty_Runtime::StaticStruct, Z_Construct_UScriptStruct_FSMTextGraphProperty_Runtime_Statics::NewStructOps, TEXT("SMTextGraphProperty_Runtime"), &Z_Registration_Info_UScriptStruct_SMTextGraphProperty_Runtime, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMTextGraphProperty_Runtime), 695363371U) },
+		{ FSMTextGraphProperty::StaticStruct, Z_Construct_UScriptStruct_FSMTextGraphProperty_Statics::NewStructOps, TEXT("SMTextGraphProperty"), &Z_Registration_Info_UScriptStruct_SMTextGraphProperty, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMTextGraphProperty), 3845436528U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_437943873(TEXT("/Script/SMExtendedRuntime"),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMExtendedRuntime_Public_Properties_SMTextGraphProperty_h_Statics::ScriptStructInfo),
+		nullptr, 0);
+PRAGMA_ENABLE_DEPRECATION_WARNINGS

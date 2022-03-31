@@ -1,10 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "EditorStyle.h"
+#include "EditorStyleSet.h"
 #include "Framework/Commands/Commands.h"
-
 
 class FSMPreviewEditorCommands : public TCommands<FSMPreviewEditorCommands>
 {

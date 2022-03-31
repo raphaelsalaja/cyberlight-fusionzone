@@ -1,12 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EdGraph/EdGraphSchema.h"
 #include "SMTransitionGraphSchema.h"
-#include "SMConduitGraphSchema.generated.h"
 
+#include "SMConduitGraphSchema.generated.h"
 
 UCLASS(MinimalAPI)
 class USMConduitGraphSchema : public USMTransitionGraphSchema

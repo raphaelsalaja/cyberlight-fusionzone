@@ -1,9 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SSMPreviewModeOutlinerView.h"
 #include "Views/Viewport/SMPreviewModeViewportClient.h"
 #include "SMPreviewObject.h"
 #include "Utilities/SMPreviewUtils.h"
+#include "ISMPreviewEditorModule.h"
 
 #include "Blueprints/SMBlueprintEditor.h"
 #include "Blueprints/SMBlueprint.h"
@@ -13,10 +14,10 @@
 #include "ISceneOutlinerColumn.h"
 #include "SceneOutlinerModule.h"
 #include "SSceneOutliner.h"
-
+#include "ToolMenuContext.h"
+#include "Widgets/Input/SCheckBox.h"
 
 #define LOCTEXT_NAMESPACE "SSMPreviewModeOutlinerView"
-
 
 class FPreviewModeOutlinerContextColumn : public ISceneOutlinerColumn
 {
@@ -172,12 +173,28 @@ void SSMPreviewModeOutlinerView::CreateWorldOutliner(UWorld* World)
 		UWorld* PreviewWorld = PreviewObject->GetPreviewWorld();
 		return FSMPreviewUtils::DoesWorldContainActor(PreviewWorld, InActor, true);
 	};
-	
-	FSceneOutlinerModule& SceneOutlinerModule = FModuleManager::Get().LoadModuleChecked<FSceneOutlinerModule>("SceneOutliner");
+
+	const FSceneOutlinerModule& SceneOutlinerModule = FModuleManager::Get().LoadModuleChecked<FSceneOutlinerModule>("SceneOutliner");
 
 	FSceneOutlinerInitializationOptions SceneOutlinerOptions;
 	SceneOutlinerOptions.Filters->AddFilterPredicate<FActorTreeItem>(FActorTreeItem::FFilterPredicate::CreateLambda(OutlinerFilterPredicate));
+	SceneOutlinerOptions.CustomDelete = FCustomSceneOutlinerDeleteDelegate::CreateRaw(this, &SSMPreviewModeOutlinerView::OnDelete);
+	SceneOutlinerOptions.ModifyContextMenu = FSceneOutlinerModifyContextMenu::CreateLambda([](FName& InName, FToolMenuContext& InContext)
+	{
+		// Hide context menu so we don't allow adding folders.
+		InContext = FToolMenuContext();
+	});
 
+	// Default columns.
+	SceneOutlinerOptions.ColumnMap.Add(FSceneOutlinerBuiltInColumnTypes::Label(),
+		FSceneOutlinerColumnInfo(ESceneOutlinerColumnVisibility::Visible, 10, FCreateSceneOutlinerColumn(), false, TOptional<float>(),
+			LOCTEXT("ActorInfoLabel", "Actor")));
+	SceneOutlinerOptions.ColumnMap.Add(FSceneOutlinerBuiltInColumnTypes::ActorInfo(),
+		FSceneOutlinerColumnInfo(ESceneOutlinerColumnVisibility::Visible, 20, FCreateSceneOutlinerColumn(), true, TOptional<float>(),
+			FSceneOutlinerBuiltInColumnTypes::ActorInfo_Localized()));
+	
+	SceneOutlinerOptions.bShowCreateNewFolder = false;
+	
 	if (SceneOutliner.IsValid() && SceneOutlinerSelectionChanged.IsValid())
 	{
 		SceneOutliner->GetOnItemSelectionChanged().Remove(SceneOutlinerSelectionChanged);
@@ -245,6 +262,15 @@ void SSMPreviewModeOutlinerView::OnSimulationEnded(USMPreviewObject* PreviewObje
 	if (SceneOutliner.IsValid())
 	{
 		SceneOutliner->ClearSelection();
+	}
+}
+
+void SSMPreviewModeOutlinerView::OnDelete(const TArray<TWeakPtr<ISceneOutlinerTreeItem>>& InSelectedItem)
+{
+	if (BlueprintEditor.IsValid())
+	{
+		ISMPreviewEditorModule& PreviewModule = FModuleManager::LoadModuleChecked<ISMPreviewEditorModule>(LOGICDRIVER_PREVIEW_MODULE_NAME);
+		PreviewModule.DeleteSelection(BlueprintEditor);
 	}
 }
 

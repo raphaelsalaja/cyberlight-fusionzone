@@ -6,26 +6,84 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Configuration/SMProjectEditorSettings.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMProjectEditorSettings() {}
 // Cross Module References
+	SMSYSTEMEDITOR_API UEnum* Z_Construct_UEnum_SMSystemEditor_ESMPinOverride();
+	UPackage* Z_Construct_UPackage__Script_SMSystemEditor();
 	SMSYSTEMEDITOR_API UClass* Z_Construct_UClass_USMProjectEditorSettings_NoRegister();
 	SMSYSTEMEDITOR_API UClass* Z_Construct_UClass_USMProjectEditorSettings();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
-	UPackage* Z_Construct_UPackage__Script_SMSystemEditor();
 	SMSYSTEMEDITOR_API UEnum* Z_Construct_UEnum_SMSystemEditor_ESMEditorConstructionScriptProjectSetting();
 	SMSYSTEM_API UClass* Z_Construct_UClass_USMStateInstance_NoRegister();
 	SMSYSTEM_API UClass* Z_Construct_UClass_USMStateMachineInstance_NoRegister();
 	SMSYSTEM_API UClass* Z_Construct_UClass_USMConduitInstance_NoRegister();
 	SMSYSTEM_API UClass* Z_Construct_UClass_USMTransitionInstance_NoRegister();
 // End Cross Module References
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_ESMPinOverride;
+	static UEnum* ESMPinOverride_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_ESMPinOverride.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_ESMPinOverride.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_SMSystemEditor_ESMPinOverride, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("ESMPinOverride"));
+		}
+		return Z_Registration_Info_UEnum_ESMPinOverride.OuterSingleton;
+	}
+	template<> SMSYSTEMEDITOR_API UEnum* StaticEnum<ESMPinOverride>()
+	{
+		return ESMPinOverride_StaticEnum();
+	}
+	struct Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics::Enumerators[] = {
+		{ "ESMPinOverride::None", (int64)ESMPinOverride::None },
+		{ "ESMPinOverride::LogicDriverOnly", (int64)ESMPinOverride::LogicDriverOnly },
+		{ "ESMPinOverride::AllBlueprints", (int64)ESMPinOverride::AllBlueprints },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics::Enum_MetaDataParams[] = {
+		{ "AllBlueprints.Comment", "/** Override is for all blueprint types. */" },
+		{ "AllBlueprints.Name", "ESMPinOverride::AllBlueprints" },
+		{ "AllBlueprints.ToolTip", "Override is for all blueprint types." },
+		{ "LogicDriverOnly.Comment", "/** Override is only for Logic Driver assets. */" },
+		{ "LogicDriverOnly.Name", "ESMPinOverride::LogicDriverOnly" },
+		{ "LogicDriverOnly.ToolTip", "Override is only for Logic Driver assets." },
+		{ "ModuleRelativePath", "Private/Configuration/SMProjectEditorSettings.h" },
+		{ "None.Comment", "/** Override is disabled for all assets. Restart required. */" },
+		{ "None.Name", "ESMPinOverride::None" },
+		{ "None.ToolTip", "Override is disabled for all assets. Restart required." },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_SMSystemEditor,
+		nullptr,
+		"ESMPinOverride",
+		"ESMPinOverride",
+		Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::EnumClass,
+		METADATA_PARAMS(Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_SMSystemEditor_ESMPinOverride()
+	{
+		if (!Z_Registration_Info_UEnum_ESMPinOverride.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_ESMPinOverride.InnerSingleton, Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_ESMPinOverride.InnerSingleton;
+	}
 	void USMProjectEditorSettings::StaticRegisterNativesUSMProjectEditorSettings()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMProjectEditorSettings);
 	UClass* Z_Construct_UClass_USMProjectEditorSettings_NoRegister()
 	{
 		return USMProjectEditorSettings::StaticClass();
@@ -125,6 +183,16 @@ void EmptyLinkFunctionForGeneratedCodeSMProjectEditorSettings() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_DefaultTransitionClass_MetaData[];
 #endif
 		static const UECodeGen_Private::FSoftClassPropertyParams NewProp_DefaultTransitionClass;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bEnableReferenceTemplatesByDefault_MetaData[];
+#endif
+		static void NewProp_bEnableReferenceTemplatesByDefault_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bEnableReferenceTemplatesByDefault;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_OverrideActorSoftReferencePins_Underlying;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OverrideActorSoftReferencePins_MetaData[];
+#endif
+		static const UECodeGen_Private::FEnumPropertyParams NewProp_OverrideActorSoftReferencePins;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bEnablePreviewMode_MetaData[];
 #endif
@@ -330,7 +398,7 @@ void EmptyLinkFunctionForGeneratedCodeSMProjectEditorSettings() {}
 		{ "ToolTip", "Configure the editor-time construction script behavior." },
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_EditorNodeConstructionScriptSetting = { "EditorNodeConstructionScriptSetting", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMProjectEditorSettings, EditorNodeConstructionScriptSetting), Z_Construct_UEnum_SMSystemEditor_ESMEditorConstructionScriptProjectSetting, METADATA_PARAMS(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_EditorNodeConstructionScriptSetting_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_EditorNodeConstructionScriptSetting_MetaData)) };
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_EditorNodeConstructionScriptSetting = { "EditorNodeConstructionScriptSetting", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMProjectEditorSettings, EditorNodeConstructionScriptSetting), Z_Construct_UEnum_SMSystemEditor_ESMEditorConstructionScriptProjectSetting, METADATA_PARAMS(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_EditorNodeConstructionScriptSetting_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_EditorNodeConstructionScriptSetting_MetaData)) }; // 1408986972
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_DefaultStateClass_MetaData[] = {
 		{ "Category", "Node Instances" },
@@ -368,6 +436,29 @@ void EmptyLinkFunctionForGeneratedCodeSMProjectEditorSettings() {}
 #endif
 	const UECodeGen_Private::FSoftClassPropertyParams Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_DefaultTransitionClass = { "DefaultTransitionClass", nullptr, (EPropertyFlags)0x0014000000004001, UECodeGen_Private::EPropertyGenFlags::SoftClass, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMProjectEditorSettings, DefaultTransitionClass), Z_Construct_UClass_USMTransitionInstance_NoRegister, METADATA_PARAMS(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_DefaultTransitionClass_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_DefaultTransitionClass_MetaData)) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnableReferenceTemplatesByDefault_MetaData[] = {
+		{ "Category", "Node Instances" },
+		{ "Comment", "/**\n\x09 * Newly placed state machine references will have their templates enabled by default.\n\x09 * This allows custom node classes to be supported with references.\n\x09 *\n\x09 * State machine blueprints that have a custom state machine class assigned by default\n\x09 * will always default to using a template.\n\x09 */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMProjectEditorSettings.h" },
+		{ "ToolTip", "Newly placed state machine references will have their templates enabled by default.\nThis allows custom node classes to be supported with references.\n\nState machine blueprints that have a custom state machine class assigned by default\nwill always default to using a template." },
+	};
+#endif
+	void Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnableReferenceTemplatesByDefault_SetBit(void* Obj)
+	{
+		((USMProjectEditorSettings*)Obj)->bEnableReferenceTemplatesByDefault = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnableReferenceTemplatesByDefault = { "bEnableReferenceTemplatesByDefault", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMProjectEditorSettings), &Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnableReferenceTemplatesByDefault_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnableReferenceTemplatesByDefault_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnableReferenceTemplatesByDefault_MetaData)) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_MetaData[] = {
+		{ "Category", "Pins" },
+		{ "Comment", "/**\n\x09 * Logic Driver can add support to select soft actor references from UEdGraphPins. Unreal by default does not support this.\n\x09 * You can add support only to Logic Driver assets, to all blueprint assets, or disable completely.\n\x09 *\n\x09 * Switching to None or from None requires an editor restart.\n\x09 **/" },
+		{ "ModuleRelativePath", "Private/Configuration/SMProjectEditorSettings.h" },
+		{ "ToolTip", "Logic Driver can add support to select soft actor references from UEdGraphPins. Unreal by default does not support this.\nYou can add support only to Logic Driver assets, to all blueprint assets, or disable completely.\n\nSwitching to None or from None requires an editor restart." },
+	};
+#endif
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins = { "OverrideActorSoftReferencePins", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMProjectEditorSettings, OverrideActorSoftReferencePins), Z_Construct_UEnum_SMSystemEditor_ESMPinOverride, METADATA_PARAMS(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_MetaData)) }; // 1341780341
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnablePreviewMode_MetaData[] = {
 		{ "Category", "Preview" },
 		{ "Comment", "/**\n\x09 * Enable the preview mode as an available editor mode.\n\x09 */" },
@@ -401,6 +492,9 @@ void EmptyLinkFunctionForGeneratedCodeSMProjectEditorSettings() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_DefaultStateMachineClass,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_DefaultConduitClass,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_DefaultTransitionClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnableReferenceTemplatesByDefault,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_Underlying,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMProjectEditorSettings_Statics::NewProp_bEnablePreviewMode,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_USMProjectEditorSettings_Statics::StaticCppClassTypeInfo = {
@@ -418,26 +512,35 @@ void EmptyLinkFunctionForGeneratedCodeSMProjectEditorSettings() {}
 		0,
 		UE_ARRAY_COUNT(Z_Construct_UClass_USMProjectEditorSettings_Statics::PropPointers),
 		0,
-		0x001000A4u,
+		0x001000A6u,
 		METADATA_PARAMS(Z_Construct_UClass_USMProjectEditorSettings_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_USMProjectEditorSettings_Statics::Class_MetaDataParams))
 	};
 	UClass* Z_Construct_UClass_USMProjectEditorSettings()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMProjectEditorSettings.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMProjectEditorSettings_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMProjectEditorSettings.OuterSingleton, Z_Construct_UClass_USMProjectEditorSettings_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMProjectEditorSettings.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMProjectEditorSettings, 472003735);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMProjectEditorSettings>()
 	{
 		return USMProjectEditorSettings::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMProjectEditorSettings(Z_Construct_UClass_USMProjectEditorSettings, &USMProjectEditorSettings::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMProjectEditorSettings"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMProjectEditorSettings);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMProjectEditorSettings_h_Statics
+	{
+		static const FEnumRegisterCompiledInInfo EnumInfo[];
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMProjectEditorSettings_h_Statics::EnumInfo[] = {
+		{ ESMPinOverride_StaticEnum, TEXT("ESMPinOverride"), &Z_Registration_Info_UEnum_ESMPinOverride, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1341780341U) },
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMProjectEditorSettings_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMProjectEditorSettings, USMProjectEditorSettings::StaticClass, TEXT("USMProjectEditorSettings"), &Z_Registration_Info_UClass_USMProjectEditorSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMProjectEditorSettings), 3754786856U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMProjectEditorSettings_h_2718735426(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMProjectEditorSettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMProjectEditorSettings_h_Statics::ClassInfo),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMProjectEditorSettings_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMProjectEditorSettings_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

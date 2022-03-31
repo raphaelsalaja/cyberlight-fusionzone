@@ -1,11 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTransitionGraph.h"
-#include "EdGraph/EdGraphPin.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Nodes/SMGraphNode_TransitionEdge.h"
-#include "Nodes/Helpers/SMGraphK2Node_FunctionNodes.h"
-#include "Nodes/Helpers/SMGraphK2Node_FunctionNodes_NodeInstance.h"
+#include "Nodes/Helpers/SMGraphK2Node_FunctionNodes_TransitionInstance.h"
 #include "Nodes/Helpers/SMGraphK2Node_StateWriteNodes.h"
 #include "Nodes/RootNodes/SMGraphK2Node_TransitionEnteredNode.h"
 #include "Nodes/RootNodes/SMGraphK2Node_TransitionPreEvaluateNode.h"
@@ -13,6 +11,7 @@
 #include "Nodes/RootNodes/SMGraphK2Node_TransitionInitializedNode.h"
 #include "Nodes/RootNodes/SMGraphK2Node_TransitionShutdownNode.h"
 
+#include "EdGraph/EdGraphPin.h"
 
 USMTransitionGraph::USMTransitionGraph(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer), ResultNode(nullptr)
@@ -46,7 +45,7 @@ bool USMTransitionGraph::HasAnyLogicConnections() const
 	{
 		if (RootNode->GetInputPin()->LinkedTo.Num() || RootNode->GetInputPin()->DefaultValue.ToBool())
 		{
-			const_cast<USMTransitionGraph*>(this)->bHasLogicConnectionsCached = true;
+			bHasLogicConnectionsCached = true;
 			return true;
 		}
 	}
@@ -61,13 +60,13 @@ bool USMTransitionGraph::HasAnyLogicConnections() const
 		{
 			if (Node->GetExecPin()->LinkedTo.Num() > 0 && (Node->GetInputPin()->LinkedTo.Num() || Node->GetInputPin()->DefaultValue.ToBool()))
 			{
-				const_cast<USMTransitionGraph*>(this)->bHasLogicConnectionsCached = true;
+				bHasLogicConnectionsCached = true;
 				return true;
 			}
 		}
 	}
 
-	const_cast<USMTransitionGraph*>(this)->bHasLogicConnectionsCached = false;
+	bHasLogicConnectionsCached = false;
 	
 	return false;
 }
@@ -80,7 +79,7 @@ ESMConditionalEvaluationType USMTransitionGraph::GetConditionalEvaluationType() 
 	// We want to find the node even if it's buried in a nested graph.
 	FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_TransitionResultNode>(this, RootNodeList);
 
-	for (USMGraphK2Node_RootNode* RootNode : RootNodeList)
+	for (const USMGraphK2Node_RootNode* RootNode : RootNodeList)
 	{
 		UEdGraphPin* Pin = RootNode->GetInputPin();
 		
@@ -98,7 +97,7 @@ ESMConditionalEvaluationType USMTransitionGraph::GetConditionalEvaluationType() 
 	return ESMConditionalEvaluationType::SM_Graph;
 }
 
-bool USMTransitionGraph::HasTransitionTunnel() const
+bool USMTransitionGraph::HasTransitionEnteredLogic() const
 {
 	return HasNodeWithExecutionLogic<USMGraphK2Node_TransitionEnteredNode>();
 }

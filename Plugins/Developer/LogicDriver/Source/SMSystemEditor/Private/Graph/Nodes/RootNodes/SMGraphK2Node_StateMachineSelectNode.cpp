@@ -1,12 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateMachineSelectNode.h"
-#include "EdGraph/EdGraph.h"
-#include "GraphEditorSettings.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
 #include "Graph/SMGraphK2.h"
 #include "Graph/SMStateGraph.h"
 #include "Graph/SMTransitionGraph.h"
+
+#include "EdGraph/EdGraph.h"
+#include "GraphEditorSettings.h"
 
 #define LOCTEXT_NAMESPACE "SMStateMachineSelectNode"
 

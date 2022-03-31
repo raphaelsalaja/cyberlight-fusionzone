@@ -1,16 +1,18 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTransitionInstance.h"
 #include "SMInstance.h"
 #include "SMStateInstance.h"
 #include "SMTransition.h"
 
-USMTransitionInstance::USMTransitionInstance() : Super(), PriorityOrder(0),
-bRunParallel(false), bEvalIfNextStateActive(true), bCanEvaluate(true), bCanEvaluateFromEvent(true),
-bCanEvalWithStartState(true)
+USMTransitionInstance::USMTransitionInstance() : Super(),
+PriorityOrder(0), bRunParallel(false), bEvalIfNextStateActive(true),
+bCanEvaluate(true), bCanEvaluateFromEvent(true), bCanEvalWithStartState(true)
 {
 #if WITH_EDITORONLY_DATA
 	IconLocationPercentage = 0.5f;
+	bShowBackgroundOnCustomIcon = false;
+	bHideIcon = false;
 #endif
 }
 
@@ -20,7 +22,7 @@ USMStateInstance_Base* USMTransitionInstance::GetPreviousStateInstance() const
 	{
 		if (FSMState_Base* PrevState = Transition->GetFromState())
 		{
-			return Cast<USMStateInstance_Base>(PrevState->GetNodeInstance());
+			return Cast<USMStateInstance_Base>(PrevState->GetOrCreateNodeInstance());
 		}
 	}
 
@@ -33,7 +35,7 @@ USMStateInstance_Base* USMTransitionInstance::GetNextStateInstance() const
 	{
 		if (FSMState_Base* NextState = Transition->GetToState())
 		{
-			return Cast<USMStateInstance_Base>(NextState->GetNodeInstance());
+			return Cast<USMStateInstance_Base>(NextState->GetOrCreateNodeInstance());
 		}
 	}
 
@@ -46,7 +48,7 @@ USMStateInstance_Base* USMTransitionInstance::GetSourceStateForActiveTransition(
 	{
 		if (Transition->SourceState)
 		{
-			return Cast<USMStateInstance_Base>(Transition->SourceState->GetNodeInstance());
+			return Cast<USMStateInstance_Base>(Transition->SourceState->GetOrCreateNodeInstance());
 		}
 	}
 
@@ -59,7 +61,7 @@ USMStateInstance_Base* USMTransitionInstance::GetDestinationStateForActiveTransi
 	{
 		if (Transition->DestinationState)
 		{
-			return Cast<USMStateInstance_Base>(Transition->DestinationState->GetNodeInstance());
+			return Cast<USMStateInstance_Base>(Transition->DestinationState->GetOrCreateNodeInstance());
 		}
 	}
 
@@ -99,14 +101,125 @@ bool USMTransitionInstance::DoesTransitionPass() const
 	return false;
 }
 
+bool USMTransitionInstance::IsTransitionFromAnyState() const
+{
+	GET_NODE_STRUCT_VALUE(FSMTransition, bFromAnyState);
+	return false;
+}
+
 void USMTransitionInstance::EvaluateFromManuallyBoundEvent()
 {
+	const bool bOriginalEvalValue = GetCanEvaluate();
 	SetCanEvaluate(true);
-	if (USMInstance* OwningStateMachine = GetStateMachineInstance(true))
+	USMInstance* OwningStateMachine = GetStateMachineInstance(true);
+	if (OwningStateMachine)
 	{
-		OwningStateMachine->EvaluateTransitions();
+		OwningStateMachine->EvaluateAndTakeTransitionChain(this);
 	}
-	SetCanEvaluate(false);
+	SetCanEvaluate(bOriginalEvalValue);
+}
+
+void USMTransitionInstance::GetAllTransitionStackInstances(
+	TArray<USMTransitionInstance*>& TransitionStackInstances) const
+{
+	TransitionStackInstances.Reset();
+	
+	if (const FSMNode_Base* Transition = GetOwningNode())
+	{
+		const TArray<USMNodeInstance*>& TransitionStack = Transition->GetStackInstances();
+		TransitionStackInstances.Reserve(TransitionStack.Num());
+		
+		for (USMNodeInstance* Node : TransitionStack)
+		{
+			if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(Node))
+			{
+				TransitionStackInstances.Add(TransitionInstance);
+			}
+		}
+	}
+}
+
+USMTransitionInstance* USMTransitionInstance::GetTransitionInStack(int32 Index) const
+{
+	if (const FSMNode_Base* Transition = GetOwningNode())
+	{
+		const TArray<USMNodeInstance*>& Stack = Transition->GetStackInstances();
+		if (Index >= 0 && Index < Stack.Num())
+		{
+			return Cast<USMTransitionInstance>(Stack[Index]);
+		}
+	}
+
+	return nullptr;
+}
+
+USMTransitionInstance* USMTransitionInstance::GetTransitionInStackByClass(
+	TSubclassOf<USMTransitionInstance> TransitionClass, bool bIncludeChildren) const
+{
+	if (const FSMNode_Base* Transition = GetOwningNode())
+	{
+		const TArray<USMNodeInstance*>& TransitionStack = Transition->GetStackInstances();
+		for (USMNodeInstance* Node : TransitionStack)
+		{
+			if ((bIncludeChildren && Node->GetClass()->IsChildOf(TransitionClass)) || Node->GetClass() == TransitionClass)
+			{
+				return Cast<USMTransitionInstance>(Node);
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+USMTransitionInstance* USMTransitionInstance::GetStackOwnerInstance() const
+{
+	if (const FSMNode_Base* Transition = GetOwningNode())
+	{
+		return Cast<USMTransitionInstance>(const_cast<FSMNode_Base*>(Transition)->GetOrCreateNodeInstance());
+	}
+
+	return nullptr;
+}
+
+void USMTransitionInstance::GetAllTransitionsInStackOfClass(TSubclassOf<USMTransitionInstance> TransitionClass,
+	TArray<USMTransitionInstance*>& TransitionStackInstances, bool bIncludeChildren) const
+{
+	TransitionStackInstances.Reset();
+	
+	if (const FSMNode_Base* Transition = GetOwningNode())
+	{
+		const TArray<USMNodeInstance*>& TransitionStack = Transition->GetStackInstances();
+		for (USMNodeInstance* Node : TransitionStack)
+		{
+			if ((bIncludeChildren && Node->GetClass()->IsChildOf(TransitionClass)) || Node->GetClass() == TransitionClass)
+			{
+				if (USMTransitionInstance* TransitionNode = Cast<USMTransitionInstance>(Node))
+				{
+					TransitionStackInstances.Add(TransitionNode);
+				}
+			}
+		}
+	}
+}
+
+int32 USMTransitionInstance::GetTransitionIndexInStack(USMTransitionInstance* TransitionInstance) const
+{
+	if (const FSMNode_Base* Transition = GetOwningNode())
+	{
+		return Transition->GetStackInstances().IndexOfByKey(TransitionInstance);
+	}
+
+	return INDEX_NONE;
+}
+
+int32 USMTransitionInstance::GetTransitionStackCount() const
+{
+	if (const FSMNode_Base* Transition = GetOwningNode())
+	{
+		return Transition->GetStackInstances().Num();
+	}
+
+	return 0;
 }
 
 void USMTransitionInstance::SetCanEvaluate(const bool bValue)

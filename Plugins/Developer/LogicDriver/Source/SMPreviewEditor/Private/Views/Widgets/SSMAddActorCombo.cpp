@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SSMAddActorCombo.h"
 
@@ -11,7 +11,6 @@
 #include "IContentBrowserSingleton.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
-
 
 #define LOCTEXT_NAMESPACE "SSMAddActorCombo"
 
@@ -26,37 +25,14 @@ void SSMAddActorCombo::Construct(const FArguments& InArgs, TSharedPtr<FSMBluepri
 	OnActorClassSelectedEvent = InArgs._OnActorSelected;
 
 	// Create the Construct arguments for the parent class (SComboButton)
-	SComboButton::FArguments Args;
-	Args.ButtonContent()
-	[
-		SNew(SHorizontalBox)
-		+SHorizontalBox::Slot()
-		.VAlign(VAlign_Center)
-		.AutoWidth()
-		.Padding(1.f,1.f)
-		[
-			SNew(STextBlock)
-			.TextStyle(FEditorStyle::Get(), "ContentBrowser.TopBar.Font")
-			.Font(FEditorStyle::Get().GetFontStyle("FontAwesome.10"))
-			.Text(FText::FromString(FString(TEXT("\xf067"))) /*fa-plus*/)
-		]
-		+ SHorizontalBox::Slot()
-		.VAlign(VAlign_Center)
-		.Padding(1.f)
-		[
-			SNew(STextBlock)
-			.Text(LOCTEXT("AddActorButtonLabel", "Add Actor"))
-			.TextStyle(FEditorStyle::Get(), "ContentBrowser.TopBar.Font")
-		]
-	]
-	.OnGetMenuContent(this, &SSMAddActorCombo::GenerateMenuContent)
-	.IsFocusable(true)
-	.ContentPadding(FMargin(5, 0))
-	.ComboButtonStyle(FEditorStyle::Get(), "ToolbarComboButton")
-	.ButtonStyle(FEditorStyle::Get(), "FlatButton.Success")
-	.ForegroundColor(FLinearColor::White);
+	SPositiveActionButton::FArguments Args;
 
-	SComboButton::Construct(Args);
+	Args.Icon(FAppStyle::Get().GetBrush("Icons.Plus"));
+	Args.Text(LOCTEXT("AddActorButtonLabel", "Add Actor"));
+	
+	Args.OnGetMenuContent(this, &SSMAddActorCombo::GenerateMenuContent);
+
+	SPositiveActionButton::Construct(Args);
 }
 
 TSharedRef<SWidget> SSMAddActorCombo::GenerateMenuContent()
@@ -65,7 +41,7 @@ TSharedRef<SWidget> SSMAddActorCombo::GenerateMenuContent()
 	{
 		AssetPickerConfig.OnAssetSelected = FOnAssetSelected::CreateSP(this, &SSMAddActorCombo::OnAssetSelected);
 		AssetPickerConfig.OnShouldFilterAsset = FOnShouldFilterAsset::CreateSP(this, &SSMAddActorCombo::OnShouldFilterAsset);
-		AssetPickerConfig.InitialAssetViewType = EAssetViewType::Tile;
+		AssetPickerConfig.InitialAssetViewType = EAssetViewType::List;
 		AssetPickerConfig.SelectionMode = ESelectionMode::Single;
 		AssetPickerConfig.bFocusSearchBoxWhenOpened = true;
 		AssetPickerConfig.bAllowNullSelection = false;
@@ -97,7 +73,7 @@ TSharedRef<SWidget> SSMAddActorCombo::GenerateMenuContent()
 
 void SSMAddActorCombo::OnAssetSelected(const FAssetData& InAssetData)
 {
-	if(UBlueprint* Blueprint = Cast<UBlueprint>(InAssetData.GetAsset()))
+	if (UBlueprint* Blueprint = Cast<UBlueprint>(InAssetData.GetAsset()))
 	{
 		if (Blueprint->GeneratedClass && Blueprint->GeneratedClass->IsChildOf<AActor>())
 		{
@@ -105,7 +81,7 @@ void SSMAddActorCombo::OnAssetSelected(const FAssetData& InAssetData)
 		}
 	}
 	
-	SetIsOpen(false);
+	SetIsMenuOpen(false, false);
 }
 
 bool SSMAddActorCombo::OnShouldFilterAsset(const FAssetData& InAssetData)

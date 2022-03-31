@@ -1,12 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Widgets/SSMGraphProperty.h"
+#include "Graph/Nodes/SlateNodes/Properties/SSMGraphProperty.h"
+
 #include "SSMEditableTextBlock.h"
 #include "SMTextGraphProperty.h"
 
+#include "CoreMinimal.h"
 
 class SSMTextProperty : public SSMGraphProperty_Base
 {
@@ -32,6 +33,7 @@ class SSMTextProperty : public SSMGraphProperty_Base
 protected:
 	FSMTextNodeWidgetInfo WidgetInfo;
 	TSharedPtr<SSMEditableTextBlock> InlineEditableTextBody;
+	TSharedPtr<SBox> InputPinContainer;
 	TSharedPtr<SHorizontalBox> HorizontalBox;
 	
 	bool IsReadOnly() const;

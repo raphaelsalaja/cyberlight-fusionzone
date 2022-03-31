@@ -1,19 +1,26 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SSMEditableTextBlock.h"
+
+#include "BPVariableDragDropAction.h"
 #include "SSMEditableTextBox.h"
 #include "Text/SMRunTypes.h"
-#include "Widgets/SBoxPanel.h"
+#include "Text/SMMoveCursor.h"
+#include "Configuration/SMExtendedEditorStyle.h"
+
+#include "Configuration/SMEditorStyle.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+#include "Helpers/SMDragDropHelpers.h"
+#include "Graph/Nodes/PropertyNodes/SMGraphK2Node_PropertyNode.h"
+
 #include "Framework/Application/SlateApplication.h"
 #include "Framework/Text/RichTextLayoutMarshaller.h"
 #include "Framework/Text/SlateHyperlinkRun.h"
 #include "Widgets/Input/SMultiLineEditableTextBox.h"
 #include "Widgets/Input/SEditableTextBox.h"
 #include "Widgets/Text/ISlateEditableTextWidget.h"
+#include "Widgets/SBoxPanel.h"
 #include "Text/SMMoveCursor.h"
-#include "EditorStyle.h"
-#include "Kismet/Private/BPVariableDragDropAction.h"
-#include "Kismet/Private/MyBlueprintItemDragDropAction.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Helpers/SMDragDropHelpers.h"
@@ -163,7 +170,7 @@ void SSMEditableTextBlock::EnterEditingMode()
 
 void SSMEditableTextBlock::ExitEditingMode()
 {
-	if(!IsInEditMode())
+	if (!IsInEditMode())
 	{
 		return;
 	}
@@ -354,7 +361,7 @@ FReply SSMEditableTextBlock::OnDrop(const FGeometry& MyGeometry, const FDragDrop
 			FProperty* Property = VariableDragDrop->GetVariableProperty();
 			InsertProperty(Property);
 		}
-		else if(FunctionDragDrop.IsValid())
+		else if (FunctionDragDrop.IsValid())
 		{
 			UFunction const* Function = FSMDragDropAction_Function::GetFunction(FunctionDragDrop.Get());
 			InsertFunction(const_cast<UFunction*>(Function));

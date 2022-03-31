@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-LockOnTarget.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Intermediate\Build\Win64\RevenantEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTarget\Module.LockOnTarget.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTarget\Module.LockOnTarget.gen.cpp.obj"
+"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTarget\Default.rc2.res"
+/OUT:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTarget\UnrealEditor-LockOnTarget.lib"
+/INCLUDE:IMPLEMENT_MODULE_LockOnTarget

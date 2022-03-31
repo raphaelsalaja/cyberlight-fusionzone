@@ -1,9 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Widgets/Input/SComboButton.h"
+#include "SPositiveActionButton.h"
 
 class USMPreviewObject;
 class FSMBlueprintEditor;
@@ -14,7 +14,7 @@ DECLARE_DELEGATE_OneParam(FOnActorClassSelected, TSubclassOf<AActor> /*ActorClas
 /**
  * Custom actor creation combo box.
  */
-class SSMAddActorCombo : public SComboButton
+class SSMAddActorCombo : public SPositiveActionButton
 {
 public:
 	SLATE_BEGIN_ARGS(SSMAddActorCombo) {}

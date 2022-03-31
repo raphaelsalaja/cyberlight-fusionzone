@@ -1,13 +1,15 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_TransitionPreEvaluateNode.h"
-#include "EdGraph/EdGraph.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
 #include "Graph/SMTransitionGraph.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+
+#include "Blueprints/SMBlueprint.h"
+
+#include "EdGraph/EdGraph.h"
 #include "BlueprintNodeSpawner.h"
 #include "BlueprintActionDatabaseRegistrar.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-#include "Blueprints/SMBlueprint.h"
 
 #define LOCTEXT_NAMESPACE "SMTransitionPreEvaluateNode"
 
@@ -23,7 +25,7 @@ void USMGraphK2Node_TransitionPreEvaluateNode::AllocateDefaultPins()
 
 void USMGraphK2Node_TransitionPreEvaluateNode::PostPlacedNewNode()
 {
-	RuntimeNodeGuid = GetRuntimeContainer()->GetRunTimeNodeChecked()->GetNodeGuid();
+	RuntimeNodeGuid = GetRuntimeContainerChecked()->GetRunTimeNodeChecked()->GetNodeGuid();
 }
 
 FText USMGraphK2Node_TransitionPreEvaluateNode::GetMenuCategory() const
@@ -78,7 +80,7 @@ bool USMGraphK2Node_TransitionPreEvaluateNode::IsActionFilteredOut(FBlueprintAct
 		}
 
 		// Only allow one node.
-		if(FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_TransitionPreEvaluateNode>(Graph))
+		if (FSMBlueprintEditorUtils::IsNodeAlreadyPlaced<USMGraphK2Node_TransitionPreEvaluateNode>(Graph))
 		{
 			return true;
 		}

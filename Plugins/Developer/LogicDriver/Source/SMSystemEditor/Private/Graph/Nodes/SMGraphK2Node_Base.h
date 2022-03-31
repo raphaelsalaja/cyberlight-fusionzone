@@ -1,11 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "K2Node.h"
-#include "SMGraphK2Node_Base.generated.h"
 
+#include "SMGraphK2Node_Base.generated.h"
 
 #define STATE_MACHINE_HELPER_CATEGORY TEXT("Logic Driver|Local Graph Nodes")
 #define STATE_MACHINE_INSTANCE_CALL_CATEGORY TEXT("Logic Driver|Local Graph Nodes|Instance Functions")
@@ -28,8 +28,8 @@ public:
 	virtual UEdGraphPin* GetThenPin() const;
 
 	/** In case validation needs to occur before being moved to the consolidated event graph. */
-	virtual void PreCompileValidate(class FCompilerResultsLog& MessageLog) {}
-	virtual void PostCompileValidate(class FCompilerResultsLog& MessageLog) {}
+	virtual void PreCompileValidate(FCompilerResultsLog& MessageLog) {}
+	virtual void PostCompileValidate(FCompilerResultsLog& MessageLog) {}
 	
 	/** Restrict all collapse options from showing up in the context menu. */
 	virtual bool CanCollapseNode() const { return true; }

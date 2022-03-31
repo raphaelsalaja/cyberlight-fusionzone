@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -20,11 +20,12 @@
 #include "K2Node_Composite.h"
 #include "K2Node_CallParentFunction.h"
 
-
 // Restrict all INVALID_OBJECTNAME_CHARACTERS except for space.
 #define LD_INVALID_STATENAME_CHARACTERS	TEXT("\"',/.:|&!~\n\r\t@#(){}[]=;^%$`")
 
 class FSMBlueprintEditor;
+class USMGraphNode_StateNodeBase;
+class USMGraphNode_AnyStateNode;
 
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FOnBlueprintConditionallyCompiled, UBlueprint* /*Blueprint*/, bool /*bUpdateDependencies*/, bool /*bRecreateGraphProperties*/)
 
@@ -153,6 +154,9 @@ public:
 			GetAllGraphsOfClassNestedWithParents(Graph, GraphsOut);
 		}
 	}
+
+	/** Retrieve all nodes with IsConsideredForEntryConnection(). */
+	static void GetAllRuntimeEntryNodes(const UEdGraph* InGraph, TArray<USMGraphK2Node_RuntimeNode_Base*>& OutEntryNodes);
 	
 	/** Only compiles if not already compiling. */
 	static void ConditionallyCompileBlueprint(UBlueprint* Blueprint, bool bUpdateDependencies = true, bool bRecreateGraphProperties = false);
@@ -216,10 +220,10 @@ public:
 		check(Graph);
 
 		FGraphNodeCreator<T> NodeCreator(*Graph);
-		T* NeWNode = NodeCreator.CreateNode();
+		T* NewNode = NodeCreator.CreateNode();
 		NodeCreator.Finalize();
 
-		UEdGraphNode* NewGraphNode = CastChecked<UEdGraphNode>(NeWNode);
+		UEdGraphNode* NewGraphNode = CastChecked<UEdGraphNode>(NewNode);
 		if (OutNode)
 		{
 			*OutNode = Cast<T>(NewGraphNode);
@@ -243,18 +247,13 @@ public:
 				}
 			}
 
-			if (USMGraphK2Node_Base* SMGraphNode = Cast<USMGraphK2Node_Base>(NodeToWireFrom))
+			if (const USMGraphK2Node_Base* SMGraphNode = Cast<USMGraphK2Node_Base>(NodeToWireFrom))
 			{
 				// If we're wiring from one of our nodes the exec and then pins may not be set.
 				// PN_Execute and PN_Then used to be set to None on our nodes through 2.0.1.
 				if (UEdGraphPin* ExecutePin = NewGraphNode->FindPin(UEdGraphSchema_K2::PN_Execute, EGPD_Input))
 				{
 					UEdGraphPin* ThenPin = SMGraphNode->GetThenPin();
-					if (ThenPin == nullptr)
-					{
-						ThenPin = SMGraphNode->GetOutputPin();
-					}
-
 					if (ThenPin)
 					{
 						SMGraphNode->GetSchema()->TryCreateConnection(ThenPin, ExecutePin);
@@ -290,6 +289,9 @@ public:
 		FSMBlueprintEditorUtils::PlaceNodeIfNotSet<T2>(Graph, Entered);
 	}
 
+	/** Splits a category string into separate categories, such as Category|NestedCategory. */
+	static void SplitCategories(const FString& InCategoryString, TArray<FString>& OutCategories);
+	
 	/** Checks if this is a default graph node. This isn't very useful since if a graph was duplicated it won't have copied the meta data over. */
 	static bool IsNodeGraphDefault(const UEdGraphNode* Node);
 	
@@ -303,13 +305,19 @@ public:
 	static FSMNode_Base* GetRuntimeNodeFromExactNodeChecked(UEdGraphNode* Node);
 
 	static USMNodeInstance* GetNodeTemplate(const UEdGraph* ForGraph);
-	static TSubclassOf<class UObject> GetNodeTemplateClass(const UEdGraph* ForGraph, bool bReturnDefaultIfNone = false, const FGuid& TemplateGuid = FGuid());
+	static TSubclassOf<UObject> GetNodeTemplateClass(const UEdGraph* ForGraph, bool bReturnDefaultIfNone = false, const FGuid& TemplateGuid = FGuid());
 
-	static UClass* GetNodeClassFromPin(const class UEdGraphPin* Pin);
-	static UClass* GetStateMachineClassFromGraph(const class UEdGraph* Graph);
+	static UClass* GetNodeClassFromPin(const UEdGraphPin* Pin);
+	static UClass* GetStateMachineClassFromGraph(const UEdGraph* Graph);
+
+	/** Jump to the node blueprint. */
+	static void GoToNodeBlueprint(const USMGraphNode_Base* InGraphNode);
+
+	/** Find the USMNodeBlueprint from a node class and set the debug target if applicable. */
+	static USMNodeBlueprint* GetNodeBlueprintFromClassAndSetDebugObject(const UClass* InClass, const USMGraphNode_Base* InGraphNode, const FGuid* InTemplateGuid = nullptr);
 
 	/** Return the run-time debug node for a graph node, if one exists. */
-	static const FSMNode_Base* GetDebugNode(USMGraphNode_Base* Node);
+	static const FSMNode_Base* GetDebugNode(const USMGraphNode_Base* Node);
 	
 	/** Search graphs to return a chain of runtime nodes ordered oldest to newest. Mimics runtime behavior of TryGetAllOwners. */
 	static void FindRuntimeNodeWithOwners(const UEdGraph* Graph, TArray<const FSMNode_Base*>& RuntimeNodesOrdered, TSet<const UObject*>* StopOnOuters = nullptr);
@@ -362,16 +370,20 @@ public:
 	static USMGraph* GetRootStateMachineGraph(UBlueprint* Blueprint, bool bUseParent = false);
 
 	/** Find the runtime container from a graph. */
-	static USMGraphK2Node_RuntimeNodeContainer* GetRuntimeContainerFromGraph(UEdGraph* Graph);
+	static USMGraphK2Node_RuntimeNodeContainer* GetRuntimeContainerFromGraph(const UEdGraph* Graph);
 	
-	/** Looks for any state nodes and sees if they impact the given node. */
-	static bool IsNodeImpactedFromAnyStateNode(const class USMGraphNode_StateNodeBase* StateNode);
+	/**
+	 * Look for Any State nodes and determine if they impact the given node.
+	 * @param StateNode The normal state base node to check against Any States.
+	 * @param OutAllAnyStates If provided all Any States impacting the state node will be returned.
+	 */
+	static bool IsNodeImpactedFromAnyStateNode(const USMGraphNode_StateNodeBase* StateNode, TArray<USMGraphNode_AnyStateNode*>* OutAllAnyStates = nullptr);
 
-	/** Retrieve all AnyState nodes for the given graph only. */
-	static bool TryGetAnyStateNodesForGraph(USMGraph* Graph, TArray<class USMGraphNode_AnyStateNode*>& Nodes);
+	/** Retrieve all Any State nodes for the given graph only. */
+	static bool TryGetAnyStateNodesForGraph(USMGraph* Graph, TArray<USMGraphNode_AnyStateNode*>& OutNodes);
 
-	/** Checks if a specific any state node impacts a specific state node. */
-	static bool DoesAnyStateImpactOtherNode(class USMGraphNode_AnyStateNode* AnyStateNode, const class USMGraphNode_StateNodeBase* OtherNode);
+	/** Checks if a specific Any State node impacts a specific state node. */
+	static bool DoesAnyStateImpactOtherNode(USMGraphNode_AnyStateNode* AnyStateNode, const USMGraphNode_StateNodeBase* OtherNode);
 	
 	/** Retrieve all generated class parents of a blueprint from newest to oldest. */
 	static bool TryGetParentClasses(UBlueprint* Blueprint, TArray<USMBlueprintGeneratedClass*>& OutClassesOrdered);
@@ -434,7 +446,7 @@ public:
 	static bool CanStateMachineBeConvertedToReference(USMGraph* Graph);
 	
 	/** Collapse the given nodes into their own sub state machine. */
-	static void CollapseNodesAndCreateStateMachine(const TSet<UObject*>& Nodes);
+	static USMGraphNode_StateMachineStateNode* CollapseNodesAndCreateStateMachine(const TSet<UObject*>& Nodes);
 
 	/** Helper utility to combine multiple selected states */
 	static void CombineStates(UEdGraphNode* DestinationNode, const TSet<UObject*>& NodesToMerge, bool bDestroyStates);
@@ -447,7 +459,7 @@ public:
 
 	/** Convert USMGraphNode to another USMGraphNode, wire up the connections, and delete the old node. */
 	template<typename T>
-	static T* ConvertNodeTo(USMGraphNode_Base* OriginalNode, bool bDontOverrideDefaultClass = false)
+	static T* ConvertNodeTo(USMGraphNode_Base* OriginalNode, bool bDontOverrideDefaultClass = false, bool bClearEditorSelection = true)
 	{
 		if (OriginalNode == nullptr)
 		{
@@ -484,15 +496,24 @@ public:
 
 		// Remove the old node.
 		OriginalNode->BreakAllNodeLinks();
-		RemoveNode(FindBlueprintForNode(OriginalNode), OriginalNode, true);
+
+		UBlueprint* Blueprint = FindBlueprintForNode(OriginalNode);
+		RemoveNode(Blueprint, OriginalNode, true);
 
 		GraphOwner->Modify();
 
+		if (bClearEditorSelection)
+		{
+			ClearEditorSelection(Blueprint);
+		}
+		
 		return NewNode;
 	}
 
 	/** Convert a state machine in-place to a referenced state machine. If Asset Name and Path are null they will be calculated. */
 	static USMBlueprint* ConvertStateMachineToReference(USMGraphNode_StateMachineStateNode* StateMachineNode,
 		bool bUserPrompt = true, FString* AssetName = nullptr, FString* AssetPath = nullptr);
+
+	static void ClearEditorSelection(const UObject* EditorContextObject);
 };
 

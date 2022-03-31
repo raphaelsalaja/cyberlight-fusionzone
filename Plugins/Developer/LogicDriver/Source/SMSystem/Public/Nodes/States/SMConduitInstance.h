@@ -1,11 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMStateInstance.h"
-#include "SMConduitInstance.generated.h"
 
+#include "SMConduitInstance.generated.h"
 
 /**
  * Conduits connect transitions. The connected transition chain including the conduit must pass to switch states.
@@ -80,12 +79,12 @@ private:
 	 * This makes the behavior similar to AnimGraph conduits.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = Conduit)
-	bool bEvalWithTransitions;
+	uint8 bEvalWithTransitions: 1;
 
 	/**
 	 * If this conduit is allowed to evaluate.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = Conduit, meta=(DisplayName = "Can Evaluate"))
-	bool bCanEvaluate;
+	uint8 bCanEvaluate: 1;
 };
 

@@ -1,7 +1,6 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMIntermediateGraphSchema.h"
-#include "Kismet2/BlueprintEditorUtils.h"
 #include "Graph/SMIntermediateGraph.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_StateUpdateNode.h"
@@ -9,10 +8,11 @@
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_StateEndNode.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_FunctionNodes.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
+
+#include "Kismet2/BlueprintEditorUtils.h"
 #include "K2Node_CallFunction.h"
 
 #define LOCTEXT_NAMESPACE "SMStateGraphSchema"
-
 
 USMIntermediateGraphSchema::USMIntermediateGraphSchema(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)

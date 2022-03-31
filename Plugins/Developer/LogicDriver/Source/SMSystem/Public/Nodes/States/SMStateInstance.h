@@ -1,12 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMNodeInstance.h"
 #include "SMNode_Info.h"
+
 #include "SMStateInstance.generated.h"
 
+class USMTransitionInstance;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStateBeginSignature, class USMStateInstance_Base*, StateInstance);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnStateUpdateSignature, class USMStateInstance_Base*, StateInstance, float, DeltaSeconds);
@@ -37,21 +38,12 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Node Instance")
 	void OnStateUpdate(float DeltaSeconds);
 
-	/** Called when the state is ending. */
+	/**
+	 * Called when the state is ending. It is not advised to switch states during this event.
+	 * The state machine will already be in the process of switching states.
+	 */
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Node Instance")
 	void OnStateEnd();
-
-	/** Called when the immediate owning state machine blueprint is starting. If this is part of a reference
-	 * then it will be called when the reference starts. If this is for a state machine node
-	 * then it will only be called when the top level state machine starts.*/
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Node Instance")
-	void OnRootStateMachineStart();
-
-	/** Called when the immediate owning state machine blueprint is stopping. If this is part of a reference
-	 * then it will be called when the reference stops. If this is for a state machine node
-	 * then it will only be called when the top level state machine stops.*/
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Node Instance")
-	void OnRootStateMachineStop();
 	
 	// USMNodeInstance
 	/** If this state is an end state. */
@@ -66,11 +58,24 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
 	bool IsStateMachine() const;
 
-	/** Force set the active flag of this state. This call is replicated and can be called from the server or from a client that is not a simulated proxy.
+	/** If this state is an entry state within a state machine. */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	bool IsEntryState() const;
+	
+	/**
+	 * Force set the active flag of this state. This call is replicated and can be called from the server or from a client.
+	 * The caller must have state change authority.
+	 *
+	 * When calling from a state, it should be done either OnStateBegin or OnStateUpdate. When calling from a transition
+	 * it should be done from OnTransitionEntered and limited to the previous state. If this is called from other
+	 * state or transition methods it may cause issues with the normal update cycle of a state machine.
+	 * 
 	 * @param bValue True activates the state, false deactivates the state.
+	 * @param bSetAllParents Sets the active state of all super state machines. A parent state machine won't be deactivated unless there are no other states active.
+	 * @param bActivateNow If the state is becoming active it will fully activate and run OnStateBegin this tick. If this is false it will do so on the next update cycle.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	void SetActive(bool bValue);
+	void SetActive(bool bValue, bool bSetAllParents = false, bool bActivateNow = true);
 	
 	/**
 	 * Signals to the owning state machine to process transition evaluation.
@@ -88,7 +93,7 @@ public:
 	 * @return True if any transitions exist.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	bool GetOutgoingTransitions(TArray<class USMTransitionInstance*>& Transitions, bool bExcludeAlwaysFalse = true) const;
+	bool GetOutgoingTransitions(TArray<USMTransitionInstance*>& Transitions, bool bExcludeAlwaysFalse = true) const;
 
 	/**
 	 * Return all incoming transition instances.
@@ -97,32 +102,61 @@ public:
 	 * @return True if any transitions exist.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	bool GetIncomingTransitions(TArray<class USMTransitionInstance*>& Transitions, bool bExcludeAlwaysFalse = true) const;
+	bool GetIncomingTransitions(TArray<USMTransitionInstance*>& Transitions, bool bExcludeAlwaysFalse = true) const;
 	
 	/** The transition this state will be taking. Generally only valid on EndState and if this state isn't an end state. May be null. */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	class USMTransitionInstance* GetTransitionToTake() const;
+	USMTransitionInstance* GetTransitionToTake() const;
 
 	/**
 	 * Forcibly move to the next state providing this state is active and a transition is directly connecting the states.
+	 *
+	 * This should be done either OnStateBegin or OnStateUpdate. If this is called from other state methods it may cause
+	 * issues with the normal update cycle of a state machine.
+	 * 
 	 * @param NextStateInstance The state node instance to switch to.
 	 * @param bRequireTransitionToPass Will evaluate the transition and only switch states if it passes.
+	 * @param bActivateNow If the state switches the destination state will activate and run OnStateBegin this tick. Otherwise, it will do so in the next update cycle.
 	 *
 	 * @return True if the active state was switched.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	bool SwitchToLinkedState(USMStateInstance_Base* NextStateInstance, bool bRequireTransitionToPass = true);
+	bool SwitchToLinkedState(USMStateInstance_Base* NextStateInstance, bool bRequireTransitionToPass = true, bool bActivateNow = true);
 
 	/**
 	 * Forcibly move to the next state providing this state is active and a transition is directly connecting the states.
+	 *
+	 * This should be done either OnStateBegin or OnStateUpdate. If this is called from other state methods it may cause
+	 * issues with the normal update cycle of a state machine.
+	 * 
 	 * @param NextStateName The name of the state to switch to.
 	 * @param bRequireTransitionToPass Will evaluate the transition and only switch states if it passes.
+	 * @param bActivateNow If the state switches the destination state will activate and run OnStateBegin this tick. Otherwise, it will do so in the next update cycle.
 	 *
 	 * @return True if the active state was switched.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	bool SwitchToLinkedStateByName(const FString& NextStateName, bool bRequireTransitionToPass = true);
+	bool SwitchToLinkedStateByName(const FString& NextStateName, bool bRequireTransitionToPass = true, bool bActivateNow = true);
 
+	/**
+	 * Forcibly move to the next state providing this state is active and a transition is directly connecting the states.
+	 *
+	 * This should be done either OnStateBegin or OnStateUpdate. If this is called from other state methods it may cause
+	 * issues with the normal update cycle of a state machine.
+	 * 
+	 * @param TransitionInstance The transition which should be taken to the next state.
+	 * @param bRequireTransitionToPass Will evaluate the transition and only switch states if it passes.
+	 * @param bActivateNow If the state switches the destination state will activate and run OnStateBegin this tick. Otherwise, it will do so in the next update cycle.
+	 *
+	 * @return True if the active state was switched.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	bool SwitchToLinkedStateByTransition(USMTransitionInstance* TransitionInstance, bool bRequireTransitionToPass = true, bool bActivateNow = true);
+
+private:
+	bool SwitchToLinkedStateByTransition_Internal(FSMTransition* Transition, bool bRequireTransitionToPass = true, bool bActivateNow = true);
+	
+public:
 	/**
 	 * Return a transition given the transition index.
 	 * @param Index The array index of the transition. If transitions have manual priorities they should correlate with the index value.
@@ -178,6 +212,14 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
 	USMTransitionInstance* GetPreviousActiveTransition() const;
+
+	/** Checks if every outgoing transition was created by an Any State. */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	bool AreAllOutgoingTransitionsFromAnAnyState() const;
+
+	/** Checks if every incoming transition was created by an Any State. */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	bool AreAllIncomingTransitionsFromAnAnyState() const;
 	
 	/**
 	 * Retrieve the UTC time when the state last started. If this is called before the state has started once,
@@ -193,7 +235,7 @@ public:
 	 * and can match the TimeInState from the server.
 	 *
 	 * This will only match the server after OnStateEnd() is called and provided the client received the replicated
-	 * transition. When using client authored transitions, `bTakeTransitionsFromServerOnly` must be set to true
+	 * transition. When using client state change authority, `bWaitForTransactionsFromServer` must be set to true
 	 * for the client to receive the updated server time.
 	 *
 	 * When the server time can't be calculated the local time will be returned instead, using GetTimeInState().
@@ -216,35 +258,36 @@ public:
 	 */
 	void GetAllNodesOfType(TArray<USMNodeInstance*>& OutNodes, TSubclassOf<USMNodeInstance> NodeClass, bool bIncludeChildren = true, const TArray<UClass*>& StopIfTypeIsNot = TArray<UClass*>()) const;
 
+public:
 	/**
 	 * Should graph properties evaluate when initializing or on state start.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Properties", AdvancedDisplay, meta = (InstancedTemplate, HideOnNode, EditCondition = "bAutoEvalExposedProperties", DisplayName = "Auto Eval on Start"))
-	bool bEvalGraphsOnStart;
+	uint8 bEvalGraphsOnStart: 1;
 
 	/**
 	 * Should graph properties evaluate on state update.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Properties", AdvancedDisplay, meta = (InstancedTemplate, HideOnNode, EditCondition = "bAutoEvalExposedProperties", DisplayName = "Auto Eval on Update"))
-	bool bEvalGraphsOnUpdate;
+	uint8 bEvalGraphsOnUpdate: 1;
 
 	/**
 	 * Should graph properties evaluate on state end.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Properties", AdvancedDisplay, meta = (InstancedTemplate, HideOnNode, EditCondition = "bAutoEvalExposedProperties", DisplayName = "Auto Eval on End"))
-	bool bEvalGraphsOnEnd;
+	uint8 bEvalGraphsOnEnd: 1;
 
 	/**
 	 * Should graph properties evaluate when the root state machine starts.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Properties", AdvancedDisplay, meta = (InstancedTemplate, HideOnNode, EditCondition = "bAutoEvalExposedProperties", DisplayName = "Auto Eval on Root State Machine Start"))
-	bool bEvalGraphsOnRootStateMachineStart;
+	uint8 bEvalGraphsOnRootStateMachineStart: 1;
 
 	/**
 	 * Should graph properties evaluate when the root state machine stops.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Properties", AdvancedDisplay, meta = (InstancedTemplate, HideOnNode, EditCondition = "bAutoEvalExposedProperties", DisplayName = "Auto Eval on Root State Machine Stop"))
-	bool bEvalGraphsOnRootStateMachineStop;
+	uint8 bEvalGraphsOnRootStateMachineStop: 1;
 	
 protected:
 	/* Override in native classes to implement. Never call these directly. */
@@ -252,8 +295,6 @@ protected:
 	virtual void OnStateBegin_Implementation() {}
 	virtual void OnStateUpdate_Implementation(float DeltaSeconds) {}
 	virtual void OnStateEnd_Implementation() {}
-	virtual void OnRootStateMachineStart_Implementation() {}
-	virtual void OnRootStateMachineStop_Implementation() {}
 	
 #if WITH_EDITORONLY_DATA
 public:
@@ -262,7 +303,10 @@ public:
 	bool ShouldUseDisplayNameOnly() const { return ShouldDisplayNameWidget() && bShowDisplayNameOnly; }
 	const FSMStateConnectionValidator& GetAllowedConnections() const { return ConnectionRules; }
 	
-	/** Override to register native classes with the context menu. Default behavior only allows blueprints. */
+	/**
+	 * Override to register native classes with the context menu. Default behavior relies on #bRegisterWithContextMenu.
+	 * Abstract classes are never registered.
+	 */
 	virtual bool IsRegisteredWithContextMenu() const;
 	virtual bool HideFromContextMenuIfRulesFail() const { return bHideFromContextMenuIfRulesFail; }
 protected:
@@ -278,19 +322,19 @@ protected:
 	/** Restrict placement unless rules can be verified. Ex: If the rule says this can only be connected from a state node, then this won't show
 	 * in the context menu unless dragging from a state node. */
 	UPROPERTY(EditDefaultsOnly, Category = "Behavior", AdvancedDisplay, meta = (InstancedTemplate, EditCondition = "bRegisterWithContextMenu"))
-	bool bHideFromContextMenuIfRulesFail;
+	uint16 bHideFromContextMenuIfRulesFail: 1;
 
 	/** Allows this node to be displayed in the graph context menu when placing nodes. */
 	UPROPERTY(EditDefaultsOnly, Category = "General", AdvancedDisplay, meta = (InstancedTemplate))
-	bool bRegisterWithContextMenu;
+	uint16 bRegisterWithContextMenu: 1;
 
 	/** When true only the Name set above will be displayed. The node cannot be renamed. This allows duplicate names to be displayed in the same graph. The node's internal name and local graph name will still be unique. */
 	UPROPERTY(EditDefaultsOnly, Category = "General", AdvancedDisplay, meta = (InstancedTemplate))
-	bool bShowDisplayNameOnly;
+	uint16 bShowDisplayNameOnly: 1;
 
 	/** Whether the name of this state should be visible on the node. It can still be changed in the details panel or by renaming the state graph. */
 	UPROPERTY(EditDefaultsOnly, Category = "Display", meta = (InstancedTemplate))
-	bool bDisplayNameWidget;
+	uint16 bDisplayNameWidget: 1;
 	
 #endif
 
@@ -356,7 +400,7 @@ private:
 	 * Always update the state at least once before ending.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "State", meta = (NodeBaseOnly))
-	bool bAlwaysUpdate;
+	uint16 bAlwaysUpdate: 1;
 
 	/**
 	 * Prevents conditional transitions for this state from being evaluated on Tick.
@@ -364,57 +408,79 @@ private:
 	 * or if you are manually calling EvaluateTransitions from a state instance.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "State", meta = (NodeBaseOnly))
-	bool bDisableTickTransitionEvaluation;
+	uint16 bDisableTickTransitionEvaluation: 1;
 
 	/**
 	 * Sets all current and future transitions from this state to run in parallel. Conduit nodes are not supported.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Parallel States", meta = (NodeBaseOnly))
-	bool bDefaultToParallel;
+	uint16 bDefaultToParallel: 1;
 
 	/**
 	 * If this state can be reentered from a parallel state if this state is already active. This will not call On State End but will call On State Begin.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Parallel States", meta = (NodeBaseOnly))
-	bool bAllowParallelReentry;
+	uint16 bAllowParallelReentry: 1;
 
 	/**
 	 * If the state should remain active even after a transition is taken from this state.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "Parallel States", meta = (NodeBaseOnly))
-	bool bStayActiveOnStateChange;
+	uint16 bStayActiveOnStateChange: 1;
 	
 	/**
 	 * Allows transitions to be evaluated in the same tick as Start State.
 	 * Normally transitions are evaluated on the second tick.
 	 * This can be chained with other nodes that have this checked making it
-	   possible to evaluate multiple nodes and transitions in a single tick.
-	 
+	 * possible to evaluate multiple nodes and transitions in a single tick.
+	 *
 	 * When using this consider performance implications and any potential
-	   infinite loops such as if you are using a self transition on this state.
-
+	 * infinite loops such as if you are using a self transition on this state.
+	 *
 	 * Individual transitions can modify this behavior with bCanEvalWithStartState.
 	 */
 	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = "State", meta = (NodeBaseOnly))
-	bool bEvalTransitionsOnStart;
+	uint16 bEvalTransitionsOnStart: 1;
 
 	/**
 	 * Prevents the `Any State` node from adding transitions to this node.
 	 * This can be useful for maintaining end states.
 	 */
-	UPROPERTY(EditDefaultsOnly, Category = "State", meta = (NodeBaseOnly))
-	bool bExcludeFromAnyState;
+	UPROPERTY(EditDefaultsOnly, Category = "Any State", meta = (NodeBaseOnly))
+	uint16 bExcludeFromAnyState: 1;
 
 public:
-	/** Called right before the state has started. */
+	/**
+	 * Called right before the state has started. This is meant for an observer to be aware of when a state is about
+	 * to start. This will only be called for state stack instances if the state is allowed to execute logic.
+	 * Do not change states from within this event, the state change process will still be in progress.
+	 */
 	UPROPERTY(BlueprintAssignable, Category = "Logic Driver|Node Instance")
 	FOnStateBeginSignature OnStateBeginEvent;
 
-	/** Called before the state has updated. */
+	/**
+	 * Called right after the state has started. This is meant for an observer to be aware of when a state has started.
+	 * If you need to change states this event is safer to use, but ideally state changes should be managed by transitions
+	 * or from within the state.
+	 *
+	 * This will only be called for state stack instances if the state is allowed to execute logic, and will be called before
+	 * the primary instance's OnPostStateBeginEvent. It is not safe to change states from this event when broadcast from
+	 * a state stack instance.
+	 */
+	UPROPERTY(BlueprintAssignable, Category = "Logic Driver|Node Instance")
+	FOnStateBeginSignature OnPostStateBeginEvent;
+
+	/**
+	 * Called before the state has updated. This is meant for an observer to be aware of when a state is updating
+	 * and it is not advised to switch states from this event.
+	 */
 	UPROPERTY(BlueprintAssignable, Category = "Logic Driver|Node Instance")
 	FOnStateUpdateSignature OnStateUpdateEvent;
 
-	/** Called before the state has ended. */
+	/**
+	 * Called before the state has ended. It is not advised to switch states during this event.
+	 * The state machine will already be in the process of switching states.
+	 */
 	UPROPERTY(BlueprintAssignable, Category = "Logic Driver|Node Instance")
 	FOnStateEndSignature OnStateEndEvent;
 };
@@ -490,7 +556,7 @@ public:
 	* @return The index of the state in the stack. -1 if not found or is the base state instance.
 	*/
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
-	int32 GetStateIndexInStack(USMStateInstance_Base* StateInstance);
+	int32 GetStateIndexInStack(USMStateInstance_Base* StateInstance) const;
 	
 	/** The total number of states in the state stack. */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
@@ -514,4 +580,7 @@ class USMEntryStateInstance final : public USMStateInstance_Base
 public:
 	USMEntryStateInstance() {}
 
+#if WITH_EDITORONLY_DATA
+	virtual bool IsRegisteredWithContextMenu() const override { return false; }
+#endif
 };

@@ -1,11 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTextPropertyGraphSchema.h"
 #include "Graph/Nodes/PropertyNodes/SMGraphK2Node_TextPropertyNode.h"
 #include "Graph/SMTextPropertyGraph.h"
-#include "K2Node_FormatText.h"
+
 #include "Utilities/SMBlueprintEditorUtils.h"
 
+#include "K2Node_FormatText.h"
 
 #define LOCTEXT_NAMESPACE "SMTextPropertyGraphSchema"
 
@@ -35,7 +36,7 @@ void USMTextPropertyGraphSchema::CreateDefaultNodesForGraph(UEdGraph& Graph) con
 	
 	// Either reuse or create a new result node.
 	USMGraphK2Node_TextPropertyNode* ResultNode = nullptr;
-	if(ExistingPropertyNodes.Num() == 1)
+	if (ExistingPropertyNodes.Num() == 1)
 	{
 		ResultNode = ExistingPropertyNodes[0];
 		bNewGraph = false;

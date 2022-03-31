@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMBlueprintEditor.h"
 #include "ISMSystemEditorModule.h"
@@ -17,6 +17,8 @@
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
 #include "Graph/Nodes/SMGraphNode_ConduitNode.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineParentNode.h"
+#include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
+#include "Graph/Nodes/SMGraphNode_AnyStateNode.h"
 #include "Graph/SMPropertyGraph.h"
 
 #include "ISMPreviewEditorModule.h"
@@ -31,7 +33,6 @@
 #include "ContentBrowser/Private/SAssetDialog.h"
 #include "ScopedTransaction.h"
 #include "Framework/Commands/GenericCommands.h"
-
 
 #define LOCTEXT_NAMESPACE "SMBlueprintEditor"
 
@@ -70,7 +71,7 @@ void FSMBlueprintEditor::InitSMBlueprintEditor(const EToolkitMode::Type Mode, co
 
 	bPreviewModeAllowed = FSMBlueprintEditorUtils::GetProjectEditorSettings()->bEnablePreviewMode;
 	
-	if(bPreviewModeAllowed)
+	if (bPreviewModeAllowed)
 	{
 		// Recreate the preview object only if it already exists. This will clear out the previous undo/redo stack
 		// which prevents odd behavior in the event previous history deletes or restores a preview actor.
@@ -469,7 +470,7 @@ void FSMBlueprintEditor::OnActiveTabChanged(TSharedPtr<SDockTab> PreviouslyActiv
 	}
 }
 
-void FSMBlueprintEditor::OnSelectedNodesChangedImpl(const TSet<class UObject*>& NewSelection)
+void FSMBlueprintEditor::OnSelectedNodesChangedImpl(const TSet<UObject*>& NewSelection)
 {
 	FBlueprintEditor::OnSelectedNodesChangedImpl(NewSelection);
 
@@ -564,6 +565,10 @@ void FSMBlueprintEditor::OnCreateGraphEditorCommands(TSharedPtr<FUICommandList> 
 	GraphEditorCommandsList->MapAction(FSMEditorCommands::Get().GoToPropertyGraph,
 		FExecuteAction::CreateSP(this, &FSMBlueprintEditor::GoToPropertyGraph),
 		FCanExecuteAction::CreateSP(this, &FSMBlueprintEditor::CanGoToPropertyGraph));
+
+	GraphEditorCommandsList->MapAction(FSMEditorCommands::Get().GoToTransitionStackBlueprint,
+		FExecuteAction::CreateSP(this, &FSMBlueprintEditor::GoToTransitionStackBlueprint),
+		FCanExecuteAction::CreateSP(this, &FSMBlueprintEditor::CanGoToTransitionStackBlueprint));
 
 	GraphEditorCommandsList->MapAction(FSMEditorCommands::Get().ConvertPropertyToGraphEdit,
 		FExecuteAction::CreateSP(this, &FSMBlueprintEditor::ToggleGraphPropertyEdit),
@@ -690,7 +695,7 @@ bool FSMBlueprintEditor::CanCreateSingleNodeTransition() const
 		if (USMGraphNode_StateNodeBase* StateNode = Cast<USMGraphNode_StateNodeBase>(Node))
 		{
 			// Skip if already has self transition or it's an Any State Node.
-			if(StateNode->HasTransitionFromNode(StateNode) || StateNode->IsA<USMGraphNode_AnyStateNode>())
+			if (StateNode->HasTransitionFromNode(StateNode) || StateNode->IsA<USMGraphNode_AnyStateNode>())
 			{
 				continue;
 			}
@@ -792,7 +797,7 @@ bool FSMBlueprintEditor::CanConvertStateMachineToReference() const
 
 	for (UObject* Node : Nodes)
 	{
-		if(Node->IsA<USMGraphNode_StateMachineParentNode>())
+		if (Node->IsA<USMGraphNode_StateMachineParentNode>())
 		{
 			continue;
 		}
@@ -833,10 +838,9 @@ void FSMBlueprintEditor::ChangeStateMachineReference()
 	TArray<FAssetData> AssetData = ContentBrowserModule.Get().CreateModalOpenAssetDialog(SelectAssetConfig);
 	if (AssetData.Num() == 1)
 	{
-		USMBlueprint *ReferencedBlueprint = Cast<USMBlueprint>(AssetData[0].GetAsset());
-		if (ReferencedBlueprint != nullptr)
+		if (USMBlueprint *ReferencedBlueprint = Cast<USMBlueprint>(AssetData[0].GetAsset()))
 		{
-			if (!ReferencedBlueprint->HasAnyFlags(RF_Transient) && !ReferencedBlueprint->IsPendingKill())
+			if (!ReferencedBlueprint->HasAnyFlags(RF_Transient) && IsValid(ReferencedBlueprint))
 			{
 				TSet<UObject*> Nodes = GetSelectedNodes();
 				for (UObject* Node : Nodes)
@@ -1015,7 +1019,7 @@ void FSMBlueprintEditor::ReplaceWithStateMachineReference()
 
 	for (UObject* Node : Nodes)
 	{
-		if(USMGraphNode_StateMachineStateNode* StateMachineRefNode = FSMBlueprintEditorUtils::ConvertNodeTo<USMGraphNode_StateMachineStateNode>(Cast<USMGraphNode_Base>(Node), true))
+		if (USMGraphNode_StateMachineStateNode* StateMachineRefNode = FSMBlueprintEditorUtils::ConvertNodeTo<USMGraphNode_StateMachineStateNode>(Cast<USMGraphNode_Base>(Node), true))
 		{
 			StateMachineRefNode->ReferenceStateMachine(nullptr);
 		}
@@ -1143,9 +1147,9 @@ void FSMBlueprintEditor::GoToGraph()
 
 	for (UObject* Node : Nodes)
 	{
-		if (USMGraphNode_Base* GraphNode = Cast<USMGraphNode_Base>(Node))
+		if (const USMGraphNode_Base* GraphNode = Cast<USMGraphNode_Base>(Node))
 		{
-			GraphNode->JumpToDefinition();
+			GraphNode->GoToLocalGraph();
 		}
 	}
 }
@@ -1161,10 +1165,9 @@ bool FSMBlueprintEditor::CanGoToGraph() const
 
 	for (UObject* Node : Nodes)
 	{
-		if (USMGraphNode_Base* GraphNode = Cast<USMGraphNode_Base>(Node))
+		if (const USMGraphNode_Base* GraphNode = Cast<USMGraphNode_Base>(Node))
 		{
-			// Skip if already has self transition.
-			if (GraphNode->GetBoundGraph() == nullptr)
+			if (!GraphNode->CanGoToLocalGraph())
 			{
 				continue;
 			}
@@ -1180,21 +1183,7 @@ void FSMBlueprintEditor::GoToNodeBlueprint()
 {
 	if (USMGraphNode_Base* Node = Cast<USMGraphNode_Base>(GetSingleSelectedNode()))
 	{
-		if (UClass* Class = Node->GetNodeClass())
-		{
-			if (UBlueprint* NodeBlueprint = UBlueprint::GetBlueprintFromClass(Class))
-			{
-				if (const FSMNode_Base* DebugNode = FSMBlueprintEditorUtils::GetDebugNode(Node))
-				{
-					if (USMNodeInstance* NodeInstance = DebugNode->GetNodeInstance())
-					{
-						NodeBlueprint->SetObjectBeingDebugged(NodeInstance);
-					}
-				}
-
-				FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(NodeBlueprint);
-			}
-		}
+		FSMBlueprintEditorUtils::GoToNodeBlueprint(Node);
 	}
 }
 
@@ -1253,6 +1242,50 @@ bool FSMBlueprintEditor::CanGoToPropertyBlueprint() const
 	return IsSelectedPropertyNodeValid() && SelectedPropertyNode->GetTemplateBlueprint() != nullptr;
 }
 
+void FSMBlueprintEditor::GoToTransitionStackBlueprint()
+{
+	if (const USMGraphNode_TransitionEdge* Node = Cast<USMGraphNode_TransitionEdge>(GetSingleSelectedNode()))
+	{
+		if (const USMNodeInstance* Template = Node->GetHoveredStackTemplate())
+		{
+			if (UBlueprint* NodeBlueprint = UBlueprint::GetBlueprintFromClass(Template->GetClass()))
+			{
+				if (const FSMNode_Base* DebugNode = FSMBlueprintEditorUtils::GetDebugNode(Node))
+				{
+					const TArray<FTransitionStackContainer>& AllStackInstances = Node->GetAllNodeStackTemplates();
+
+					// Find exact index.
+					int32 StackIndex = INDEX_NONE;
+					for (int32 Idx = 0; Idx < AllStackInstances.Num(); ++Idx)
+					{
+						if (AllStackInstances[Idx].NodeStackInstanceTemplate == Template)
+						{
+							StackIndex = Idx;
+							break;
+						}
+					}
+
+					if (ensure(StackIndex >= 0))
+					{
+						if (USMNodeInstance* NodeInstance = DebugNode->GetNodeInStack(StackIndex))
+						{
+							NodeBlueprint->SetObjectBeingDebugged(NodeInstance);
+						}
+					}
+				}
+
+				FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(NodeBlueprint);
+			}
+		}
+	}
+}
+
+bool FSMBlueprintEditor::CanGoToTransitionStackBlueprint() const
+{
+	// Command is added in only if hovered.
+	return true;
+}
+
 void FSMBlueprintEditor::GoToPropertyGraph()
 {
 	SelectedPropertyNode->JumpToPropertyGraph();
@@ -1280,7 +1313,7 @@ void FSMBlueprintEditor::ToggleGraphPropertyEdit()
 
 bool FSMBlueprintEditor::CanToggleGraphPropertyEdit() const
 {
-	if(IsSelectedPropertyNodeValid())
+	if (IsSelectedPropertyNodeValid())
 	{
 		return SelectedPropertyNode->GetPropertyNodeChecked()->AllowToggleGraphEdit();
 	}

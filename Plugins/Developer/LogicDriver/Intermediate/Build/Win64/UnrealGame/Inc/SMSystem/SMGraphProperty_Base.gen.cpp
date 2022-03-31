@@ -6,146 +6,279 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystem/Public/Properties/SMGraphProperty_Base.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMGraphProperty_Base() {}
 // Cross Module References
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty();
-	UPackage* Z_Construct_UPackage__Script_SMSystem();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMTextDisplayWidgetInfo();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime();
+	UPackage* Z_Construct_UPackage__Script_SMSystem();
+	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMExposedFunctionHandler();
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FGuid();
+	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Runtime();
+	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner();
+	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FEdGraphPinType();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FMemberReference();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UObject_NoRegister();
-	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FGuid();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Runtime();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMExposedFunctionHandler();
+	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty();
+	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMTextDisplayWidgetInfo();
 // End Cross Module References
-
-static_assert(std::is_polymorphic<FSMGraphProperty>() == std::is_polymorphic<FSMGraphProperty_Base>(), "USTRUCT FSMGraphProperty cannot be polymorphic unless super FSMGraphProperty_Base is polymorphic");
-
-class UScriptStruct* FSMGraphProperty::StaticStruct()
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMGraphProperty_Base_Runtime;
+class UScriptStruct* FSMGraphProperty_Base_Runtime::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMGraphProperty_Base_Runtime.OuterSingleton)
 	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphProperty, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphProperty"), sizeof(FSMGraphProperty), Get_Z_Construct_UScriptStruct_FSMGraphProperty_Hash());
+		Z_Registration_Info_UScriptStruct_SMGraphProperty_Base_Runtime.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphProperty_Base_Runtime"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMGraphProperty_Base_Runtime.OuterSingleton;
 }
-template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphProperty>()
+template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphProperty_Base_Runtime>()
 {
-	return FSMGraphProperty::StaticStruct();
+	return FSMGraphProperty_Base_Runtime::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMGraphProperty(FSMGraphProperty::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMGraphProperty"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMGraphProperty")),new UScriptStruct::TCppStructOps<FSMGraphProperty>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty;
-	struct Z_Construct_UScriptStruct_FSMGraphProperty_Statics
+	struct Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics
 	{
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
 #endif
 		static void* NewStructOps();
-#if WITH_EDITORONLY_DATA
+		static const UECodeGen_Private::FStructPropertyParams NewProp_GraphEvaluator_Inner;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_WidgetInfo_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_GraphEvaluator_MetaData[];
 #endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_WidgetInfo;
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_GraphEvaluator;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_Guid_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_Guid;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OwnerGuid_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_OwnerGuid;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bIsDefaultValueOnly_MetaData[];
+#endif
+		static void NewProp_bIsDefaultValueOnly_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsDefaultValueOnly;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-#endif // WITH_EDITORONLY_DATA
 		static const UECodeGen_Private::FStructParams ReturnStructParams;
 	};
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Statics::Struct_MetaDataParams[] = {
-		{ "Comment", "/**\n * EDITOR: Graph properties which represent a variable exposed on a node. Contains additional properties for configuration and compilation.\n */" },
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::Struct_MetaDataParams[] = {
+		{ "Comment", "/**\n * The base graph properties containing the bare essentials for run-time.\n * Any run-time graph property types should inherit from this.\n */" },
 		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
-		{ "ToolTip", "EDITOR: Graph properties which represent a variable exposed on a node. Contains additional properties for configuration and compilation." },
+		{ "ToolTip", "The base graph properties containing the bare essentials for run-time.\nAny run-time graph property types should inherit from this." },
 	};
 #endif
-	void* Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewStructOps()
+	void* Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewStructOps()
 	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphProperty>();
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphProperty_Base_Runtime>();
 	}
-#if WITH_EDITORONLY_DATA
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_Inner = { "GraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo_MetaData[] = {
-		{ "Category", "Widget" },
-		{ "Comment", "/** Customize the appearance of the node property widget. */" },
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
-		{ "ToolTip", "Customize the appearance of the node property widget." },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo = { "WidgetInfo", nullptr, (EPropertyFlags)0x0010000800010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty, WidgetInfo), Z_Construct_UScriptStruct_FSMTextDisplayWidgetInfo, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo_MetaData)) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMGraphProperty_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo,
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator = { "GraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base_Runtime, GraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_MetaData)) }; // 163563912
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid_MetaData[] = {
+		{ "IgnoreForMemberInitializationTest", "" },
+		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
 	};
-#endif // WITH_EDITORONLY_DATA
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphProperty_Statics::ReturnStructParams = {
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid = { "Guid", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base_Runtime, Guid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid_MetaData)) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid_MetaData[] = {
+		{ "Comment", "/** The graph property owner. If this struct is defined within a node class and instanced\n\x09 * to a state machine then the guid of class CDO is the owner. */" },
+		{ "IgnoreForMemberInitializationTest", "" },
+		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
+		{ "ToolTip", "The graph property owner. If this struct is defined within a node class and instanced\nto a state machine then the guid of class CDO is the owner." },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid = { "OwnerGuid", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base_Runtime, OwnerGuid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid_MetaData)) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_bIsDefaultValueOnly_MetaData[] = {
+		{ "Comment", "/** If only a default value is assigned (no variable connected) */" },
+		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
+		{ "ToolTip", "If only a default value is assigned (no variable connected)" },
+	};
+#endif
+	void Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_bIsDefaultValueOnly_SetBit(void* Obj)
+	{
+		((FSMGraphProperty_Base_Runtime*)Obj)->bIsDefaultValueOnly = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_bIsDefaultValueOnly = { "bIsDefaultValueOnly", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMGraphProperty_Base_Runtime), &Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_bIsDefaultValueOnly_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_bIsDefaultValueOnly_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_bIsDefaultValueOnly_MetaData)) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_bIsDefaultValueOnly,
+	};
+	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::ReturnStructParams = {
 		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
-		Z_Construct_UScriptStruct_FSMGraphProperty_Base,
+		nullptr,
 		&NewStructOps,
-		"SMGraphProperty",
-		sizeof(FSMGraphProperty),
-		alignof(FSMGraphProperty),
-		IF_WITH_EDITORONLY_DATA(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::PropPointers, nullptr),
-		IF_WITH_EDITORONLY_DATA(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::PropPointers), 0),
+		"SMGraphProperty_Base_Runtime",
+		sizeof(FSMGraphProperty_Base_Runtime),
+		alignof(FSMGraphProperty_Base_Runtime),
+		Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::PropPointers,
+		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::PropPointers),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::Struct_MetaDataParams))
 	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty()
+	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMGraphProperty"), sizeof(FSMGraphProperty), Get_Z_Construct_UScriptStruct_FSMGraphProperty_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMGraphProperty_Base_Runtime.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMGraphProperty_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMGraphProperty_Base_Runtime.InnerSingleton, Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMGraphProperty_Base_Runtime.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Hash() { return 482432973U; }
+
+static_assert(std::is_polymorphic<FSMGraphProperty_Runtime>() == std::is_polymorphic<FSMGraphProperty_Base_Runtime>(), "USTRUCT FSMGraphProperty_Runtime cannot be polymorphic unless super FSMGraphProperty_Base_Runtime is polymorphic");
+
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMGraphProperty_Runtime;
+class UScriptStruct* FSMGraphProperty_Runtime::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_SMGraphProperty_Runtime.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_SMGraphProperty_Runtime.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphProperty_Runtime, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphProperty_Runtime"));
+	}
+	return Z_Registration_Info_UScriptStruct_SMGraphProperty_Runtime.OuterSingleton;
+}
+template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphProperty_Runtime>()
+{
+	return FSMGraphProperty_Runtime::StaticStruct();
+}
+	struct Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
+#endif
+		static void* NewStructOps();
+		static const UECodeGen_Private::FStructParams ReturnStructParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::Struct_MetaDataParams[] = {
+		{ "Comment", "/**\n * Graph properties which represent a variable exposed on a node. Only for run-time use.\n */" },
+		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
+		{ "ToolTip", "Graph properties which represent a variable exposed on a node. Only for run-time use." },
+	};
+#endif
+	void* Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphProperty_Runtime>();
+	}
+	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::ReturnStructParams = {
+		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
+		Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime,
+		&NewStructOps,
+		"SMGraphProperty_Runtime",
+		sizeof(FSMGraphProperty_Runtime),
+		alignof(FSMGraphProperty_Runtime),
+		nullptr,
+		0,
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EStructFlags(0x00000201),
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::Struct_MetaDataParams))
+	};
+	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Runtime()
+	{
+		if (!Z_Registration_Info_UScriptStruct_SMGraphProperty_Runtime.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMGraphProperty_Runtime.InnerSingleton, Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::ReturnStructParams);
+		}
+		return Z_Registration_Info_UScriptStruct_SMGraphProperty_Runtime.InnerSingleton;
+	}
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMGraphPropertyTemplateOwner;
+class UScriptStruct* FSMGraphPropertyTemplateOwner::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_SMGraphPropertyTemplateOwner.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_SMGraphPropertyTemplateOwner.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphPropertyTemplateOwner"));
+	}
+	return Z_Registration_Info_UScriptStruct_SMGraphPropertyTemplateOwner.OuterSingleton;
+}
+template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphPropertyTemplateOwner>()
+{
+	return FSMGraphPropertyTemplateOwner::StaticStruct();
+}
+	struct Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
+#endif
+		static void* NewStructOps();
+		static const UECodeGen_Private::FStructPropertyParams NewProp_VariableGraphProperties_Inner;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_VariableGraphProperties_MetaData[];
+#endif
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_VariableGraphProperties;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+		static const UECodeGen_Private::FStructParams ReturnStructParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::Struct_MetaDataParams[] = {
+		{ "Comment", "/**\n * Wrapper so templates can be mapped to their graph properties and stored in a UPROPERTY.\n */" },
+		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
+		{ "ToolTip", "Wrapper so templates can be mapped to their graph properties and stored in a UPROPERTY." },
+	};
+#endif
+	void* Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphPropertyTemplateOwner>();
+	}
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_Inner = { "VariableGraphProperties", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime, METADATA_PARAMS(nullptr, 0) }; // 123409840
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_MetaData[] = {
+		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
+	};
+#endif
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties = { "VariableGraphProperties", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphPropertyTemplateOwner, VariableGraphProperties), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_MetaData)) }; // 123409840
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties,
+	};
+	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::ReturnStructParams = {
+		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
+		nullptr,
+		&NewStructOps,
+		"SMGraphPropertyTemplateOwner",
+		sizeof(FSMGraphPropertyTemplateOwner),
+		alignof(FSMGraphPropertyTemplateOwner),
+		Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::PropPointers,
+		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::PropPointers),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EStructFlags(0x00000201),
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::Struct_MetaDataParams))
+	};
+	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner()
+	{
+		if (!Z_Registration_Info_UScriptStruct_SMGraphPropertyTemplateOwner.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMGraphPropertyTemplateOwner.InnerSingleton, Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::ReturnStructParams);
+		}
+		return Z_Registration_Info_UScriptStruct_SMGraphPropertyTemplateOwner.InnerSingleton;
+	}
 
 static_assert(std::is_polymorphic<FSMGraphProperty_Base>() == std::is_polymorphic<FSMGraphProperty_Base_Runtime>(), "USTRUCT FSMGraphProperty_Base cannot be polymorphic unless super FSMGraphProperty_Base_Runtime is polymorphic");
 
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMGraphProperty_Base;
 class UScriptStruct* FSMGraphProperty_Base::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMGraphProperty_Base.OuterSingleton)
 	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphProperty_Base, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphProperty_Base"), sizeof(FSMGraphProperty_Base), Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Hash());
+		Z_Registration_Info_UScriptStruct_SMGraphProperty_Base.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphProperty_Base, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphProperty_Base"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMGraphProperty_Base.OuterSingleton;
 }
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphProperty_Base>()
 {
 	return FSMGraphProperty_Base::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMGraphProperty_Base(FSMGraphProperty_Base::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMGraphProperty_Base"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Base
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Base()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMGraphProperty_Base")),new UScriptStruct::TCppStructOps<FSMGraphProperty_Base>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Base;
 	struct Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics
 	{
 #if WITH_METADATA
@@ -252,13 +385,13 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Base
 		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_VariableType = { "VariableType", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base, VariableType), Z_Construct_UScriptStruct_FEdGraphPinType, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_VariableType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_VariableType_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_VariableType = { "VariableType", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base, VariableType), Z_Construct_UScriptStruct_FEdGraphPinType, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_VariableType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_VariableType_MetaData)) }; // 824835303
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_MemberReference_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_MemberReference = { "MemberReference", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base, MemberReference), Z_Construct_UScriptStruct_FMemberReference, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_MemberReference_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_MemberReference_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_MemberReference = { "MemberReference", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base, MemberReference), Z_Construct_UScriptStruct_FMemberReference, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_MemberReference_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_MemberReference_MetaData)) }; // 3380895081
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewProp_bIsInArray_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
@@ -404,294 +537,102 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Base
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMGraphProperty_Base"), sizeof(FSMGraphProperty_Base), Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMGraphProperty_Base.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMGraphProperty_Base.InnerSingleton, Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMGraphProperty_Base.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Hash() { return 1740651562U; }
-class UScriptStruct* FSMGraphPropertyTemplateOwner::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
-	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphPropertyTemplateOwner"), sizeof(FSMGraphPropertyTemplateOwner), Get_Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Hash());
-	}
-	return Singleton;
-}
-template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphPropertyTemplateOwner>()
-{
-	return FSMGraphPropertyTemplateOwner::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMGraphPropertyTemplateOwner(FSMGraphPropertyTemplateOwner::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMGraphPropertyTemplateOwner"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphPropertyTemplateOwner
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphPropertyTemplateOwner()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMGraphPropertyTemplateOwner")),new UScriptStruct::TCppStructOps<FSMGraphPropertyTemplateOwner>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMGraphPropertyTemplateOwner;
-	struct Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-		static const UECodeGen_Private::FStructPropertyParams NewProp_VariableGraphProperties_Inner;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_VariableGraphProperties_MetaData[];
-#endif
-		static const UECodeGen_Private::FArrayPropertyParams NewProp_VariableGraphProperties;
-		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-		static const UECodeGen_Private::FStructParams ReturnStructParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::Struct_MetaDataParams[] = {
-		{ "Comment", "/**\n * Wrapper so templates can be mapped to their graph properties and stored in a UPROPERTY.\n */" },
-		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
-		{ "ToolTip", "Wrapper so templates can be mapped to their graph properties and stored in a UPROPERTY." },
-	};
-#endif
-	void* Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphPropertyTemplateOwner>();
-	}
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_Inner = { "VariableGraphProperties", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime, METADATA_PARAMS(nullptr, 0) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_MetaData[] = {
-		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
-	};
-#endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties = { "VariableGraphProperties", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphPropertyTemplateOwner, VariableGraphProperties), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_MetaData)) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewProp_VariableGraphProperties,
-	};
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
-		nullptr,
-		&NewStructOps,
-		"SMGraphPropertyTemplateOwner",
-		sizeof(FSMGraphPropertyTemplateOwner),
-		alignof(FSMGraphPropertyTemplateOwner),
-		Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::PropPointers,
-		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::PropPointers),
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMGraphPropertyTemplateOwner"), sizeof(FSMGraphPropertyTemplateOwner), Get_Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Hash() { return 3770976084U; }
 
-static_assert(std::is_polymorphic<FSMGraphProperty_Runtime>() == std::is_polymorphic<FSMGraphProperty_Base_Runtime>(), "USTRUCT FSMGraphProperty_Runtime cannot be polymorphic unless super FSMGraphProperty_Base_Runtime is polymorphic");
+static_assert(std::is_polymorphic<FSMGraphProperty>() == std::is_polymorphic<FSMGraphProperty_Base>(), "USTRUCT FSMGraphProperty cannot be polymorphic unless super FSMGraphProperty_Base is polymorphic");
 
-class UScriptStruct* FSMGraphProperty_Runtime::StaticStruct()
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMGraphProperty;
+class UScriptStruct* FSMGraphProperty::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMGraphProperty.OuterSingleton)
 	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphProperty_Runtime, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphProperty_Runtime"), sizeof(FSMGraphProperty_Runtime), Get_Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Hash());
+		Z_Registration_Info_UScriptStruct_SMGraphProperty.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphProperty, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphProperty"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMGraphProperty.OuterSingleton;
 }
-template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphProperty_Runtime>()
+template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphProperty>()
 {
-	return FSMGraphProperty_Runtime::StaticStruct();
+	return FSMGraphProperty::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMGraphProperty_Runtime(FSMGraphProperty_Runtime::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMGraphProperty_Runtime"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Runtime
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Runtime()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMGraphProperty_Runtime")),new UScriptStruct::TCppStructOps<FSMGraphProperty_Runtime>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Runtime;
-	struct Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics
+	struct Z_Construct_UScriptStruct_FSMGraphProperty_Statics
 	{
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
 #endif
 		static void* NewStructOps();
-		static const UECodeGen_Private::FStructParams ReturnStructParams;
-	};
+#if WITH_EDITORONLY_DATA
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::Struct_MetaDataParams[] = {
-		{ "Comment", "/**\n * Graph properties which represent a variable exposed on a node. Only for run-time use.\n */" },
-		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
-		{ "ToolTip", "Graph properties which represent a variable exposed on a node. Only for run-time use." },
-	};
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_WidgetInfo_MetaData[];
 #endif
-	void* Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphProperty_Runtime>();
-	}
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
-		Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime,
-		&NewStructOps,
-		"SMGraphProperty_Runtime",
-		sizeof(FSMGraphProperty_Runtime),
-		alignof(FSMGraphProperty_Runtime),
-		nullptr,
-		0,
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Runtime()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMGraphProperty_Runtime"), sizeof(FSMGraphProperty_Runtime), Get_Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Hash() { return 820361358U; }
-class UScriptStruct* FSMGraphProperty_Base_Runtime::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
-	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMGraphProperty_Base_Runtime"), sizeof(FSMGraphProperty_Base_Runtime), Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Hash());
-	}
-	return Singleton;
-}
-template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMGraphProperty_Base_Runtime>()
-{
-	return FSMGraphProperty_Base_Runtime::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMGraphProperty_Base_Runtime(FSMGraphProperty_Base_Runtime::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMGraphProperty_Base_Runtime"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Base_Runtime
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Base_Runtime()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMGraphProperty_Base_Runtime")),new UScriptStruct::TCppStructOps<FSMGraphProperty_Base_Runtime>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMGraphProperty_Base_Runtime;
-	struct Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-		static const UECodeGen_Private::FStructPropertyParams NewProp_GraphEvaluator_Inner;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_GraphEvaluator_MetaData[];
-#endif
-		static const UECodeGen_Private::FArrayPropertyParams NewProp_GraphEvaluator;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_Guid_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_Guid;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_OwnerGuid_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_OwnerGuid;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_WidgetInfo;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#endif // WITH_EDITORONLY_DATA
 		static const UECodeGen_Private::FStructParams ReturnStructParams;
 	};
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::Struct_MetaDataParams[] = {
-		{ "Comment", "/**\n * The base graph properties containing the bare essentials for run-time.\n * Any run-time graph property types should inherit from this.\n */" },
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Statics::Struct_MetaDataParams[] = {
+		{ "Comment", "/**\n * EDITOR: Graph properties which represent a variable exposed on a node. Contains additional properties for configuration and compilation.\n */" },
 		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
-		{ "ToolTip", "The base graph properties containing the bare essentials for run-time.\nAny run-time graph property types should inherit from this." },
+		{ "ToolTip", "EDITOR: Graph properties which represent a variable exposed on a node. Contains additional properties for configuration and compilation." },
 	};
 #endif
-	void* Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewStructOps()
+	void* Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewStructOps()
 	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphProperty_Base_Runtime>();
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphProperty>();
 	}
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_Inner = { "GraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) };
+#if WITH_EDITORONLY_DATA
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo_MetaData[] = {
+		{ "Category", "Widget" },
+		{ "Comment", "/** Customize the appearance of the node property widget. */" },
 		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
+		{ "ToolTip", "Customize the appearance of the node property widget." },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator = { "GraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base_Runtime, GraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid_MetaData[] = {
-		{ "IgnoreForMemberInitializationTest", "" },
-		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo = { "WidgetInfo", nullptr, (EPropertyFlags)0x0010000800010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty, WidgetInfo), Z_Construct_UScriptStruct_FSMTextDisplayWidgetInfo, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo_MetaData)) }; // 392407362
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMGraphProperty_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewProp_WidgetInfo,
 	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid = { "Guid", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base_Runtime, Guid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid_MetaData[] = {
-		{ "Comment", "/** The graph property owner. If this struct is defined within a node class and instanced\n\x09 * to a state machine then the guid of class CDO is the owner. */" },
-		{ "IgnoreForMemberInitializationTest", "" },
-		{ "ModuleRelativePath", "Public/Properties/SMGraphProperty_Base.h" },
-		{ "ToolTip", "The graph property owner. If this struct is defined within a node class and instanced\nto a state machine then the guid of class CDO is the owner." },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid = { "OwnerGuid", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMGraphProperty_Base_Runtime, OwnerGuid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid_MetaData)) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_GraphEvaluator,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_Guid,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewProp_OwnerGuid,
-	};
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::ReturnStructParams = {
+#endif // WITH_EDITORONLY_DATA
+	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphProperty_Statics::ReturnStructParams = {
 		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
-		nullptr,
+		Z_Construct_UScriptStruct_FSMGraphProperty_Base,
 		&NewStructOps,
-		"SMGraphProperty_Base_Runtime",
-		sizeof(FSMGraphProperty_Base_Runtime),
-		alignof(FSMGraphProperty_Base_Runtime),
-		Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::PropPointers,
-		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::PropPointers),
+		"SMGraphProperty",
+		sizeof(FSMGraphProperty),
+		alignof(FSMGraphProperty),
+		IF_WITH_EDITORONLY_DATA(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::PropPointers, nullptr),
+		IF_WITH_EDITORONLY_DATA(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::PropPointers), 0),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphProperty_Statics::Struct_MetaDataParams))
 	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime()
+	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphProperty()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMGraphProperty_Base_Runtime"), sizeof(FSMGraphProperty_Base_Runtime), Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMGraphProperty.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMGraphProperty.InnerSingleton, Z_Construct_UScriptStruct_FSMGraphProperty_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMGraphProperty.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Hash() { return 3927819149U; }
+	struct Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Properties_SMGraphProperty_Base_h_Statics
+	{
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
+	};
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Properties_SMGraphProperty_Base_h_Statics::ScriptStructInfo[] = {
+		{ FSMGraphProperty_Base_Runtime::StaticStruct, Z_Construct_UScriptStruct_FSMGraphProperty_Base_Runtime_Statics::NewStructOps, TEXT("SMGraphProperty_Base_Runtime"), &Z_Registration_Info_UScriptStruct_SMGraphProperty_Base_Runtime, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMGraphProperty_Base_Runtime), 123409840U) },
+		{ FSMGraphProperty_Runtime::StaticStruct, Z_Construct_UScriptStruct_FSMGraphProperty_Runtime_Statics::NewStructOps, TEXT("SMGraphProperty_Runtime"), &Z_Registration_Info_UScriptStruct_SMGraphProperty_Runtime, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMGraphProperty_Runtime), 282538438U) },
+		{ FSMGraphPropertyTemplateOwner::StaticStruct, Z_Construct_UScriptStruct_FSMGraphPropertyTemplateOwner_Statics::NewStructOps, TEXT("SMGraphPropertyTemplateOwner"), &Z_Registration_Info_UScriptStruct_SMGraphPropertyTemplateOwner, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMGraphPropertyTemplateOwner), 2977899703U) },
+		{ FSMGraphProperty_Base::StaticStruct, Z_Construct_UScriptStruct_FSMGraphProperty_Base_Statics::NewStructOps, TEXT("SMGraphProperty_Base"), &Z_Registration_Info_UScriptStruct_SMGraphProperty_Base, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMGraphProperty_Base), 1390098247U) },
+		{ FSMGraphProperty::StaticStruct, Z_Construct_UScriptStruct_FSMGraphProperty_Statics::NewStructOps, TEXT("SMGraphProperty"), &Z_Registration_Info_UScriptStruct_SMGraphProperty, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMGraphProperty), 1950418506U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Properties_SMGraphProperty_Base_h_2026745704(TEXT("/Script/SMSystem"),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Properties_SMGraphProperty_Base_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Properties_SMGraphProperty_Base_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

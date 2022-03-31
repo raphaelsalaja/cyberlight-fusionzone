@@ -1,10 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMNodeInstance.h"
 #include "SMNode_Info.h"
+
 #include "SMTransitionInstance.generated.h"
 
 class USMStateInstance_Base;
@@ -89,14 +89,85 @@ public:
 	bool DoesTransitionPass() const;
 
 	/**
-	 * 1. Enables evaluation for this transition.
-	 * 2. Calls EvaluateTransitions from the owning state machine.
-	 * 3. Disables evaluation for this transition.
+	 * If the transition was created by an Any State.
+	 * @return True if the transition was copied from an Any State.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	bool IsTransitionFromAnyState() const;
+
+	/**
+	 * Efficiently evaluate and take the transition immediately.
+	 * If the transition's CanEnterTransition method returns true the entire transition
+	 * chain this transition is part of will be evaluated and taken. Super state and parallel transitions
+	 * will not evaluate when this method is called.
+	 *
+	 * Steps this method performs:
+	 * 1. Enables SetCanEvaluate for this transition.
+	 * 2. Calls EvaluateAndTakeTransitionChain from the owning state machine instance.
+	 * 3. Sets SetCanEvaluate back to the original value.
 	 * 
 	 * Use at the end of execution from manually bound events.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
 	void EvaluateFromManuallyBoundEvent();
+	
+	/**
+	 * Retrieve all transition instances in the transition stack.
+	 *
+	 * @param TransitionStackInstances [Out] Transition stack instances in their correct order.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	void GetAllTransitionStackInstances(TArray<USMTransitionInstance*>& TransitionStackInstances) const;
+	
+	/**
+	 * Retrieve a transition instance from within the transition stack.
+	 * 
+	 * @param Index the index of the array.
+	 * @return the transition if the index is valid.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	USMTransitionInstance* GetTransitionInStack(int32 Index) const;
+
+	/**
+	 * Retrieve the first stack instance of a given class.
+	 *
+	 * @param TransitionClass The transition class to search for.
+	 * @param bIncludeChildren If children of the given class can be included.
+	 * @return the first transition that matches the class.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	USMTransitionInstance* GetTransitionInStackByClass(TSubclassOf<USMTransitionInstance> TransitionClass, bool bIncludeChildren = false) const;
+
+	/**
+	 * Retrieve the owning node instance of a transition stack. If this is called from the main node instance
+	 * it will return itself.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	USMTransitionInstance* GetStackOwnerInstance() const;
+	
+	/**
+	 * Retrieve all transitions that match the given class.
+	 *
+	 * @param TransitionClass The transition class to search for.
+	 * @param bIncludeChildren If children of the given class can be included.
+	 * @param TransitionStackInstances [Out] Transition stack instances matching the given class.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	void GetAllTransitionsInStackOfClass(TSubclassOf<USMTransitionInstance> TransitionClass, TArray<USMTransitionInstance*>& TransitionStackInstances, bool bIncludeChildren = false) const;
+
+	/**
+	* Retrieve the index of a transition stack instance.
+	* O(n).
+	*
+	* @param TransitionInstance The transition instance to lookup in the stack.
+	* @return The index of the transition in the stack. -1 if not found or is the base transition instance.
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	int32 GetTransitionIndexInStack(USMTransitionInstance* TransitionInstance) const;
+	
+	/** The total number of transitions in the transition stack. */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	int32 GetTransitionStackCount() const;
 	
 protected:
 	/* Override in native classes to implement. Never call these directly. */
@@ -109,6 +180,7 @@ protected:
 #if WITH_EDITORONLY_DATA
 public:
 	const FSMTransitionConnectionValidator& GetAllowedConnections() const { return ConnectionRules; }
+	bool ShouldHideIconBackground() const { return HasCustomIcon() && !bShowBackgroundOnCustomIcon; }
 	bool IsIconHidden() const { return bHideIcon; }
 	float GetIconLocationPercentage() const { return IconLocationPercentage; }
 protected:
@@ -116,12 +188,16 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Behavior", meta = (InstancedTemplate, ShowOnlyInnerProperties))
 	FSMTransitionConnectionValidator ConnectionRules;
 
+	/** Allow the icon background brush to be displayed for custom icons. */
+	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = "Display", meta = (DisplayPriority = 0, NodeBaseOnly, EditCondition="bDisplayCustomIcon"))
+	uint8 bShowBackgroundOnCustomIcon: 1;
+	
 	/** Completely hide the transition icon. If the connection is hovered or selected it will become visible. */
 	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = "Display", meta = (InstancedTemplate))
-	bool bHideIcon;
+	uint8 bHideIcon: 1;
 
 	/** Set the position of the icon along the connection. */
-	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = "Display", meta = (ClampMin = "0.0", ClampMax = "1.0"))
+	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = "Display", meta = (ClampMin = "0.0", ClampMax = "1.0", NodeBaseOnly))
 	float IconLocationPercentage;
 	
 #endif
@@ -177,38 +253,38 @@ private:
 	/**
 	 * Lower number transitions will be evaluated first.
 	 */
-	UPROPERTY(EditDefaultsOnly, Category = Transition)
+	UPROPERTY(EditDefaultsOnly, Category = Transition, meta = (NodeBaseOnly))
 	int32 PriorityOrder;
 
 	/**
 	 * If this transition evaluates to true it will not prevent the next transition in the priority sequence from being evaluated.
 	 * This allows the possibility for multiple active states. Transitions from Conduit nodes are not supported.
 	 */
-	UPROPERTY(EditDefaultsOnly, Category = "Parallel States")
-	bool bRunParallel;
+	UPROPERTY(EditDefaultsOnly, Category = "Parallel States", meta = (NodeBaseOnly))
+	uint8 bRunParallel: 1;
 
 	/**
 	 * Should the transition should still evaluate if already connecting to an active state.
 	 */
-	UPROPERTY(EditDefaultsOnly, Category = "Parallel States")
-	bool bEvalIfNextStateActive;
+	UPROPERTY(EditDefaultsOnly, Category = "Parallel States", meta = (NodeBaseOnly))
+	uint8 bEvalIfNextStateActive: 1;
 
 	/**
 	 * If this transition is allowed to evaluate conditionally.
 	 */
-	UPROPERTY(EditDefaultsOnly, Category = Transition, meta=(DisplayName = "Can Evaluate Conditionally"))
-	bool bCanEvaluate;
+	UPROPERTY(EditDefaultsOnly, Category = Transition, meta=(DisplayName = "Can Evaluate Conditionally", NodeBaseOnly))
+	uint8 bCanEvaluate: 1;
 	
 	/** If this transition can evaluate from auto-bound events. */
-	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = Transition)
-	bool bCanEvaluateFromEvent;
+	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = Transition, meta = (NodeBaseOnly))
+	uint8 bCanEvaluateFromEvent: 1;
 	
 	/**
 	 * Setting to false forces this transition to never evaluate on the same tick as Start State.
 	 * Only checked if this transition's from state has bEvalTransitionsOnStart set to true.
 	 */
-	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = Transition, meta = (NoResetToDefault))
-	bool bCanEvalWithStartState;
+	UPROPERTY(EditDefaultsOnly, AdvancedDisplay, Category = Transition, meta = (NoResetToDefault, NodeBaseOnly))
+	uint8 bCanEvalWithStartState: 1;
 	
 public:
 	/** Called when this transition has been entered from the previous state. */

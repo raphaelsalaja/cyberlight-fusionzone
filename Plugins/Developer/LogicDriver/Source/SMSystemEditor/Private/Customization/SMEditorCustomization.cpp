@@ -1,27 +1,20 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMEditorCustomization.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineParentNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_ConduitNode.h"
+#include "Graph/Nodes/SMGraphNode_AnyStateNode.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Utilities/SMNodeInstanceUtils.h"
 
 #include "SMUtils.h"
 
+#include "PropertyCustomizationHelpers.h"
 #include "DetailCategoryBuilder.h"
 #include "DetailLayoutBuilder.h"
-#include "PropertyCustomizationHelpers.h"
-#include "SSearchableComboBox.h"
-
 #include "DetailWidgetRow.h"
-#include "Widgets/Input/SComboBox.h"
-#include "Widgets/Input/SButton.h"
-#include "Kismet2/KismetEditorUtilities.h"
-#include "Modules/ModuleManager.h"
 #include "IDetailChildrenBuilder.h"
-
+#include "Kismet2/KismetEditorUtilities.h"
 
 #define LOCTEXT_NAMESPACE "SMEditorCustomization"
 
@@ -29,6 +22,22 @@ void FSMBaseCustomization::CustomizeDetails(const TSharedPtr<IDetailLayoutBuilde
 {
 	DetailBuilderPtr = DetailBuilder;
 	CustomizeDetails(*DetailBuilder);
+}
+
+void FSMBaseCustomization::HideNestedCategoryHandles(const TSharedPtr<IPropertyHandle>& InHandle)
+{
+	if (InHandle.IsValid())
+	{
+		InHandle->MarkHiddenByCustomization();
+		uint32 HandleNumChildren;
+		InHandle->GetNumChildren(HandleNumChildren);
+
+		for (uint32 CIdx = 0; CIdx < HandleNumChildren; ++CIdx)
+		{
+			TSharedPtr<IPropertyHandle> ChildProperty = InHandle->GetChildHandle(CIdx);
+			HideNestedCategoryHandles(ChildProperty);
+		}
+	}
 }
 
 void FSMBaseCustomization::ForceUpdate()
@@ -52,11 +61,30 @@ void FSMNodeCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
 
 	if (USMGraphNode_AnyStateNode* AnyState = Cast<USMGraphNode_AnyStateNode>(GraphNode))
 	{
-		IDetailCategoryBuilder& StateCategory = DetailBuilder.EditCategory("State");
+		IDetailCategoryBuilder& StateCategory = DetailBuilder.EditCategory(TEXT("State"));
 		StateCategory.SetCategoryVisibility(false);
 
-		IDetailCategoryBuilder& ClassCategory = DetailBuilder.EditCategory("Class");
+		IDetailCategoryBuilder& ClassCategory = DetailBuilder.EditCategory(TEXT("Class"));
 		ClassCategory.SetCategoryVisibility(false);
+
+		IDetailCategoryBuilder& DisplayCategory =  DetailBuilder.EditCategory(TEXT("Display"));
+		DisplayCategory.SetCategoryVisibility(false);
+
+		IDetailCategoryBuilder& AnyStateCategory = DetailBuilder.EditCategory(TEXT("Any State"));
+
+		TArray<TSharedRef<IPropertyHandle>> AnyStateProperties;
+		AnyStateCategory.GetDefaultProperties(AnyStateProperties);
+
+		for (const TSharedRef<IPropertyHandle>& Handle : AnyStateProperties)
+		{
+			check(Handle->IsValidHandle() && Handle->GetProperty());
+			if (Handle->GetProperty()->GetFName() == GET_MEMBER_NAME_CHECKED(USMGraphNode_AnyStateNode, AnyStateTags))
+			{
+				// Because AnyStateTags has special unreal customization we have to manually find the category property
+				// and hide. DetailBuilder.GetProperty() will not work.
+				DetailBuilder.HideProperty(Handle);
+			}
+		}
 	}
 
 	// Hide parallel categories from nodes that don't support them.
@@ -79,331 +107,59 @@ void FSMNodeCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
 			}
 		}
 	}
+
+	// Link to node guid.
+	if (GraphNode->GetClass()->IsChildOf(USMGraphNode_StateNodeBase::StaticClass()))
+	{
+		if (const FSMNode_Base* RuntimeNode = FSMBlueprintEditorUtils::GetRuntimeNodeFromGraph(GraphNode->GetBoundGraph()))
+		{
+			FGuid& GuidStructure = const_cast<FGuid&>(RuntimeNode->GetNodeGuid());
+			const TSharedPtr<FStructOnScope> StructToDisplay = MakeShareable(new FStructOnScope(TBaseStructure<FGuid>::Get(),
+			                                                                                    reinterpret_cast<uint8*>(&GuidStructure)));
+
+			IDetailCategoryBuilder& Category = DetailBuilder.EditCategory("GraphNodeDetail", /* From BlueprintDetailsCustomization */
+				LOCTEXT("GraphNodeDetailsCategory", "Graph Node"), ECategoryPriority::Important);
+			IDetailPropertyRow* GuidRow = Category.AddExternalStructure(StructToDisplay, EPropertyLocation::Advanced);
+			check(GuidRow);
+			GuidRow->DisplayName(LOCTEXT("NodeGuidDisplayName", "Node Guid"));
+			GuidRow->ToolTip(LOCTEXT("NodeGuidTooltip", "NodeGuid must always be unique. Do not duplicate the guid in any other node in any blueprint.\
+\n\
+\nThis is not the same guid that is used at run-time. At run-time all NodeGuids in a path to a node\
+\nare hashed to form the PathGuid. This is done to account for multiple references and parent graph calls.\
+\n\
+\nIf you need to change the path of a node (such as collapse it to a nested state machine) and you need to maintain\
+\nthe old guid for run-time saves to work, you should use the GuidRedirectMap on the primary state machine instance\
+\nwhich accepts PathGuids."));
+
+			GuidRow->GetPropertyHandle()->SetOnChildPropertyValuePreChange(FSimpleDelegate::CreateLambda([&]()
+			{
+				if (SelectedGraphNode.IsValid())
+				{
+					if (USMGraphK2Node_RuntimeNodeContainer* ContainerNode =
+						FSMBlueprintEditorUtils::GetRuntimeContainerFromGraph(SelectedGraphNode->GetBoundGraph()))
+					{
+						ContainerNode->Modify();
+					}
+				}
+			}));
+			
+			GuidRow->GetPropertyHandle()->SetOnChildPropertyValueChanged(FSimpleDelegate::CreateLambda([&]()
+			{
+				if (SelectedGraphNode.IsValid())
+				{
+					if (UBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintFromObject(SelectedGraphNode.Get()))
+					{
+						FBlueprintEditorUtils::MarkBlueprintAsStructurallyModified(Blueprint);
+					}
+				}
+			}));
+		}
+	}
 }
 
 TSharedRef<IDetailCustomization> FSMNodeCustomization::MakeInstance()
 {
 	return MakeShareable(new FSMNodeCustomization);
-}
-
-void FSMStateMachineReferenceCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
-{
-	USMGraphNode_StateMachineStateNode* StateNode = GetObjectBeingCustomized<USMGraphNode_StateMachineStateNode>(DetailBuilder);
-	if(!StateNode)
-	{
-		return;
-	}
-
-	bool bIsParent = false;
-	if(StateNode->IsA<USMGraphNode_StateMachineParentNode>())
-	{
-		CustomizeParentSelection(DetailBuilder);
-		bIsParent = true;
-	}
-	
-	const bool bIsReference = StateNode->IsStateMachineReference();
-
-	// Use template -- toggles template visibility.
-	if (const TSharedPtr<IPropertyHandle> Property = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineStateNode, bUseTemplate)))
-	{
-		// Detect when value changes.
-		Property->SetOnPropertyValueChanged(FSimpleDelegate::CreateSP(this, &FSMStateMachineReferenceCustomization::OnUseTemplateChange));
-	}
-	
-	// Template visibility
-	if (const TSharedPtr<IPropertyHandle> Property = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineStateNode, ReferencedInstanceTemplate)))
-	{
-		if (IDetailPropertyRow* PropertyRow = DetailBuilder.EditDefaultProperty(Property))
-		{
-			PropertyRow->ShouldAutoExpand(true);
-			PropertyRow->Visibility(VisibilityConverter(bIsReference && StateNode->bUseTemplate));
-		}
-	}
-
-	// Misc reference visibility
-	{
-		if (const TSharedPtr<IPropertyHandle> Property = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineStateNode, bAllowIndependentTick)))
-		{
-			if (IDetailPropertyRow* PropertyRow = DetailBuilder.EditDefaultProperty(Property))
-			{
-				PropertyRow->Visibility(VisibilityConverter(bIsReference));
-			}
-		}
-		if (const TSharedPtr<IPropertyHandle> Property = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineStateNode, bCallTickOnManualUpdate)))
-		{
-			if (IDetailPropertyRow* PropertyRow = DetailBuilder.EditDefaultProperty(Property))
-			{
-				PropertyRow->Visibility(VisibilityConverter(bIsReference));
-			}
-		}
-		// Class template only valid for nested static state machines.
-		if (const TSharedPtr<IPropertyHandle> Property = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineStateNode, StateMachineClass)))
-		{
-			if (IDetailPropertyRow* PropertyRow = DetailBuilder.EditDefaultProperty(Property))
-			{
-				PropertyRow->Visibility(VisibilityConverter(!bIsReference && !bIsParent));
-			}
-		}
-	}
-
-	// Set overall category visibility last as this will consider it detailed and editing properties past this point won't work.
-	IDetailCategoryBuilder& ReferenceCategory = DetailBuilder.EditCategory("State Machine Reference");
-	ReferenceCategory.SetCategoryVisibility(bIsReference);
-
-	if(bIsParent || bIsReference)
-	{
-		IDetailCategoryBuilder& DisplayCategory = DetailBuilder.EditCategory("Display");
-		DisplayCategory.SetCategoryVisibility(false);
-
-		IDetailCategoryBuilder& ColorCategory = DetailBuilder.EditCategory("Color");
-		ColorCategory.SetCategoryVisibility(false);
-	}
-
-	FSMNodeCustomization::CustomizeDetails(DetailBuilder);
-}
-
-TSharedRef<IDetailCustomization> FSMStateMachineReferenceCustomization::MakeInstance()
-{
-	return MakeShareable(new FSMStateMachineReferenceCustomization);
-}
-
-void FSMStateMachineReferenceCustomization::CustomizeParentSelection(IDetailLayoutBuilder& DetailBuilder)
-{
-	USMGraphNode_StateMachineParentNode* StateNode = GetObjectBeingCustomized<USMGraphNode_StateMachineParentNode>(DetailBuilder);
-	if (!StateNode)
-	{
-		return;
-	}
-
-	UBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintForNode(StateNode);
-	if(!Blueprint)
-	{
-		return;
-	}
-
-	AvailableClasses.Reset();
-	MappedClasses.Reset();
-	TArray<USMBlueprintGeneratedClass*> ParentClasses;
-	if (FSMBlueprintEditorUtils::TryGetParentClasses(Blueprint, ParentClasses))
-	{
-		for (USMBlueprintGeneratedClass* ParentClass : ParentClasses)
-		{
-			AvailableClasses.Add(MakeShareable(new FName(ParentClass->GetFName())));
-			MappedClasses.Add(ParentClass->GetFName(), ParentClass);
-		}
-	}
-
-	TSharedPtr<IPropertyHandle> ParentProperty = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineParentNode, ParentClass), USMGraphNode_StateMachineParentNode::StaticClass());
-
-	// Row could be null if multiple nodes selected -- Hide original property we will recreate it.
-	if (IDetailPropertyRow* Row = DetailBuilder.EditDefaultProperty(ParentProperty))
-	{
-		Row->Visibility(EVisibility::Collapsed);
-	}
-	
-	TSharedPtr<IPropertyHandle> ClassProperty = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineParentNode, StateMachineClass), USMGraphNode_StateMachineParentNode::StaticClass());
-
-	// We don't want to edit the class property for a parent.
-	if (IDetailPropertyRow* Row = DetailBuilder.EditDefaultProperty(ClassProperty))
-	{
-		Row->Visibility(EVisibility::Collapsed);
-	}
-
-	// May want to switch to FModuleManager::LoadModuleChecked<FClassViewerModule>("ClassViewer").CreateClassViewer(Options, FOnClassPicked::CreateSP(this, &FSMStateMachineReferenceCustomization::OnClassPicked));
-
-	// Add a new custom row so we don't have to deal with the automatic assigned buttons next to the drop down that using the CustomWidget of the PropertyRow gets us.
-	DetailBuilder.EditCategory("Parent State Machine")
-	.AddCustomRow(LOCTEXT("StateMachineParent", "State Machine Parent"))
-	.NameContent()
-	[
-		ParentProperty->CreatePropertyNameWidget()
-	]
-	.ValueContent()
-	[
-		SNew(SHorizontalBox)
-		+ SHorizontalBox::Slot()
-		[
-			SNew(SComboBox<TSharedPtr<FName>>)
-			.OptionsSource(&AvailableClasses)
-			.OnGenerateWidget_Lambda([](TSharedPtr<FName> InItem)
-			{
-				return SNew(STextBlock)
-				// The combo box selection text.
-				.Text(FText::FromName(*InItem));
-			})
-			.OnSelectionChanged_Lambda([=](TSharedPtr<FName> Selection, ESelectInfo::Type)
-			{
-				// When selecting a property from the drop down.
-				if (ParentProperty->IsValidHandle()) {
-					USMBlueprintGeneratedClass* Result = MappedClasses.FindRef(*Selection);
-					ParentProperty->SetValue(Result);
-			}
-			})
-			.ContentPadding(FMargin(2, 2))
-			[
-				SNew(STextBlock)
-				.Font(IDetailLayoutBuilder::GetDetailFont())
-				.Text_Lambda([=]() -> FText
-				{
-					// Display selected property text.
-					if (ParentProperty->IsValidHandle())
-					{
-						UObject* Value = nullptr;
-						const FPropertyAccess::Result Result = ParentProperty->GetValue(Value);
-						if (Result == FPropertyAccess::Result::Success)
-						{
-							return FText::FromName(Value ? Value->GetFName() : "None");
-						}
-						if (Result == FPropertyAccess::Result::MultipleValues)
-						{
-							return FText::FromString("Multiple Values");
-						}
-					}
-
-					return FText::GetEmpty();
-				})
-			]
-		]
-		.HAlign(HAlign_Fill)
-	];
-}
-
-void FSMStateMachineReferenceCustomization::OnUseTemplateChange()
-{
-	ForceUpdate();
-}
-
-void FSMTransitionEdgeCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
-{
-	USMGraphNode_TransitionEdge* TransitionNode = GetObjectBeingCustomized<USMGraphNode_TransitionEdge>(DetailBuilder);
-	if (!TransitionNode)
-	{
-		return;
-	}
-
-	UBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintForNode(TransitionNode);
-	if (!Blueprint)
-	{
-		return;
-	}
-
-	AvailableDelegates.Reset();
-	AvailableDelegates.Add(MakeShareable(new FString()));
-
-	if (UClass* DelegateOwnerClass = TransitionNode->GetSelectedDelegateOwnerClass())
-	{
-		for (TFieldIterator<FMulticastDelegateProperty> It(DelegateOwnerClass, EFieldIteratorFlags::IncludeSuper); It; ++It)
-		{
-			if (FMulticastDelegateProperty* Delegate = CastField<FMulticastDelegateProperty>(*It))
-			{
-				AvailableDelegates.Add(MakeShareable(new FString(Delegate->GetName())));
-			}
-		}
-	}
-
-	TSharedPtr<IPropertyHandle> DelegatePropertyName = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_TransitionEdge, DelegatePropertyName), USMGraphNode_TransitionEdge::StaticClass());
-	TSharedPtr<IPropertyHandle> DelegatePropertyClass = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_TransitionEdge, DelegateOwnerClass), USMGraphNode_TransitionEdge::StaticClass());
-	TSharedPtr<IPropertyHandle> DelegatePropertyInstance = DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(USMGraphNode_TransitionEdge, DelegateOwnerInstance), USMGraphNode_TransitionEdge::StaticClass());
-
-	DelegatePropertyInstance->SetOnPropertyValueChanged(FSimpleDelegate::CreateSP(this, &FSMTransitionEdgeCustomization::ForceUpdate));
-	DelegatePropertyClass->SetOnPropertyValueChanged(FSimpleDelegate::CreateSP(this, &FSMTransitionEdgeCustomization::ForceUpdate));
-	DelegatePropertyName->SetOnPropertyValueChanged(FSimpleDelegate::CreateSP(this, &FSMTransitionEdgeCustomization::ForceUpdate));
-	
-	// Custom delegate name picker.
-	if (IDetailPropertyRow* Row = DetailBuilder.EditDefaultProperty(DelegatePropertyName))
-	{
-		TSharedPtr<SHorizontalBox> DelegateButtonsRow;
-		
-		Row->CustomWidget()
-		.NameContent()
-		[
-			DelegatePropertyName->CreatePropertyNameWidget()
-		]
-		.ValueContent()
-		.MinDesiredWidth(125.f)
-		.MaxDesiredWidth(400.f)
-		[
-			SAssignNew(DelegateButtonsRow, SHorizontalBox)
-			+ SHorizontalBox::Slot()
-			[
-				SNew(SSearchableComboBox)
-				.OptionsSource(&AvailableDelegates)
-				.OnGenerateWidget_Lambda([](TSharedPtr<FString> InItem)
-				{
-					return SNew(STextBlock)
-					// The combo box selection text.
-					.Text(FText::FromString(*InItem));
-				})
-				.OnSelectionChanged_Lambda([=](TSharedPtr<FString> Selection, ESelectInfo::Type)
-				{
-					// When selecting a property from the drop down.
-					if (DelegatePropertyName->IsValidHandle())
-					{
-						DelegatePropertyName->SetValue(*Selection);
-						ForceUpdate();
-					}
-				})
-				.ContentPadding(FMargin(2, 2))
-				[
-					SNew(STextBlock)
-					.Font(IDetailLayoutBuilder::GetDetailFont())
-					.Text_Lambda([=]() -> FText
-					{
-						// Display selected property text.
-						if (DelegatePropertyName->IsValidHandle())
-						{
-							FString Value;
-							const FPropertyAccess::Result Result = DelegatePropertyName->GetValue(Value);
-							if (Result == FPropertyAccess::Result::Success)
-							{
-								return FText::FromString(Value);
-							}
-							if (Result == FPropertyAccess::Result::MultipleValues)
-							{
-								return FText::FromString("Multiple Values");
-							}
-						}
-
-						return FText::GetEmpty();
-					})
-					]
-				]
-		.HAlign(HAlign_Fill)
-		];
-
-		if(TransitionNode->DelegatePropertyName != NAME_None)
-		{
-			DelegateButtonsRow->AddSlot()
-			[
-				SNew(SButton)
-				.Text(LOCTEXT("GoToDelegate", "Open Graph"))
-				.OnClicked_Lambda([=]
-				{
-					if (TransitionNode)
-					{
-						TransitionNode->GoToTransitionEventNode();
-					}
-					return FReply::Handled();
-				})
-			];
-		}
-	}
-
-	// Only allow class selection when the class isn't inherently known.
-	if (TransitionNode->DelegateOwnerInstance != SMDO_Context)
-	{
-		if (IDetailPropertyRow* Row = DetailBuilder.EditDefaultProperty(DelegatePropertyClass))
-		{
-			Row->Visibility(EVisibility::Collapsed);
-		}
-	}
-
-	FSMNodeCustomization::CustomizeDetails(DetailBuilder);
-}
-
-TSharedRef<IDetailCustomization> FSMTransitionEdgeCustomization::MakeInstance()
-{
-	return MakeShareable(new FSMTransitionEdgeCustomization);
 }
 
 void FSMNodeInstanceCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailBuilder)
@@ -420,27 +176,45 @@ void FSMNodeInstanceCustomization::CustomizeDetails(IDetailLayoutBuilder& Detail
 	
 	if (!SelectedGraphNode.IsValid())
 	{
+		if (const USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(NodeInstance))
+		{
+			// Special handling for Transition CDO that shouldn't have exposed property configuration.
+			if (TransitionInstance->IsTemplate(RF_ClassDefaultObject))
+			{
+				DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(USMTransitionInstance, bEvalDefaultProperties));
+				DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(USMTransitionInstance, bAutoEvalExposedProperties));
+				DetailBuilder.HideProperty(GET_MEMBER_NAME_CHECKED(USMTransitionInstance, ExposedPropertyOverrides));
+			}
+		}
+		
 		// Should only be invalid when editing in the node class editor, in which case everything should be displayed.
 		return;
 	}
-
-	TArray<FName> Names;
-	DetailBuilder.GetCategoryNames(Names);
-	for (const FName& Name : Names)
+	
+	TArray<TSharedRef<IPropertyHandle>> PropertyHandles;
+	for (TFieldIterator<FProperty> PropIt(NodeInstance->GetClass(), EFieldIteratorFlags::IncludeSuper); PropIt; ++PropIt)
 	{
-		IDetailCategoryBuilder& Category = DetailBuilder.EditCategory(Name);
-		TArray<TSharedRef<IPropertyHandle>> TemplateProperties;
-		Category.GetDefaultProperties(TemplateProperties);
-		ProcessNodeInstance(SelectedGraphNode, TemplateProperties, NodeInstance, "Exposed Properties", DetailBuilder);
+		const FName PropertyName = PropIt->GetFName();
+		TSharedRef<IPropertyHandle> PropertyHandle = DetailBuilder.GetProperty(PropertyName, PropIt->GetOwnerClass());
+		if (PropertyHandle->IsValidHandle())
+		{
+			PropertyHandles.Add(PropertyHandle);
+		}
 	}
+
+	ProcessNodeInstance(SelectedGraphNode, PropertyHandles, NodeInstance, DetailBuilder);
+
+	// Don't enable alphabetical sorting yet, some categories should be first like GraphNode and Class.
+	//DetailBuilder.SortCategories(SortCategories);
 }
 
-void FSMNodeInstanceCustomization::ProcessNodeInstance(TWeakObjectPtr<USMGraphNode_Base> GraphNode, TArray<TSharedRef<IPropertyHandle>> TemplateProperties,
-	class USMNodeInstance* NodeInstance, FName ExposedPropertiesName, IDetailLayoutBuilder& DetailBuilder, IDetailChildrenBuilder* ChildrenBuilder)
+void FSMNodeInstanceCustomization::ProcessNodeInstance(TWeakObjectPtr<USMGraphNode_Base> GraphNode, const TArray<TSharedRef<IPropertyHandle>>& TemplateProperties,
+	class USMNodeInstance* NodeInstance, IDetailLayoutBuilder& DetailBuilder)
 {
+	TArray<TSharedRef<IPropertyHandle>> ContainerPropertyHandles;
 	for (const TSharedRef<IPropertyHandle>& TemplatePropertyHandle : TemplateProperties)
 	{
-		if (FProperty* Property = TemplatePropertyHandle->GetProperty())
+		if (const FProperty* Property = TemplatePropertyHandle->GetProperty())
 		{
 			if (Property->GetFName() == GET_MEMBER_NAME_CHECKED(USMGraphNode_StateNode, StateStack))
 			{
@@ -451,70 +225,117 @@ void FSMNodeInstanceCustomization::ProcessNodeInstance(TWeakObjectPtr<USMGraphNo
 			// Check for and hide properties which are designed to be edited from class defaults only.
 			if (Property->HasMetaData("InstancedTemplate") || (NodeInstance && NodeInstance->GetTemplateGuid().IsValid() && Property->HasMetaData("NodeBaseOnly")))
 			{
-				TemplatePropertyHandle->MarkHiddenByCustomization();
+				HideNestedCategoryHandles(TemplatePropertyHandle);
 				continue;
 			}
 
-			// Exposed properties.
-			if (FSMNodeInstanceUtils::IsPropertyExposedToGraphNode(Property) && GraphNode->SupportsPropertyGraphs())
+			// Process non-containers first so their customizations are applied before the container edits the category.
+			if (!FSMNodeInstanceUtils::IsPropertyHandleExposedContainer(TemplatePropertyHandle))
 			{
-				// Array properties will rely on custom array builders to generate their elements.
-				if (FArrayProperty* ArrayProperty = CastField<FArrayProperty>(Property))
-				{
-					TemplatePropertyHandle->MarkHiddenByCustomization();
+				DisplayExposedPropertyWidget(GraphNode, TemplatePropertyHandle, NodeInstance, &DetailBuilder);
+			}
+			else
+			{
+				ContainerPropertyHandles.Add(TemplatePropertyHandle);
+			}
+		}
+	}
 
-					TSharedRef<FDetailArrayBuilder> ArrayBuilder = MakeShareable(new FDetailArrayBuilder(TemplatePropertyHandle));
-					ArrayBuilder->OnGenerateArrayElementWidget(FOnGenerateArrayElementWidget::CreateStatic(&FSMNodeInstanceCustomization::GenerateGraphArrayWidget,
-						GraphNode, NodeInstance, FText::FromName(ExposedPropertiesName)));
-					
-					if (ChildrenBuilder)
-					{
-						ChildrenBuilder->AddCustomBuilder(ArrayBuilder);
-					}
-					else
-					{
-						IDetailCategoryBuilder& CategoryBuilder = DetailBuilder.EditCategory(ExposedPropertiesName);
-						CategoryBuilder.AddCustomBuilder(ArrayBuilder);
-					}
-					
-					continue;
+	// Containers need to be generated last as they edit categories which prevents other customizations from applying after.
+	for (const TSharedRef<IPropertyHandle>& TemplatePropertyHandle : ContainerPropertyHandles)
+	{
+		DisplayExposedPropertyWidget(GraphNode, TemplatePropertyHandle, NodeInstance, &DetailBuilder);
+	}
+}
+
+void FSMNodeInstanceCustomization::DisplayExposedPropertyWidget(TWeakObjectPtr<USMGraphNode_Base> GraphNode, const TSharedRef<IPropertyHandle>& PropertyHandle, USMNodeInstance* NodeInstance,
+	IDetailLayoutBuilder* DetailBuilder, IDetailChildrenBuilder* ChildrenBuilder)
+{
+	if (FProperty* Property = PropertyHandle->GetProperty())
+	{
+		if (FSMNodeInstanceUtils::IsPropertyExposedToGraphNode(Property) && GraphNode->SupportsPropertyGraphs())
+		{
+			// Array properties will rely on custom array builders to generate their elements.
+			if (FArrayProperty* ArrayProperty = CastField<FArrayProperty>(Property))
+			{
+				PropertyHandle->MarkHiddenByCustomization();
+
+				// EditCategory won't work with nested categories. CustomBuilders require EditCategory at this stage.
+				TArray<FString> Categories;
+				FSMBlueprintEditorUtils::SplitCategories(PropertyHandle->GetDefaultCategoryName().ToString(), Categories);
+			
+				const FName ExposedArrayCategoryName = Categories.Num() > 0 ? *Categories[0] : FName("Default");
+				
+				const TSharedRef<FDetailArrayBuilder> ArrayBuilder = MakeShareable(new FDetailArrayBuilder(PropertyHandle));
+				ArrayBuilder->OnGenerateArrayElementWidget(FOnGenerateArrayElementWidget::CreateStatic(&FSMNodeInstanceCustomization::GenerateGraphArrayWidget,
+					GraphNode, NodeInstance, FText::FromName(ExposedArrayCategoryName)));
+		
+				if (ChildrenBuilder)
+				{
+					// State stack builder.
+					ChildrenBuilder->AddCustomBuilder(ArrayBuilder);
 				}
-
-				// Single element processing.
-				FSMGraphProperty_Base PropertyLookup;
-				const FGuid& PropertyGuid = FSMNodeInstanceUtils::SetGraphPropertyFromProperty(PropertyLookup, Property, NodeInstance);
-				if (!PropertyGuid.IsValid())
+				else if (DetailBuilder)
 				{
-					continue;
-				}
+					// Normal display such as for a node template.
+					IDetailCategoryBuilder& CategoryBuilder = DetailBuilder->EditCategory(ExposedArrayCategoryName);
+					CategoryBuilder.AddCustomBuilder(ArrayBuilder);
 
-				if (USMGraphK2Node_PropertyNode_Base* GraphPropertyNode = GraphNode->GetGraphPropertyNode(PropertyGuid))
-				{
-					TemplatePropertyHandle->MarkHiddenByCustomization();
-
-					if (ChildrenBuilder)
+					if (Categories.Num() > 1)
 					{
-						// Struct children, such as for a state stack.
+						// Nested categories may still be present under this grouping but will have
+						// no property present. Clean them up.
 						
-						ChildrenBuilder->AddCustomRow(FText::FromName(ExposedPropertiesName))
+						TArray<TSharedRef<IPropertyHandle>> ChildProperties;
+						CategoryBuilder.GetDefaultProperties(ChildProperties);
+
+						for (const TSharedRef<IPropertyHandle>& ChildProperty : ChildProperties)
+						{
+							FSMNodeInstanceUtils::HideEmptyCategoryHandles(ChildProperty, FSMNodeInstanceUtils::ENodeStackType::None);
+						}
+					}
+				}
+		
+				return;
+			}
+
+			// Single element processing.
+			FSMGraphProperty_Base PropertyLookup;
+			const FGuid& PropertyGuid = FSMNodeInstanceUtils::SetGraphPropertyFromProperty(PropertyLookup, Property, NodeInstance);
+			if (!PropertyGuid.IsValid())
+			{
+				return;
+			}
+
+			if (const USMGraphK2Node_PropertyNode_Base* GraphPropertyNode = GraphNode->GetGraphPropertyNode(PropertyGuid))
+			{
+				if (ChildrenBuilder)
+				{
+					// State stack builder.
+					PropertyHandle->MarkHiddenByCustomization();
+					IDetailPropertyRow& PropertyRow = ChildrenBuilder->AddProperty(PropertyHandle);
+					PropertyRow.ShowPropertyButtons(false);
+					
+					PropertyRow.CustomWidget()
+					.NameContent()
+					[
+						PropertyHandle->CreatePropertyNameWidget()
+					]
+					.ValueContent()
+					[
+						GraphPropertyNode->GetGraphDetailWidget().ToSharedRef()
+					];
+				}
+				else if (DetailBuilder)
+				{
+					// Normal display such as for a node template.
+					if (IDetailPropertyRow* PropertyRow = DetailBuilder->EditDefaultProperty(PropertyHandle))
+					{
+						PropertyRow->ShowPropertyButtons(false);
+						PropertyRow->CustomWidget()
 						.NameContent()
 						[
-							TemplatePropertyHandle->CreatePropertyNameWidget()
-						]
-						.ValueContent()
-						[
-							GraphPropertyNode->GetGraphDetailWidget().ToSharedRef()
-						];
-					}
-					else
-					{
-						// Normal display such as for a node template.
-						
-						DetailBuilder.EditCategory(ExposedPropertiesName)
-						.AddCustomRow(FText::FromString(Property->GetName()))
-						.NameContent()
-						[
-							TemplatePropertyHandle->CreatePropertyNameWidget()
+							PropertyHandle->CreatePropertyNameWidget()
 						]
 						.ValueContent()
 						[
@@ -566,27 +387,53 @@ void FSMNodeInstanceCustomization::GenerateGraphArrayWidget(TSharedRef<IProperty
 	}
 }
 
+void FSMNodeInstanceCustomization::SortCategories(const TMap<FName, IDetailCategoryBuilder*>& AllCategoryMap)
+{
+	// TODO: Not used yet. Commented out in FSMNodeInstanceCustomization::CustomizeDetails.
+	
+	TArray<FString> KeysString;
+	KeysString.Reserve(AllCategoryMap.Num());
+
+	for (const auto& KeyVal : AllCategoryMap)
+	{
+		KeysString.Add(KeyVal.Key.ToString());
+	}
+	
+	KeysString.Sort();
+
+	for (int32 Idx = 0; Idx < KeysString.Num(); ++Idx)
+	{
+		const FName& Key = *KeysString[Idx];
+
+		if (IDetailCategoryBuilder* const* Value = AllCategoryMap.Find(Key))
+		{
+			(*Value)->SetSortOrder(Idx);
+		}
+	}
+}
+
 USMGraphNode_Base* FSMStructCustomization::GetGraphNodeBeingCustomized(
 	IPropertyTypeCustomizationUtils& StructCustomizationUtils, bool bCheckParent) const
 {
 	return GetObjectBeingCustomized<USMGraphNode_Base>(StructCustomizationUtils, bCheckParent);
 }
 
+TSet<FName> FSMStructCustomization::RegisteredStructs;
+
 TSharedRef<IPropertyTypeCustomization> FSMGraphPropertyCustomization::MakeInstance()
 {
-	return MakeShareable(new FSMGraphPropertyCustomization);
+	return MakeShared<FSMGraphPropertyCustomization>();
 }
 
 void FSMGraphPropertyCustomization::CustomizeHeader(TSharedRef<IPropertyHandle> StructPropertyHandle,
 	FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& StructCustomizationUtils)
 {
-	PropertyHandle = StructPropertyHandle;
-	check(PropertyHandle.IsValid());
+	FSMStructCustomization::CustomizeHeader(StructPropertyHandle, HeaderRow, StructCustomizationUtils);
 	
 	USMGraphNode_Base* GraphNode = GetGraphNodeBeingCustomized(StructCustomizationUtils);
 
 	// This isn't a graph node containing this property. Use the default display.
-	if(!GraphNode)
+	if (!GraphNode)
 	{
 		HeaderRow
 		.NameContent()
@@ -605,13 +452,13 @@ void FSMGraphPropertyCustomization::CustomizeHeader(TSharedRef<IPropertyHandle> 
 	// EditFixedSize is checked in FPropertyHandleBase::CanResetToDefault() and will always be false if this is set.
 	StructPropertyHandle->GetProperty()->SetPropertyFlags(CPF_EditFixedSize);
 	
-	if(!GraphNode->GetNodeTemplate())
+	if (!GraphNode->GetNodeTemplate())
 	{
 		return;
 	}
 
 	FProperty* Property = CastField<FProperty>(StructPropertyHandle->GetProperty());
-	if(!Property)
+	if (!Property)
 	{
 		return;
 	}
@@ -637,7 +484,7 @@ void FSMGraphPropertyCustomization::CustomizeHeader(TSharedRef<IPropertyHandle> 
 	USMUtils::BlueprintPropertyToNativeProperty<FSMGraphProperty_Base>(Property, NodeTemplate, GraphProperties);
 
 	const int32 Index = FMath::Max(StructPropertyHandle->GetIndexInArray(), 0);
-	if(Index < GraphProperties.Num())
+	if (Index < GraphProperties.Num())
 	{
 		FSMGraphProperty_Base* GraphProperty = GraphProperties[Index];
 		check(GraphProperty);
@@ -663,7 +510,7 @@ void FSMGraphPropertyCustomization::CustomizeChildren(TSharedRef<IPropertyHandle
 {
 	USMGraphNode_Base* GraphNode = GetGraphNodeBeingCustomized(StructCustomizationUtils);
 	// Don't show children if we are on state machine graph.
-	if(GraphNode)
+	if (GraphNode)
 	{
 		return;
 	}
@@ -682,167 +529,6 @@ void FSMGraphPropertyCustomization::CustomizeChildren(TSharedRef<IPropertyHandle
 			
 			StructBuilder.AddProperty(ChildHandle);
 		}
-	}
-}
-
-static TSet<FName> RegisteredStructs;
-
-void FSMGraphPropertyCustomization::RegisterNewStruct(const FName& Name)
-{
-	if(RegisteredStructs.Contains(Name))
-	{
-		return;
-	}
-	RegisteredStructs.Add(Name);
-	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
-	PropertyModule.RegisterCustomPropertyTypeLayout(Name, FOnGetPropertyTypeCustomizationInstance::CreateStatic(&FSMGraphPropertyCustomization::MakeInstance));
-}
-
-void FSMGraphPropertyCustomization::UnregisterAllStructs()
-{
-	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
-	for(const FName& Name : RegisteredStructs)
-	{
-		PropertyModule.UnregisterCustomPropertyTypeLayout(Name);
-	}
-}
-
-TSharedRef<IPropertyTypeCustomization> FSMStateStackCustomization::MakeInstance()
-{
-	return MakeShareable(new FSMStateStackCustomization);
-}
-
-void FSMStateStackCustomization::CustomizeHeader(TSharedRef<IPropertyHandle> StructPropertyHandle,
-                                                 FDetailWidgetRow& HeaderRow, IPropertyTypeCustomizationUtils& StructCustomizationUtils)
-{
-	PropertyHandle = StructPropertyHandle;
-	check(PropertyHandle.IsValid());
-
-	USMGraphNode_StateNode* GraphNode = Cast<USMGraphNode_StateNode>(GetGraphNodeBeingCustomized(StructCustomizationUtils, true));
-	// Don't show children if we are on state machine graph.
-	if (!GraphNode)
-	{
-		return;
-	}
-	
-	const int32 IndexInArray = StructPropertyHandle->GetIndexInArray();
-	USMNodeInstance* NodeInstance = GraphNode->GetTemplateFromIndex(IndexInArray);
-
-	FString HeaderName = "";
-
-	if (NodeInstance)
-	{
-		FString ClassName = NodeInstance->GetClass()->GetName();
-		ClassName.RemoveFromEnd("_C");
-		HeaderName = FString::FromInt(IndexInArray) + " " + ClassName;
-	}
-	
-	HeaderRow
-		.NameContent()
-		[
-			StructPropertyHandle->CreatePropertyNameWidget(FText::FromString(HeaderName), FText::GetEmpty(), false)
-		];
-}
-
-void FSMStateStackCustomization::CustomizeChildren(TSharedRef<IPropertyHandle> StructPropertyHandle,
-	IDetailChildrenBuilder& StructBuilder, IPropertyTypeCustomizationUtils& StructCustomizationUtils)
-{
-	USMGraphNode_StateNode* GraphNode = Cast<USMGraphNode_StateNode>(GetGraphNodeBeingCustomized(StructCustomizationUtils, true));
-	// Don't show children if we are on state machine graph.
-	if(!GraphNode)
-	{
-		return;
-	}
-
-	const int32 IndexInArray = StructPropertyHandle->GetIndexInArray();
-
-	// Build out default properties as if this wasn't being customized.
-	
-	uint32 NumChildren;
-	StructPropertyHandle->GetNumChildren(NumChildren);
-
-	for (uint32 ChildIndex = 0; ChildIndex < NumChildren; ++ChildIndex)
-	{
-		const TSharedRef<IPropertyHandle> ChildHandle = StructPropertyHandle->GetChildHandle(ChildIndex).ToSharedRef();
-		StructBuilder.AddProperty(ChildHandle);
-
-		if (ChildHandle->GetProperty() && ChildHandle->GetProperty()->GetFName() == GET_MEMBER_NAME_CHECKED(FStateStackContainer, NodeStackInstanceTemplate))
-		{
-			// This is the template instance.
-			uint32 NumTemplateCategories;
-			ChildHandle->GetNumChildren(NumTemplateCategories);
-			if (NumTemplateCategories == 0)
-			{
-				continue;
-			}
-			
-			TSharedPtr<IPropertyHandle> TemplateHandle = ChildHandle->GetChildHandle(0);
-			if (!TemplateHandle.IsValid())
-			{
-				continue;
-			}
-			
-			TemplateHandle->GetNumChildren(NumTemplateCategories);
-
-			// Loop over each template category and send to node instance processing.
-			for (uint32 CatIdx = 0; CatIdx < NumTemplateCategories; ++CatIdx)
-			{
-				TArray<TSharedRef<IPropertyHandle>> TemplateProperties;
-
-				TSharedPtr<IPropertyHandle> TemplateCategoryProperty = TemplateHandle->GetChildHandle(CatIdx);
-				uint32 NumTemplateProperties;
-				TemplateCategoryProperty->GetNumChildren(NumTemplateProperties);
-				
-				for (uint32 PropertyIdx = 0; PropertyIdx < NumTemplateProperties; ++PropertyIdx)
-				{
-					TSharedPtr<IPropertyHandle> TemplateProperty = TemplateCategoryProperty->GetChildHandle(PropertyIdx);
-					TemplateProperties.Add(TemplateProperty.ToSharedRef());
-				}
-
-				FSMNodeInstanceCustomization::ProcessNodeInstance(GraphNode, TemplateProperties,
-					GraphNode->GetTemplateFromIndex(IndexInArray), "Stack Exposed Properties",
-					StructBuilder.GetParentCategory().GetParentLayout(), &StructBuilder);
-				{
-					// Check if the entire category should be hidden.
-					bool bAllCustomized = true;
-					for (const auto& TemplateProperty : TemplateProperties)
-					{
-						if (!TemplateProperty->IsCustomized())
-						{
-							bAllCustomized = false;
-							break;
-						}
-					}
-
-					if (bAllCustomized)
-					{
-						TemplateCategoryProperty->MarkHiddenByCustomization();
-					}
-				}
-			}
-		}
-	}
-}
-
-static TSet<FName> RegisteredStateStackStructs;
-
-void FSMStateStackCustomization::RegisterNewStruct(const FName& Name)
-{
-	if(RegisteredStateStackStructs.Contains(Name))
-	{
-		return;
-	}
-	RegisteredStateStackStructs.Add(Name);
-	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
-	PropertyModule.RegisterCustomPropertyTypeLayout(Name, FOnGetPropertyTypeCustomizationInstance::CreateStatic(&FSMStateStackCustomization::MakeInstance));
-}
-
-void FSMStateStackCustomization::UnregisterAllStructs()
-{
-	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
-	for(const FName& Name : RegisteredStateStackStructs)
-	{
-		PropertyModule.UnregisterCustomPropertyTypeLayout(Name);
 	}
 }
 

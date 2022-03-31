@@ -1,27 +1,26 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphNode_StateMachineStateNode.h"
+#include "Graph/SMIntermediateGraph.h"
+#include "Graph/Schema/SMIntermediateGraphSchema.h"
+#include "Graph/SMGraph.h"
+#include "Graph/Schema/SMGraphSchema.h"
+#include "Helpers/SMGraphK2Node_StateReadNodes.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+
+#include "Widgets/Notifications/SNotificationList.h"
+#include "Framework/Notifications/NotificationManager.h"
+#include "ScopedTransaction.h"
 #include "Kismet2/Kismet2NameValidators.h"
 #include "Kismet2/BlueprintEditorUtils.h"
 #include "Kismet2/KismetEditorUtilities.h"
-#include "Widgets/Notifications/SNotificationList.h"
-#include "Framework/Notifications/NotificationManager.h"
-#include "Graph/SMGraph.h"
-#include "Graph/Schema/SMGraphSchema.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-#include "Graph/SMIntermediateGraph.h"
-#include "Graph/Schema/SMIntermediateGraphSchema.h"
-#include "ScopedTransaction.h"
-#include "Helpers/SMGraphK2Node_StateReadNodes.h"
-#include "Engine/Engine.h"
-
 
 #define LOCTEXT_NAMESPACE "SMGraphStateMachineStateNode"
 
 USMGraphNode_StateMachineStateNode::USMGraphNode_StateMachineStateNode(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer), bReuseCurrentState_DEPRECATED(false), bReuseIfNotEndState_DEPRECATED(false),
-	  bAllowIndependentTick(false),
-	  bCallTickOnManualUpdate(true), bReuseReference(false), bUseTemplate(false),
+	: Super(ObjectInitializer), DynamicClassVariable(NAME_None), bReuseCurrentState_DEPRECATED(false),
+	  bReuseIfNotEndState_DEPRECATED(false),
+	  bAllowIndependentTick(false), bCallTickOnManualUpdate(true), bReuseReference_DEPRECATED(false), bUseTemplate(false),
 	  ReferencedInstanceTemplate(nullptr), ReferencedStateMachine(nullptr), bShouldUseIntermediateGraph(false),
 	  bNeedsNewReference(false), bSwitchingGraphTypes(false)
 {
@@ -33,7 +32,8 @@ void USMGraphNode_StateMachineStateNode::PostLoad()
 	Super::PostLoad();
 
 	// Check not CDO
-	if (!IsTemplate() && GetLinker() && GetLinker()->IsPersistent() && GetLinker()->IsLoading())
+	FLinkerLoad* Linker = GetLinker();
+	if (!IsTemplate() && Linker && Linker->IsPersistent() && Linker->IsLoading())
 	{
 		// Make sure the state machine default instance is setup.
 		InitStateMachineReferenceTemplate(true);
@@ -138,15 +138,7 @@ void USMGraphNode_StateMachineStateNode::PostEditChangeProperty(FPropertyChanged
 	// Enable reference templates
 	if (PropertyChangedEvent.GetPropertyName() == GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineStateNode, bUseTemplate))
 	{
-		if (bUseTemplate)
-		{
-			bReuseReference = false;
-			InitStateMachineReferenceTemplate();
-		}
-		else
-		{
-			DestroyReferenceTemplate();
-		}
+		ConfigureInitialReferenceTemplate();
 	}
 	// Enable class templates
 	else if (PropertyChangedEvent.GetPropertyName() == GET_MEMBER_NAME_CHECKED(USMGraphNode_StateMachineStateNode, StateMachineClass))
@@ -154,16 +146,27 @@ void USMGraphNode_StateMachineStateNode::PostEditChangeProperty(FPropertyChanged
 		InitTemplate();
 		// Disable property graph refresh because InitTemplate handles it.
 		bCreatePropertyGraphsOnPropertyChange = false;
-
 		bStateChange = true;
 	}
+	else
+	{
+		bPostEditChangeConstructionRequiresFullRefresh = false;
+	}
 
+	UClass* OldNodeClass = GetNodeClass();
+	SetNodeClassFromReferenceTemplate();
+	if (OldNodeClass != GetNodeClass())
+	{
+		bStateChange = true;
+	}
+	
 	UpdateEditState();
 
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 	bCreatePropertyGraphsOnPropertyChange = true;
+	bPostEditChangeConstructionRequiresFullRefresh = true;
 	
-	if (bStateChange && PropertyChangedEvent.ChangeType != EPropertyChangeType::Redirected && AreTemplatesFullyLoaded())
+	if (bStateChange && IsSafeToConditionallyCompile(PropertyChangedEvent.ChangeType))
 	{
 		FSMBlueprintEditorUtils::ConditionallyCompileBlueprint(FSMBlueprintEditorUtils::FindBlueprintForNodeChecked(this), false);
 	}
@@ -175,6 +178,10 @@ void USMGraphNode_StateMachineStateNode::PostEditUndo()
 	if (BoundGraph)
 	{
 		BoundGraph->ClearFlags(RF_Transient);
+	}
+	if (ReferencedInstanceTemplate)
+	{
+		ReferencedInstanceTemplate->ClearFlags(RF_Transient);
 	}
 	UpdateEditState();
 	InitStateMachineReferenceTemplate();
@@ -194,21 +201,40 @@ void USMGraphNode_StateMachineStateNode::ValidateNodeDuringCompilation(FCompiler
 	{
 		MessageLog.Error(TEXT("Nested State Machine node is invalid for @@. Was a state machine reference deleted or replaced?"), this);
 	}
+
+	if (!DynamicClassVariable.IsNone())
+	{
+		if (const UBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintForNode(this))
+		{
+			if (Blueprint->SkeletonGeneratedClass)
+			{
+				FProperty* Property = Blueprint->SkeletonGeneratedClass->FindPropertyByName(DynamicClassVariable);
+				if (Property == nullptr)
+				{
+					MessageLog.Error(TEXT("Dynamic Class Variable was not found in the blueprint for node @@."), this);
+				}
+			}
+		}
+	}
 }
 
 UObject* USMGraphNode_StateMachineStateNode::GetJumpTargetForDoubleClick() const
 {
-	if (IsStateMachineReference() && !ShouldUseIntermediateGraph())
+	const bool bFavorLocalGraph = FSMBlueprintEditorUtils::GetEditorSettings()->ReferenceDoubleClickBehavior == ESMJumpToGraphBehavior::PreferLocalGraph;
+	
+	if (IsStateMachineReference() && !ShouldUseIntermediateGraph() && !bFavorLocalGraph)
 	{
 		return GetReferenceToJumpTo();
 	}
+	
 	return Super::GetJumpTargetForDoubleClick();
 }
 
 void USMGraphNode_StateMachineStateNode::JumpToDefinition() const
 {
-	// Only jump to reference if set and not intermediate graph.
-	if (IsStateMachineReference() && !ShouldUseIntermediateGraph())
+	const bool bFavorLocalGraph = FSMBlueprintEditorUtils::GetEditorSettings()->ReferenceDoubleClickBehavior == ESMJumpToGraphBehavior::PreferLocalGraph;
+	
+	if (IsStateMachineReference() && (!IsUsingIntermediateGraph() || !bFavorLocalGraph) && GetReferenceToJumpTo())
 	{
 		JumpToReference();
 		return;
@@ -217,16 +243,16 @@ void USMGraphNode_StateMachineStateNode::JumpToDefinition() const
 	Super::JumpToDefinition();
 }
 
-void USMGraphNode_StateMachineStateNode::SetRuntimeDefaults(FSMState_Base& State) const
+void USMGraphNode_StateMachineStateNode::PreCompile(FSMKismetCompilerContext& CompilerContext)
 {
-	Super::SetRuntimeDefaults(State);
-	FSMStateMachine& StateMachine = (FSMStateMachine&)State;
-	StateMachine.SetReuseCurrentState(ShouldReuseCurrentState(), ShouldReuseIfNotEndState());
-	StateMachine.bHasAdditionalLogic = ShouldUseIntermediateGraph();
-	StateMachine.bAllowIndependentTick = bAllowIndependentTick;
-	StateMachine.bCallReferenceTickOnManualUpdate = bCallTickOnManualUpdate;
-	StateMachine.bReuseReference = bReuseReference && IsStateMachineReference() && !ShouldUseTemplate();
-	StateMachine.bWaitForEndState = ShouldWaitForEndState();
+	SetNodeClassFromReferenceTemplate();
+	Super::PreCompile(CompilerContext);
+
+	if (bReuseReference_DEPRECATED)
+	{
+		bReuseReference_DEPRECATED = false;
+		CompilerContext.MessageLog.Warning(TEXT("bReuseReference has been deprecated. It was previously set for node @@ and is now disabled."), this);
+	}
 }
 
 void USMGraphNode_StateMachineStateNode::ImportDeprecatedProperties()
@@ -263,12 +289,54 @@ void USMGraphNode_StateMachineStateNode::SetNodeClass(UClass* Class)
 	Super::SetNodeClass(Class);
 }
 
+void USMGraphNode_StateMachineStateNode::GoToLocalGraph() const
+{
+	if (CanGoToLocalGraph())
+	{
+		if (const UEdGraph* Graph = GetBoundGraph())
+		{
+			FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(Graph);
+		}
+	}
+}
+
+bool USMGraphNode_StateMachineStateNode::CanGoToLocalGraph() const
+{
+	if (IsStateMachineReference())
+	{
+		return IsUsingIntermediateGraph();
+	}
+
+	return Super::CanGoToLocalGraph();
+}
+
+bool USMGraphNode_StateMachineStateNode::IsNodeFastPathEnabled() const
+{
+	if (IsStateMachineReference())
+	{
+		return false;
+	}
+	return Super::IsNodeFastPathEnabled();
+}
+
+void USMGraphNode_StateMachineStateNode::SetRuntimeDefaults(FSMState_Base& State) const
+{
+	Super::SetRuntimeDefaults(State);
+	FSMStateMachine& StateMachine = static_cast<FSMStateMachine&>(State);
+	StateMachine.SetReuseCurrentState(ShouldReuseCurrentState(), ShouldReuseIfNotEndState());
+	StateMachine.bHasAdditionalLogic = ShouldUseIntermediateGraph();
+	StateMachine.bAllowIndependentTick = bAllowIndependentTick;
+	StateMachine.bCallReferenceTickOnManualUpdate = bCallTickOnManualUpdate;
+	StateMachine.bWaitForEndState = ShouldWaitForEndState();
+	StateMachine.SetDynamicReferenceVariableName(DynamicClassVariable);
+}
+
 UObject* USMGraphNode_StateMachineStateNode::GetReferenceToJumpTo() const
 {
 	if (USMBlueprint* StateMachineReference = GetStateMachineReference())
 	{
 		// Only lookup the immediate graph of the reference blueprint.
-		if(UObject* Target = FSMBlueprintEditorUtils::GetRootStateMachineGraph(Cast<UBlueprint>(StateMachineReference), false))
+		if (UObject* Target = FSMBlueprintEditorUtils::GetRootStateMachineGraph(Cast<UBlueprint>(StateMachineReference), false))
 		{
 			return Target;
 		}
@@ -281,17 +349,26 @@ UObject* USMGraphNode_StateMachineStateNode::GetReferenceToJumpTo() const
 
 void USMGraphNode_StateMachineStateNode::JumpToReference() const
 {
+	if (const UObject* HyperlinkTarget = GetReferenceToJumpTo())
+	{
+		SetDebugObjectForReference();
+		FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(HyperlinkTarget);
+	}
+}
+
+void USMGraphNode_StateMachineStateNode::SetDebugObjectForReference() const
+{
 	if (UObject* HyperlinkTarget = GetReferenceToJumpTo())
 	{
 		// Automatically set the debug object to the correct instance of the referenced blueprint.
 		if (UBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintForNode(this))
 		{
-			if (USMInstance* CurrentDebugObject = Cast<USMInstance>(Blueprint->GetObjectBeingDebugged()))
+			if (const USMInstance* CurrentDebugObject = Cast<USMInstance>(Blueprint->GetObjectBeingDebugged()))
 			{
 				UBlueprint* OtherBlueprint = FSMBlueprintEditorUtils::FindBlueprintForGraph(Cast<UEdGraph>(HyperlinkTarget));
 				if (OtherBlueprint && Blueprint != OtherBlueprint)
 				{
-					if (FSMNode_Base* RuntimeNode = FSMBlueprintEditorUtils::GetRuntimeNodeFromGraph(BoundGraph))
+					if (const FSMNode_Base* RuntimeNode = FSMBlueprintEditorUtils::GetRuntimeNodeFromGraph(BoundGraph))
 					{
 						// Find the correct runtime instance mapping to this node.
 						if (const FSMNode_Base* RealRuntimeNode = CurrentDebugObject->GetDebugStateMachineConst().GetRuntimeNode(RuntimeNode->GetNodeGuid()))
@@ -306,57 +383,52 @@ void USMGraphNode_StateMachineStateNode::JumpToReference() const
 				}
 			}
 		}
-
-		FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(HyperlinkTarget);
 	}
 }
 
-bool USMGraphNode_StateMachineStateNode::ReferenceStateMachine(USMBlueprint* OtherStateMachine, bool bRestrictCircularReference)
+bool USMGraphNode_StateMachineStateNode::ReferenceStateMachine(USMBlueprint* OtherStateMachine)
 {
 	UBlueprint* ThisBlueprint = FSMBlueprintEditorUtils::FindBlueprintForNodeChecked(this);
-
-	if (bRestrictCircularReference)
+	
+	// Can't reference itself.
+	if (ThisBlueprint == OtherStateMachine)
 	{
-		// Can't reference itself.
-		if (ThisBlueprint == OtherStateMachine)
+		FNotificationInfo Info(LOCTEXT("TriedToReferenceSelf", "Cannot directly reference the same state machine."));
+
+		Info.bUseLargeFont = false;
+		Info.ExpireDuration = 5.0f;
+
+		TSharedPtr<SNotificationItem> Notification = FSlateNotificationManager::Get().AddNotification(Info);
+		if (Notification.IsValid())
 		{
-			FNotificationInfo Info(LOCTEXT("TriedToReferenceSelf", "Cannot directly reference the same state machine."));
-
-			Info.bUseLargeFont = false;
-			Info.ExpireDuration = 5.0f;
-
-			TSharedPtr<SNotificationItem> Notification = FSlateNotificationManager::Get().AddNotification(Info);
-			if (Notification.IsValid())
-			{
-				Notification->SetCompletionState(SNotificationItem::CS_Fail);
-			}
-
-			return false;
+			Notification->SetCompletionState(SNotificationItem::CS_Fail);
 		}
 
-		// Check to make sure the reference doesn't have any nodes that reference this state machine.
-		USMGraph* ReferencedRootStateMachineGraph = FSMBlueprintEditorUtils::GetRootStateMachineGraph(OtherStateMachine, true);
-		if (ReferencedRootStateMachineGraph != nullptr)
+		return false;
+	}
+
+	// Check to make sure the reference doesn't have any nodes that reference this state machine.
+	USMGraph* ReferencedRootStateMachineGraph = FSMBlueprintEditorUtils::GetRootStateMachineGraph(OtherStateMachine, true);
+	if (ReferencedRootStateMachineGraph != nullptr)
+	{
+		TArray<USMGraphNode_StateMachineStateNode*> FoundNodes;
+		FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphNode_StateMachineStateNode>(ReferencedRootStateMachineGraph, FoundNodes);
+		for (USMGraphNode_StateMachineStateNode* Node : FoundNodes)
 		{
-			TArray<USMGraphNode_StateMachineStateNode*> FoundNodes;
-			FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphNode_StateMachineStateNode>(ReferencedRootStateMachineGraph, FoundNodes);
-			for (USMGraphNode_StateMachineStateNode* Node : FoundNodes)
+			if (Node->GetStateMachineReference() == ThisBlueprint)
 			{
-				if (Node->GetStateMachineReference() == ThisBlueprint)
+				FNotificationInfo Info(LOCTEXT("CircularReference", "Cannot reference a state machine which contains a reference to the caller."));
+
+				Info.bUseLargeFont = false;
+				Info.ExpireDuration = 5.0f;
+
+				TSharedPtr<SNotificationItem> Notification = FSlateNotificationManager::Get().AddNotification(Info);
+				if (Notification.IsValid())
 				{
-					FNotificationInfo Info(LOCTEXT("CircularReference", "Cannot reference a state machine which contains a reference to the caller."));
-
-					Info.bUseLargeFont = false;
-					Info.ExpireDuration = 5.0f;
-
-					TSharedPtr<SNotificationItem> Notification = FSlateNotificationManager::Get().AddNotification(Info);
-					if (Notification.IsValid())
-					{
-						Notification->SetCompletionState(SNotificationItem::CS_Fail);
-					}
-
-					return false;
+					Notification->SetCompletionState(SNotificationItem::CS_Fail);
 				}
+
+				return false;
 			}
 		}
 	}
@@ -364,8 +436,14 @@ bool USMGraphNode_StateMachineStateNode::ReferenceStateMachine(USMBlueprint* Oth
 	ReferencedStateMachine = OtherStateMachine;
 	bNeedsNewReference = ReferencedStateMachine == nullptr;
 
+	const USMInstance* DefaultReference = (ReferencedStateMachine && ReferencedStateMachine->GetGeneratedClass()) ? CastChecked<USMInstance>(ReferencedStateMachine->GetGeneratedClass()->GetDefaultObject()) : nullptr;
+	const TSubclassOf<USMStateMachineInstance> DefaultClass = DefaultReference ? DefaultReference->GetStateMachineClass() : nullptr;
+	
+	bUseTemplate = bUseTemplate || (DefaultClass != nullptr && DefaultClass != USMStateMachineInstance::StaticClass()) || FSMBlueprintEditorUtils::GetProjectEditorSettings()->bEnableReferenceTemplatesByDefault;
+	
 	InitStateMachineReferenceTemplate();
-
+	SetNodeClassFromReferenceTemplate();
+	
 	if (!BoundGraph)
 	{
 		CreateBoundGraph();
@@ -390,7 +468,8 @@ bool USMGraphNode_StateMachineStateNode::ReferenceStateMachine(USMBlueprint* Oth
 
 void USMGraphNode_StateMachineStateNode::InitStateMachineReferenceTemplate(bool bInitialLoad)
 {
-	if (!ShouldUseTemplate() || ReferencedStateMachine == nullptr || (bInitialLoad && ReferencedInstanceTemplate && ReferencedStateMachine && ReferencedInstanceTemplate->GetClass() == ReferencedStateMachine->GeneratedClass))
+	if (!ShouldUseTemplate() || ReferencedStateMachine == nullptr || (bInitialLoad && ReferencedInstanceTemplate &&
+		ReferencedStateMachine && ReferencedInstanceTemplate->GetClass() == ReferencedStateMachine->GeneratedClass))
 	{
 		return;
 	}
@@ -398,7 +477,8 @@ void USMGraphNode_StateMachineStateNode::InitStateMachineReferenceTemplate(bool 
 	Modify();
 
 	const FString TemplateName = FString::Printf(TEXT("NODE_TEMPLATE_%s_%s_%s"), *GetName(), *ReferencedStateMachine->GeneratedClass->GetName(), *FGuid::NewGuid().ToString());
-	USMInstance* NewTemplate = ReferencedStateMachine ? NewObject<USMInstance>(this, ReferencedStateMachine->GeneratedClass, *TemplateName, RF_ArchetypeObject | RF_Transactional | RF_Public) : nullptr;
+	USMInstance* NewTemplate = ReferencedStateMachine ? NewObject<USMInstance>(this, ReferencedStateMachine->GeneratedClass, *TemplateName,
+		RF_ArchetypeObject | RF_Transactional | RF_Public) : nullptr;
 
 	if (ReferencedInstanceTemplate)
 	{
@@ -457,8 +537,10 @@ void USMGraphNode_StateMachineStateNode::CreateBoundGraph()
 	Modify();
 	ParentGraph->Modify();
 	
+	TArray<UEdGraph*> BoundGraphSubGraphs;
 	if (BoundGraph != nullptr)
 	{
+		BoundGraphSubGraphs = BoundGraph->SubGraphs;
 		BoundGraph->Modify();
 
 		if (HasIntermediateGraph())
@@ -519,6 +601,14 @@ void USMGraphNode_StateMachineStateNode::CreateBoundGraph()
 	if (ParentGraph->SubGraphs.Find(BoundGraph) == INDEX_NONE)
 	{
 		ParentGraph->SubGraphs.Add(BoundGraph);
+	}
+
+	// Move any children graphs over (property graphs)
+	BoundGraph->Modify();
+	BoundGraph->SubGraphs = MoveTemp(BoundGraphSubGraphs);
+	for (UEdGraph* Subgraph : BoundGraph->SubGraphs)
+	{
+		Subgraph->Rename(nullptr, BoundGraph, REN_DoNotDirty | REN_DontCreateRedirectors | REN_ForceNoResetLoaders);
 	}
 }
 
@@ -636,6 +726,48 @@ bool USMGraphNode_StateMachineStateNode::HasLogicStates() const
 	}
 
 	return Graph->HasAnyLogicConnections();
+}
+
+void USMGraphNode_StateMachineStateNode::ConfigureInitialReferenceTemplate()
+{
+	if (bUseTemplate)
+	{
+		bReuseReference_DEPRECATED = false;
+		InitStateMachineReferenceTemplate();
+	}
+	else
+	{
+		DestroyReferenceTemplate();
+		SetNodeClass(nullptr);
+	}
+}
+
+void USMGraphNode_StateMachineStateNode::SetNodeClassFromReferenceTemplate()
+{
+	if (!IsStateMachineReference())
+	{
+		return;
+	}
+	
+	UClass* NewClass = ReferencedInstanceTemplate ? ReferencedInstanceTemplate->GetStateMachineClass() : nullptr;
+	if (NewClass == GetNodeClass())
+	{
+		return;
+	}
+
+	if (NewClass == nullptr)
+	{
+		NewClass = GetDefaultNodeClass();
+	}
+
+	StateMachineClass = NewClass;
+	
+	if (bUseTemplate && (!NodeInstanceTemplate || NodeInstanceTemplate->GetClass() != NewClass))
+	{
+		// Limit initializing a template unless required. Doing this with a default/null class on PreCompile
+		// will throw nativization errors during packaging.
+		InitTemplate();	
+	}
 }
 
 #undef LOCTEXT_NAMESPACE

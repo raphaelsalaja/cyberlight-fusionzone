@@ -1,8 +1,0 @@
-{
-	"BuildId": "14830424",
-	"Modules": 
-	{
-		"ProInstanceToolsEditorPlugin": "UE4Editor-ProInstanceToolsEditorPlugin.dylib",
-		"ProInstanceToolsPlugin": "UE4Editor-ProInstanceToolsPlugin.dylib"
-	}
-}

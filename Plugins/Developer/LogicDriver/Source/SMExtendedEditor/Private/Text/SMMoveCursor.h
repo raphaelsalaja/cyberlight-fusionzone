@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -7,7 +7,6 @@
 /**
  * Contains definitions for the non exported FMoveCursor of ISlateEditableTextWidget
  */
-
 
 FMoveCursor FMoveCursor::Cardinal(ECursorMoveGranularity Granularity, FIntPoint Direction, ECursorAction Action)
 {
@@ -46,7 +45,7 @@ ECursorAction FMoveCursor::GetAction() const
 
 FVector2D FMoveCursor::GetLocalPosition() const
 {
-	return DirectionOrPosition;
+	return FVector2D(DirectionOrPosition);
 }
 
 ECursorMoveGranularity FMoveCursor::GetGranularity() const

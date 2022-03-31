@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SSMPreviewModeViewportView.h"
 #include "SMPreviewModeViewportClient.h"
@@ -13,7 +13,6 @@
 #include "SEditorViewportToolBarMenu.h"
 #include "STransformViewportToolbar.h"
 #include "Slate/SceneViewport.h"
-
 
 #define LOCTEXT_NAMESPACE "SSMPreviewModeViewportView"
 
@@ -106,7 +105,7 @@ public:
 
 	FText GetCameraMenuLabel() const
 	{
-		if(EditorViewport.IsValid())
+		if (EditorViewport.IsValid())
 		{
 			return GetCameraMenuLabelFromViewportType(EditorViewport.Pin()->GetViewportClient()->GetViewportType());
 		}
@@ -116,7 +115,7 @@ public:
 
 	const FSlateBrush* GetCameraMenuLabelIcon() const
 	{
-		if(EditorViewport.IsValid())
+		if (EditorViewport.IsValid())
 		{
 			return GetCameraMenuLabelIconFromViewportType( EditorViewport.Pin()->GetViewportClient()->GetViewportType() );
 		}

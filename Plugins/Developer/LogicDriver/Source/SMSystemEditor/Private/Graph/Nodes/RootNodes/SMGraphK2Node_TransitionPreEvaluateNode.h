@@ -1,17 +1,17 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "SMGraphK2Node_RuntimeNodeContainer.h"
-#include "SMGraphK2Node_TransitionPreEvaluateNode.generated.h"
 
+#include "SMGraphK2Node_TransitionPreEvaluateNode.generated.h"
 
 UCLASS(MinimalAPI)
 class USMGraphK2Node_TransitionPreEvaluateNode: public USMGraphK2Node_RuntimeNodeReference
 {
 	GENERATED_UCLASS_BODY()
 
-	//~ Begin UEdGraphNode Interface
+	// UEdGraphNode
 	virtual void AllocateDefaultPins() override;
 	virtual void PostPlacedNewNode() override;
 	virtual FText GetMenuCategory() const override;
@@ -24,5 +24,9 @@ class USMGraphK2Node_TransitionPreEvaluateNode: public USMGraphK2Node_RuntimeNod
 	virtual bool IsCompatibleWithGraph(UEdGraph const* Graph) const override;
 	/** User can replace node. */
 	virtual bool CanUserDeleteNode() const override { return true; }
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
+
+	// USMGraphK2Node_RuntimeNode_Base
+	virtual bool IsConsideredForEntryConnection() const override { return true; }
+	// ~USMGraphK2Node_RuntimeNode_Base
 };

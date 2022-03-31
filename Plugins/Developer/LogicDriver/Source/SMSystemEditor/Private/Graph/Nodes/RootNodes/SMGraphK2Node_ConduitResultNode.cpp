@@ -1,10 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_ConduitResultNode.h"
-#include "EdGraph/EdGraph.h"
-#include "GraphEditorSettings.h"
 #include "Graph/Schema/SMConduitGraphSchema.h"
 #include "Graph/SMConduitGraph.h"
+
+#include "EdGraph/EdGraph.h"
+#include "GraphEditorSettings.h"
 
 #define LOCTEXT_NAMESPACE "SMConduitResultNode"
 

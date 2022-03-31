@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/LockOnSubobjects/RotationModes/RotationModeBase.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 // Cross Module References
@@ -120,13 +116,13 @@ void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 		{ "ModuleRelativePath", "Public/LockOnSubobjects/RotationModes/RotationModeBase.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "AddOffsetToRotation", nullptr, nullptr, sizeof(RotationModeBase_eventAddOffsetToRotation_Parms), Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54C20401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "AddOffsetToRotation", nullptr, nullptr, sizeof(Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::RotationModeBase_eventAddOffsetToRotation_Parms), Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54C20401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -177,13 +173,13 @@ void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 		{ "ModuleRelativePath", "Public/LockOnSubobjects/RotationModes/RotationModeBase.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "GetClampedRotationToTarget", nullptr, nullptr, sizeof(RotationModeBase_eventGetClampedRotationToTarget_Parms), Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54C20401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "GetClampedRotationToTarget", nullptr, nullptr, sizeof(Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::RotationModeBase_eventGetClampedRotationToTarget_Parms), Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54C20401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -249,7 +245,7 @@ void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_URotationModeBase_GetRotation_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_URotationModeBase_GetRotation_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -300,13 +296,13 @@ void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 		{ "ModuleRelativePath", "Public/LockOnSubobjects/RotationModes/RotationModeBase.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "GetRotationToTarget", nullptr, nullptr, sizeof(RotationModeBase_eventGetRotationToTarget_Parms), Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54C20401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "GetRotationToTarget", nullptr, nullptr, sizeof(Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::RotationModeBase_eventGetRotationToTarget_Parms), Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54C20401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_URotationModeBase_GetRotationToTarget()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_URotationModeBase_GetRotationToTarget_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -338,13 +334,13 @@ void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 		{ "ModuleRelativePath", "Public/LockOnSubobjects/RotationModes/RotationModeBase.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "IsEnabled", nullptr, nullptr, sizeof(RotationModeBase_eventIsEnabled_Parms), Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "IsEnabled", nullptr, nullptr, sizeof(Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::RotationModeBase_eventIsEnabled_Parms), Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_URotationModeBase_IsEnabled()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_URotationModeBase_IsEnabled_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -376,16 +372,17 @@ void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 		{ "ModuleRelativePath", "Public/LockOnSubobjects/RotationModes/RotationModeBase.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "SetIsEnabled", nullptr, nullptr, sizeof(RotationModeBase_eventSetIsEnabled_Parms), Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_URotationModeBase, nullptr, "SetIsEnabled", nullptr, nullptr, sizeof(Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::RotationModeBase_eventSetIsEnabled_Parms), Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_URotationModeBase_SetIsEnabled()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_URotationModeBase_SetIsEnabled_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(URotationModeBase);
 	UClass* Z_Construct_UClass_URotationModeBase_NoRegister()
 	{
 		return URotationModeBase::StaticClass();
@@ -423,12 +420,12 @@ void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_LockOnTarget,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_URotationModeBase_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation, "AddOffsetToRotation" }, // 1217278640
-		{ &Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget, "GetClampedRotationToTarget" }, // 1292095928
-		{ &Z_Construct_UFunction_URotationModeBase_GetRotation, "GetRotation" }, // 2924088550
-		{ &Z_Construct_UFunction_URotationModeBase_GetRotationToTarget, "GetRotationToTarget" }, // 3139835542
-		{ &Z_Construct_UFunction_URotationModeBase_IsEnabled, "IsEnabled" }, // 1426806099
-		{ &Z_Construct_UFunction_URotationModeBase_SetIsEnabled, "SetIsEnabled" }, // 2714652585
+		{ &Z_Construct_UFunction_URotationModeBase_AddOffsetToRotation, "AddOffsetToRotation" }, // 2020913486
+		{ &Z_Construct_UFunction_URotationModeBase_GetClampedRotationToTarget, "GetClampedRotationToTarget" }, // 3879244185
+		{ &Z_Construct_UFunction_URotationModeBase_GetRotation, "GetRotation" }, // 3590178252
+		{ &Z_Construct_UFunction_URotationModeBase_GetRotationToTarget, "GetRotationToTarget" }, // 1385502104
+		{ &Z_Construct_UFunction_URotationModeBase_IsEnabled, "IsEnabled" }, // 2909462818
+		{ &Z_Construct_UFunction_URotationModeBase_SetIsEnabled, "SetIsEnabled" }, // 1812295073
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_URotationModeBase_Statics::Class_MetaDataParams[] = {
@@ -508,21 +505,26 @@ void EmptyLinkFunctionForGeneratedCodeRotationModeBase() {}
 	};
 	UClass* Z_Construct_UClass_URotationModeBase()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_URotationModeBase.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_URotationModeBase_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_URotationModeBase.OuterSingleton, Z_Construct_UClass_URotationModeBase_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_URotationModeBase.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(URotationModeBase, 3956400920);
 	template<> LOCKONTARGET_API UClass* StaticClass<URotationModeBase>()
 	{
 		return URotationModeBase::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_URotationModeBase(Z_Construct_UClass_URotationModeBase, &URotationModeBase::StaticClass, TEXT("/Script/LockOnTarget"), TEXT("URotationModeBase"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(URotationModeBase);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_RotationModeBase_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_RotationModeBase_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_URotationModeBase, URotationModeBase::StaticClass, TEXT("URotationModeBase"), &Z_Registration_Info_UClass_URotationModeBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(URotationModeBase), 1096150168U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_RotationModeBase_h_1781059032(TEXT("/Script/LockOnTarget"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_RotationModeBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnSubobjects_RotationModes_RotationModeBase_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

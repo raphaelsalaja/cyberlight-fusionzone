@@ -17,7 +17,7 @@ class USMStateInstance_Base;
 #endif
 #define SMSYSTEM_SMTransitionInstance_generated_h
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_12_DELEGATE \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_12_DELEGATE \
 struct _Script_SMSystem_eventOnTransitionEnteredSignature_Parms \
 { \
 	USMTransitionInstance* TransitionInstance; \
@@ -30,8 +30,8 @@ static inline void FOnTransitionEnteredSignature_DelegateWrapper(const FMulticas
 }
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_SPARSE_DATA
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_RPC_WRAPPERS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_SPARSE_DATA
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_RPC_WRAPPERS \
 	virtual void OnTransitionShutdown_Implementation(); \
 	virtual void OnTransitionInitialized_Implementation(); \
 	virtual void OnTransitionEntered_Implementation(); \
@@ -49,7 +49,15 @@ static inline void FOnTransitionEnteredSignature_DelegateWrapper(const FMulticas
 	DECLARE_FUNCTION(execGetPriorityOrder); \
 	DECLARE_FUNCTION(execGetCanEvaluate); \
 	DECLARE_FUNCTION(execSetCanEvaluate); \
+	DECLARE_FUNCTION(execGetTransitionStackCount); \
+	DECLARE_FUNCTION(execGetTransitionIndexInStack); \
+	DECLARE_FUNCTION(execGetAllTransitionsInStackOfClass); \
+	DECLARE_FUNCTION(execGetStackOwnerInstance); \
+	DECLARE_FUNCTION(execGetTransitionInStackByClass); \
+	DECLARE_FUNCTION(execGetTransitionInStack); \
+	DECLARE_FUNCTION(execGetAllTransitionStackInstances); \
 	DECLARE_FUNCTION(execEvaluateFromManuallyBoundEvent); \
+	DECLARE_FUNCTION(execIsTransitionFromAnyState); \
 	DECLARE_FUNCTION(execDoesTransitionPass); \
 	DECLARE_FUNCTION(execGetServerTimestamp); \
 	DECLARE_FUNCTION(execGetTransitionInfo); \
@@ -63,7 +71,7 @@ static inline void FOnTransitionEnteredSignature_DelegateWrapper(const FMulticas
 	DECLARE_FUNCTION(execCanEnterTransition);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execSetCanEvalWithStartState); \
 	DECLARE_FUNCTION(execGetCanEvalWithStartState); \
@@ -77,7 +85,15 @@ static inline void FOnTransitionEnteredSignature_DelegateWrapper(const FMulticas
 	DECLARE_FUNCTION(execGetPriorityOrder); \
 	DECLARE_FUNCTION(execGetCanEvaluate); \
 	DECLARE_FUNCTION(execSetCanEvaluate); \
+	DECLARE_FUNCTION(execGetTransitionStackCount); \
+	DECLARE_FUNCTION(execGetTransitionIndexInStack); \
+	DECLARE_FUNCTION(execGetAllTransitionsInStackOfClass); \
+	DECLARE_FUNCTION(execGetStackOwnerInstance); \
+	DECLARE_FUNCTION(execGetTransitionInStackByClass); \
+	DECLARE_FUNCTION(execGetTransitionInStack); \
+	DECLARE_FUNCTION(execGetAllTransitionStackInstances); \
 	DECLARE_FUNCTION(execEvaluateFromManuallyBoundEvent); \
+	DECLARE_FUNCTION(execIsTransitionFromAnyState); \
 	DECLARE_FUNCTION(execDoesTransitionPass); \
 	DECLARE_FUNCTION(execGetServerTimestamp); \
 	DECLARE_FUNCTION(execGetTransitionInfo); \
@@ -91,7 +107,7 @@ static inline void FOnTransitionEnteredSignature_DelegateWrapper(const FMulticas
 	DECLARE_FUNCTION(execCanEnterTransition);
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_EVENT_PARMS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_EVENT_PARMS \
 	struct SMTransitionInstance_eventCanEnterTransition_Parms \
 	{ \
 		bool ReturnValue; \
@@ -104,8 +120,8 @@ static inline void FOnTransitionEnteredSignature_DelegateWrapper(const FMulticas
 	};
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_CALLBACK_WRAPPERS
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_INCLASS_NO_PURE_DECLS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_CALLBACK_WRAPPERS
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUSMTransitionInstance(); \
 	friend struct Z_Construct_UClass_USMTransitionInstance_Statics; \
@@ -114,7 +130,7 @@ public: \
 	DECLARE_SERIALIZER(USMTransitionInstance)
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_INCLASS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_INCLASS \
 private: \
 	static void StaticRegisterNativesUSMTransitionInstance(); \
 	friend struct Z_Construct_UClass_USMTransitionInstance_Statics; \
@@ -123,7 +139,7 @@ public: \
 	DECLARE_SERIALIZER(USMTransitionInstance)
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_STANDARD_CONSTRUCTORS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USMTransitionInstance(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(USMTransitionInstance) \
@@ -136,7 +152,7 @@ private: \
 public:
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_ENHANCED_CONSTRUCTORS \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API USMTransitionInstance(USMTransitionInstance&&); \
@@ -147,41 +163,30 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(USMTransitionInstance)
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_PRIVATE_PROPERTY_OFFSET \
-	FORCEINLINE static uint32 __PPO__PriorityOrder() { return STRUCT_OFFSET(USMTransitionInstance, PriorityOrder); } \
-	FORCEINLINE static uint32 __PPO__bRunParallel() { return STRUCT_OFFSET(USMTransitionInstance, bRunParallel); } \
-	FORCEINLINE static uint32 __PPO__bEvalIfNextStateActive() { return STRUCT_OFFSET(USMTransitionInstance, bEvalIfNextStateActive); } \
-	FORCEINLINE static uint32 __PPO__bCanEvaluate() { return STRUCT_OFFSET(USMTransitionInstance, bCanEvaluate); } \
-	FORCEINLINE static uint32 __PPO__bCanEvaluateFromEvent() { return STRUCT_OFFSET(USMTransitionInstance, bCanEvaluateFromEvent); } \
-	FORCEINLINE static uint32 __PPO__bCanEvalWithStartState() { return STRUCT_OFFSET(USMTransitionInstance, bCanEvalWithStartState); }
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_17_PROLOG \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_EVENT_PARMS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_17_PROLOG \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_EVENT_PARMS
-
-
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_GENERATED_BODY_LEGACY \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_RPC_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_INCLASS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_STANDARD_CONSTRUCTORS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_SPARSE_DATA \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_RPC_WRAPPERS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_CALLBACK_WRAPPERS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_INCLASS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_GENERATED_BODY \
+#define FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_PRIVATE_PROPERTY_OFFSET \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_SPARSE_DATA \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_CALLBACK_WRAPPERS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_INCLASS_NO_PURE_DECLS \
-	Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_ENHANCED_CONSTRUCTORS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_SPARSE_DATA \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_CALLBACK_WRAPPERS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_INCLASS_NO_PURE_DECLS \
+	FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h_20_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -189,7 +194,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> SMSYSTEM_API UClass* StaticClass<class USMTransitionInstance>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Revenant5_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h
+#define CURRENT_FILE_ID FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Nodes_Transitions_SMTransitionInstance_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

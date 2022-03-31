@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.ings.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.ings.
 
 #include "SMTransition.h"
 #include "SMConduit.h"
@@ -44,8 +44,9 @@ FSMTransition::FSMTransition() : Super(), Priority(0), bCanEnterTransition(false
                                  bIsEvaluating(false), bCanEvaluate(true), bCanEvaluateFromEvent(true),
                                  bRunParallel(false),
                                  bEvalIfNextStateActive(true), bCanEvalWithStartState(true),
-                                 bAlwaysFalse(false), ConditionalEvaluationType(), LastNetworkTimestamp(0),
-								 SourceState(nullptr), DestinationState(nullptr),
+                                 bAlwaysFalse(false), bFromAnyState(0), ConditionalEvaluationType(),
+                                 LastNetworkTimestamp(0),
+                                 SourceState(nullptr), DestinationState(nullptr),
                                  FromState(nullptr), ToState(nullptr)
 {
 }
@@ -53,14 +54,21 @@ FSMTransition::FSMTransition() : Super(), Priority(0), bCanEnterTransition(false
 void FSMTransition::Initialize(UObject* Instance)
 {
 	Super::Initialize(Instance);
-	USMUtils::InitializeGraphFunctions(TransitionEnteredGraphEvaluator, Instance);
-	USMUtils::InitializeGraphFunctions(TransitionPreEvaluateGraphEvaluator, Instance);
-	USMUtils::InitializeGraphFunctions(TransitionPostEvaluateGraphEvaluator, Instance);
+}
+
+void FSMTransition::InitializeGraphFunctions()
+{
+	FSMNode_Base::InitializeGraphFunctions();
+	USMUtils::InitializeGraphFunctions(CanEnterTransitionGraphEvaluator, OwningInstance, GetNodeInstance());
+	USMUtils::InitializeGraphFunctions(TransitionEnteredGraphEvaluator, OwningInstance, GetNodeInstance());
+	USMUtils::InitializeGraphFunctions(TransitionPreEvaluateGraphEvaluator, OwningInstance, GetNodeInstance());
+	USMUtils::InitializeGraphFunctions(TransitionPostEvaluateGraphEvaluator, OwningInstance, GetNodeInstance());
 }
 
 void FSMTransition::Reset()
 {
 	Super::Reset();
+	USMUtils::ResetGraphFunctions(CanEnterTransitionGraphEvaluator);
 	USMUtils::ResetGraphFunctions(TransitionEnteredGraphEvaluator);
 	USMUtils::ResetGraphFunctions(TransitionPreEvaluateGraphEvaluator);
 	USMUtils::ResetGraphFunctions(TransitionPostEvaluateGraphEvaluator);
@@ -78,6 +86,13 @@ UClass* FSMTransition::GetDefaultNodeInstanceClass() const
 
 void FSMTransition::ExecuteInitializeNodes()
 {
+	if (IsInitializedForRun())
+	{
+		return;
+	}
+
+	TryResetVariables();
+	
 	// Possible this could be true if multiple transitions out of the same state were triggered by the same event.
 	bCanEnterTransitionFromEvent = false;
 	
@@ -88,7 +103,16 @@ void FSMTransition::ExecuteInitializeNodes()
 	
 	Super::ExecuteInitializeNodes();
 
-	if (ToState->IsConduit())
+	for (USMNodeInstance* StackInstance : StackNodeInstances)
+	{
+		if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(StackInstance))
+		{
+			TransitionInstance->NativeInitialize();
+			TransitionInstance->OnTransitionInitialized();
+		}
+	}
+	
+	if (ToState->IsConduit() && static_cast<FSMConduit*>(ToState)->IsConfiguredAsTransition())
 	{
 		ToState->ExecuteInitializeNodes();
 	}
@@ -108,8 +132,17 @@ void FSMTransition::ExecuteShutdownNodes()
 	{
 		NodeInstance->NativeShutdown();
 	}
+
+	for (USMNodeInstance* StackInstance : StackNodeInstances)
+	{
+		if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(StackInstance))
+		{
+			TransitionInstance->OnTransitionShutdown();
+			TransitionInstance->NativeShutdown();
+		}
+	}
 	
-	if (ToState->IsConduit())
+	if (ToState->IsConduit() && static_cast<FSMConduit*>(ToState)->IsConfiguredAsTransition())
 	{
 		ToState->ExecuteShutdownNodes();
 	}
@@ -122,6 +155,14 @@ void FSMTransition::TakeTransition()
 	if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(NodeInstance))
 	{
 		TransitionInstance->OnTransitionEnteredEvent.Broadcast(TransitionInstance);
+	}
+
+	for (USMNodeInstance* StackInstance : StackNodeInstances)
+	{
+		if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(StackInstance))
+		{
+			TransitionInstance->OnTransitionEnteredEvent.Broadcast(TransitionInstance);
+		}
 	}
 
 	bool bCanExecuteOnEntered = true;
@@ -138,6 +179,13 @@ void FSMTransition::TakeTransition()
 	if (bCanExecuteOnEntered)
 	{
 		USMUtils::ExecuteGraphFunctions(TransitionEnteredGraphEvaluator);
+		for (USMNodeInstance* StackInstance : StackNodeInstances)
+		{
+			if (USMTransitionInstance* TransitionInstance = Cast<USMTransitionInstance>(StackInstance))
+			{
+				TransitionInstance->OnTransitionEntered();
+			}
+		}
 	}
 	
 	SetActive(false);
@@ -145,14 +193,14 @@ void FSMTransition::TakeTransition()
 	if (GetToState()->IsConduit())
 	{
 		// Let the conduit know it's being entered with this transition.
-		FSMConduit* Conduit = (FSMConduit*)GetToState();
+		FSMConduit* Conduit = static_cast<FSMConduit*>(GetToState());
 		Conduit->EnterConduitWithTransition();
 	}
 }
 
 bool FSMTransition::DoesTransitionPass() 
 {
-	FSMState_Base* NextState = GetToState();
+	const FSMState_Base* NextState = GetToState();
 	if ((bRunParallel && !bEvalIfNextStateActive && NextState->IsActive()) || NextState->HasBeenReenteredFromParallelState())
 	{
 		return false;
@@ -167,7 +215,7 @@ bool FSMTransition::DoesTransitionPass()
 		return true;
 	}
 	
-	if(CanEvaluateConditionally())
+	if (CanEvaluateConditionally())
 	{
 		bIsEvaluating = true;
 		if (ConditionalEvaluationType == ESMConditionalEvaluationType::SM_AlwaysTrue)
@@ -177,11 +225,12 @@ bool FSMTransition::DoesTransitionPass()
 		}
 		else if (ConditionalEvaluationType == ESMConditionalEvaluationType::SM_NodeInstance)
 		{
-			bCanEnterTransition = CastChecked<USMTransitionInstance>(GetNodeInstance())->CanEnterTransition();
+			bCanEnterTransition = CastChecked<USMTransitionInstance>(GetOrCreateNodeInstance())->CanEnterTransition();
 		}
 		else
 		{
-			Execute();
+			PrepareGraphExecution();
+			USMUtils::ExecuteGraphFunctions(CanEnterTransitionGraphEvaluator);
 		}
 	}
 	else
@@ -229,7 +278,7 @@ bool FSMTransition::CanTransition(TArray<FSMTransition*>& Transitions)
 	else
 	{
 		// This is a conduit.
-		FSMConduit* Conduit = (FSMConduit*)NextState;
+		FSMConduit* Conduit = static_cast<FSMConduit*>(NextState);
 		if (!Conduit->IsConfiguredAsTransition())
 		{
 			// We can enter this conduit as a state, doesn't matter if we're stuck here.
@@ -244,7 +293,7 @@ bool FSMTransition::CanTransition(TArray<FSMTransition*>& Transitions)
 
 	if (bSuccess)
 	{
-		Transitions.Add(const_cast<FSMTransition*>(this));
+		Transitions.Add(this);
 		if (NextTransitions.Num() > 0)
 		{
 			// Conduits will only have possible transition chain since they don't support starting parallel states.
@@ -267,10 +316,10 @@ void FSMTransition::GetConnectedTransitions(TArray<FSMTransition*>& Transitions)
 	FSMState_Base* NextState = GetToState();
 	if (NextState->IsConduit())
 	{
-		FSMConduit* Conduit = (FSMConduit*)NextState;
+		const FSMConduit* Conduit = static_cast<FSMConduit*>(NextState);
 		if (Conduit->IsConfiguredAsTransition())
 		{
-			for (FSMTransition* Transition : Conduit->GetOutgoingTransitions())
+			for (const FSMTransition* Transition : Conduit->GetOutgoingTransitions())
 			{
 				Transition->GetConnectedTransitions(Transitions);
 			}
@@ -302,7 +351,7 @@ void FSMTransition::SetToState(FSMState_Base* State)
 
 bool FSMTransition::CanEvaluateWithStartState(const TArray<FSMTransition*>& TransitionChain)
 {
-	for (FSMTransition* Transition : TransitionChain)
+	for (const FSMTransition* Transition : TransitionChain)
 	{
 		if (!Transition->bCanEvalWithStartState)
 		{
@@ -316,7 +365,7 @@ bool FSMTransition::CanEvaluateWithStartState(const TArray<FSMTransition*>& Tran
 FSMState_Base* FSMTransition::GetFinalStateFromChain(const TArray<FSMTransition*>& TransitionChain)
 {
 	FSMState_Base* FoundState = nullptr;
-	for (FSMTransition* Transition : TransitionChain)
+	for (const FSMTransition* Transition : TransitionChain)
 	{
 		FoundState = Transition->GetToState();
 		if (!FoundState->IsConduit())
@@ -331,7 +380,7 @@ FSMState_Base* FSMTransition::GetFinalStateFromChain(const TArray<FSMTransition*
 
 bool FSMTransition::CanChainEvalIfNextStateActive(const TArray<FSMTransition*>& TransitionChain)
 {
-	for (FSMTransition* Transition : TransitionChain)
+	for (const FSMTransition* Transition : TransitionChain)
 	{
 		if (Transition->bEvalIfNextStateActive)
 		{

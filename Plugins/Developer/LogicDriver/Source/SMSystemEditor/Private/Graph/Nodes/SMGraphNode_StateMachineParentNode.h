@@ -1,11 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMGraphNode_StateMachineStateNode.h"
-#include "SMGraphNode_StateMachineParentNode.generated.h"
 
+#include "SMGraphNode_StateMachineParentNode.generated.h"
 
 UCLASS(MinimalAPI)
 class USMGraphNode_StateMachineParentNode : public USMGraphNode_StateMachineStateNode
@@ -13,18 +12,18 @@ class USMGraphNode_StateMachineParentNode : public USMGraphNode_StateMachineStat
 	GENERATED_UCLASS_BODY()
 
 	UPROPERTY(EditDefaultsOnly, Category = "Parent State Machine", NoClear, meta = (NoResetToDefault))
-	TSubclassOf<class USMInstance> ParentClass;
+	TSubclassOf<USMInstance> ParentClass;
 
-	//~ Begin UEdGraphNode Interface
+	// UEdGraphNode
 	virtual void PostPlacedNewNode() override;
 	virtual UObject* GetJumpTargetForDoubleClick() const override;
 	virtual void JumpToDefinition() const override;
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
 
 	// USMGraphNode_StateMachineStateNode
 	virtual void CreateBoundGraph() override;
 	virtual void UpdateEditState() override;
-	virtual bool ReferenceStateMachine(USMBlueprint* OtherStateMachine, bool bRestrictCircularReference) override { return false; }
+	virtual bool ReferenceStateMachine(USMBlueprint* OtherStateMachine) override { return false; }
 	virtual void InitStateMachineReferenceTemplate(bool bInitialLoad) override {}
 	// ~USMGraphNode_StateMachineStateNode
 

@@ -1,12 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMNodeWidgetInfo.h"
-#include "Styling/SlateTypes.h"
-#include "SMTextNodeWidgetInfo.generated.h"
 
+#include "CoreMinimal.h"
+#include "Styling/SlateTypes.h"
+
+#include "SMTextNodeWidgetInfo.generated.h"
 
 USTRUCT()
 struct SMEXTENDEDRUNTIME_API FSMTextNodeWidgetInfo : public FSMTextDisplayWidgetInfo

@@ -1,10 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SGraphNode_StateMachineNode.h"
-#include "SGraphPin.h"
 #include "Graph/SMGraph.h"
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
 
+#include "SGraphPin.h"
 
 void SGraphNode_StateMachineNode::Construct(const FArguments& InArgs, USMGraphK2Node_StateMachineNode* InNode)
 {

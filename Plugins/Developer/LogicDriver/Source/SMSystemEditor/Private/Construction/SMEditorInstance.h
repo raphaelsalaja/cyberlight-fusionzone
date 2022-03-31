@@ -1,9 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMInstance.h"
+
+#include "CoreMinimal.h"
+
 #include "SMEditorInstance.generated.h"
 
 UCLASS(MinimalAPI)

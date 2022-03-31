@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -64,7 +64,7 @@ public:
 	/** Event fired when a graph in a state machine blueprint is renamed. */
 	static FOnCreateGraphEditorCommands OnCreateGraphEditorCommandsEvent;
 
-	DECLARE_MULTICAST_DELEGATE_TwoParams(FOnSelectedNodesChanged, TSharedPtr<FSMBlueprintEditor>, const TSet<class UObject*>& /* New Selection */);
+	DECLARE_MULTICAST_DELEGATE_TwoParams(FOnSelectedNodesChanged, TSharedPtr<FSMBlueprintEditor>, const TSet<UObject*>& /* New Selection */);
 	FOnSelectedNodesChanged OnSelectedNodesChangedEvent;
 
 protected:
@@ -118,7 +118,7 @@ protected:
 	
 	/** FBlueprintEditor interface */
 	virtual void OnActiveTabChanged(TSharedPtr<SDockTab> PreviouslyActive, TSharedPtr<SDockTab> NewlyActivated) override;
-	virtual void OnSelectedNodesChangedImpl(const TSet<class UObject*>& NewSelection) override;
+	virtual void OnSelectedNodesChangedImpl(const TSet<UObject*>& NewSelection) override;
 	virtual void OnCreateGraphEditorCommands(TSharedPtr<FUICommandList> GraphEditorCommandsList) override;
 	virtual void PasteNodes() override;
 	/** ~FBlueprintEditor interface */
@@ -172,6 +172,9 @@ protected:
 	
 	void GoToPropertyBlueprint();
 	bool CanGoToPropertyBlueprint() const;
+
+	void GoToTransitionStackBlueprint();
+	bool CanGoToTransitionStackBlueprint() const;
 	
 	void GoToPropertyGraph();
 	bool CanGoToPropertyGraph() const;

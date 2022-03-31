@@ -1,7 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTestHelpers.h"
 #include "SMTestContext.h"
+#include "Helpers/SMTestBoilerplate.h"
+
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Utilities/SMNodeInstanceUtils.h"
 #include "Blueprints/SMBlueprintFactory.h"
@@ -32,7 +34,7 @@
 /**
  * Unit test construction behavior.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptManagerTest, "SMTests.NodeInstanceConstructionScriptManager", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptManagerTest, "LogicDriver.ConstructionScript.Manager", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceConstructionScriptManagerTest::RunTest(const FString& Parameters)
@@ -43,14 +45,11 @@ bool FNodeInstanceConstructionScriptManagerTest::RunTest(const FString& Paramete
 	const auto CurrentCSSetting = Settings->EditorNodeConstructionScriptSetting;
 	Settings->EditorNodeConstructionScriptSetting = ESMEditorConstructionScriptProjectSetting::SM_Standard;
 
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2)
 
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
+	UEdGraphPin* LastStatePin = nullptr;
+	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin);
+	
 	FSMEditorConstructionManager* Manager = FSMEditorConstructionManager::GetInstance();
 
 	Manager->Tick(0.f); // Make sure construction scripts cleared out.
@@ -62,9 +61,15 @@ bool FNodeInstanceConstructionScriptManagerTest::RunTest(const FString& Paramete
 	Manager->Tick(0.f);
 	TestFalse("No pending construction scripts", Manager->HasPendingConstructionScripts());
 	
-	FSMEditorStateMachine& StateMachine = Manager->RebuildEditorStateMachine(NewBP);
-	TestNotNull("Root state machine node instance assigned", StateMachine.StateMachineEditorInstance->GetRootStateMachine().GetNodeInstance());
+	FSMEditorStateMachine& StateMachine = Manager->CreateEditorStateMachine(NewBP);
+	USMStateMachineInstance* RootInstance = Cast<USMStateMachineInstance>(StateMachine.StateMachineEditorInstance->GetRootStateMachine().GetNodeInstance());
+	TestNotNull("Root state machine node instance assigned", RootInstance);
 
+	TArray<USMStateInstance_Base*> EntryStates;
+	RootInstance->GetEntryStates(EntryStates);
+
+	TestEqual("Entry states assigned", EntryStates.Num(), 1);
+	
 	for (const auto& Node : StateMachine.EditorInstanceNodeStorage)
 	{
 		TestNotNull("Node instance assigned", Node->GetNodeInstance());
@@ -80,7 +85,7 @@ bool FNodeInstanceConstructionScriptManagerTest::RunTest(const FString& Paramete
 /**
  * Test construction script editor and runtime optimizations for graphs and on compile.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptOptimizationTest, "SMTests.NodeInstanceConstructionScriptOptimization", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptOptimizationTest, "LogicDriver.ConstructionScript.Optimization", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceConstructionScriptOptimizationTest::RunTest(const FString& Parameters)
@@ -115,7 +120,7 @@ bool FNodeInstanceConstructionScriptOptimizationTest::RunTest(const FString& Par
 	UEdGraph* ConstructionScriptGraph = nullptr;
 	for (UEdGraph* FunctionGraph : NewNodeBP->FunctionGraphs)
 	{
-		if (FunctionGraph->GetFName() == USMNodeInstance::GetConstructonScriptFunctionName())
+		if (FunctionGraph->GetFName() == USMNodeInstance::GetConstructionScriptFunctionName())
 		{
 			ConstructionScriptGraph = FunctionGraph;
 			break;
@@ -274,7 +279,7 @@ bool FNodeInstanceConstructionScriptOptimizationTest::RunTest(const FString& Par
 /**
  * Check construction script behavior when using standard behavior.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptStandardTest, "SMTests.NodeInstanceConstructionScriptStandard", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptStandardTest, "LogicDriver.ConstructionScript.Standard", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceConstructionScriptStandardTest::RunTest(const FString& Parameters)
@@ -285,26 +290,12 @@ bool FNodeInstanceConstructionScriptStandardTest::RunTest(const FString& Paramet
 	const auto CurrentCSSetting = Settings->EditorNodeConstructionScriptSetting;
 	Settings->EditorNodeConstructionScriptSetting = ESMEditorConstructionScriptProjectSetting::SM_Standard;
 	
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	USMGraphNode_StateNode* InitialStateGraphNode;
-	USMStateConstructionTestInstance* InitialStateGraphNodeNodeInstance;
-	// Total states to test.
-	const int32 TotalStates = 2;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2);
 	const int32 NumPasses = 2;
 	
+	USMGraphNode_StateNode* InitialStateGraphNode;
+	USMStateConstructionTestInstance* InitialStateGraphNodeNodeInstance;
+
 	auto CalculatedVal = [](int32 Suffix, const FString& Prefix = "Test_") ->FString
 	{
 		return Prefix + FString::FromInt(Suffix);
@@ -457,7 +448,7 @@ bool FNodeInstanceConstructionScriptStandardTest::RunTest(const FString& Paramet
 /**
  * Check construction script behavior when using compile only behavior.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptCompileTest, "SMTests.NodeInstanceConstructionScriptCompile", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptCompileTest, "LogicDriver.ConstructionScript.Compile", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceConstructionScriptCompileTest::RunTest(const FString& Parameters)
@@ -466,25 +457,11 @@ bool FNodeInstanceConstructionScriptCompileTest::RunTest(const FString& Paramete
 	const auto CurrentCSSetting = Settings->EditorNodeConstructionScriptSetting;
 	Settings->EditorNodeConstructionScriptSetting = ESMEditorConstructionScriptProjectSetting::SM_Compile;
 	
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2);
+	const int32 NumPasses = 2;
 	
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
 	USMGraphNode_StateNode* InitialStateGraphNode;
 	USMStateConstructionTestInstance* InitialStateGraphNodeNodeInstance;
-	// Total states to test.
-	const int32 TotalStates = 2;
-	const int32 NumPasses = 2;
 	
 	auto CalculatedVal = [](int32 Suffix) ->FString
 	{
@@ -602,7 +579,7 @@ bool FNodeInstanceConstructionScriptCompileTest::RunTest(const FString& Paramete
 /**
  * Check construction script behavior when using legacy behavior.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptLegacyTest, "SMTests.NodeInstanceConstructionScriptLegacy", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceConstructionScriptLegacyTest, "LogicDriver.ConstructionScript.Legacy", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceConstructionScriptLegacyTest::RunTest(const FString& Parameters)
@@ -611,24 +588,10 @@ bool FNodeInstanceConstructionScriptLegacyTest::RunTest(const FString& Parameter
 	const auto CurrentCSSetting = Settings->EditorNodeConstructionScriptSetting;
 	Settings->EditorNodeConstructionScriptSetting = ESMEditorConstructionScriptProjectSetting::SM_Legacy;
 	
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-	
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(1);
 
 	USMGraphNode_StateNode* InitialStateGraphNode;
 	USMStateConstructionTestInstance* InitialStateGraphNodeNodeInstance;
-	// Total states to test.
-	int32 TotalStates = 1;
 
 	auto CalculatedVal = [](int32 Suffix) ->FString
 	{

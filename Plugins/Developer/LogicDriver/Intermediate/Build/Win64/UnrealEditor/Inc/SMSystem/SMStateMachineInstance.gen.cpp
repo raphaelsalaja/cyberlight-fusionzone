@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystem/Public/Nodes/States/SMStateMachineInstance.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 // Cross Module References
@@ -18,6 +14,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 	SMSYSTEM_API UClass* Z_Construct_UClass_USMStateInstance_Base();
 	UPackage* Z_Construct_UPackage__Script_SMSystem();
 	SMSYSTEM_API UClass* Z_Construct_UClass_USMStateInstance_Base_NoRegister();
+	SMSYSTEM_API UClass* Z_Construct_UClass_USMInstance_NoRegister();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMStateMachineNodePlacementValidator();
 // End Cross Module References
 	DEFINE_FUNCTION(USMStateMachineInstance::execSetReuseIfNotEndState)
@@ -63,6 +60,13 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		P_FINISH;
 		P_NATIVE_BEGIN;
 		*(bool*)Z_Param__Result=P_THIS->GetWaitForEndState();
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(USMStateMachineInstance::execGetStateMachineReference)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		*(USMInstance**)Z_Param__Result=P_THIS->GetStateMachineReference();
 		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(USMStateMachineInstance::execGetActiveStates)
@@ -155,6 +159,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 			{ "GetEntryStates", &USMStateMachineInstance::execGetEntryStates },
 			{ "GetReuseCurrentState", &USMStateMachineInstance::execGetReuseCurrentState },
 			{ "GetReuseIfNotEndState", &USMStateMachineInstance::execGetReuseIfNotEndState },
+			{ "GetStateMachineReference", &USMStateMachineInstance::execGetStateMachineReference },
 			{ "GetWaitForEndState", &USMStateMachineInstance::execGetWaitForEndState },
 			{ "OnEndStateReached", &USMStateMachineInstance::execOnEndStateReached },
 			{ "OnStateInitialized", &USMStateMachineInstance::execOnStateInitialized },
@@ -189,18 +194,18 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Logic Driver|Node Instance" },
-		{ "Comment", "/** Return any states active within this state machine node. */" },
+		{ "Comment", "/** Return all states active within this state machine node. */" },
 		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachineInstance.h" },
-		{ "ToolTip", "Return any states active within this state machine node." },
+		{ "ToolTip", "Return all states active within this state machine node." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetActiveStates", nullptr, nullptr, sizeof(SMStateMachineInstance_eventGetActiveStates_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54420401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetActiveStates", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::SMStateMachineInstance_eventGetActiveStates_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54420401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -227,18 +232,18 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Logic Driver|Node Instance" },
-		{ "Comment", "/** Retrieve all contained state instances defined within the state machine graph this instance represents. These can be States, State Machines, and Conduits. */" },
+		{ "Comment", "/**\n\x09 * Retrieve all contained state instances defined within the state machine graph this instance represents.\n\x09 * These can be states, state machines, and conduits.\n\x09 *\n\x09 * This does not include nested states in sub state machines.\n\x09 */" },
 		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachineInstance.h" },
-		{ "ToolTip", "Retrieve all contained state instances defined within the state machine graph this instance represents. These can be States, State Machines, and Conduits." },
+		{ "ToolTip", "Retrieve all contained state instances defined within the state machine graph this instance represents.\nThese can be states, state machines, and conduits.\n\nThis does not include nested states in sub state machines." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetAllStateInstances", nullptr, nullptr, sizeof(SMStateMachineInstance_eventGetAllStateInstances_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54420401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetAllStateInstances", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::SMStateMachineInstance_eventGetAllStateInstances_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54420401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -279,13 +284,13 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Retrieve an immediate state owned by this state machine node in O(1) time.\nThis will not retrieve nested states.\n\n@param StateName The name of the state node to search for.\n\n@return The state instance or nullptr." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetContainedStateByName", nullptr, nullptr, sizeof(SMStateMachineInstance_eventGetContainedStateByName_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetContainedStateByName", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::SMStateMachineInstance_eventGetContainedStateByName_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -317,13 +322,13 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Return the entry states of the state machine. Generally one unless parallel states are used." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetEntryStates", nullptr, nullptr, sizeof(SMStateMachineInstance_eventGetEntryStates_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54420401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetEntryStates", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::SMStateMachineInstance_eventGetEntryStates_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54420401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -357,13 +362,13 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Public getter for #bReuseCurrentState." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetReuseCurrentState", nullptr, nullptr, sizeof(SMStateMachineInstance_eventGetReuseCurrentState_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetReuseCurrentState", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::SMStateMachineInstance_eventGetReuseCurrentState_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -397,13 +402,48 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Public getter for #bReuseIfNotEndState." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetReuseIfNotEndState", nullptr, nullptr, sizeof(SMStateMachineInstance_eventGetReuseIfNotEndState_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetReuseIfNotEndState", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::SMStateMachineInstance_eventGetReuseIfNotEndState_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics
+	{
+		struct SMStateMachineInstance_eventGetStateMachineReference_Parms
+		{
+			USMInstance* ReturnValue;
+		};
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(SMStateMachineInstance_eventGetStateMachineReference_Parms, ReturnValue), Z_Construct_UClass_USMInstance_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::NewProp_ReturnValue,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Logic Driver|Node Instance" },
+		{ "Comment", "/** Return an SMInstance reference if one is assigned. This will be null if this is not a state machine reference. */" },
+		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachineInstance.h" },
+		{ "ToolTip", "Return an SMInstance reference if one is assigned. This will be null if this is not a state machine reference." },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetStateMachineReference", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::SMStateMachineInstance_eventGetStateMachineReference_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -437,13 +477,13 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Public getter for #bWaitForEndState." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetWaitForEndState", nullptr, nullptr, sizeof(SMStateMachineInstance_eventGetWaitForEndState_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "GetWaitForEndState", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::SMStateMachineInstance_eventGetWaitForEndState_Parms), Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -468,7 +508,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_OnEndStateReached_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_OnEndStateReached_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -493,7 +533,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_OnStateInitialized_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_OnStateInitialized_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -518,7 +558,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_OnStateMachineCompleted_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_OnStateMachineCompleted_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -543,7 +583,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_OnStateShutdown_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_OnStateShutdown_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -585,13 +625,13 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Public setter for #bReuseCurrentState." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "SetReuseCurrentState", nullptr, nullptr, sizeof(SMStateMachineInstance_eventSetReuseCurrentState_Parms), Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "SetReuseCurrentState", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::SMStateMachineInstance_eventSetReuseCurrentState_Parms), Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -633,13 +673,13 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Public setter for #bReuseIfNotEndState." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "SetReuseIfNotEndState", nullptr, nullptr, sizeof(SMStateMachineInstance_eventSetReuseIfNotEndState_Parms), Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "SetReuseIfNotEndState", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::SMStateMachineInstance_eventSetReuseIfNotEndState_Parms), Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -681,16 +721,17 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Public setter for #bWaitForEndState." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "SetWaitForEndState", nullptr, nullptr, sizeof(SMStateMachineInstance_eventSetWaitForEndState_Parms), Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USMStateMachineInstance, nullptr, "SetWaitForEndState", nullptr, nullptr, sizeof(Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::SMStateMachineInstance_eventSetWaitForEndState_Parms), Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMStateMachineInstance);
 	UClass* Z_Construct_UClass_USMStateMachineInstance_NoRegister()
 	{
 		return USMStateMachineInstance::StaticClass();
@@ -734,20 +775,21 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_SMSystem,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_USMStateMachineInstance_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates, "GetActiveStates" }, // 3956267583
-		{ &Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances, "GetAllStateInstances" }, // 960382179
-		{ &Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName, "GetContainedStateByName" }, // 4127187635
-		{ &Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates, "GetEntryStates" }, // 3847503552
-		{ &Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState, "GetReuseCurrentState" }, // 451903193
-		{ &Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState, "GetReuseIfNotEndState" }, // 1831398016
-		{ &Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState, "GetWaitForEndState" }, // 141725397
-		{ &Z_Construct_UFunction_USMStateMachineInstance_OnEndStateReached, "OnEndStateReached" }, // 2968739615
-		{ &Z_Construct_UFunction_USMStateMachineInstance_OnStateInitialized, "OnStateInitialized" }, // 349060863
-		{ &Z_Construct_UFunction_USMStateMachineInstance_OnStateMachineCompleted, "OnStateMachineCompleted" }, // 249314963
-		{ &Z_Construct_UFunction_USMStateMachineInstance_OnStateShutdown, "OnStateShutdown" }, // 3866853054
-		{ &Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState, "SetReuseCurrentState" }, // 3517336132
-		{ &Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState, "SetReuseIfNotEndState" }, // 3479366878
-		{ &Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState, "SetWaitForEndState" }, // 479323929
+		{ &Z_Construct_UFunction_USMStateMachineInstance_GetActiveStates, "GetActiveStates" }, // 4020716037
+		{ &Z_Construct_UFunction_USMStateMachineInstance_GetAllStateInstances, "GetAllStateInstances" }, // 3076917047
+		{ &Z_Construct_UFunction_USMStateMachineInstance_GetContainedStateByName, "GetContainedStateByName" }, // 4245930214
+		{ &Z_Construct_UFunction_USMStateMachineInstance_GetEntryStates, "GetEntryStates" }, // 1645442325
+		{ &Z_Construct_UFunction_USMStateMachineInstance_GetReuseCurrentState, "GetReuseCurrentState" }, // 3937568684
+		{ &Z_Construct_UFunction_USMStateMachineInstance_GetReuseIfNotEndState, "GetReuseIfNotEndState" }, // 1770857958
+		{ &Z_Construct_UFunction_USMStateMachineInstance_GetStateMachineReference, "GetStateMachineReference" }, // 1003403714
+		{ &Z_Construct_UFunction_USMStateMachineInstance_GetWaitForEndState, "GetWaitForEndState" }, // 1113774050
+		{ &Z_Construct_UFunction_USMStateMachineInstance_OnEndStateReached, "OnEndStateReached" }, // 3676718893
+		{ &Z_Construct_UFunction_USMStateMachineInstance_OnStateInitialized, "OnStateInitialized" }, // 4260561903
+		{ &Z_Construct_UFunction_USMStateMachineInstance_OnStateMachineCompleted, "OnStateMachineCompleted" }, // 1036249406
+		{ &Z_Construct_UFunction_USMStateMachineInstance_OnStateShutdown, "OnStateShutdown" }, // 4233542701
+		{ &Z_Construct_UFunction_USMStateMachineInstance_SetReuseCurrentState, "SetReuseCurrentState" }, // 2037226910
+		{ &Z_Construct_UFunction_USMStateMachineInstance_SetReuseIfNotEndState, "SetReuseIfNotEndState" }, // 2681558087
+		{ &Z_Construct_UFunction_USMStateMachineInstance_SetWaitForEndState, "SetWaitForEndState" }, // 3197482964
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMStateMachineInstance_Statics::Class_MetaDataParams[] = {
@@ -774,7 +816,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 		{ "ToolTip", "Define what types of states are allowed or disallowed. Default is all." },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_StatePlacementRules = { "StatePlacementRules", nullptr, (EPropertyFlags)0x0020080800010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMStateMachineInstance, StatePlacementRules), Z_Construct_UScriptStruct_FSMStateMachineNodePlacementValidator, METADATA_PARAMS(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_StatePlacementRules_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_StatePlacementRules_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_StatePlacementRules = { "StatePlacementRules", nullptr, (EPropertyFlags)0x0020080800010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMStateMachineInstance, StatePlacementRules), Z_Construct_UScriptStruct_FSMStateMachineNodePlacementValidator, METADATA_PARAMS(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_StatePlacementRules_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_StatePlacementRules_MetaData)) }; // 3376235686
 #endif // WITH_EDITORONLY_DATA
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState_MetaData[] = {
@@ -788,7 +830,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 	{
 		((USMStateMachineInstance*)Obj)->bWaitForEndState = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState = { "bWaitForEndState", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMStateMachineInstance), &Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState = { "bWaitForEndState", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMStateMachineInstance), &Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bWaitForEndState_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState_MetaData[] = {
 		{ "Category", "State Machine" },
@@ -801,7 +843,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 	{
 		((USMStateMachineInstance*)Obj)->bReuseCurrentState = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState = { "bReuseCurrentState", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMStateMachineInstance), &Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState = { "bReuseCurrentState", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMStateMachineInstance), &Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseCurrentState_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState_MetaData[] = {
 		{ "Category", "State Machine" },
@@ -815,7 +857,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 	{
 		((USMStateMachineInstance*)Obj)->bReuseIfNotEndState = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState = { "bReuseIfNotEndState", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMStateMachineInstance), &Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState = { "bReuseIfNotEndState", nullptr, (EPropertyFlags)0x0040000000010001, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(USMStateMachineInstance), &Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_bReuseIfNotEndState_MetaData)) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USMStateMachineInstance_Statics::PropPointers[] = {
 #if WITH_EDITORONLY_DATA
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMStateMachineInstance_Statics::NewProp_StatePlacementRules,
@@ -844,21 +886,26 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachineInstance() {}
 	};
 	UClass* Z_Construct_UClass_USMStateMachineInstance()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMStateMachineInstance.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMStateMachineInstance_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMStateMachineInstance.OuterSingleton, Z_Construct_UClass_USMStateMachineInstance_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMStateMachineInstance.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMStateMachineInstance, 975633357);
 	template<> SMSYSTEM_API UClass* StaticClass<USMStateMachineInstance>()
 	{
 		return USMStateMachineInstance::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMStateMachineInstance(Z_Construct_UClass_USMStateMachineInstance, &USMStateMachineInstance::StaticClass, TEXT("/Script/SMSystem"), TEXT("USMStateMachineInstance"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMStateMachineInstance);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachineInstance_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachineInstance_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMStateMachineInstance, USMStateMachineInstance::StaticClass, TEXT("USMStateMachineInstance"), &Z_Registration_Info_UClass_USMStateMachineInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMStateMachineInstance), 1005228796U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachineInstance_h_13135245(TEXT("/Script/SMSystem"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachineInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachineInstance_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

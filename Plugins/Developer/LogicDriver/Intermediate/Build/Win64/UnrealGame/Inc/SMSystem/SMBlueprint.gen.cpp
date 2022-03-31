@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystem/Public/Blueprints/SMBlueprint.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMBlueprint() {}
 // Cross Module References
@@ -24,6 +20,7 @@ void EmptyLinkFunctionForGeneratedCodeSMBlueprint() {}
 	void USMBlueprint::StaticRegisterNativesUSMBlueprint()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMBlueprint);
 	UClass* Z_Construct_UClass_USMBlueprint_NoRegister()
 	{
 		return USMBlueprint::StaticClass();
@@ -104,23 +101,21 @@ void EmptyLinkFunctionForGeneratedCodeSMBlueprint() {}
 	};
 	UClass* Z_Construct_UClass_USMBlueprint()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMBlueprint.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMBlueprint_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMBlueprint.OuterSingleton, Z_Construct_UClass_USMBlueprint_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMBlueprint.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMBlueprint, 295136214);
 	template<> SMSYSTEM_API UClass* StaticClass<USMBlueprint>()
 	{
 		return USMBlueprint::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMBlueprint(Z_Construct_UClass_USMBlueprint, &USMBlueprint::StaticClass, TEXT("/Script/SMSystem"), TEXT("USMBlueprint"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMBlueprint);
 	void USMNodeBlueprint::StaticRegisterNativesUSMNodeBlueprint()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMNodeBlueprint);
 	UClass* Z_Construct_UClass_USMNodeBlueprint_NoRegister()
 	{
 		return USMNodeBlueprint::StaticClass();
@@ -182,21 +177,27 @@ void EmptyLinkFunctionForGeneratedCodeSMBlueprint() {}
 	};
 	UClass* Z_Construct_UClass_USMNodeBlueprint()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMNodeBlueprint.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMNodeBlueprint_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMNodeBlueprint.OuterSingleton, Z_Construct_UClass_USMNodeBlueprint_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMNodeBlueprint.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMNodeBlueprint, 3719915332);
 	template<> SMSYSTEM_API UClass* StaticClass<USMNodeBlueprint>()
 	{
 		return USMNodeBlueprint::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMNodeBlueprint(Z_Construct_UClass_USMNodeBlueprint, &USMNodeBlueprint::StaticClass, TEXT("/Script/SMSystem"), TEXT("USMNodeBlueprint"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMNodeBlueprint);
+	struct Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Blueprints_SMBlueprint_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Blueprints_SMBlueprint_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMBlueprint, USMBlueprint::StaticClass, TEXT("USMBlueprint"), &Z_Registration_Info_UClass_USMBlueprint, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMBlueprint), 801735790U) },
+		{ Z_Construct_UClass_USMNodeBlueprint, USMNodeBlueprint::StaticClass, TEXT("USMNodeBlueprint"), &Z_Registration_Info_UClass_USMNodeBlueprint, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMNodeBlueprint), 1680207157U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Blueprints_SMBlueprint_h_1599020121(TEXT("/Script/SMSystem"),
+		Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Blueprints_SMBlueprint_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_HostProject_Plugins_SMSystem_Source_SMSystem_Public_Blueprints_SMBlueprint_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

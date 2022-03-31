@@ -1,11 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMGraphK2.h"
-#include "SMPropertyGraph.generated.h"
 
+#include "SMPropertyGraph.generated.h"
 
 UCLASS()
 class SMSYSTEMEDITOR_API USMPropertyGraph : public USMGraphK2

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -11,7 +11,7 @@ class SButton;
 
 struct FSMActorSoftReferencePinFactory : FGraphPanelPinFactory
 {
-	virtual TSharedPtr<SGraphPin> CreatePin(class UEdGraphPin* InPin) const override;
+	virtual TSharedPtr<SGraphPin> CreatePin(UEdGraphPin* InPin) const override;
 	static void RegisterFactory();
 };
 
@@ -44,8 +44,6 @@ protected:
 	/** Combo Button Color and Opacity delegate */
 	FSlateColor OnGetComboForeground() const;
 	/** Button Color and Opacity delegate */
-	FSlateColor OnGetWidgetForeground() const;
-	/** Button Color and Opacity delegate */
 	FSlateColor OnGetWidgetBackground() const;
 
 	/**
@@ -75,11 +73,20 @@ protected:
 	*/
 	void OnActorSelected(AActor* InActor);
 
+	/**
+	 * When the magnifier is selected.
+	 */
+	void OnBrowseToSelected();
+
 	/** Returns asset data of currently selected object, if bRuntimePath is true
 	* this will include _C for blueprint classes, for false it will point to
 	* UBlueprint instead */
 	virtual const FAssetData& GetAssetData(bool bRuntimePath) const;
 
+	/** Return the actor object from the world. */
+	AActor* GetActorFromAssetData() const;
+	
+private:
 	/** Object manipulator buttons. */
 	TSharedPtr<SButton> BrowseButton;
 

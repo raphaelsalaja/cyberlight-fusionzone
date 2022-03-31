@@ -1,10 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMSystemEditorModule.h"
 #include "Graph/Pins/SGraphPin_ActorSoftReferencePin.h"
+#include "Graph/Pins/StateSelection/SGraphPin_GetStateByNamePin.h"
 #include "Graph/Nodes/SMGraphNode_ConduitNode.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
+#include "Graph/Nodes/SMGraphNode_AnyStateNode.h"
 #include "Graph/SMGraphFactory.h"
 #include "Commands/SMEditorCommands.h"
 #include "Compilers/SMKismetCompiler.h"
@@ -13,25 +15,26 @@
 #include "Configuration/SMEditorStyle.h"
 #include "Configuration/SMProjectEditorSettings.h"
 #include "Customization/SMEditorCustomization.h"
+#include "Customization/SMTransitionEdgeCustomization.h"
+#include "Customization/SMNodeStackCustomization.h"
+#include "Customization/SMStateMachineStateCustomization.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Utilities/SMVersionUtils.h"
 #include "SMSystemEditorLog.h"
 
 #include "ISMSystemModule.h"
 #include "Blueprints/SMBlueprint.h"
+#include "SMRuntimeSettings.h"
 
 #include "AssetRegistryModule.h"
 #include "EdGraphUtilities.h"
 #include "Kismet2/KismetEditorUtilities.h"
 #include "KismetCompilerModule.h"
-#include "MessageLogInitializationOptions.h"
-#include "MessageLogModule.h"
 #include "ISettingsModule.h"
 #include "PropertyEditorModule.h"
 #include "Framework/Notifications/NotificationManager.h"
 #include "Widgets/Notifications/SNotificationList.h"
 #include "Interfaces/IPluginManager.h"
-
 
 #define LOCTEXT_NAMESPACE "SMSystemEditorModule"
 
@@ -45,8 +48,6 @@ void FSMSystemEditorModule::StartupModule()
 	FSMEditorStyle::Initialize();
 	FSMEditorCommands::Register();
 	RegisterSettings();
-
-	const USMEditorSettings* EditorSettings = FSMBlueprintEditorUtils::GetEditorSettings();
 	
 	// Register blueprint compiler -- primarily seems to be used when creating a new BP.
 	IKismetCompilerInterface& KismetCompilerModule = FModuleManager::LoadModuleChecked<IKismetCompilerInterface>(KISMET_COMPILER_MODULENAME);
@@ -61,21 +62,14 @@ void FSMSystemEditorModule::StartupModule()
 	SMGraphPanelNodeFactory = MakeShareable(new FSMGraphPanelNodeFactory());
 	FEdGraphUtilities::RegisterVisualNodeFactory(SMGraphPanelNodeFactory);
 
-	SMGraphPinNodeFactory = MakeShareable(new FSMGraphPinFactory());
-	FEdGraphUtilities::RegisterVisualPinFactory(SMGraphPinNodeFactory);
-
-	if (EditorSettings->OverrideActorSoftReferencePins != ESMPinOverride::None)
-	{
-		SMGraphPinSoftActorReferenceFactory = MakeShareable(new FSMActorSoftReferencePinFactory());
-		FEdGraphUtilities::RegisterVisualPinFactory(SMGraphPinSoftActorReferenceFactory);
-	}
+	RegisterPinFactories();
 	
-	RefreshAllNodesDelegateHandle = FSMBlueprintEditorUtils::OnRefreshAllNodesEvent.AddStatic(&FSMBlueprintEditorUtils::HandleRefreshAllNodes);
+	RefreshAllNodesDelegateHandle = FBlueprintEditorUtils::OnRefreshAllNodesEvent.AddStatic(&FSMBlueprintEditorUtils::HandleRefreshAllNodes);
 	
 	// Register details customization.
 	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 	PropertyModule.RegisterCustomClassLayout(USMGraphNode_StateNode::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSMNodeCustomization::MakeInstance));
-	PropertyModule.RegisterCustomClassLayout(USMGraphNode_StateMachineStateNode::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSMStateMachineReferenceCustomization::MakeInstance));
+	PropertyModule.RegisterCustomClassLayout(USMGraphNode_StateMachineStateNode::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSMStateMachineStateCustomization::MakeInstance));
 	PropertyModule.RegisterCustomClassLayout(USMGraphNode_TransitionEdge::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSMTransitionEdgeCustomization::MakeInstance));
 	PropertyModule.RegisterCustomClassLayout(USMGraphNode_ConduitNode::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSMNodeCustomization::MakeInstance));
 	PropertyModule.RegisterCustomClassLayout(USMGraphNode_AnyStateNode::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSMNodeCustomization::MakeInstance));
@@ -83,8 +77,11 @@ void FSMSystemEditorModule::StartupModule()
 	// Covers all node instances.
 	PropertyModule.RegisterCustomClassLayout(USMNodeInstance::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSMNodeInstanceCustomization::MakeInstance));
 
-	// State stack.. forwards off requests to FSMNodeInstanceCustomization.
-	FSMStateStackCustomization::RegisterNewStruct(FStateStackContainer::StaticStruct()->GetFName());
+	// State Stack.. forwards off requests to FSMNodeInstanceCustomization.
+	FSMStructCustomization::RegisterNewStruct<FSMStateStackCustomization>(FStateStackContainer::StaticStruct()->GetFName());
+
+	// Transition Stack.
+	FSMStructCustomization::RegisterNewStruct<FSMTransitionStackCustomization>(FTransitionStackContainer::StaticStruct()->GetFName());
 	
 	// Register asset categories.
 	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
@@ -101,24 +98,16 @@ void FSMSystemEditorModule::StartupModule()
 	// Hide base instance from showing up in misc menu.
 	RegisterAssetTypeAction(AssetTools, MakeShareable(new FSMInstanceAssetTypeActions(EAssetTypeCategories::None)));
 	
-	/* // We need to call FMessageLog for registering this log module to have any effect.
-	FMessageLogModule& MessageLogModule = FModuleManager::LoadModuleChecked<FMessageLogModule>("MessageLog");
-	FMessageLogInitializationOptions InitOptions;
-	InitOptions.bShowFilters = true;
-	InitOptions.bShowPages = true;
-	MessageLogModule.RegisterLogListing("LogLogicDriver", LOCTEXT("LogicDriverLog", "Logic Driver Log"), InitOptions);
-	*/
-	
 	BeginPieHandle = FEditorDelegates::BeginPIE.AddRaw(this, &FSMSystemEditorModule::BeginPIE);
 	EndPieHandle = FEditorDelegates::EndPIE.AddRaw(this, &FSMSystemEditorModule::EndPie);
 
 	IAssetRegistry& AssetRegistry = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry").Get();
 	AssetAddedHandle = AssetRegistry.OnAssetAdded().AddRaw(this, &FSMSystemEditorModule::OnAssetAdded);
-	
+
 	const USMProjectEditorSettings* ProjectEditorSettings = FSMBlueprintEditorUtils::GetProjectEditorSettings();
 	if (ProjectEditorSettings->bUpdateAssetsOnStartup)
 	{
-		FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>(TEXT("AssetRegistry"));
+		const FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>(TEXT("AssetRegistry"));
 		FilesLoadedHandle = AssetRegistryModule.Get().OnFilesLoaded().AddStatic(&FSMVersionUtils::UpdateBlueprintsToNewVersion);
 	}
 
@@ -140,14 +129,10 @@ void FSMSystemEditorModule::ShutdownModule()
 	}
 
 	FEdGraphUtilities::UnregisterVisualNodeFactory(SMGraphPanelNodeFactory);
-	FEdGraphUtilities::UnregisterVisualPinFactory(SMGraphPinNodeFactory);
 
-	if (SMGraphPinSoftActorReferenceFactory.IsValid())
-	{
-		FEdGraphUtilities::UnregisterVisualPinFactory(SMGraphPinSoftActorReferenceFactory);
-	}
+	UnregisterPinFactories();
 	
-	FSMBlueprintEditorUtils::OnRefreshAllNodesEvent.Remove(RefreshAllNodesDelegateHandle);
+	FBlueprintEditorUtils::OnRefreshAllNodesEvent.Remove(RefreshAllNodesDelegateHandle);
 	
 	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 	PropertyModule.UnregisterCustomClassLayout(USMGraphNode_StateNode::StaticClass()->GetFName());
@@ -157,8 +142,7 @@ void FSMSystemEditorModule::ShutdownModule()
 	PropertyModule.UnregisterCustomClassLayout(USMGraphNode_AnyStateNode::StaticClass()->GetFName());
 	PropertyModule.UnregisterCustomClassLayout(USMNodeInstance::StaticClass()->GetFName());
 	
-	FSMStateStackCustomization::UnregisterAllStructs();
-	FSMGraphPropertyCustomization::UnregisterAllStructs();
+	FSMStructCustomization::UnregisterAllStructs();
 	
 	IKismetCompilerInterface& KismetCompilerModule = FModuleManager::GetModuleChecked<IKismetCompilerInterface>("KismetCompiler");
 	KismetCompilerModule.GetCompilers().Remove(&SMBlueprintCompiler);
@@ -213,13 +197,18 @@ void FSMSystemEditorModule::RegisterSettings()
 {
 	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
 	{
-		SettingsModule->RegisterSettings("Editor", "Plugins", "StateMachineEditor",
+		SettingsModule->RegisterSettings("Editor", "Plugins", "LogicDriverEditor",
 			LOCTEXT("SMEditorSettingsName", "Logic Driver Editor"),
 			LOCTEXT("SMEditorSettingsDescription", "Configure the state machine editor."),
 			GetMutableDefault<USMEditorSettings>());
 
-		SettingsModule->RegisterSettings("Project", "Plugins", "StateMachineEditor",
-			LOCTEXT("SMProjectEditorSettingsName", "Logic Driver"),
+		SettingsModule->RegisterSettings("Project", "Plugins", "LogicDriverRuntime",
+			LOCTEXT("SMRuntimeSettingsName", "Logic Driver"),
+			LOCTEXT("SMRuntimeSettingsDescription", "Configure runtime options for Logic Driver."),
+			GetMutableDefault<USMRuntimeSettings>());
+		
+		SettingsModule->RegisterSettings("Project", "Plugins", "LogicDriverEditor",
+			LOCTEXT("SMProjectEditorSettingsName", "Logic Driver Editor"),
 			LOCTEXT("SMProjectEditorSettingsDescription", "Configure the state machine editor."),
 			GetMutableDefault<USMProjectEditorSettings>());
 	}
@@ -229,8 +218,35 @@ void FSMSystemEditorModule::UnregisterSettings()
 {
 	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
 	{
-		SettingsModule->UnregisterSettings("Editor", "ContentEditors", "StateMachineEditor");
-		SettingsModule->UnregisterSettings("Project", "Editor", "StateMachineEditor");
+		SettingsModule->UnregisterSettings("Editor", "Plugins", "LogicDriverEditor");
+		SettingsModule->UnregisterSettings("Project", "Plugins", "LogicDriverEditor");
+		SettingsModule->UnregisterSettings("Project", "Plugins", "LogicDriverRuntime");
+	}
+}
+
+void FSMSystemEditorModule::RegisterPinFactories()
+{
+	SMGraphPinNodeFactory = MakeShareable(new FSMGraphPinFactory());
+	FEdGraphUtilities::RegisterVisualPinFactory(SMGraphPinNodeFactory);
+
+	SMPinNodeNameFactory = MakeShareable(new FSMGetStateByNamePinFactory());
+	FEdGraphUtilities::RegisterVisualPinFactory(SMPinNodeNameFactory);
+	
+	const USMProjectEditorSettings* ProjectEditorSettings = FSMBlueprintEditorUtils::GetProjectEditorSettings();
+	if (ProjectEditorSettings->OverrideActorSoftReferencePins != ESMPinOverride::None)
+	{
+		SMPinSoftActorReferenceFactory = MakeShareable(new FSMActorSoftReferencePinFactory());
+		FEdGraphUtilities::RegisterVisualPinFactory(SMPinSoftActorReferenceFactory);
+	}
+}
+
+void FSMSystemEditorModule::UnregisterPinFactories()
+{
+	FEdGraphUtilities::UnregisterVisualPinFactory(SMGraphPinNodeFactory);
+	FEdGraphUtilities::UnregisterVisualPinFactory(SMPinNodeNameFactory);
+	if (SMPinSoftActorReferenceFactory.IsValid())
+	{
+		FEdGraphUtilities::UnregisterVisualPinFactory(SMPinSoftActorReferenceFactory);
 	}
 }
 
@@ -239,7 +255,7 @@ void FSMSystemEditorModule::OnAssetAdded(const FAssetData& InAssetData)
 	// This is a very slow task! Only check if the asset is already loaded!
 	if (InAssetData.IsValid() && !InAssetData.IsRedirector() && InAssetData.IsAssetLoaded())
 	{
-		if(InAssetData.AssetClass == USMBlueprint::StaticClass()->GetFName())
+		if (InAssetData.AssetClass == USMBlueprint::StaticClass()->GetFName())
 		{
 			/*
 			* Newly created blueprints need their SM graphs initially set up.
@@ -249,7 +265,7 @@ void FSMSystemEditorModule::OnAssetAdded(const FAssetData& InAssetData)
 			
 			USMBlueprint* Blueprint = CastChecked<USMBlueprint>(InAssetData.GetAsset());
 
-			if(Blueprint->bIsNewlyCreated)
+			if (Blueprint->bIsNewlyCreated)
 			{
 				USMBlueprintFactory::CreateGraphsForBlueprintIfMissing(Blueprint);
 				// Prevents REINST class ensures in 4.27+ with child blueprints.
@@ -259,7 +275,7 @@ void FSMSystemEditorModule::OnAssetAdded(const FAssetData& InAssetData)
 		else if (InAssetData.AssetClass == USMNodeBlueprint::StaticClass()->GetFName())
 		{
 			USMNodeBlueprint* NodeBlueprint = CastChecked<USMNodeBlueprint>(InAssetData.GetAsset());
-			if(NodeBlueprint->bIsNewlyCreated)
+			if (NodeBlueprint->bIsNewlyCreated)
 			{
 				USMNodeBlueprintFactory::SetupNewBlueprint(NodeBlueprint);
 			}
@@ -355,4 +371,3 @@ void FSMSystemEditorModule::OnDismissUpdateNotificationClicked()
 }
 
 #undef LOCTEXT_NAMESPACE
-

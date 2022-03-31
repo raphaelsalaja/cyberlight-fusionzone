@@ -1,6 +1,8 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
+
+#include "SMRunTypes.h"
 
 #include "CoreMinimal.h"
 #include "SlateGlobals.h"
@@ -8,7 +10,6 @@
 #include "Widgets/DeclarativeSyntaxSupport.h"
 #include "Styling/CoreStyle.h"
 #include "Widgets/Input/SHyperlink.h"
-#include "SMRunTypes.h"
 
 class FWidgetViewModel;
 

@@ -1,10 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2.h"
 #include "Nodes/RootNodes/SMGraphK2Node_RootNode.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Construction/SMEditorConstructionManager.h"
-
 
 USMGraphK2::USMGraphK2(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -18,27 +17,35 @@ bool USMGraphK2::HasAnyLogicConnections() const
 		return bHasLogicConnectionsCached.GetValue();
 	}
 	
-	TArray<USMGraphK2Node_RootNode*> RootNodeList;
+	TArray<USMGraphK2Node_RuntimeNode_Base*> RootNodeList;
 
 	// We want to find the node even if it's buried in a nested graph.
-	FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RootNode>(this, RootNodeList);
+	FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNode_Base>(this, RootNodeList);
 
-	for (USMGraphK2Node_RootNode* RootNode : RootNodeList)
+	for (const USMGraphK2Node_RuntimeNode_Base* RootNode : RootNodeList)
 	{
-		if (RootNode->GetOutputNode())
+		if (RootNode->IsConsideredForEntryConnection() && RootNode->GetOutputNode())
 		{
-			const_cast<USMGraphK2*>(this)->bHasLogicConnectionsCached = true;
+			bHasLogicConnectionsCached = true;
 			return true;
 		}
 	}
 
-	const_cast<USMGraphK2*>(this)->bHasLogicConnectionsCached = false;
+	bHasLogicConnectionsCached = false;
 	return false;
 }
 
 void USMGraphK2::ResetCachedValues()
 {
 	bHasLogicConnectionsCached.Reset();
+
+	TArray<USMGraphK2Node_RuntimeNode_Base*> RootNodeList;
+	FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphK2Node_RuntimeNode_Base>(this, RootNodeList);
+	
+	for (USMGraphK2Node_RuntimeNode_Base* RootNode : RootNodeList)
+	{
+		RootNode->ResetCachedValues();
+	}
 }
 
 void USMGraphK2::PostRename(UObject* OldOuter, const FName OldName)

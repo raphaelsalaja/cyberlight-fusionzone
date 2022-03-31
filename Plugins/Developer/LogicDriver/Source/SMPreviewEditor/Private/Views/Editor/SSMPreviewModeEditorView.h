@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -9,11 +9,11 @@
 #include "ISceneOutliner.h"
 #include "Widgets/SCompoundWidget.h"
 
-
 class USMPreviewObject;
 class FSMBlueprintEditor;
 class USMBlueprint;
 class SSMPreviewModeOutlinerView;
+class FObjectPostSaveContext;
 
 enum ESMPreviewModeType
 {
@@ -28,11 +28,15 @@ class SSMPreviewModeEditorView : public SCompoundWidget, public FNotifyHook
 	SLATE_END_ARGS()
 
 	SSMPreviewModeEditorView();
-	~SSMPreviewModeEditorView();
+	virtual ~SSMPreviewModeEditorView() override;
 	
 	void Construct(const FArguments& InArgs, TSharedPtr<FSMBlueprintEditor> InStateMachineEditor, const FName& InTabID);
 
-	void UpdateSelection();
+	/**
+	 * Signal to update the current selection based on the preview object.
+	 * @param bForce Force update even if the mode is wrong.
+	 */
+	void UpdateSelection(bool bForce = false);
 
 	/** Checks that there is no simulation running. */
 	bool IsSimulationNotRunning() const;
@@ -41,7 +45,8 @@ private:
 	void OnPreviewObjectChanged(USMPreviewObject* InPreviewObject);
 	void OnPreviewWorldChanged(UWorld* InWorld);
 	void OnEditorSelectionChanged(UObject* NewObject);
-	void OnPackageSaved(const FString& PackageFileName, UObject* Outer);
+	void OnBlueprintEditorModeChanged(FName InModeName);
+	void OnPackageSaved(const FString& Filename, UPackage* Package, FObjectPostSaveContext ObjectSaveContext);
 	void OnActorSelectedToSpawn(TSubclassOf<AActor> ActorClass);
 	
 	void OnOutlinerSelectionChanged(FSceneOutlinerTreeItemPtr TreeItem, ESelectInfo::Type Type);
@@ -62,6 +67,7 @@ private:
 	FDelegateHandle PreviewObjectChangedHandle;
 	FDelegateHandle PreviewWorldChangedHandle;
 	FDelegateHandle SelectionChangedHandle;
+	FDelegateHandle BlueprintEditorModeChangedHandle;
 
 	ESMPreviewModeType CurrentMode;
 };

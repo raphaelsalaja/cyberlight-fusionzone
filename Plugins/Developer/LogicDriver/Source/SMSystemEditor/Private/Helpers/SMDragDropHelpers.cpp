@@ -1,8 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "Helpers/SMDragDropHelpers.h"
-#include "EditorStyle.h"
+
 #include "Graph/Nodes/PropertyNodes/SMGraphK2Node_PropertyNode.h"
+
+#include "BPVariableDragDropAction.h"
+#include "EditorStyleSet.h"
 
 #define LOCTEXT_NAMESPACE "SMDragDropHelpers"
 

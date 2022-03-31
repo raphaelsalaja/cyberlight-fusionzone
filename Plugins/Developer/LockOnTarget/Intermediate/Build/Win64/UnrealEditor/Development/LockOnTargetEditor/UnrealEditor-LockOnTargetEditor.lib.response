@@ -10,4 +10,3 @@
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTargetEditor\Module.LockOnTargetEditor.cpp.obj"
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTargetEditor\Default.rc2.res"
 /OUT:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTargetEditor\UnrealEditor-LockOnTargetEditor.lib"
-/INCLUDE:IMPLEMENT_MODULE_LockOnTargetEditor

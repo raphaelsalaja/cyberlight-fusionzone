@@ -1,17 +1,20 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateReadNodes.h"
-#include "BlueprintNodeSpawner.h"
-#include "BlueprintActionDatabaseRegistrar.h"
+
 #include "Utilities/SMBlueprintEditorUtils.h"
-#include "Blueprints/SMBlueprint.h"
-#include "EdGraph/EdGraph.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
 #include "Graph/SMTransitionGraph.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
 #include "Graph/SMConduitGraph.h"
 #include "Graph/SMStateGraph.h"
+
+#include "Blueprints/SMBlueprint.h"
+
+#include "EdGraph/EdGraph.h"
+#include "BlueprintNodeSpawner.h"
+#include "BlueprintActionDatabaseRegistrar.h"
 
 #define LOCTEXT_NAMESPACE "SMStateMachineReadNode"
 
@@ -29,7 +32,7 @@ FString USMGraphK2Node_StateReadNode::GetMostRecentStateName() const
 {
 	USMGraphNode_StateNodeBase* StateNode = GetMostRecentState();
 
-	if(StateNode == nullptr)
+	if (StateNode == nullptr)
 	{
 		return FString();
 	}
@@ -153,7 +156,7 @@ USMGraphK2Node_StateReadNode_TimeInState::USMGraphK2Node_StateReadNode_TimeInSta
 
 void USMGraphK2Node_StateReadNode_TimeInState::AllocateDefaultPins()
 {
-	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Float, TEXT("TimeInState"));
+	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Real, USMGraphK2Schema::PC_Float, TEXT("TimeInState"));
 }
 
 FText USMGraphK2Node_StateReadNode_TimeInState::GetNodeTitle(ENodeTitleType::Type TitleType) const
@@ -249,7 +252,7 @@ USMGraphK2Node_StateMachineReadNode::USMGraphK2Node_StateMachineReadNode(const F
 
 bool USMGraphK2Node_StateMachineReadNode::IsCompatibleWithGraph(UEdGraph const* Graph) const
 {
-	if(USMTransitionGraph const* TransitionGraph = Cast<USMTransitionGraph>(Graph))
+	if (USMTransitionGraph const* TransitionGraph = Cast<USMTransitionGraph>(Graph))
 	{
 		return Cast<USMGraphNode_StateMachineStateNode>(TransitionGraph->GetOwningTransitionNodeChecked()->GetFromState()) != nullptr;
 	}
@@ -278,7 +281,7 @@ bool USMGraphK2Node_StateMachineReadNode::IsActionFilteredOut(FBlueprintActionFi
 		}
 	}
 
-	if(!TransitionGraph)
+	if (!TransitionGraph)
 	{
 		return false;
 	}
@@ -290,14 +293,14 @@ bool USMGraphK2Node_StateMachineReadNode::IsActionFilteredOut(FBlueprintActionFi
 void USMGraphK2Node_StateMachineReadNode::ValidateNodeDuringCompilation(FCompilerResultsLog& MessageLog) const
 {
 	UEdGraph* Graph = GetGraph();
-	if(Graph == nullptr)
+	if (Graph == nullptr)
 	{
 		return;
 	}
 	
 	if (USMTransitionGraph const* TransitionGraph = Cast<USMTransitionGraph>(Graph))
 	{
-		if(Cast<USMGraphNode_StateMachineStateNode>(TransitionGraph->GetOwningTransitionNodeChecked()->GetFromState()) == nullptr)
+		if (Cast<USMGraphNode_StateMachineStateNode>(TransitionGraph->GetOwningTransitionNodeChecked()->GetFromState()) == nullptr)
 		{
 			MessageLog.Error(TEXT("State Machine Read Node @@ is in a transition not exiting from a state machine."), this);
 			return;

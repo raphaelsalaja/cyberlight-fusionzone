@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -7,8 +7,8 @@
 #include "Styling/SlateTypes.h"
 #include "Layout/Clipping.h"
 #endif
-#include "SMNodeWidgetInfo.generated.h"
 
+#include "SMNodeWidgetInfo.generated.h"
 
 /**
  * Info used in determining widget display on a node.
@@ -34,8 +34,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Size")
 	int32 MaxHeight;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Display")
-	int32 DisplayOrder;
+	/*
+	* @deprecated Use DisplayOrder metadata for native properties, or adjust the blueprint variable order in blueprints. 
+	*/
+	UPROPERTY()
+	int32 DisplayOrder_DEPRECATED;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Display")
 	FLinearColor BackgroundColor;

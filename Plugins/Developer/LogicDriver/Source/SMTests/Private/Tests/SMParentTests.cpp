@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "Blueprints/SMBlueprint.h"
 #include "SMTestHelpers.h"
@@ -361,14 +361,14 @@ bool TestParentStateMachines(FAutomationTestBase* Test, int32 NumParentsCallsInC
 /**
  * Test multiple parent state machine calls.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateMachineParentTest, "SMTests.StateMachineParent", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateMachineParentTest, "LogicDriver.Parents.StateMachineParent", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 	bool FStateMachineParentTest::RunTest(const FString& Parameters)
 {
-	for(int32 c = 1; c < 4; ++c)
+	for (int32 c = 1; c < 4; ++c)
 	{
-		for(int32 gc = 1; gc < 3; ++gc)
+		for (int32 gc = 1; gc < 3; ++gc)
 		{
 			for (int32 ref = 1; ref < 3; ++ref)
 			{

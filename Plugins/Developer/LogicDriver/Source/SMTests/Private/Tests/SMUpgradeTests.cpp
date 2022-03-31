@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "Blueprints/SMBlueprint.h"
 #include "SMTestHelpers.h"
@@ -37,7 +37,7 @@
 /**
  * Validate old blueprints can be updated properly.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateBlueprintVersionTest, "SMTests.UpdateBlueprintVersion", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateBlueprintVersionTest, "LogicDriver.Upgrade.UpdateBlueprintVersion", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FUpdateBlueprintVersionTest::RunTest(const FString& Parameters)
@@ -83,7 +83,7 @@ bool FUpdateBlueprintVersionTest::RunTest(const FString& Parameters)
 /**
 * Sanity checks for version calculations.
 */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FVersionComparisonTest, "SMTests.VersionComparison", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FVersionComparisonTest, "LogicDriver.Upgrade.VersionComparison", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FVersionComparisonTest::RunTest(const FString& Parameters)
@@ -123,7 +123,7 @@ bool FVersionComparisonTest::RunTest(const FString& Parameters)
 /**
 * Validate construction script settings update.
 */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateConstructionScriptVersionTest, "SMTests.UpdateConstructionScriptVersion", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateConstructionScriptVersionTest, "LogicDriver.Upgrade.UpdateConstructionScriptVersion", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FUpdateConstructionScriptVersionTest::RunTest(const FString& Parameters)
@@ -182,7 +182,7 @@ bool FUpdateConstructionScriptVersionTest::RunTest(const FString& Parameters)
 /**
  * Validate pre 2.4 nodes have their old property guids updated to account for template guids.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateStackGuidTest, "SMTests.UpdateStackGuid", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateStackGuidTest, "LogicDriver.Upgrade.UpdateStackGuid", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 	bool FUpdateStackGuidTest::RunTest(const FString& Parameters)
 {
@@ -400,7 +400,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateStackGuidTest, "SMTests.UpdateStackGuid"
 /**
  * Validate pre 2.3 nodes have their templates setup properly and deprecated node values are imported.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateNodeTemplateTest, "SMTests.UpdateNodeTemplate", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateNodeTemplateTest, "LogicDriver.Upgrade.UpdateNodeTemplate", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 	bool FUpdateNodeTemplateTest::RunTest(const FString& Parameters)
 {
@@ -917,17 +917,17 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateNodeTemplateTest, "SMTests.UpdateNodeTem
 /**
  * Validate components import their deprecated values correctly.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateComponentTemplateTest, "SMTests.UpdateComponentTemplate", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateComponentTest, "LogicDriver.Upgrade.UpdateComponent", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FUpdateComponentTemplateTest::RunTest(const FString& Parameters)
+	bool FUpdateComponentTest::RunTest(const FString& Parameters)
 {
 	FAssetHandler NewAsset;
 	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
 	{
 		return false;
 	}
-
+	
 	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
 
 	USMStateMachineTestComponent* TestComponent = NewObject<USMStateMachineTestComponent>(GetTransientPackage(), NAME_None, RF_ArchetypeObject | RF_Public);
@@ -972,13 +972,60 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FUpdateComponentTemplateTest, "SMTests.UpdateCo
 	TestEqual("CanTick", Template->CanEverTick(), !bCanEverTick);
 	TestEqual("TickInterval", Template->GetTickInterval(), 0.f);
 
+	PRAGMA_DISABLE_DEPRECATION_WARNINGS
+#define DEFAULT_AUTHORITY SM_Client
+#define DEFAULT_EXECUTION SM_ClientAndServer
+#define DEFAULT_WAIT_RPC  false
+
+#define CHANGED_AUTHORITY SM_ClientAndServer
+#define CHANGED_EXECUTION SM_Client
+#define CHANGED_WAIT_RPC  true
+	
+	// Net Properties
+	
+	// Test defaults.
+	TestEqual("Deprecated property is default", TestComponent->NetworkTransitionConfiguration, DEFAULT_AUTHORITY); 
+	TestEqual("Deprecated property is default", TestComponent->NetworkStateConfiguration, DEFAULT_EXECUTION);
+	TestEqual("Deprecated property is default", TestComponent->bTakeTransitionsFromServerOnly, DEFAULT_WAIT_RPC);
+
+	TestEqual("Updated property is default", TestComponent->StateChangeAuthority, DEFAULT_AUTHORITY); 
+	TestEqual("Updated property is default", TestComponent->NetworkStateExecution, DEFAULT_EXECUTION);
+	TestEqual("Updated property is default", TestComponent->bWaitForTransactionsFromServer, DEFAULT_WAIT_RPC);
+	
+	TestComponent->NetworkTransitionConfiguration = CHANGED_AUTHORITY;
+	TestComponent->NetworkStateConfiguration = CHANGED_EXECUTION;
+	TestComponent->bTakeTransitionsFromServerOnly =  CHANGED_WAIT_RPC;
+
+	// Test deprecated values imported.
+	TestComponent->ImportDeprecatedProperties_Public();
+
+	TestEqual("Updated property is set", TestComponent->StateChangeAuthority, CHANGED_AUTHORITY); 
+	TestEqual("Updated property is set", TestComponent->NetworkStateExecution, CHANGED_EXECUTION);
+	TestEqual("Updated property is set", TestComponent->bWaitForTransactionsFromServer, CHANGED_WAIT_RPC);
+
+	TestEqual("Deprecated property is default", TestComponent->NetworkTransitionConfiguration, DEFAULT_AUTHORITY); 
+	TestEqual("Deprecated property is default", TestComponent->NetworkStateConfiguration, DEFAULT_EXECUTION);
+	TestEqual("Deprecated property is default", TestComponent->bTakeTransitionsFromServerOnly, DEFAULT_WAIT_RPC);
+
+	// Test no change.
+	TestComponent->ImportDeprecatedProperties_Public();
+
+	TestEqual("Updated property is set", TestComponent->StateChangeAuthority, CHANGED_AUTHORITY); 
+	TestEqual("Updated property is set", TestComponent->NetworkStateExecution, CHANGED_EXECUTION);
+	TestEqual("Updated property is set", TestComponent->bWaitForTransactionsFromServer, CHANGED_WAIT_RPC);
+
+	TestEqual("Deprecated property is default", TestComponent->NetworkTransitionConfiguration, DEFAULT_AUTHORITY); 
+	TestEqual("Deprecated property is default", TestComponent->NetworkStateConfiguration, DEFAULT_EXECUTION);
+	TestEqual("Deprecated property is default", TestComponent->bTakeTransitionsFromServerOnly, DEFAULT_WAIT_RPC);
+	
+	PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	return NewAsset.DeleteAsset(this);
 }
 
 /**
  * Test the new pin names load correctly.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSMPinConversionTest, "SMTests.PinConversion", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSMPinConversionTest, "LogicDriver.Upgrade.PinConversion", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FSMPinConversionTest::RunTest(const FString& Parameters)

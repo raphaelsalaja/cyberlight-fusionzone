@@ -1,13 +1,15 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
-#include "Blueprints/SMBlueprint.h"
+
 #include "SMTestHelpers.h"
+#include "SMTestContext.h"
+#include "Helpers/SMTestBoilerplate.h"
+
 #include "Blueprints/SMBlueprintFactory.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
-#include "SMTestContext.h"
-#include "EdGraph/EdGraph.h"
-#include "K2Node_CallFunction.h"
-#include "Kismet2/KismetEditorUtilities.h"
+
+#include "Blueprints/SMBlueprint.h"
+
 #include "Graph/SMGraph.h"
 #include "Graph/SMIntermediateGraph.h"
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
@@ -18,6 +20,9 @@
 #include "Graph/Nodes/Helpers/SMGraphK2Node_StateReadNodes.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_FunctionNodes.h"
 
+#include "EdGraph/EdGraph.h"
+#include "K2Node_CallFunction.h"
+#include "Kismet2/KismetEditorUtilities.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -26,24 +31,12 @@
 /**
  * Tests GetStateMachineReference in the intermediate graph and validates it returns the correct reference.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_GetStateMachineReferenceTest, "SMTests.StateRead_GetStateMachineReference", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_GetStateMachineReferenceTest, "LogicDriver.HelperNodes.StateRead_GetStateMachineReference", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FStateRead_GetStateMachineReferenceTest::RunTest(const FString& Parameters)
+bool FStateRead_GetStateMachineReferenceTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES();
 
 	UEdGraphPin* LastStatePin = nullptr;
 
@@ -80,12 +73,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_GetStateMachineReferenceTest, "SMTes
 	FKismetEditorUtilities::CompileBlueprint(NewReferencedBlueprint);
 	
 	// Store handler information so we can delete the object.
-	FString ReferencedPath = NewReferencedBlueprint->GetPathName();
-	FAssetHandler ReferencedAsset(NewReferencedBlueprint->GetName(), USMBlueprint::StaticClass(), NewObject<USMBlueprintFactory>(), &ReferencedPath);
-	ReferencedAsset.Object = NewReferencedBlueprint;
-
-	UPackage* Package = FAssetData(NewReferencedBlueprint).GetPackage();
-	ReferencedAsset.Package = Package;
+	FAssetHandler ReferencedAsset = TestHelpers::CreateAssetFromBlueprint(NewReferencedBlueprint);
 	
 	TestNotNull("New referenced blueprint created", NewReferencedBlueprint);
 	TestTrue("Nested state machine has had all nodes removed.", NestedStateMachineNode->GetBoundGraph()->Nodes.Num() == 1);
@@ -101,7 +89,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_GetStateMachineReferenceTest, "SMTes
 
 	USMGraphK2Node_StateMachineRef_Stop* StopNode = nullptr;
 	USMIntermediateGraph* IntermediateGraph = nullptr;
-	for(USMIntermediateGraph* Graph : Graphs)
+	for (USMIntermediateGraph* Graph : Graphs)
 	{
 		IntermediateGraph = Graph;
 		TArray< USMGraphK2Node_StateMachineRef_Stop*> StopNodes;
@@ -110,7 +98,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_GetStateMachineReferenceTest, "SMTes
 		StopNode = StopNodes[0];
 	}
 
-	if(StopNode == nullptr)
+	if (StopNode == nullptr)
 	{
 		return false;
 	}
@@ -154,24 +142,12 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_GetStateMachineReferenceTest, "SMTes
 /**
  * Assemble and run a hierarchical state machine and wait for the internal state machine to finish.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_InEndStateTest, "SMTests.StateRead_InEndState", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_InEndStateTest, "LogicDriver.HelperNodes.StateRead_InEndState", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FStateRead_InEndStateTest::RunTest(const FString& Parameters)
+bool FStateRead_InEndStateTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 
 	// Total states to test.
 	int32 TotalStates = 0;
@@ -257,27 +233,12 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_InEndStateTest, "SMTests.StateRead_I
 /**
  * Test transitioning from a state after a time period.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_TimeInStateTest, "SMTests.StateRead_TimeInState", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateRead_TimeInStateTest, "LogicDriver.HelperNodes.StateRead_TimeInState", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FStateRead_TimeInStateTest::RunTest(const FString& Parameters)
+bool FStateRead_TimeInStateTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 0;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(0)
 	UEdGraphPin* LastStatePin = nullptr;
 
 	// Build a state machine of only two states.

@@ -1,8 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "Graph/Nodes/PropertyNodes/SMGraphK2Node_PropertyNode.h"
+
 #include "SMGraphK2Node_GraphPropertyNode.generated.h"
 
 UCLASS(MinimalAPI)
@@ -20,7 +21,7 @@ public:
 	
 	// UEdGraphNode
 	virtual void AllocateDefaultPins() override;
-	// ~UedGraphNode
+	// ~UEdGraphNode
 	
 	// USMGraphK2Node_PropertyNode
 	virtual void ConfigureRuntimePropertyNode() override;

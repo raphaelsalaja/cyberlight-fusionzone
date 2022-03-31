@@ -1,7 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTestHelpers.h"
 #include "SMTestContext.h"
+#include "Helpers/SMTestBoilerplate.h"
+
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Blueprints/SMBlueprintFactory.h"
 #include "Graph/SMGraph.h"
@@ -18,6 +20,7 @@
 
 #include "Blueprints/SMBlueprint.h"
 #include "SMUtils.h"
+#include "SMRuntimeSettings.h"
 
 #include "Kismet2/KismetEditorUtilities.h"
 
@@ -28,7 +31,7 @@
 /**
  * Create node class blueprints.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceCreateNodeInstanceTest, "SMTests.NodeInstanceCreateBP", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceCreateNodeInstanceTest, "LogicDriver.NodeInstance.CreateBP", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceCreateNodeInstanceTest::RunTest(const FString& Parameters)
@@ -46,31 +49,15 @@ bool FNodeInstanceCreateNodeInstanceTest::RunTest(const FString& Parameters)
 /**
  * Select a node class and test making sure instance nodes are set and hit properly.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceEvalVariableTest, "SMTests.NodeInstanceEvalVariable", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceEvalVariableTest, "LogicDriver.NodeInstance.Variables.Eval", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceEvalVariableTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 1;
-
-	UEdGraphPin* LastStatePin = nullptr;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(1)
 
 	// Build single state - state machine.
+	UEdGraphPin* LastStatePin = nullptr;
 	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin, USMStateTestInstance::StaticClass(), USMTransitionTestInstance::StaticClass());
 	if (!NewAsset.SaveAsset(this))
 	{
@@ -92,6 +79,8 @@ bool FNodeInstanceEvalVariableTest::RunTest(const FString& Parameters)
 	USMStateTestInstance* NodeInstance = CastChecked<USMStateTestInstance>(Instance->GetRootStateMachine().GetSingleInitialState()->GetNodeInstance());
 	TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, TestDefaultInt + 1); // Default gets added to in the context.
 
+	TestTrue("Is default value", (*NodeInstance->GetOwningNode()->GetTemplateGraphProperties().CreateConstIterator()).Value.VariableGraphProperties[0].GetIsDefaultValueOnly());
+
 	// Check manual evaluation. Alter the template directly rather than the class even though this isn't normally allowed.
 	USMStateInstance* StateInstanceTemplate = CastChecked<USMStateInstance>(StateNode->GetNodeTemplate());
 	// This will reset the begin evaluation.
@@ -101,7 +90,7 @@ bool FNodeInstanceEvalVariableTest::RunTest(const FString& Parameters)
 	Instance->Update(0.f); // One more update to trigger Update eval.
 	NodeInstance = CastChecked<USMStateTestInstance>(Instance->GetRootStateMachine().GetSingleInitialState()->GetNodeInstance());
 	TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, TestDefaultInt); // Verify the value matches the default.
-	// 
+
 	////////////////////////
 	// Test graph evaluation -- needs to be done from a variable.
 	////////////////////////
@@ -123,6 +112,8 @@ bool FNodeInstanceEvalVariableTest::RunTest(const FString& Parameters)
 	NodeInstance = CastChecked<USMStateTestInstance>(Instance->GetRootStateMachine().GetSingleInitialState()->GetNodeInstance());
 	TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, TestVarDefaultValue); // Verify the value evaluated properly.
 
+	TestFalse("Is not default value", (*NodeInstance->GetOwningNode()->GetTemplateGraphProperties().CreateConstIterator()).Value.VariableGraphProperties[0].GetIsDefaultValueOnly());
+	
 	StateInstanceTemplate->bEvalGraphsOnUpdate = false;
 	// Begin state.
 	{
@@ -227,33 +218,82 @@ bool FNodeInstanceEvalVariableTest::RunTest(const FString& Parameters)
 }
 
 /**
+ * Verify default value optimizations.
+ */
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceDefaultValueOptimizationTest, "LogicDriver.NodeInstance.Variables.DefaultOptimization", EAutomationTestFlags::ApplicationContextMask |
+	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
+
+bool FNodeInstanceDefaultValueOptimizationTest::RunTest(const FString& Parameters)
+{
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(1)
+
+	// Build single state - state machine.
+	UEdGraphPin* LastStatePin = nullptr;
+	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin, USMStateTestInstance::StaticClass(), USMTransitionTestInstance::StaticClass());
+
+	////////////////////////
+	// Test without optimization
+	////////////////////////
+	int32 TestDefaultInt = 12;
+	
+	USMGraphNode_StateNode* StateNode = CastChecked<USMGraphNode_StateNode>(StateMachineGraph->GetEntryNode()->GetOutputNode());
+	auto PropertyNodes = StateNode->GetAllPropertyGraphNodesAsArray();
+	PropertyNodes[0]->GetSchema()->TrySetDefaultValue(*PropertyNodes[0]->GetResultPinChecked(), FString::FromInt(TestDefaultInt)); // TrySet needed to trigger DefaultValueChanged
+
+	USMInstance* Instance = TestHelpers::TestLinearStateMachine(this, NewBP, TotalStates, false);
+
+	USMStateTestInstance* NodeInstance = CastChecked<USMStateTestInstance>(Instance->GetRootStateMachine().GetSingleInitialState()->GetNodeInstance());
+	TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, TestDefaultInt + 1); // Default gets added to in the context.
+
+	TestTrue("Is default value", (*NodeInstance->GetOwningNode()->GetTemplateGraphProperties().CreateConstIterator()).Value.VariableGraphProperties[0].GetIsDefaultValueOnly());
+	
+	// Check manual evaluation. Alter the template directly rather than the class even though this isn't normally allowed.
+	USMStateInstance* StateInstanceTemplate = CastChecked<USMStateInstance>(StateNode->GetNodeTemplate());
+	// This will reset the begin evaluation.
+	StateInstanceTemplate->bEvalGraphsOnUpdate = true;
+
+	Instance = TestHelpers::TestLinearStateMachine(this, NewBP, TotalStates, false);
+	
+	NodeInstance = CastChecked<USMStateTestInstance>(Instance->GetRootStateMachine().GetSingleInitialState()->GetNodeInstance());
+	NodeInstance->ExposedInt++;
+	Instance->Update(0.f); // One more update to trigger Update eval.
+	TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, TestDefaultInt);
+	
+	// Manual evaluation.
+	NodeInstance->ExposedInt++;
+	NodeInstance->EvaluateGraphProperties();
+	TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, TestDefaultInt);
+
+	////////////////////////
+	// Test with optimization
+	////////////////////////
+	{
+		NodeInstance->bEvalDefaultProperties = false;
+		NodeInstance->ExposedInt++;
+		Instance->Update(0.f); // One more update to trigger Update eval
+		TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, ++TestDefaultInt);
+		
+		// Manual evaluation.
+		NodeInstance->ExposedInt++;
+		NodeInstance->EvaluateGraphProperties();
+		TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, ++TestDefaultInt);
+	}
+	
+	return NewAsset.DeleteAsset(this);
+}
+
+/**
  * Verify exposed array defaults are set.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceArrayDefaultsTest, "SMTests.NodeInstanceArrayDefaults", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceArrayDefaultsTest, "LogicDriver.NodeInstance.Variables.ArrayDefaults", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 	bool FNodeInstanceArrayDefaultsTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 1;
-
-	UEdGraphPin* LastStatePin = nullptr;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(1)
 
 	// Build single state - state machine.
+	UEdGraphPin* LastStatePin = nullptr;
 	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin, USMStateArrayTestInstance::StaticClass(), USMTransitionTestInstance::StaticClass());
 	if (!NewAsset.SaveAsset(this))
 	{
@@ -309,31 +349,15 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceArrayDefaultsTest, "SMTests.NodeIn
 /**
  * Verify read only variables are on the node but not the runtime property.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceReadOnlyVariableTest, "SMTests.NodeInstanceReadOnlyVariable", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceReadOnlyVariableTest, "LogicDriver.NodeInstance.Variables.ReadOnly", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceReadOnlyVariableTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 1;
-
-	UEdGraphPin* LastStatePin = nullptr;
-
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(1)
+	
 	// Build single state - state machine.
+	UEdGraphPin* LastStatePin = nullptr;
 	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin, USMStateReadOnlyTestInstance::StaticClass(), USMTransitionTestInstance::StaticClass());
 	if (!NewAsset.SaveAsset(this))
 	{
@@ -373,28 +397,12 @@ bool FNodeInstanceReadOnlyVariableTest::RunTest(const FString& Parameters)
 /**
  * Run a state machine consisting of 100 custom state classes with custom transitions.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceRunStateMachineTest, "SMTests.NodeInstanceRunStateMachine", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceRunStateMachineTest, "LogicDriver.NodeInstance.RunStateMachine", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FNodeInstanceRunStateMachineTest::RunTest(const FString& Parameters)
+bool FNodeInstanceRunStateMachineTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	const int32 TotalStates = 100;
-
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(100)
 	UEdGraphPin* LastStatePin = nullptr;
 	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin, USMStateTestInstance::StaticClass(), USMTransitionTestInstance::StaticClass());
 	TestHelpers::TestLinearStateMachine(this, NewBP, TotalStates);
@@ -405,27 +413,12 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceRunStateMachineTest, "SMTests.Node
 /**
  * Verify node instance struct wrapper methods work properly.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceMethodsTest, "SMTests.NodeInstanceMethods", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceMethodsTest, "LogicDriver.NodeInstance.Methods", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 2;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2)
 
 	{
 		UEdGraphPin* LastStatePin = nullptr;
@@ -451,7 +444,7 @@ bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 	{
 		// Test root and entry nodes.
 		
-		USMStateMachineInstance* RootStateMachineInstance = StateMachineInstance->GetRootStateMachineInstance();
+		USMStateMachineInstance* RootStateMachineInstance = StateMachineInstance->GetRootStateMachineNodeInstance();
 		TestNotNull("Root node not null", RootStateMachineInstance);
 		TestEqual("Root node discoverable", RootStateMachineInstance, Cast<USMStateMachineInstance>(StateMachineInstance->GetRootStateMachine().GetNodeInstance()));
 
@@ -460,6 +453,7 @@ bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 		check(EntryStates.Num() == 1);
 
 		TestEqual("Entry states discoverable", EntryStates[0], NodeInstance);
+		TestTrue("Entry state is configured", EntryStates[0]->IsEntryState());
 	}
 	
 	TestEqual("Correct state machine", NodeInstance->GetStateMachineInstance(), StateMachineInstance);
@@ -492,7 +486,8 @@ bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 	TestEqual("All nodes found", FoundNodes.Num(), TotalStates);
 	TestEqual("Correct state found", FoundNodes[0], Cast<USMNodeInstance>(NodeInstance));
 	TestEqual("Correct state found", FoundNodes[1], Cast<USMNodeInstance>(NextState));
-
+	TestFalse("Initial state not set", NextState->IsEntryState());
+	
 	// Verify state machine instance methods to retrieve node instances are correct.
 	TArray<USMStateInstance_Base*> StateInstances;
 	StateMachineInstance->GetAllStateInstances(StateInstances);
@@ -501,6 +496,10 @@ bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 	{
 		USMStateInstance_Base* FoundStateInstance = StateMachineInstance->GetStateInstanceByGuid(StateInstance->GetGuid());
 		TestEqual("State instance retrieved from sm instance", FoundStateInstance, StateInstance);
+		if (StateInstance->GetOwningNode() != InitialState)
+		{
+			TestFalse("Initial state not set", NextState->IsEntryState());
+		}
 	}
 	
 	TArray<USMTransitionInstance*> TransitionInstances;
@@ -534,9 +533,12 @@ bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 		TestNull("Source state correct", TransitionInstance->GetSourceStateForActiveTransition());
 		TestNull("Dest state correct", TransitionInstance->GetDestinationStateForActiveTransition());
 	}
-	
-	NodeInstance->SwitchToLinkedState(NextState);
 
+	{
+		bool bResult = NodeInstance->SwitchToLinkedState(NextState);
+		TestTrue("Transition taken", bResult);
+	}
+	
 	TestFalse("State no longer active", NodeInstance->IsActive());
 	TestTrue("Node has updated from bAlwaysUpdate", NodeInstance->HasUpdated());
 	TestEqual("Transition to take set", NodeInstance->GetTransitionToTake(), NextTransition);
@@ -550,7 +552,7 @@ bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 		TestEqual("Dest state correct", PreviousTransition->GetDestinationStateForActiveTransition(), NextState);
 	}
 	
-	USMTransitionInstance* PreviousTransition = CastChecked<USMTransitionInstance>(((FSMState_Base*)NextState->GetOwningNode())->GetIncomingTransitions()[0]->GetNodeInstance());
+	USMTransitionInstance* PreviousTransition = CastChecked<USMTransitionInstance>((NextState->GetOwningNodeAs<FSMState_Base>())->GetIncomingTransitions()[0]->GetNodeInstance());
 	{
 		TestEqual("Previous transition is correct instance", PreviousTransition, NextTransition);
 		
@@ -582,12 +584,47 @@ bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 		InitialState = StateMachineInstance->GetRootStateMachine().GetSingleInitialState();
 		NodeInstance = CastChecked<USMStateInstance_Base>(InitialState->GetNodeInstance());
 		
-		NodeInstance->SwitchToLinkedStateByName(NextState->GetNodeName());
-
+		bool bResult = NodeInstance->SwitchToLinkedStateByName(NextState->GetNodeName());
+		TestTrue("Transition taken", bResult);
+		
 		TestFalse("State no longer active", NodeInstance->IsActive());
 		TestEqual("State switched by name", StateMachineInstance->GetSingleActiveStateInstance(), NextState);
 		TestTrue("Node has updated from bAlwaysUpdate", NodeInstance->HasUpdated());
 		TestEqual("Transition to take set", NodeInstance->GetTransitionToTake(), NextTransition);
+
+		TestTrue("Next state activated", NodeInstance->GetTransitionByIndex(0)->GetNextStateInstance()->IsActive());
+		StateMachineInstance->Update();
+		TestTrue("Next state active", NodeInstance->GetTransitionByIndex(0)->GetNextStateInstance()->IsActive());
+	}
+
+	// Test Switch to linked state by transition.
+	{
+		StateMachineInstance->Stop();
+		StateMachineInstance->Start();
+
+		InitialState = StateMachineInstance->GetRootStateMachine().GetSingleInitialState();
+		NodeInstance = CastChecked<USMStateInstance_Base>(InitialState->GetNodeInstance());
+
+		USMTransitionInstance* TransitionToUse = NodeInstance->GetTransitionByIndex(0);
+		bool bResult = NodeInstance->SwitchToLinkedStateByTransition(TransitionToUse);
+		TestTrue("Transition taken", bResult);
+
+		USMStateInstance_Base* NextStateInstance = TransitionToUse->GetNextStateInstance();
+		
+		TestFalse("State no longer active", NodeInstance->IsActive());
+		TestEqual("State switched by name", StateMachineInstance->GetSingleActiveStateInstance(), NextState);
+		TestTrue("Node has updated from bAlwaysUpdate", NodeInstance->HasUpdated());
+		TestEqual("Transition to take set", NodeInstance->GetTransitionToTake(), NextTransition);
+
+		TestTrue("Next state activated", NextStateInstance->IsActive());
+		StateMachineInstance->Update();
+		TestTrue("Next state active", NextStateInstance->IsActive());
+
+		AddExpectedError("Attempted to switch to linked state by transition", EAutomationExpectedErrorFlags::Contains, 1);
+		bResult = NextStateInstance->SwitchToLinkedStateByTransition(TransitionToUse);
+		TestFalse("Did not switch to a state from a transition with a different 'FromState'", bResult);
+		TestTrue("Next state active", NextStateInstance->IsActive());
+		TestFalse("Previous state still not active", NodeInstance->IsActive());
 	}
 	
 	//  Test nested reference FSM can retrieve transitions.
@@ -616,27 +653,12 @@ bool FNodeInstanceMethodsTest::RunTest(const FString& Parameters)
 /**
  * Test nested state machines with a state machine class set evaluate graphs properly.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassTest, "SMTests.NodeInstanceStateMachineClass", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassTest, "LogicDriver.NodeInstance.StateMachineClass", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FNodeInstanceStateMachineClassTest::RunTest(const FString& Parameters)
+bool FNodeInstanceStateMachineClassTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 2;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2)
 
 	UEdGraphPin* LastStatePin = nullptr;
 
@@ -749,7 +771,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassTest, "SMTests.No
 		TestEqual("Next state correct", Cast<USMStateMachineTestInstance>(TransitionInstance->GetNextStateInstance()), NextState);
 	}
 
-	USMStateMachineTestInstance* RootSMInstance = CastChecked<USMStateMachineTestInstance>(StateMachineInstance->GetRootStateMachineInstance());
+	USMStateMachineTestInstance* RootSMInstance = CastChecked<USMStateMachineTestInstance>(StateMachineInstance->GetRootStateMachineNodeInstance());
 
 	TestEqual("Root end state not reached", RootSMInstance->EndStateReachedHit.Count, 0);
 	
@@ -793,24 +815,16 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassTest, "SMTests.No
 /**
  * Test nested state machine references with a state machine class set.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "SMTests.NodeInstanceStateMachineClassReference", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "LogicDriver.NodeInstance.StateMachineClassReference", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FNodeInstanceStateMachineClassReferenceTest::RunTest(const FString& Parameters)
+bool FNodeInstanceStateMachineClassReferenceTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
+	USMProjectEditorSettings* Settings = FSMBlueprintEditorUtils::GetMutableProjectEditorSettings();
+	const auto CurrentCSSetting = Settings->EditorNodeConstructionScriptSetting;
+	Settings->EditorNodeConstructionScriptSetting = ESMEditorConstructionScriptProjectSetting::SM_Standard;
+	
+	SETUP_NEW_STATE_MACHINE_FOR_TEST_NO_STATES()
 
 	UEdGraphPin* LastStatePin = nullptr;
 
@@ -821,7 +835,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "S
 	UEdGraphPin* FromPin = NestedFSMNode->GetOutputPin();
 	USMGraphNode_StateMachineStateNode* NestedFSMNode2 = TestHelpers::BuildNestedStateMachine(this, StateMachineGraph, NestedStateCount, &FromPin, nullptr);
 
-	TestHelpers::SetNodeClass(this, NestedFSMNode, USMStateMachineTestInstance::StaticClass());
+	TestHelpers::SetNodeClass(this, NestedFSMNode, USMStateMachineReferenceTestInstance::StaticClass());
 	TestHelpers::SetNodeClass(this, NestedFSMNode2, USMStateMachineTestInstance::StaticClass());
 	TestHelpers::SetNodeClass(this, NestedFSMNode->GetNextTransition(), USMTransitionTestInstance::StaticClass());
 	
@@ -833,22 +847,47 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "S
 	FKismetEditorUtilities::CompileBlueprint(NewReferencedBlueprint);
 
 	// Store handler information so we can delete the object.
-	FString ReferencedPath = NewReferencedBlueprint->GetPathName();
-	FAssetHandler ReferencedAsset(NewReferencedBlueprint->GetName(), USMBlueprint::StaticClass(), NewObject<USMBlueprintFactory>(), &ReferencedPath);
-	ReferencedAsset.Object = NewReferencedBlueprint;
-
-	UPackage* Package = FAssetData(NewReferencedBlueprint).GetPackage();
-	ReferencedAsset.Package = Package;
+	FAssetHandler ReferencedAsset = TestHelpers::CreateAssetFromBlueprint(NewReferencedBlueprint);
 
 	FKismetEditorUtilities::CompileBlueprint(NewBP);
 
+	// Create and wire a new variable to the first fsm.
+	const int32 TestVarDefaultValue = 2;
+	{
+		FName VarName = "NewVar";
+		FEdGraphPinType VarType;
+		VarType.PinCategory = UEdGraphSchema_K2::PC_Int;
+		
+		auto PropertyNode = NestedFSMNode->GetGraphPropertyNode(GET_MEMBER_NAME_CHECKED(USMStateMachineReferenceTestInstance, ExposedInt));
+		
+		const UEdGraphSchema_K2* Schema = CastChecked<UEdGraphSchema_K2>(PropertyNode->GetSchema());
+		Schema->TrySetDefaultValue(*PropertyNode->GetResultPinChecked(), FString::FromInt(TestVarDefaultValue));
+	}
+
+	FKismetEditorUtilities::CompileBlueprint(NewBP);
+	
+	const FString ConstructionStringValue = "Test_" + FString::FromInt(TestVarDefaultValue);
+	// Test exposed variables on nested reference FSM.
+	{
+		USMGraphK2Node_PropertyNode_Base* GraphPropertyReadNode = NestedFSMNode->GetGraphPropertyNode(
+		GET_MEMBER_NAME_CHECKED(USMStateMachineReferenceTestInstance, SetByConstructionScript));
+		check(GraphPropertyReadNode);
+
+		UEdGraphPin* ResultPin = GraphPropertyReadNode->GetResultPinChecked();
+		FString DefaultValue = ResultPin->GetDefaultAsString();
+		TestEqual("Default value set by construction script", DefaultValue, ConstructionStringValue);
+
+		USMStateMachineReferenceTestInstance* EditorNodeInstance = CastChecked<USMStateMachineReferenceTestInstance>(NestedFSMNode->GetNodeTemplate());
+		TestEqual("Outgoing states found", EditorNodeInstance->CanReadNextStates, 1);
+	}
+	
 	USMTestContext* Context = NewObject<USMTestContext>();
 	USMInstance* StateMachineInstance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context);
 
 	// Locate the node instance of the reference.
 	
 	FSMStateMachine* InitialState = (FSMStateMachine*)StateMachineInstance->GetRootStateMachine().GetSingleInitialState();
-	USMStateMachineTestInstance* NodeInstance = Cast<USMStateMachineTestInstance>(InitialState->GetNodeInstance());
+	USMStateMachineReferenceTestInstance* NodeInstance = Cast<USMStateMachineReferenceTestInstance>(InitialState->GetNodeInstance());
 
 	TestNotNull("Node instance from reference found", NodeInstance);
 
@@ -861,7 +900,8 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "S
 
 	TestFalse("Initial state not active", NodeInstance->IsActive());
 
-	TestEqual("Exposed var not set", NodeInstance->ExposedInt, 0);
+	TestEqual("Exposed var set to defaults", NodeInstance->ExposedInt, TestVarDefaultValue);
+	TestEqual("Default value set by construction script", NodeInstance->SetByConstructionScript, ConstructionStringValue);
 	TestEqual("Root SM start not hit", NodeInstance->RootSMStartHit.Count, 0);
 	TestEqual("Root SM end not hit", NodeInstance->RootSMStopHit.Count, 0);
 	TestEqual("Init not hit", NodeInstance->InitializeHit.Count, 0);
@@ -871,6 +911,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "S
 	TestEqual("Root SM end not hit", NodeInstance->RootSMStopHit.Count, 0);
 	TestEqual("Init hit", NodeInstance->InitializeHit.Count, 1);
 	TestEqual("Shutdown not hit", NodeInstance->ShutdownHit.Count, 0);
+	TestEqual("Exposed var increased", NodeInstance->ExposedInt, TestVarDefaultValue + 1);
 	
 	TestTrue("Initial state active", NodeInstance->IsActive());
 
@@ -900,7 +941,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "S
 
 		TestEqual("Transition info instance correct", TransitionInfo.NodeInstance, Cast<USMNodeInstance>(NextTransition));
 
-		TestEqual("Prev state correct", Cast<USMStateMachineTestInstance>(TransitionInstance->GetPreviousStateInstance()), NodeInstance);
+		TestEqual("Prev state correct", Cast<USMStateMachineReferenceTestInstance>(TransitionInstance->GetPreviousStateInstance()), NodeInstance);
 		TestEqual("Next state correct", Cast<USMStateMachineTestInstance>(TransitionInstance->GetNextStateInstance()), NextState);
 
 		TestTrue("FSM Init hit before transition", NodeInstance->InitializeHit.TimeStamp > 0 && NodeInstance->InitializeHit.TimeStamp < NextTransition->TransitionInitializedHit.TimeStamp);
@@ -941,6 +982,8 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "S
 	// Check first state reference fsm.
 	TestEqual("Root SM start hit", NodeInstance->RootSMStartHit.Count, 1);
 	TestEqual("Root SM end not hit", NodeInstance->RootSMStopHit.Count, 1);
+
+	Settings->EditorNodeConstructionScriptSetting = CurrentCSSetting;
 	
 	ReferencedAsset.DeleteAsset(this);
 	return true;
@@ -949,7 +992,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateMachineClassReferenceTest, "S
 /**
  * Test the extended editor text graph properties and make sure they format variables correctly.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSMTextGraphPropertyTest, "SMTests.TextGraphProperty", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSMTextGraphPropertyTest, "LogicDriver.ExtendedGraphProperties.TextGraphProperty", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FSMTextGraphPropertyTest::RunTest(const FString& Parameters)
@@ -1072,277 +1115,14 @@ bool FSMTextGraphPropertyTest::RunTest(const FString& Parameters)
 }
 
 /**
- * Verify states and variables can be added to the stack properly.
- */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceStateStackTest, "SMTests.NodeInstanceStateStack", EAutomationTestFlags::ApplicationContextMask |
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
-
-	bool FNodeInstanceStateStackTest::RunTest(const FString& Parameters)
-{
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 1;
-
-	UEdGraphPin* LastStatePin = nullptr;
-
-	// Build single state - state machine.
-	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin, USMStateTestInstance::StaticClass(), USMTransitionTestInstance::StaticClass());
-
-	USMGraphNode_StateNode* StateNode = CastChecked<USMGraphNode_StateNode>(StateMachineGraph->GetEntryNode()->GetOutputNode());
-
-	TestEqual("Empty state stack", StateNode->StateStack.Num(), 0);
-	auto PropertyNodes = StateNode->GetAllPropertyGraphNodesAsArray();
-	TestEqual("Initial state property node only", PropertyNodes.Num(), 1);
-
-
-	// Add a state stack
-	
-	FStateStackContainer NewStateStackText(USMTextGraphStateExtra::StaticClass());
-	StateNode->StateStack.Add(NewStateStackText);
-	FStateStackContainer NewStateStackInt(USMStateTestInstance::StaticClass());
-	StateNode->StateStack.Add(NewStateStackInt);
-	StateNode->InitStateStack();
-	StateNode->CreateGraphPropertyGraphs();
-	FSMBlueprintEditorUtils::ConditionallyCompileBlueprint(NewBP);
-
-	PropertyNodes = StateNode->GetAllPropertyGraphNodesAsArray();
-	TestEqual("State stacks added", PropertyNodes.Num(), 4);
-
-	TestEqual("First property graph is for original state", PropertyNodes[0]->GetOwningTemplate()->GetClass(), USMStateTestInstance::StaticClass());
-	
-	TestEqual("Next property graph is for state stack", PropertyNodes[1]->GetOwningTemplate()->GetClass(), USMTextGraphStateExtra::StaticClass());
-	TestEqual("Next property graph is for state stack", PropertyNodes[2]->GetOwningTemplate()->GetClass(), USMTextGraphStateExtra::StaticClass());
-	
-	TestEqual("Last property graph is for state state", PropertyNodes[3]->GetOwningTemplate()->GetClass(), USMStateTestInstance::StaticClass());
-	
-	////////////////////////
-	// Test setting default value.
-	////////////////////////
-
-	// State value
-	const int32 StateDefaultInt = 12;
-	PropertyNodes[0]->GetSchema()->TrySetDefaultValue(*PropertyNodes[0]->GetResultPinChecked(), FString::FromInt(StateDefaultInt)); // TrySet needed to trigger DefaultValueChanged
-
-	// State stack string value
-	FString DefaultStackStr = "ForStateStackString";
-	PropertyNodes[1]->GetSchema()->TrySetDefaultValue(*PropertyNodes[1]->GetResultPinChecked(), DefaultStackStr); // TrySet needed to trigger DefaultValueChanged
-	
-	// State stack text graph value
-	FText DefaultStackTextGraph = FText::FromString("ForStateStackTextGraph");
-	USMGraphK2Node_TextPropertyNode* TextPropertyNode = Cast<USMGraphK2Node_TextPropertyNode>(PropertyNodes[2]);
-	if (!TestNotNull("TextProperty in correct index", TextPropertyNode))
-	{
-		return false;
-	}
-	USMTextPropertyGraph* TextPropertyGraph = CastChecked<USMTextPropertyGraph>(TextPropertyNode->GetPropertyGraph());
-	TextPropertyGraph->SetNewText(DefaultStackTextGraph);
-
-	////////////////////////
-	// Test executing default value.
-	////////////////////////
-	USMInstance* Instance = TestHelpers::TestLinearStateMachine(this, NewBP, TotalStates, false);
-
-	USMStateTestInstance* NodeInstance = CastChecked<USMStateTestInstance>(Instance->GetRootStateMachine().GetSingleInitialState()->GetNodeInstance());
-	TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, StateDefaultInt + 1); // Default gets added to in the context.
-	
-	USMTextGraphStateExtra* StateStackInstance = CastChecked<USMTextGraphStateExtra>(NodeInstance->GetStateInStack(0));
-	TestEqual("Default exposed value set and evaluated", StateStackInstance->EvaluatedText.ToString(), DefaultStackTextGraph.ToString()); // This also tests that on state begin is hit.
-	TestEqual("Default exposed value set and evaluated", StateStackInstance->StringVar, DefaultStackStr);
-
-	USMStateTestInstance* LastStateStackInstance = CastChecked<USMStateTestInstance>(NodeInstance->GetStateInStack(1));
-	TestEqual("Stack evaluated", LastStateStackInstance->StateBeginHit.Count, 1);
-	TestEqual("Stack evaluated", LastStateStackInstance->StateUpdateHit.Count, 1);
-	TestEqual("Stack evaluated", LastStateStackInstance->StateEndHit.Count, 0);
-
-	Instance->Stop();
-	TestEqual("Stack evaluated", LastStateStackInstance->StateEndHit.Count, 1);
-
-	TestEqual("Stack evaluated initialize", LastStateStackInstance->StateInitializedEventHit.Count, 1);
-	TestEqual("Stack evaluated shutdown", LastStateStackInstance->StateShutdownEventHit.Count, 1);
-	
-	////////////////////////
-	// Test graph evaluation -- needs to be done from a variable.
-	////////////////////////
-
-	// Create new variable.
-	const int32 TestVarDefaultValue = 15;
-	{
-		FName VarName = "NewVar";
-		FEdGraphPinType VarType;
-		VarType.PinCategory = UEdGraphSchema_K2::PC_Int;
-
-		FBlueprintEditorUtils::AddMemberVariable(NewBP, VarName, VarType, FString::FromInt(TestVarDefaultValue));
-
-		// Get class property from new variable.
-		FProperty* NewProperty = FSMBlueprintEditorUtils::GetPropertyForVariable(NewBP, VarName);
-
-		// Place variable getter and wire to result node.
-		FSMBlueprintEditorUtils::PlacePropertyOnGraph(PropertyNodes[0]->GetGraph(), NewProperty, PropertyNodes[0]->GetResultPinChecked(), nullptr);
-	}
-
-	const FString TestStringDefaultValue = "StringVarDefaultValue";
-	{
-		FName VarName = "NewStrVar";
-		FEdGraphPinType VarType;
-		VarType.PinCategory = UEdGraphSchema_K2::PC_String;
-		
-		FBlueprintEditorUtils::AddMemberVariable(NewBP, VarName, VarType, TestStringDefaultValue);
-
-		// Get class property from new variable.
-		FProperty* NewProperty = FSMBlueprintEditorUtils::GetPropertyForVariable(NewBP, VarName);
-
-		// Place variable getter and wire to result node.
-		FSMBlueprintEditorUtils::PlacePropertyOnGraph(PropertyNodes[1]->GetGraph(), NewProperty, PropertyNodes[1]->GetResultPinChecked(), nullptr);
-	}
-
-	// Test results
-
-	{
-		Instance = TestHelpers::TestLinearStateMachine(this, NewBP, TotalStates);
-		NodeInstance = CastChecked<USMStateTestInstance>(Instance->GetRootStateMachine().GetSingleInitialState()->GetNodeInstance());
-		TestEqual("Default exposed value set and evaluated", NodeInstance->ExposedInt, TestVarDefaultValue + 1);
-
-		StateStackInstance = CastChecked<USMTextGraphStateExtra>(NodeInstance->GetStateInStack(0));
-		TestEqual("Default exposed value set and evaluated", StateStackInstance->StringVar, TestStringDefaultValue);
-
-		TArray<USMStateInstance_Base*> AllStackInstances;
-		NodeInstance->GetAllStateStackInstances(AllStackInstances);
-		TestEqual("Stack instances found", AllStackInstances.Num(), 2);
-	}
-
-	// Test specific results
-	{
-		Instance = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, NewObject<USMTestContext>());
-
-		NodeInstance = CastChecked<USMStateTestInstance>(Instance->GetRootStateMachine().GetSingleInitialState()->GetNodeInstance());
-		TestNotEqual("Default exposed value not evaluated", NodeInstance->ExposedInt, TestVarDefaultValue);
-
-		StateStackInstance = CastChecked<USMTextGraphStateExtra>(NodeInstance->GetStateInStack(0));
-		TestNotEqual("Default exposed value not set and evaluated", StateStackInstance->StringVar, TestStringDefaultValue);
-
-		// Evaluate just this node instance.
-		{
-			NodeInstance->EvaluateGraphProperties(true);
-			TestEqual("Default exposed value evaluated", NodeInstance->ExposedInt, TestVarDefaultValue);
-
-			// Verify first stack not evaluated.
-			StateStackInstance = CastChecked<USMTextGraphStateExtra>(NodeInstance->GetStateInStack(0));
-			TestNotEqual("Default exposed value not set and evaluated", StateStackInstance->StringVar, TestStringDefaultValue);
-		}
-
-		// Evaluate second state stack.
-		{
-			USMStateInstance_Base* SecondStateStackInstance = NodeInstance->GetStateInStack(1);
-			check(SecondStateStackInstance);
-			SecondStateStackInstance->EvaluateGraphProperties(true);
-
-			// Verify first stack still not evaluated.
-			TestNotEqual("Default exposed value not set and evaluated", StateStackInstance->StringVar, TestStringDefaultValue);
-		}
-
-		// Evaluate first state stack which should now work.
-		{
-			StateStackInstance->EvaluateGraphProperties(true);
-			TestEqual("Default exposed value set and evaluated", StateStackInstance->StringVar, TestStringDefaultValue);
-		}
-	}
-
-	
-	USMTextGraphStateExtra* StackTextInstance = CastChecked<USMTextGraphStateExtra>(NodeInstance->GetStateInStack(0));
-	USMStateTestInstance* StackTestInstance = CastChecked<USMStateTestInstance>(NodeInstance->GetStateInStack(1));
-	// Test class search.
-	
-	{
-		USMStateTestInstance* ClassFoundInstance = Cast<USMStateTestInstance>(NodeInstance->GetStateInStackByClass(USMStateTestInstance::StaticClass()));
-		TestEqual("State stack found by class", ClassFoundInstance, StackTestInstance);
-	}
-	{
-		USMTextGraphState* ClassFoundInstance = Cast<USMTextGraphState>(NodeInstance->GetStateInStackByClass(USMTextGraphState::StaticClass()));
-		TestNull("Didn't find because child not searched for", ClassFoundInstance);
-	}
-	{
-		USMTextGraphState* ClassFoundInstance = Cast<USMTextGraphState>(NodeInstance->GetStateInStackByClass(USMTextGraphState::StaticClass(), true));
-		TestEqual("State stack found by child", ClassFoundInstance, Cast<USMTextGraphState>(StackTextInstance));
-	}
-
-	{
-		TArray<USMStateInstance_Base*> FoundClassInstances;
-		NodeInstance->GetAllStatesInStackOfClass(USMStateTestInstance::StaticClass(), FoundClassInstances);
-		TestEqual("1 result found", FoundClassInstances.Num(), 1);
-		TestTrue("Found stack instance", FoundClassInstances.Contains(StackTestInstance));
-		
-		NodeInstance->GetAllStatesInStackOfClass(USMStateTestInstance::StaticClass(), FoundClassInstances, true);
-		TestEqual("1 result found even though children included", 1, FoundClassInstances.Num());
-		TestTrue("Found stack instance", FoundClassInstances.Contains(StackTestInstance));
-		
-		NodeInstance->GetAllStatesInStackOfClass(USMStateInstance::StaticClass(), FoundClassInstances, true);
-		TestEqual("All results found", FoundClassInstances.Num(), 2);
-		TestTrue("Found stack instance", FoundClassInstances.Contains(StackTestInstance));
-		TestTrue("Found stack instance", FoundClassInstances.Contains(StackTextInstance));
-
-		// Test index lookup.
-		{
-			int32 Index = NodeInstance->GetStateIndexInStack(FoundClassInstances[0]);
-			TestEqual("Index found", Index, 0);
-		}
-		{
-			int32 Index = NodeInstance->GetStateIndexInStack(FoundClassInstances[1]);
-			TestEqual("Index found", Index, 1);
-		}
-		{
-			int32 Index = NodeInstance->GetStateIndexInStack(NodeInstance);
-			TestEqual("Index not found", Index, -1);
-		}
-		{
-			int32 Index = NodeInstance->GetStateIndexInStack(nullptr);
-			TestEqual("Index not found", Index, -1);
-		}
-	}
-
-	TestEqual("Stack could find node instance", StackTestInstance->GetStackOwnerInstance(), Cast<USMStateInstance_Base>(NodeInstance));
-	TestEqual("Stack could find node instance", StackTextInstance->GetStackOwnerInstance(), Cast<USMStateInstance_Base>(NodeInstance));
-	TestEqual("Node instance found itself", NodeInstance->GetStackOwnerInstance(), Cast<USMStateInstance_Base>(NodeInstance));
-	
-	return NewAsset.DeleteAsset(this);
-}
-
-/**
  * Test that node coordinates are available at run-time.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceGetNodePositionTest, "SMTests.NodeInstanceGetNodePosition", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceGetNodePositionTest, "LogicDriver.NodeInstance.GetNodePosition", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceGetNodePositionTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 2;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(2)
 
 	UEdGraphPin* LastStatePin = nullptr;
 
@@ -1390,7 +1170,7 @@ bool FNodeInstanceGetNodePositionTest::RunTest(const FString& Parameters)
 /**
  * Reset node variables back to their defaults.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceResetVariablesTest, "SMTests.NodeInstanceResetVariables", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceResetVariablesTest, "LogicDriver.NodeInstance.Variables.ResetVariables", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
 bool FNodeInstanceResetVariablesTest::RunTest(const FString& Parameters)
@@ -1431,21 +1211,104 @@ bool FNodeInstanceResetVariablesTest::RunTest(const FString& Parameters)
 		StateInstanceTemplate->ObjectValue = NewObject<UObject>(GetTransientPackage(), USMTestObject::StaticClass(), TEXT("AdjustedName"));
 	}
 
-	StateInstance->NativeInitialize();
-
 	TestNotEqual("Values changed", StateInstance->IntVar, StateInstanceTemplate->IntVar);
 	TestNotEqual("Values changed", StateInstance->StringVar, StateInstanceTemplate->StringVar);
 	TestNotEqual("Values changed", StateInstance->ObjectValue, StateInstanceTemplate->ObjectValue);
 
-	StateInstance->SetResetVariables(true);
-
-	StateInstance->NativeInitialize();
+	StateInstance->ResetVariables();
 
 	TestEqual("Values reset", StateInstance->IntVar, StateInstanceTemplate->IntVar);
 	TestEqual("Values reset", StateInstance->StringVar, StateInstanceTemplate->StringVar);
 	TestEqual("Values reset", StateInstance->ObjectValue, StateInstanceTemplate->ObjectValue);
 
 	return true;
+}
+
+/**
+ * Check behavior and optimizations around default node classes and loading them on demand.
+ */
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeInstanceOnDemandTest, "LogicDriver.NodeInstance.OnDemand", EAutomationTestFlags::ApplicationContextMask |
+	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
+
+bool FNodeInstanceOnDemandTest::RunTest(const FString& Parameters)
+{
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(4)
+
+	UEdGraphPin* LastStatePin = nullptr;
+
+	// Build single state - state machine.
+	TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, TotalStates, &LastStatePin, USMStateInstance::StaticClass(), USMTransitionInstance::StaticClass());
+
+	UClass* TestNodeClass = USMStateTestInstance::StaticClass();
+	USMGraphNode_StateNode* LastState = CastChecked<USMGraphNode_StateNode>(LastStatePin->GetOwningNode());
+	TestHelpers::SetNodeClass(this, LastState, TestNodeClass);
+
+	FKismetEditorUtilities::CompileBlueprint(NewBP);
+
+	GetMutableDefault<USMRuntimeSettings>()->bPreloadDefaultNodes = true;
+	{
+		USMInstance* Instance = USMBlueprintUtils::CreateStateMachineInstance(NewBP->GetGeneratedClass(), NewObject<USMTestContext>());
+
+		for (const auto& KeyVal : Instance->GetNodeMap())
+		{
+			USMNodeInstance* NodeInstance = KeyVal.Value->GetNodeInstance();
+			TestNotNull("Node instance created",  NodeInstance);
+		}
+	}
+
+	auto TestInstance = [this, TestNodeClass](const USMInstance* Instance, bool bExpectAllValid = false)
+	{
+		bool bFound = false;
+		for (const auto& KeyVal : Instance->GetNodeMap())
+		{
+			USMNodeInstance* NodeInstance = KeyVal.Value->GetNodeInstance();
+			if (NodeInstance || bExpectAllValid)
+			{
+				if (bExpectAllValid)
+				{
+					TestNotNull("Instance valid", NodeInstance);
+					continue;
+				}
+				TestFalse("Only 1 node instance exists", bFound);
+				TestEqual("Node instance created during initialization", NodeInstance->GetClass(), TestNodeClass);
+				bFound = true;
+			}
+			else
+			{
+				TestNull("Node instance not created.", KeyVal.Value->GetNodeInstance());
+				NodeInstance = KeyVal.Value->GetOrCreateNodeInstance();
+				TestNotNull("Node instance created",  NodeInstance);
+			}
+		}	
+	};
+	
+	GetMutableDefault<USMRuntimeSettings>()->bPreloadDefaultNodes = false;
+	{
+		USMInstance* Instance = USMBlueprintUtils::CreateStateMachineInstance(NewBP->GetGeneratedClass(), NewObject<USMTestContext>());
+		TestInstance(Instance);
+	}
+
+	// Test running the state machine and verifying nodes are not created by default.
+	{
+		USMInstance* Instance = USMBlueprintUtils::CreateStateMachineInstance(NewBP->GetGeneratedClass(), NewObject<USMTestContext>());
+		TestHelpers::RunAllStateMachinesToCompletion(this, Instance);
+		TestInstance(Instance);
+
+		TArray<USMStateInstance_Base*> States;
+		TArray<USMTransitionInstance*> Transitions;
+		Instance->GetAllStateInstances(States);
+		Instance->GetAllTransitionInstances(Transitions);
+		TestInstance(Instance, true);
+	}
+
+	// Test preload all nodes.
+	{
+		USMInstance* Instance = USMBlueprintUtils::CreateStateMachineInstance(NewBP->GetGeneratedClass(), NewObject<USMTestContext>());
+		Instance->PreloadAllNodeInstances();
+		TestInstance(Instance, true);
+	}
+	
+	return NewAsset.DeleteAsset(this);
 }
 
 #endif

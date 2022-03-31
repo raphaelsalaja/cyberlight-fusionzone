@@ -1,16 +1,15 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateReadNodes.h"
-#include "BlueprintNodeSpawner.h"
-#include "BlueprintActionDatabaseRegistrar.h"
+#include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
 #include "Graph/SMIntermediateGraph.h"
-#include "K2Node_CallFunction.h"
-#include "SMUtils.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
-#include "K2Node_DynamicCast.h"
 
+#include "BlueprintNodeSpawner.h"
+#include "BlueprintActionDatabaseRegistrar.h"
+#include "K2Node_CallFunction.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+#include "K2Node_DynamicCast.h"
 
 #define LOCTEXT_NAMESPACE "SMStateMachineReadNodeStateMachineReference"
 
@@ -23,7 +22,7 @@ void USMGraphK2Node_StateReadNode_GetStateMachineReference::AllocateDefaultPins(
 {
 	if (USMGraphNode_StateMachineStateNode* StateMachineNode = Cast<USMGraphNode_StateMachineStateNode>(GetMostRecentState()))
 	{
-		if (const TSubclassOf<class UObject> TargetType = GetStateMachineReferenceClass())
+		if (const TSubclassOf<UObject> TargetType = GetStateMachineReferenceClass())
 		{
 			ReferencedObject = TargetType;
 			const FString CastResultPinName = UEdGraphSchema_K2::PN_CastedValuePrefix + TargetType->GetDisplayNameText().ToString();
@@ -95,6 +94,21 @@ FBlueprintNodeSignature USMGraphK2Node_StateReadNode_GetStateMachineReference::G
 	return NodeSignature;
 }
 
+UObject* USMGraphK2Node_StateReadNode_GetStateMachineReference::GetJumpTargetForDoubleClick() const
+{
+	if (ReferencedObject.Get())
+	{
+		if (const USMGraphNode_StateMachineStateNode* OwningNode =
+			Cast<USMGraphNode_StateMachineStateNode>(GetTypedOuter(USMGraphNode_StateMachineStateNode::StaticClass())))
+		{
+			OwningNode->SetDebugObjectForReference();
+			return OwningNode->GetReferenceToJumpTo();
+		}
+	}
+	
+	return Super::GetJumpTargetForDoubleClick();
+}
+
 void USMGraphK2Node_StateReadNode_GetStateMachineReference::CustomExpandNode(FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty)
 {
 	if (ReferencedObject == nullptr || ReferencedObject.Get() == nullptr)
@@ -128,7 +142,6 @@ void USMGraphK2Node_StateReadNode_GetStateMachineReference::CustomExpandNode(FSM
 	GetSchema()->TryCreateConnection(GetReferenceOutputPin, CastNode->GetCastSourcePin());
 	CastNode->GetCastResultPin()->CopyPersistentDataFromOldPin(*GetOutputPin());
 	
-	//GetReferenceOutputPin->CopyPersistentDataFromOldPin(*GetOutputPin());
 	BreakAllNodeLinks();
 }
 
@@ -138,7 +151,7 @@ TSubclassOf<UObject> USMGraphK2Node_StateReadNode_GetStateMachineReference::GetS
 	{
 		if (USMBlueprint* Blueprint = StateMachineNode->GetStateMachineReference())
 		{
-			if (const TSubclassOf<class UObject> TargetType = Blueprint->GeneratedClass)
+			if (const TSubclassOf<UObject> TargetType = Blueprint->GeneratedClass)
 			{
 				return TargetType;
 			}

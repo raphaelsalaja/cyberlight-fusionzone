@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTextPropertyGraph.h"
 #include "Nodes/PropertyNodes/SMGraphK2Node_TextPropertyNode.h"
@@ -7,12 +7,12 @@
 #include "Utilities/SMTextGraphUtils.h"
 
 #include "Utilities/SMBlueprintEditorUtils.h"
+#include "Construction/SMEditorConstructionManager.h"
 
 #include "GraphEditAction.h"
 #include "K2Node_FormatText.h"
 #include "K2Node_VariableGet.h"
 #include "ScopedTransaction.h"
-
 
 /** SGraphPinText.cpp contains a private definition. We really just need access to the protected StaticStableTextId of IEditableTextProperty */
 class FOurEditableTextGraphPin : public IEditableTextProperty
@@ -143,7 +143,7 @@ void USMTextPropertyGraph::RefreshProperty(bool bModify, bool bSetFromPinFirst)
 
 void USMTextPropertyGraph::ResetGraph()
 {
-	if(IsGraphBeingUsedToEdit())
+	if (IsGraphBeingUsedToEdit())
 	{
 		return;
 	}
@@ -220,11 +220,11 @@ void USMTextPropertyGraph::SetNewText(const FText& PlainText, bool bReformatGrap
 
 void USMTextPropertyGraph::SetNewText_NoTransaction(const FText& PlainText, bool bReformatGraph, bool bModify)
 {
-	if(bModify)
+	if (bModify)
 	{
 		Modify();
 	}
-	if(bReformatGraph)
+	if (bReformatGraph)
 	{
 		ResetGraph();
 	}
@@ -234,6 +234,31 @@ void USMTextPropertyGraph::SetNewText_NoTransaction(const FText& PlainText, bool
 
 void USMTextPropertyGraph::RefreshTextBody(bool bModify, bool bResetGraph)
 {
+	// Check if this is running for a construction script. In this case we only can refresh if the default
+	// value has changed in the construction script. There isn't a risk to variables missing since they
+	// can't be added to the blueprint at this stage.
+	if (USMBlueprint* Blueprint = Cast<USMBlueprint>(FSMBlueprintEditorUtils::FindBlueprintForGraph(this)))
+	{
+		if (ResultNode && FSMEditorConstructionManager::GetInstance()->IsRunningConstructionScripts(Blueprint))
+		{
+			if (USMNodeInstance* Template = ResultNode->GetOwningTemplate())
+			{
+				const FSMGraphProperty_Base* GraphProperty = ResultNode->GetPropertyNodeConstChecked();
+				if (const FProperty* Property = GraphProperty->MemberReference.ResolveMember<FProperty>(Template->GetClass()))
+				{
+					FSMTextGraphProperty* TextGraphProperty = Property->ContainerPtrToValuePtr<FSMTextGraphProperty>(Template);
+					check(TextGraphProperty);
+
+					if (TextGraphProperty->Result.EqualTo(GetPlainTextBody(), ETextComparisonLevel::Quinary))
+					{
+						// Default value hasn't changed, no need to process further.
+						return;
+					}
+				}
+			}
+		}
+	}
+	
 	if (bResetGraph)
 	{
 		ResetGraph();
@@ -244,7 +269,7 @@ void USMTextPropertyGraph::RefreshTextBody(bool bModify, bool bResetGraph)
 
 void USMTextPropertyGraph::SetTextBody(const FText& PlainText, bool bModify, bool bReformatGraph)
 {
-	if(IsGraphBeingUsedToEdit())
+	if (IsGraphBeingUsedToEdit())
 	{
 		return;
 	}
@@ -529,7 +554,7 @@ void USMTextPropertyGraph::SetTextFromFormatTextNode(bool bForce)
 {
 	if (!bIsUpdatingGraph && !HasAnyFlags(RF_NeedPostLoad) && !HasAnyFlags(RF_NeedPostLoadSubobjects) && GetPackage() != GetTransientPackage() && !ResultNode->GetOwningGraphNodeChecked()->IsEditUndo())
 	{
-		if(UEdGraphPin* FormatTextPin = GetFormatTextNodePin())
+		if (UEdGraphPin* FormatTextPin = GetFormatTextNodePin())
 		{
 			bUpdatingFromFormatTextNode = true;
 

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMState.h"
 #include "SMTransition.h"
@@ -24,8 +24,8 @@ void FSMState_Base::ResetReadStates()
 
 FSMState_Base::FSMState_Base() : Super(), bIsRootNode(false), bAlwaysUpdate(false), bEvalTransitionsOnStart(false),
                                  bDisableTickTransitionEvaluation(false), bStayActiveOnStateChange(false), bAllowParallelReentry(false),
-                                 PreviousActiveState(nullptr), PreviousActiveTransition(nullptr), StartTime(0),
-                                 bReenteredByParallelState(false), NextTransition(nullptr)
+                                 bReenteredByParallelState(false), bCanExecuteLogic(true), bIsStateEnding(false), PreviousActiveState(nullptr),
+                                 PreviousActiveTransition(nullptr), StartTime(0), EndTime(0), NextTransition(nullptr)
 {
 	ResetReadStates();
 }
@@ -33,18 +33,19 @@ FSMState_Base::FSMState_Base() : Super(), bIsRootNode(false), bAlwaysUpdate(fals
 void FSMState_Base::Initialize(UObject* Instance)
 {
 	Super::Initialize(Instance);
-	USMUtils::InitializeGraphFunctions(OnRootStateMachineStartedGraphEvaluator, Instance);
-	USMUtils::InitializeGraphFunctions(OnRootStateMachineStoppedGraphEvaluator, Instance);
-	
+
 	ResetReadStates();
 	SortTransitions();
+}
+
+void FSMState_Base::InitializeGraphFunctions()
+{
+	FSMNode_Base::InitializeGraphFunctions();
 }
 
 void FSMState_Base::Reset()
 {
 	Super::Reset();
-	USMUtils::ResetGraphFunctions(OnRootStateMachineStartedGraphEvaluator);
-	USMUtils::ResetGraphFunctions(OnRootStateMachineStoppedGraphEvaluator);
 	ResetReadStates();
 }
 
@@ -73,14 +74,14 @@ void FSMState_Base::GetAllTransitionChains(TArray<FSMTransition*>& OutTransition
 
 bool FSMState_Base::StartState()
 {
+	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SMState_Base::StartState"), STAT_SMState_Start, STATGROUP_LogicDriver);
+	
 	NextTransition = nullptr;
 	
-	if(IsActive() && (!HasBeenReenteredFromParallelState() || !bAllowParallelReentry))
+	if (IsActive() && (!HasBeenReenteredFromParallelState() || !bAllowParallelReentry))
 	{
 		return false;
 	}
-
-	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SMState_Base::StartState"), STAT_SMState_Start, STATGROUP_LogicDriver);
 	
 	SetStartTime(FDateTime::UtcNow());
 
@@ -90,20 +91,16 @@ bool FSMState_Base::StartState()
 	StartCycle = FPlatformTime::Cycles64();
 #endif
 
-	if (NodeInstance)
-	{
-		NodeInstance->NativeInitialize();
-	}
+	TryResetVariables();
 	
 	TryExecuteGraphProperties(GRAPH_PROPERTY_EVAL_ON_START);
 
 	SetActive(true);
-	
-	if (USMStateInstance_Base* StateInstance = Cast<USMStateInstance_Base>(NodeInstance))
-	{
-		StateInstance->OnStateBeginEvent.Broadcast(StateInstance);
-	}
-	
+
+	FirePreStartEvents();
+
+	NotifyInstanceStateHasStarted();
+
 	InitializeTransitions();
 	
 	return true;
@@ -111,12 +108,12 @@ bool FSMState_Base::StartState()
 
 bool FSMState_Base::UpdateState(float DeltaSeconds)
 {
-	if(!IsActive())
+	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SMState_Base::UpdateState"), STAT_SMState_Update, STATGROUP_LogicDriver);
+	
+	if (!IsActive())
 	{
 		return false;
 	}
-
-	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SMState_Base::UpdateState"), STAT_SMState_Update, STATGROUP_LogicDriver);
 
 	TimeInState += DeltaSeconds;
 	UpdateReadStates();
@@ -133,16 +130,18 @@ bool FSMState_Base::UpdateState(float DeltaSeconds)
 
 bool FSMState_Base::EndState(float DeltaSeconds, const FSMTransition* TransitionToTake)
 {
+	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SMState_Base::EndState"), STAT_SMState_End, STATGROUP_LogicDriver);
+	
 	if (!IsActive())
 	{
 		return false;
 	}
 
-	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SMState_Base::EndState"), STAT_SMState_End, STATGROUP_LogicDriver);
-
+	SetEndTime(FDateTime::UtcNow());
+	
 	SetTransitionToTake(TransitionToTake);
 
-	if(bAlwaysUpdate && !HasUpdated())
+	if (bAlwaysUpdate && !HasUpdated())
 	{
 		UpdateState(DeltaSeconds);
 	}
@@ -162,12 +161,6 @@ bool FSMState_Base::EndState(float DeltaSeconds, const FSMTransition* Transition
 	}
 	
 	SetActive(false);
-	ShutdownTransitions();
-
-	if (NodeInstance)
-	{
-		NodeInstance->NativeShutdown();
-	}
 	
 	return true;
 }
@@ -203,10 +196,10 @@ bool FSMState_Base::GetValidTransition(TArray<TArray<FSMTransition*>>& Transitio
 {
 	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SMState_Base::GetValidTransition"), STAT_SMState_GetValidTransition, STATGROUP_LogicDriver);
 	
-	for(FSMTransition* Transition : OutgoingTransitions)
+	for (FSMTransition* Transition : OutgoingTransitions)
 	{
 		TArray<FSMTransition*> Chain;
-		if(Transition->CanTransition(Chain))
+		if (Transition->CanTransition(Chain))
 		{
 			Transitions.Add(MoveTemp(Chain));
 
@@ -223,10 +216,10 @@ bool FSMState_Base::GetValidTransition(TArray<TArray<FSMTransition*>>& Transitio
 
 bool FSMState_Base::IsEndState() const
 {
-	for(FSMTransition* Transition : OutgoingTransitions)
+	for (FSMTransition* Transition : OutgoingTransitions)
 	{
 		// Look for at least one valid transition.
-		if(!Transition->bAlwaysFalse)
+		if (!Transition->bAlwaysFalse)
 		{
 			return false;
 		}
@@ -340,6 +333,11 @@ void FSMState_Base::SetStartTime(const FDateTime& InStartTime)
 	StartTime = InStartTime;
 }
 
+void FSMState_Base::SetEndTime(const FDateTime& InEndTime)
+{
+	EndTime = InEndTime;
+}
+
 void FSMState_Base::AddOutgoingTransition(FSMTransition* Transition)
 {
 	OutgoingTransitions.AddUnique(Transition);
@@ -357,7 +355,7 @@ void FSMState_Base::InitializeTransitions()
 	TArray<FSMTransition*> AllTransitions;
 	GetAllTransitionChains(AllTransitions);
 	
-	for(FSMTransition* Transition : AllTransitions)
+	for (FSMTransition* Transition : AllTransitions)
 	{
 		Transition->ExecuteInitializeNodes();
 	}
@@ -376,6 +374,30 @@ void FSMState_Base::ShutdownTransitions()
 	ExecuteShutdownNodes();
 }
 
+void FSMState_Base::NotifyInstanceStateHasStarted()
+{
+	if (USMInstance* Instance = GetOwningInstance())
+	{
+		Instance->NotifyStateStarted(*this);
+	}
+}
+
+void FSMState_Base::FirePreStartEvents()
+{
+	if (USMStateInstance_Base* StateInstance = Cast<USMStateInstance_Base>(NodeInstance))
+	{
+		StateInstance->OnStateBeginEvent.Broadcast(StateInstance);
+	}
+}
+
+void FSMState_Base::FirePostStartEvents()
+{
+	if (USMStateInstance_Base* StateInstance = Cast<USMStateInstance_Base>(NodeInstance))
+	{
+		StateInstance->OnPostStateBeginEvent.Broadcast(StateInstance);
+	}
+}
+
 
 FSMState::FSMState() : Super()
 {
@@ -384,22 +406,38 @@ FSMState::FSMState() : Super()
 void FSMState::Initialize(UObject* Instance)
 {
 	Super::Initialize(Instance);
+}
 
-	USMUtils::InitializeGraphFunctions(UpdateStateGraphEvaluator, Instance);
-	USMUtils::InitializeGraphFunctions(EndStateGraphEvaluator, Instance);
+void FSMState::InitializeGraphFunctions()
+{
+	FSMState_Base::InitializeGraphFunctions();
+	USMUtils::InitializeGraphFunctions(BeginStateGraphEvaluator, OwningInstance, GetNodeInstance());
+	USMUtils::InitializeGraphFunctions(UpdateStateGraphEvaluator, OwningInstance, GetNodeInstance());
+	USMUtils::InitializeGraphFunctions(EndStateGraphEvaluator, OwningInstance, GetNodeInstance());
 }
 
 void FSMState::Reset()
 {
 	Super::Reset();
+	USMUtils::ResetGraphFunctions(BeginStateGraphEvaluator);
 	USMUtils::ResetGraphFunctions(UpdateStateGraphEvaluator);
 	USMUtils::ResetGraphFunctions(EndStateGraphEvaluator);
 }
 
 void FSMState::ExecuteInitializeNodes()
 {
-	Super::ExecuteInitializeNodes();
+	if (IsInitializedForRun())
+	{
+		return;
+	}
 
+	if (NodeInstance)
+	{
+		NodeInstance->NativeInitialize();
+	}
+	
+	Super::ExecuteInitializeNodes();
+	
 	for (USMNodeInstance* StackInstance : StackNodeInstances)
 	{
 		if (USMStateInstance* StateInstance = Cast<USMStateInstance>(StackInstance))
@@ -414,6 +452,11 @@ void FSMState::ExecuteShutdownNodes()
 {
 	Super::ExecuteShutdownNodes();
 
+	if (NodeInstance)
+	{
+		NodeInstance->NativeShutdown();
+	}
+	
 	for (USMNodeInstance* StackInstance : StackNodeInstances)
 	{
 		if (USMStateInstance* StateInstance = Cast<USMStateInstance>(StackInstance))
@@ -426,23 +469,28 @@ void FSMState::ExecuteShutdownNodes()
 
 bool FSMState::StartState()
 {
-	if(!Super::StartState())
+	if (!Super::StartState())
 	{
 		return false;
 	}
 
 	if (CanExecuteLogic())
 	{
-		Execute();
-
+		PrepareGraphExecution();
+		USMUtils::ExecuteGraphFunctions(BeginStateGraphEvaluator);
+		
 		for (USMNodeInstance* StackInstance : StackNodeInstances)
 		{
 			if (USMStateInstance* StateInstance = Cast<USMStateInstance>(StackInstance))
 			{
+				StateInstance->OnStateBeginEvent.Broadcast(StateInstance);
 				StateInstance->OnStateBegin();
+				StateInstance->OnPostStateBeginEvent.Broadcast(StateInstance);
 			}
 		}
 	}
+
+	FirePostStartEvents();
 
 	return true;
 }
@@ -462,6 +510,7 @@ bool FSMState::UpdateState(float DeltaSeconds)
 		{
 			if (USMStateInstance* StateInstance = Cast<USMStateInstance>(StackInstance))
 			{
+				StateInstance->OnStateUpdateEvent.Broadcast(StateInstance, DeltaSeconds);
 				StateInstance->OnStateUpdate(DeltaSeconds);
 			}
 		}
@@ -486,11 +535,14 @@ bool FSMState::EndState(float DeltaSeconds, const FSMTransition* TransitionToTak
 		{
 			if (USMStateInstance* StateInstance = Cast<USMStateInstance>(StackInstance))
 			{
+				StateInstance->OnStateEndEvent.Broadcast(StateInstance);
 				StateInstance->OnStateEnd();
 			}
 		}
 		bIsStateEnding = false;
 	}
+
+	ShutdownTransitions();
 
 	return true;
 }
@@ -505,7 +557,7 @@ bool FSMState::TryExecuteGraphProperties(uint32 OnEvent)
 		{
 			if (CanExecuteGraphProperties(OnEvent, StateInstance))
 			{
-				ExecuteGraphProperties(&StateInstance->GetTemplateGuid());
+				ExecuteGraphProperties(StateInstance, &StateInstance->GetTemplateGuid());
 				bResult = true;
 			}
 		}

@@ -6,14 +6,10 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Configuration/SMEditorSettings.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 // Cross Module References
-	SMSYSTEMEDITOR_API UEnum* Z_Construct_UEnum_SMSystemEditor_ESMPinOverride();
+	SMSYSTEMEDITOR_API UEnum* Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior();
 	UPackage* Z_Construct_UPackage__Script_SMSystemEditor();
 	SMSYSTEMEDITOR_API UClass* Z_Construct_UClass_USMEditorSettings_NoRegister();
 	SMSYSTEMEDITOR_API UClass* Z_Construct_UClass_USMEditorSettings();
@@ -21,70 +17,66 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FLinearColor();
 	SLATECORE_API UScriptStruct* Z_Construct_UScriptStruct_FMargin();
 // End Cross Module References
-	static UEnum* ESMPinOverride_StaticEnum()
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_ESMJumpToGraphBehavior;
+	static UEnum* ESMJumpToGraphBehavior_StaticEnum()
 	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
+		if (!Z_Registration_Info_UEnum_ESMJumpToGraphBehavior.OuterSingleton)
 		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_SMSystemEditor_ESMPinOverride, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("ESMPinOverride"));
+			Z_Registration_Info_UEnum_ESMJumpToGraphBehavior.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("ESMJumpToGraphBehavior"));
 		}
-		return Singleton;
+		return Z_Registration_Info_UEnum_ESMJumpToGraphBehavior.OuterSingleton;
 	}
-	template<> SMSYSTEMEDITOR_API UEnum* StaticEnum<ESMPinOverride>()
+	template<> SMSYSTEMEDITOR_API UEnum* StaticEnum<ESMJumpToGraphBehavior>()
 	{
-		return ESMPinOverride_StaticEnum();
+		return ESMJumpToGraphBehavior_StaticEnum();
 	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_ESMPinOverride(ESMPinOverride_StaticEnum, TEXT("/Script/SMSystemEditor"), TEXT("ESMPinOverride"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Hash() { return 1406907145U; }
-	UEnum* Z_Construct_UEnum_SMSystemEditor_ESMPinOverride()
+	struct Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics
 	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystemEditor();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("ESMPinOverride"), 0, Get_Z_Construct_UEnum_SMSystemEditor_ESMPinOverride_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "ESMPinOverride::None", (int64)ESMPinOverride::None },
-				{ "ESMPinOverride::LogicDriverOnly", (int64)ESMPinOverride::LogicDriverOnly },
-				{ "ESMPinOverride::AllBlueprints", (int64)ESMPinOverride::AllBlueprints },
-			};
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
 #if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "AllBlueprints.Comment", "/** Override is for all blueprint types. */" },
-				{ "AllBlueprints.Name", "ESMPinOverride::AllBlueprints" },
-				{ "AllBlueprints.ToolTip", "Override is for all blueprint types." },
-				{ "LogicDriverOnly.Comment", "/** Override is only for Logic Driver assets. */" },
-				{ "LogicDriverOnly.Name", "ESMPinOverride::LogicDriverOnly" },
-				{ "LogicDriverOnly.ToolTip", "Override is only for Logic Driver assets." },
-				{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
-				{ "None.Comment", "/** Override is disabled for all assets. Restart required. */" },
-				{ "None.Name", "ESMPinOverride::None" },
-				{ "None.ToolTip", "Override is disabled for all assets. Restart required." },
-			};
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
 #endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_SMSystemEditor,
-				nullptr,
-				"ESMPinOverride",
-				"ESMPinOverride",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::EnumClass,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics::Enumerators[] = {
+		{ "ESMJumpToGraphBehavior::PreferLocalGraph", (int64)ESMJumpToGraphBehavior::PreferLocalGraph },
+		{ "ESMJumpToGraphBehavior::PreferExternalGraph", (int64)ESMJumpToGraphBehavior::PreferExternalGraph },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics::Enum_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "PreferExternalGraph.Comment", "/** An external blueprint's graph. */" },
+		{ "PreferExternalGraph.Name", "ESMJumpToGraphBehavior::PreferExternalGraph" },
+		{ "PreferExternalGraph.ToolTip", "An external blueprint's graph." },
+		{ "PreferLocalGraph.Comment", "/** The local or intermediate graph within the same blueprint. */" },
+		{ "PreferLocalGraph.Name", "ESMJumpToGraphBehavior::PreferLocalGraph" },
+		{ "PreferLocalGraph.ToolTip", "The local or intermediate graph within the same blueprint." },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_SMSystemEditor,
+		nullptr,
+		"ESMJumpToGraphBehavior",
+		"ESMJumpToGraphBehavior",
+		Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::EnumClass,
+		METADATA_PARAMS(Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior()
+	{
+		if (!Z_Registration_Info_UEnum_ESMJumpToGraphBehavior.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_ESMJumpToGraphBehavior.InnerSingleton, Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior_Statics::EnumParams);
 		}
-		return ReturnEnum;
+		return Z_Registration_Info_UEnum_ESMJumpToGraphBehavior.InnerSingleton;
 	}
 	void USMEditorSettings::StaticRegisterNativesUSMEditorSettings()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMEditorSettings);
 	UClass* Z_Construct_UClass_USMEditorSettings_NoRegister()
 	{
 		return USMEditorSettings::StaticClass();
@@ -124,9 +116,18 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 #endif
 		static const UECodeGen_Private::FStructPropertyParams NewProp_AnyStateDefaultColor;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_MaxAnyStateIcons_MetaData[];
+#endif
+		static const UECodeGen_Private::FIntPropertyParams NewProp_MaxAnyStateIcons;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_StateConnectionSize_MetaData[];
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_StateConnectionSize;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bDisplayStateStackClassNames_MetaData[];
+#endif
+		static void NewProp_bDisplayStateStackClassNames_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bDisplayStateStackClassNames;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_StateMachineContentPadding_MetaData[];
 #endif
@@ -135,11 +136,6 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_StateContentPadding_MetaData[];
 #endif
 		static const UECodeGen_Private::FStructPropertyParams NewProp_StateContentPadding;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_bDisplayStateStackClassNames_MetaData[];
-#endif
-		static void NewProp_bDisplayStateStackClassNames_SetBit(void* Obj);
-		static const UECodeGen_Private::FBoolPropertyParams NewProp_bDisplayStateStackClassNames;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bDisableVisualCues_MetaData[];
 #endif
@@ -166,6 +162,11 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_TransitionWithEntryLogicColor_MetaData[];
 #endif
 		static const UECodeGen_Private::FStructPropertyParams NewProp_TransitionWithEntryLogicColor;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bDisplayTransitionPriority_MetaData[];
+#endif
+		static void NewProp_bDisplayTransitionPriority_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bDisplayTransitionPriority;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_ActiveStateColor_MetaData[];
 #endif
@@ -195,16 +196,36 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_EvaluatingTransitionColor_MetaData[];
 #endif
 		static const UECodeGen_Private::FStructPropertyParams NewProp_EvaluatingTransitionColor;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_StateDoubleClickBehavior_Underlying;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_StateDoubleClickBehavior_MetaData[];
+#endif
+		static const UECodeGen_Private::FEnumPropertyParams NewProp_StateDoubleClickBehavior;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_TransitionDoubleClickBehavior_Underlying;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_TransitionDoubleClickBehavior_MetaData[];
+#endif
+		static const UECodeGen_Private::FEnumPropertyParams NewProp_TransitionDoubleClickBehavior;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_ConduitDoubleClickBehavior_Underlying;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_ConduitDoubleClickBehavior_MetaData[];
+#endif
+		static const UECodeGen_Private::FEnumPropertyParams NewProp_ConduitDoubleClickBehavior;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_ReferenceDoubleClickBehavior_Underlying;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_ReferenceDoubleClickBehavior_MetaData[];
+#endif
+		static const UECodeGen_Private::FEnumPropertyParams NewProp_ReferenceDoubleClickBehavior;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bEnableAnimations_MetaData[];
 #endif
 		static void NewProp_bEnableAnimations_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_bEnableAnimations;
-		static const UECodeGen_Private::FBytePropertyParams NewProp_OverrideActorSoftReferencePins_Underlying;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_OverrideActorSoftReferencePins_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bDisplayFastPath_MetaData[];
 #endif
-		static const UECodeGen_Private::FEnumPropertyParams NewProp_OverrideActorSoftReferencePins;
+		static void NewProp_bDisplayFastPath_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bDisplayFastPath;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bEnableBlueprintToolbarExtenders_MetaData[];
 #endif
@@ -280,10 +301,23 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_AnyStateDefaultColor_MetaData[] = {
 		{ "Category", "States" },
+		{ "Comment", "/** The default color for Any States. */" },
 		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "The default color for Any States." },
 	};
 #endif
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_AnyStateDefaultColor = { "AnyStateDefaultColor", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, AnyStateDefaultColor), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_AnyStateDefaultColor_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_AnyStateDefaultColor_MetaData)) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_MaxAnyStateIcons_MetaData[] = {
+		{ "Category", "States" },
+		{ "ClampMax", "10" },
+		{ "ClampMin", "0" },
+		{ "Comment", "/** The maximum amount of Any State icons to display per state. */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "The maximum amount of Any State icons to display per state." },
+	};
+#endif
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_MaxAnyStateIcons = { "MaxAnyStateIcons", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, MaxAnyStateIcons), METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_MaxAnyStateIcons_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_MaxAnyStateIcons_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateConnectionSize_MetaData[] = {
 		{ "Category", "States" },
@@ -295,24 +329,6 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 	};
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateConnectionSize = { "StateConnectionSize", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, StateConnectionSize), METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateConnectionSize_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateConnectionSize_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding_MetaData[] = {
-		{ "Category", "States" },
-		{ "Comment", "/** The padding around the main content box for state machines. */" },
-		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
-		{ "ToolTip", "The padding around the main content box for state machines." },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding = { "StateMachineContentPadding", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, StateMachineContentPadding), Z_Construct_UScriptStruct_FMargin, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding_MetaData[] = {
-		{ "Category", "States" },
-		{ "Comment", "/** The padding around the main content box. */" },
-		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
-		{ "ToolTip", "The padding around the main content box." },
-	};
-#endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding = { "StateContentPadding", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, StateContentPadding), Z_Construct_UScriptStruct_FMargin, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayStateStackClassNames_MetaData[] = {
 		{ "Category", "States" },
@@ -327,6 +343,24 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayStateStackClassNames = { "bDisplayStateStackClassNames", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMEditorSettings), &Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayStateStackClassNames_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayStateStackClassNames_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayStateStackClassNames_MetaData)) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding_MetaData[] = {
+		{ "Category", "States" },
+		{ "Comment", "/** The padding around the main content box for state machines. */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "The padding around the main content box for state machines." },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding = { "StateMachineContentPadding", nullptr, (EPropertyFlags)0x0010040000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, StateMachineContentPadding), Z_Construct_UScriptStruct_FMargin, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding_MetaData)) }; // 451581171
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding_MetaData[] = {
+		{ "Category", "States" },
+		{ "Comment", "/** The padding around the main content box. */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "The padding around the main content box." },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding = { "StateContentPadding", nullptr, (EPropertyFlags)0x0010040000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, StateContentPadding), Z_Construct_UScriptStruct_FMargin, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding_MetaData)) }; // 451581171
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues_MetaData[] = {
 		{ "Category", "States" },
 		{ "Comment", "/** Prevent nodes from displaying overlay widgets indicating a special status, such as for intermediate graphs or waiting for an end state. */" },
@@ -338,7 +372,7 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 	{
 		((USMEditorSettings*)Obj)->bDisableVisualCues = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues = { "bDisableVisualCues", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMEditorSettings), &Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues = { "bDisableVisualCues", nullptr, (EPropertyFlags)0x0010040000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMEditorSettings), &Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionEmptyColor_MetaData[] = {
 		{ "Category", "Transitions" },
@@ -389,6 +423,19 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 	};
 #endif
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionWithEntryLogicColor = { "TransitionWithEntryLogicColor", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, TransitionWithEntryLogicColor), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionWithEntryLogicColor_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionWithEntryLogicColor_MetaData)) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayTransitionPriority_MetaData[] = {
+		{ "Category", "Transitions" },
+		{ "Comment", "/** Display the transition priority next to transition icons. */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "Display the transition priority next to transition icons." },
+	};
+#endif
+	void Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayTransitionPriority_SetBit(void* Obj)
+	{
+		((USMEditorSettings*)Obj)->bDisplayTransitionPriority = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayTransitionPriority = { "bDisplayTransitionPriority", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMEditorSettings), &Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayTransitionPriority_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayTransitionPriority_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayTransitionPriority_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ActiveStateColor_MetaData[] = {
 		{ "Category", "Debug" },
@@ -460,6 +507,46 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 	};
 #endif
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_EvaluatingTransitionColor = { "EvaluatingTransitionColor", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, EvaluatingTransitionColor), Z_Construct_UScriptStruct_FLinearColor, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_EvaluatingTransitionColor_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_EvaluatingTransitionColor_MetaData)) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateDoubleClickBehavior_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateDoubleClickBehavior_MetaData[] = {
+		{ "Category", "Node Double Click" },
+		{ "Comment", "/**\n\x09 * The behavior when double clicking on states.\n\x09 * Either prefer the local graph or the node blueprint.\n\x09 */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "The behavior when double clicking on states.\nEither prefer the local graph or the node blueprint." },
+	};
+#endif
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateDoubleClickBehavior = { "StateDoubleClickBehavior", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, StateDoubleClickBehavior), Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateDoubleClickBehavior_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateDoubleClickBehavior_MetaData)) }; // 919440863
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionDoubleClickBehavior_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionDoubleClickBehavior_MetaData[] = {
+		{ "Category", "Node Double Click" },
+		{ "Comment", "/**\n\x09 * The behavior when double clicking on transitions.\n\x09 * Either prefer the local graph or the node blueprint.\n\x09 */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "The behavior when double clicking on transitions.\nEither prefer the local graph or the node blueprint." },
+	};
+#endif
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionDoubleClickBehavior = { "TransitionDoubleClickBehavior", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, TransitionDoubleClickBehavior), Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionDoubleClickBehavior_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionDoubleClickBehavior_MetaData)) }; // 919440863
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ConduitDoubleClickBehavior_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ConduitDoubleClickBehavior_MetaData[] = {
+		{ "Category", "Node Double Click" },
+		{ "Comment", "/**\n\x09 * The behavior when double clicking on conduits.\n\x09 * Either prefer the local graph or the node blueprint.\n\x09 */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "The behavior when double clicking on conduits.\nEither prefer the local graph or the node blueprint." },
+	};
+#endif
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ConduitDoubleClickBehavior = { "ConduitDoubleClickBehavior", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, ConduitDoubleClickBehavior), Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ConduitDoubleClickBehavior_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ConduitDoubleClickBehavior_MetaData)) }; // 919440863
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ReferenceDoubleClickBehavior_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ReferenceDoubleClickBehavior_MetaData[] = {
+		{ "Category", "Node Double Click" },
+		{ "Comment", "/**\n\x09 * The behavior when double clicking on state machine references.\n\x09 * The local graph is available when the intermediate graph is enabled.\n\x09 *\n\x09 * If a node class is assigned it will still have to be accessed through the context menu.\n\x09 */" },
+		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
+		{ "ToolTip", "The behavior when double clicking on state machine references.\nThe local graph is available when the intermediate graph is enabled.\n\nIf a node class is assigned it will still have to be accessed through the context menu." },
+	};
+#endif
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ReferenceDoubleClickBehavior = { "ReferenceDoubleClickBehavior", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, ReferenceDoubleClickBehavior), Z_Construct_UEnum_SMSystemEditor_ESMJumpToGraphBehavior, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ReferenceDoubleClickBehavior_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ReferenceDoubleClickBehavior_MetaData)) }; // 919440863
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableAnimations_MetaData[] = {
 		{ "Category", "Visual" },
@@ -473,16 +560,19 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 		((USMEditorSettings*)Obj)->bEnableAnimations = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableAnimations = { "bEnableAnimations", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMEditorSettings), &Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableAnimations_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableAnimations_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableAnimations_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_MetaData[] = {
-		{ "Category", "Pins" },
-		{ "Comment", "/**\n\x09 * Logic Driver can add support to select soft actor references from UEdGraphPins. Unreal by default does not support this.\n\x09 * You can add support only to Logic Driver assets, to all blueprint assets, or disable completely.\n\x09 **/" },
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayFastPath_MetaData[] = {
+		{ "Category", "Visual" },
+		{ "Comment", "/** Show fast path icons on all applicable nodes. */" },
 		{ "ModuleRelativePath", "Private/Configuration/SMEditorSettings.h" },
-		{ "ToolTip", "Logic Driver can add support to select soft actor references from UEdGraphPins. Unreal by default does not support this.\nYou can add support only to Logic Driver assets, to all blueprint assets, or disable completely." },
+		{ "ToolTip", "Show fast path icons on all applicable nodes." },
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins = { "OverrideActorSoftReferencePins", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(USMEditorSettings, OverrideActorSoftReferencePins), Z_Construct_UEnum_SMSystemEditor_ESMPinOverride, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_MetaData)) };
+	void Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayFastPath_SetBit(void* Obj)
+	{
+		((USMEditorSettings*)Obj)->bDisplayFastPath = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayFastPath = { "bDisplayFastPath", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(USMEditorSettings), &Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayFastPath_SetBit, METADATA_PARAMS(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayFastPath_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayFastPath_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableBlueprintToolbarExtenders_MetaData[] = {
 		{ "Category", "Plugin Compatibility" },
@@ -517,16 +607,18 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineParentDefaultColor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineWithLogicColor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_AnyStateDefaultColor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_MaxAnyStateIcons,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateConnectionSize,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayStateStackClassNames,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateMachineContentPadding,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateContentPadding,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayStateStackClassNames,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisableVisualCues,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionEmptyColor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionValidColor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionHoverColor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableTransitionWithEntryLogicColor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionWithEntryLogicColor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayTransitionPriority,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ActiveStateColor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ActiveTransitionColor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TimeToDisplayLastActiveState,
@@ -534,9 +626,16 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TimeToFadeLastActiveTransition,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayTransitionEvaluation,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_EvaluatingTransitionColor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateDoubleClickBehavior_Underlying,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_StateDoubleClickBehavior,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionDoubleClickBehavior_Underlying,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_TransitionDoubleClickBehavior,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ConduitDoubleClickBehavior_Underlying,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ConduitDoubleClickBehavior,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ReferenceDoubleClickBehavior_Underlying,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_ReferenceDoubleClickBehavior,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableAnimations,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins_Underlying,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_OverrideActorSoftReferencePins,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bDisplayFastPath,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableBlueprintToolbarExtenders,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USMEditorSettings_Statics::NewProp_bEnableBlueprintMenuExtenders,
 	};
@@ -560,21 +659,30 @@ void EmptyLinkFunctionForGeneratedCodeSMEditorSettings() {}
 	};
 	UClass* Z_Construct_UClass_USMEditorSettings()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMEditorSettings.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMEditorSettings_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMEditorSettings.OuterSingleton, Z_Construct_UClass_USMEditorSettings_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMEditorSettings.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMEditorSettings, 1236801970);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMEditorSettings>()
 	{
 		return USMEditorSettings::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMEditorSettings(Z_Construct_UClass_USMEditorSettings, &USMEditorSettings::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMEditorSettings"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMEditorSettings);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMEditorSettings_h_Statics
+	{
+		static const FEnumRegisterCompiledInInfo EnumInfo[];
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMEditorSettings_h_Statics::EnumInfo[] = {
+		{ ESMJumpToGraphBehavior_StaticEnum, TEXT("ESMJumpToGraphBehavior"), &Z_Registration_Info_UEnum_ESMJumpToGraphBehavior, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 919440863U) },
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMEditorSettings_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMEditorSettings, USMEditorSettings::StaticClass, TEXT("USMEditorSettings"), &Z_Registration_Info_UClass_USMEditorSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMEditorSettings), 3307692951U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMEditorSettings_h_3004697631(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMEditorSettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMEditorSettings_h_Statics::ClassInfo),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMEditorSettings_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Configuration_SMEditorSettings_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

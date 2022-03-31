@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMVersionUtils.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
@@ -102,7 +102,7 @@ void FSMVersionUtils::UpdateBlueprintsToNewVersion()
 		
 		for (FAssetData& Asset : AssetsToUpdate)
 		{
-			if(USMBlueprint* SMBlueprint = Cast<USMBlueprint>(Asset.GetAsset()))
+			if (USMBlueprint* SMBlueprint = Cast<USMBlueprint>(Asset.GetAsset()))
 			{
 				// Fixes existing broken graphs for t-141.
 				USMBlueprintFactory::CreateGraphsForBlueprintIfMissing(SMBlueprint);

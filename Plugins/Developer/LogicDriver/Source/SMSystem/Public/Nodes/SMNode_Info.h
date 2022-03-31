@@ -1,8 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "SMNode_Info.generated.h"
 
 struct FSMState_Base;
@@ -39,8 +40,13 @@ struct SMSYSTEM_API FSMInfo_Base
 	UPROPERTY(BlueprintReadOnly, Category = "State Machines")
 	FGuid OwnerNodeGuid;
 
-	/** The node instance for this class. This will either be a default StateInstance or TransitionInstance, or a user defined one. */
-	UPROPERTY(BlueprintReadOnly, Category = "State Machines")
+	/**
+	 * The node instance for this class. This will either be a default StateInstance or TransitionInstance, or a user defined one.
+	 * WARNING: This may now be null since the instance is only loaded on demand.
+	 *
+	 * @deprecated Use USMInstance::GetNodeInstanceByGuid() on the root state machine instance and pass in the Guid.
+	 */
+	UPROPERTY(BlueprintReadOnly, Category = "State Machines", meta=(DeprecatedProperty, DeprecationMessage="Use GetNodeInstanceByGuid() on the root state machine instance and pass in the Guid."))
 	class USMNodeInstance* NodeInstance;
 
 	virtual FString ToString() const;
@@ -106,7 +112,19 @@ struct SMSYSTEM_API FSMStateInfo : public FSMInfo_Base
 USTRUCT(BlueprintType, meta = (DisplayName = "State History"))
 struct SMSYSTEM_API FSMStateHistory
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
+
+	FSMStateHistory(): StartTime(ForceInitToZero), TimeInState(0), ServerTimeInState(0)
+	{
+	}
+
+	FSMStateHistory(const FGuid& InStateGuid, const FDateTime& InStartTime, float InTimeInState, float InServerTimeInState):
+		StateGuid(InStateGuid),
+		StartTime(InStartTime),
+		TimeInState(InTimeInState),
+		ServerTimeInState(InServerTimeInState)
+	{
+	}
 
 	/** The state guid which can be used with the owning USMInstance to lookup the full state object. */
 	UPROPERTY(BlueprintReadOnly, Category = "State Machines")

@@ -1,11 +1,6 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_FunctionNodes.h"
-#include "BlueprintNodeSpawner.h"
-#include "BlueprintActionDatabaseRegistrar.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-#include "Blueprints/SMBlueprint.h"
-#include "EdGraph/EdGraph.h"
 #include "Graph/SMTransitionGraph.h"
 #include "Graph/SMStateGraph.h"
 #include "Graph/SMIntermediateGraph.h"
@@ -14,13 +9,19 @@
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionInitializedNode.h"
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionShutdownNode.h"
 #include "Graph/Nodes/Helpers/SMGraphK2Node_StateReadNodes.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+
+#include "Blueprints/SMBlueprint.h"
+
+#include "EdGraph/EdGraph.h"
+#include "BlueprintNodeSpawner.h"
+#include "BlueprintActionDatabaseRegistrar.h"
 #include "BlueprintDelegateNodeSpawner.h"
 #include "K2Node_StructMemberGet.h"
 #include "K2Node_CallFunction.h"
 #include "K2Node_AddDelegate.h"
 #include "K2Node_RemoveDelegate.h"
 #include "K2Node_DynamicCast.h"
-
 
 #define LOCTEXT_NAMESPACE "SMStateMachineFunctionNode"
 
@@ -96,20 +97,23 @@ bool USMGraphK2Node_FunctionNode::ExpandAndWireStandardFunction(UFunction* Funct
 {
 	// Call end function.
 	UK2Node_CallFunction* StartFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, Function);
+	CompilerContext.MessageLog.NotifyIntermediateObjectCreation(StartFunctionNode, this);
+	
+	UEdGraphPin* SelfPinNew = StartFunctionNode->FindPinChecked(FName(USMGraphK2Schema::PN_Self));
+	UEdGraphPin* ExecutePinNew = StartFunctionNode->FindPinChecked(USMGraphK2Schema::PN_Execute);
+	UEdGraphPin* ThenPinNew = StartFunctionNode->FindPinChecked(USMGraphK2Schema::PN_Then);
 
-	UEdGraphPin* SelfPinIn = StartFunctionNode->FindPinChecked(FName(USMGraphK2Schema::PN_Self));
-	UEdGraphPin* ExecutePinIn = StartFunctionNode->FindPinChecked(USMGraphK2Schema::PN_Execute);
-	UEdGraphPin* ThenPinIn = StartFunctionNode->FindPinChecked(USMGraphK2Schema::PN_Then);
-
-	UEdGraphPin* ExecutePinOut = FindPinChecked(USMGraphK2Schema::PN_Execute);
-	UEdGraphPin* ThenPinOut = FindPinChecked(USMGraphK2Schema::PN_Then);
+	UEdGraphPin* ExecutePinOld = FindPinChecked(USMGraphK2Schema::PN_Execute);
+	UEdGraphPin* ThenPinOld = FindPinChecked(USMGraphK2Schema::PN_Then);
 
 	// Wire the reference pin to the self pin so we are calling start on the reference.
-	CompilerContext.ConsolidatedEventGraph->GetSchema()->TryCreateConnection(SelfPin, SelfPinIn);
+	CompilerContext.ConsolidatedEventGraph->GetSchema()->TryCreateConnection(SelfPin, SelfPinNew);
 
 	// Wire old pins to new pins.
-	ExecutePinIn->CopyPersistentDataFromOldPin(*ExecutePinOut);
-	ThenPinIn->CopyPersistentDataFromOldPin(*ThenPinOut);
+	ExecutePinNew->CopyPersistentDataFromOldPin(*ExecutePinOld);
+	CompilerContext.MessageLog.NotifyIntermediatePinCreation(ExecutePinNew, ExecutePinOld);
+	ThenPinNew->CopyPersistentDataFromOldPin(*ThenPinOld);
+	CompilerContext.MessageLog.NotifyIntermediatePinCreation(ThenPinNew, ThenPinOld);
 
 	BreakAllNodeLinks();
 	return true;
@@ -185,6 +189,7 @@ void USMGraphK2Node_StateMachineRef_Start::CustomExpandNode(FSMKismetCompilerCon
 
 	UFunction* StartFunction = USMInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMInstance, StartWithNewContext));
 	UK2Node_CallFunction* StartFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, StartFunction);
+	CompilerContext.MessageLog.NotifyIntermediateObjectCreation(StartFunctionNode, this);
 
 	UEdGraphPin* SelfPinIn = StartFunctionNode->FindPinChecked(FName("self"));
 	UEdGraphPin* ContextPinIn = StartFunctionNode->FindPinChecked(FName("Context"));
@@ -221,7 +226,7 @@ void USMGraphK2Node_StateMachineRef_Update::GetMenuActions(FBlueprintActionDatab
 void USMGraphK2Node_StateMachineRef_Update::AllocateDefaultPins()
 {
 	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Exec, UEdGraphSchema_K2::PN_Execute);
-	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Float, TEXT("DeltaSeconds"));
+	CreatePin(EGPD_Input, USMGraphK2Schema::PC_Real, USMGraphK2Schema::PC_Float, TEXT("DeltaSeconds"));
 	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Exec, UEdGraphSchema_K2::PN_Then);
 }
 
@@ -251,9 +256,10 @@ void USMGraphK2Node_StateMachineRef_Update::CustomExpandNode(FSMKismetCompilerCo
 
 	// Call state machine start.
 
-	UFunction* StartFunction = USMInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMInstance, Update));
+	UFunction* StartFunction = USMInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMInstance, RunUpdateAsReference));
 	UK2Node_CallFunction* StartFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, StartFunction);
-
+	CompilerContext.MessageLog.NotifyIntermediateObjectCreation(StartFunctionNode, this);
+	
 	UEdGraphPin* SelfPinIn = StartFunctionNode->FindPinChecked(FName("self"));
 	UEdGraphPin* SecondsPinIn = StartFunctionNode->FindPinChecked(FName("DeltaSeconds"));
 	UEdGraphPin* ExecutePinIn = StartFunctionNode->FindPinChecked(FName("execute"));
@@ -321,7 +327,8 @@ void USMGraphK2Node_StateMachineRef_Stop::CustomExpandNode(FSMKismetCompilerCont
 
 	UFunction* StartFunction = USMInstance::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMInstance, Stop));
 	UK2Node_CallFunction* StartFunctionNode = FSMBlueprintEditorUtils::CreateFunctionCall(CompilerContext.ConsolidatedEventGraph, StartFunction);
-
+	CompilerContext.MessageLog.NotifyIntermediateObjectCreation(StartFunctionNode, this);
+	
 	UEdGraphPin* SelfPinIn = StartFunctionNode->FindPinChecked(FName("self"));
 	UEdGraphPin* ExecutePinIn = StartFunctionNode->FindPinChecked(FName("execute"));
 	UEdGraphPin* ThenPinIn = StartFunctionNode->FindPinChecked(FName("then"));
@@ -432,18 +439,20 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::CustomExpandNode(FSMKismetComp
 	// Create a custom event node to take the place of this node.
 	UK2Node_CustomEvent* CustomEvent = UK2Node_CustomEvent::CreateFromFunction(FVector2D(NodePosX, NodePosY), CompilerContext.ConsolidatedEventGraph,
 		EventReference.GetMemberName().ToString() + FGuid::NewGuid().ToString(), CustomFunction);
-	if(!CustomEvent)
+	if (!CustomEvent)
 	{
 		CompilerContext.MessageLog.Error(TEXT("Could not create custom event for node @@"), this);
 		return;
 	}
+	CompilerContext.MessageLog.NotifyIntermediateObjectCreation(CustomEvent, this);
 	
 	UEdGraphPin* DelegateOutputPin = nullptr;
 	for (UEdGraphPin* EventPin : CustomEvent->Pins)
 	{
-		if(UEdGraphPin* OurPin = FindPin(EventPin->PinName, EventPin->Direction))
+		if (UEdGraphPin* OurPin = FindPin(EventPin->PinName, EventPin->Direction))
 		{
 			EventPin->CopyPersistentDataFromOldPin(*OurPin);
+			CompilerContext.MessageLog.NotifyIntermediatePinCreation(EventPin, OurPin);
 		}
 
 		if (EventPin->PinName == UK2Node_Event::DelegateOutputName && EventPin->PinType.PinCategory == USMGraphK2Schema::PC_Delegate)
@@ -452,7 +461,7 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::CustomExpandNode(FSMKismetComp
 		}
 	}
 
-	if(!DelegateOutputPin)
+	if (!DelegateOutputPin)
 	{
 		CompilerContext.MessageLog.Error(TEXT("Could not locate delegate output pin for node @@"), this);
 		return;
@@ -461,7 +470,7 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::CustomExpandNode(FSMKismetComp
 	BreakAllNodeLinks();
 
 	FMulticastDelegateProperty* DelegateProperty = FSMBlueprintEditorUtils::GetDelegateProperty(DelegatePropertyName, DelegateOwnerClass, CustomFunction);
-	if(!DelegateProperty)
+	if (!DelegateProperty)
 	{
 		CompilerContext.MessageLog.Error(TEXT("Delegate property missing for transition event node @@"), this);
 		return;
@@ -496,9 +505,9 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::CustomExpandNode(FSMKismetComp
 	Schema->TryCreateConnection(DelegateOutputPin, DelegateInputPin);
 
 	// Wire correct instance.
-	if(DelegateOwnerInstance >= SMDO_Context)
+	if (DelegateOwnerInstance >= SMDO_Context)
 	{
-		if(DelegateOwnerClass == nullptr)
+		if (DelegateOwnerClass == nullptr)
 		{
 			CompilerContext.MessageLog.Error(TEXT("DelegateOwnerClass not assigned for node @@."), this);
 			return;
@@ -551,7 +560,7 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::CustomExpandNode(FSMKismetComp
 		}
 
 		// Context to Cast Source.
-		if(!Schema->TryCreateConnection(FromPin, CastNode->GetCastSourcePin()))
+		if (!Schema->TryCreateConnection(FromPin, CastNode->GetCastSourcePin()))
 		{
 			CompilerContext.MessageLog.Error(TEXT("Could not cast to DelegateOwnerClass @@."), this);
 			return;
@@ -559,7 +568,7 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::CustomExpandNode(FSMKismetComp
 
 		// Cast Result to AddDelegate Target.
 		UEdGraphPin* AddDelegateTargetPin = AddDelegateNode->FindPin(UEdGraphSchema_K2::PN_Self, EGPD_Input);
-		if(!Schema->TryCreateConnection(CastNode->GetCastResultPin(), AddDelegateTargetPin))
+		if (!Schema->TryCreateConnection(CastNode->GetCastResultPin(), AddDelegateTargetPin))
 		{
 			CompilerContext.MessageLog.Error(TEXT("Cast result of Context to DelegateOwnerClass not accepted in AddDelegate for node @@."), this);
 			return;
@@ -567,7 +576,7 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::CustomExpandNode(FSMKismetComp
 
 		// Cast Result to RemoveDelegate Target.
 		UEdGraphPin* RemoveDelegateTargetPin = RemoveDelegateNode->FindPin(UEdGraphSchema_K2::PN_Self, EGPD_Input);
-		if(!Schema->TryCreateConnection(CastNode->GetCastResultPin(), RemoveDelegateTargetPin))
+		if (!Schema->TryCreateConnection(CastNode->GetCastResultPin(), RemoveDelegateTargetPin))
 		{
 			CompilerContext.MessageLog.Error(TEXT("Cast result of Context to DelegateOwnerClass not accepted in RemoveDelegate for node @@."), this);
 			return;
@@ -585,7 +594,7 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::SetEventReferenceFromDelegate(
 
 UFunction* USMGraphK2Node_FunctionNode_TransitionEvent::GetDelegateFunction() const
 {
-	if(UFunction* FoundFunction = EventReference.ResolveMember<UFunction>(DelegateOwnerClass))
+	if (UFunction* FoundFunction = EventReference.ResolveMember<UFunction>(DelegateOwnerClass))
 	{
 		return FoundFunction;
 	}
@@ -593,7 +602,7 @@ UFunction* USMGraphK2Node_FunctionNode_TransitionEvent::GetDelegateFunction() co
 	// During compile non-native delegates declared in this blueprint won't be in the funcmap so we'll need to check the skeleton class instead.
 	if (DelegateOwnerClass)
 	{
-		if(UBlueprint* Blueprint = Cast<UBlueprint>(DelegateOwnerClass->ClassGeneratedBy))
+		if (const UBlueprint* Blueprint = Cast<UBlueprint>(DelegateOwnerClass->ClassGeneratedBy))
 		{
 			if (UFunction* FoundFunction = EventReference.ResolveMember<UFunction>(Blueprint->SkeletonGeneratedClass))
 			{
@@ -603,9 +612,9 @@ UFunction* USMGraphK2Node_FunctionNode_TransitionEvent::GetDelegateFunction() co
 	}
 
 	// TODO: Likely not necessary.
-	if (FMulticastDelegateProperty* DelegateProperty = FSMBlueprintEditorUtils::GetDelegateProperty(DelegatePropertyName, DelegateOwnerClass))
+	if (const FMulticastDelegateProperty* DelegateProperty = FSMBlueprintEditorUtils::GetDelegateProperty(DelegatePropertyName, DelegateOwnerClass))
 	{
-		if(DelegateProperty->SignatureFunction)
+		if (DelegateProperty->SignatureFunction)
 		{
 			return DelegateProperty->SignatureFunction;
 		}
@@ -617,7 +626,7 @@ UFunction* USMGraphK2Node_FunctionNode_TransitionEvent::GetDelegateFunction() co
 void USMGraphK2Node_FunctionNode_TransitionEvent::UpdateNodeFromFunction()
 {
 	UFunction* CustomFunction = GetDelegateFunction();
-	if(!CustomFunction)
+	if (!CustomFunction)
 	{
 		return;
 	}
@@ -627,7 +636,7 @@ void USMGraphK2Node_FunctionNode_TransitionEvent::UpdateNodeFromFunction()
 	TArray<UEdGraphPin*> OldPins = Pins;
 
 	// Mark pending kill.
-	for(UEdGraphPin* OldPin : OldPins)
+	for (UEdGraphPin* OldPin : OldPins)
 	{
 		RemovePin(OldPin);
 	}

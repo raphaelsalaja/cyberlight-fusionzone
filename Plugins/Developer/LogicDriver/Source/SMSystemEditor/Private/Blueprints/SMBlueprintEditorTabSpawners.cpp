@@ -1,15 +1,16 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMBlueprintEditorTabSpawners.h"
-#include "BlueprintEditorTabs.h"
-#include "ISMPreviewEditorModule.h"
 #include "SMBlueprintEditor.h"
 #include "SMBlueprintEditorModes.h"
-#include "Configuration/SMEditorStyle.h"
 
+#include "ISMPreviewEditorModule.h"
+
+#include "BlueprintEditorTabs.h"
+
+#include "EditorStyleSet.h"
 
 #define LOCTEXT_NAMESPACE "SMBlueprintEditorTabSpawners"
-
 
 FSMViewSummonerBase::FSMViewSummonerBase(FName InIdentifier, TSharedPtr<FSMBlueprintEditor> InHostingApp, TSharedPtr<SWidget> TabWidgetIn) : FWorkflowTabFactory(InIdentifier, InHostingApp)
 	, BlueprintEditor(InHostingApp)

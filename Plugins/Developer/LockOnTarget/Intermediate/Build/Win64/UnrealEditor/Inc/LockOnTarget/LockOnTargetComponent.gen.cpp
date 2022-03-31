@@ -6,18 +6,14 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/LockOnTargetComponent.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 // Cross Module References
-	LOCKONTARGET_API UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature();
+	LOCKONTARGET_API UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature();
 	UPackage* Z_Construct_UPackage__Script_LockOnTarget();
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	LOCKONTARGET_API UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature();
-	LOCKONTARGET_API UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature();
+	LOCKONTARGET_API UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature();
 	LOCKONTARGET_API UClass* Z_Construct_UClass_ULockOnTargetComponent_NoRegister();
 	LOCKONTARGET_API UClass* Z_Construct_UClass_ULockOnTargetComponent();
 	ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
@@ -29,60 +25,6 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FColor();
 	LOCKONTARGET_API UScriptStruct* Z_Construct_UScriptStruct_FTargetInfo();
 // End Cross Module References
-	struct Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics
-	{
-		struct _Script_LockOnTarget_eventOnTargetUnlocked_Parms
-		{
-			AActor* UnlockedActor;
-		};
-		static const UECodeGen_Private::FObjectPropertyParams NewProp_UnlockedActor;
-		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
-#endif
-		static const UECodeGen_Private::FFunctionParams FuncParams;
-	};
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::NewProp_UnlockedActor = { "UnlockedActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(_Script_LockOnTarget_eventOnTargetUnlocked_Parms, UnlockedActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::NewProp_UnlockedActor,
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/LockOnTargetComponent.h" },
-	};
-#endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_LockOnTarget, nullptr, "OnTargetUnlocked__DelegateSignature", nullptr, nullptr, sizeof(_Script_LockOnTarget_eventOnTargetUnlocked_Parms), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature()
-	{
-		static UFunction* ReturnFunction = nullptr;
-		if (!ReturnFunction)
-		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::FuncParams);
-		}
-		return ReturnFunction;
-	}
-	struct Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
-#endif
-		static const UECodeGen_Private::FFunctionParams FuncParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/LockOnTargetComponent.h" },
-	};
-#endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_LockOnTarget, nullptr, "OnTargetNotFound__DelegateSignature", nullptr, nullptr, 0, nullptr, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature()
-	{
-		static UFunction* ReturnFunction = nullptr;
-		if (!ReturnFunction)
-		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::FuncParams);
-		}
-		return ReturnFunction;
-	}
 	struct Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics
 	{
 		struct _Script_LockOnTarget_eventOnTargetLocked_Parms
@@ -105,13 +47,67 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ModuleRelativePath", "Public/LockOnTargetComponent.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_LockOnTarget, nullptr, "OnTargetLocked__DelegateSignature", nullptr, nullptr, sizeof(_Script_LockOnTarget_eventOnTargetLocked_Parms), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_LockOnTarget, nullptr, "OnTargetLocked__DelegateSignature", nullptr, nullptr, sizeof(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::_Script_LockOnTarget_eventOnTargetLocked_Parms), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/LockOnTargetComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_LockOnTarget, nullptr, "OnTargetNotFound__DelegateSignature", nullptr, nullptr, 0, nullptr, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics
+	{
+		struct _Script_LockOnTarget_eventOnTargetUnlocked_Parms
+		{
+			AActor* UnlockedActor;
+		};
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_UnlockedActor;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::NewProp_UnlockedActor = { "UnlockedActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(_Script_LockOnTarget_eventOnTargetUnlocked_Parms, UnlockedActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::NewProp_UnlockedActor,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/LockOnTargetComponent.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_LockOnTarget, nullptr, "OnTargetUnlocked__DelegateSignature", nullptr, nullptr, sizeof(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::_Script_LockOnTarget_eventOnTargetUnlocked_Parms), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -260,7 +256,7 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_ClearTarget_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_ClearTarget_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -285,7 +281,7 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_EnableTargeting_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_EnableTargeting_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -324,13 +320,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "@return - WorldLocation of Locked On Target's socket." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetCapturedLocation", nullptr, nullptr, sizeof(LockOnTargetComponent_eventGetCapturedLocation_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54820401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetCapturedLocation", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::LockOnTargetComponent_eventGetCapturedLocation_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54820401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -359,13 +355,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "@return - Captured socket if exists. None otherwise." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetCapturedSocket", nullptr, nullptr, sizeof(LockOnTargetComponent_eventGetCapturedSocket_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetCapturedSocket", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::LockOnTargetComponent_eventGetCapturedSocket_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -402,13 +398,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "@return - Current Locked On Target's HelperComponent." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetHelperComponent", nullptr, nullptr, sizeof(LockOnTargetComponent_eventGetHelperComponent_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetHelperComponent", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::LockOnTargetComponent_eventGetHelperComponent_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -439,7 +435,7 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetInputBufferThreshold_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetInputBufferThreshold_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -468,13 +464,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "@return - Current Locked On Target." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetTarget", nullptr, nullptr, sizeof(LockOnTargetComponent_eventGetTarget_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetTarget", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::LockOnTargetComponent_eventGetTarget_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_GetTarget()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetTarget_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -503,13 +499,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "@return - Targeting duration in sec." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetTargetingDuration", nullptr, nullptr, sizeof(LockOnTargetComponent_eventGetTargetingDuration_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "GetTargetingDuration", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::LockOnTargetComponent_eventGetTargetingDuration_Parms), Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -543,13 +539,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "@return - Is any Target Locked On." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "IsTargetLocked", nullptr, nullptr, sizeof(LockOnTargetComponent_eventIsTargetLocked_Parms), Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "IsTargetLocked", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::LockOnTargetComponent_eventIsTargetLocked_Parms), Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -591,13 +587,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "For manual Capturing TargetActor. Automatic one is EnableTargeting()." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "SetLockOnTarget", nullptr, nullptr, sizeof(LockOnTargetComponent_eventSetLockOnTarget_Parms), Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "SetLockOnTarget", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::LockOnTargetComponent_eventSetLockOnTarget_Parms), Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -635,13 +631,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "Additional method for switching Target while targeting. Useful for custom processing input." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "SwitchTargetManual", nullptr, nullptr, sizeof(LockOnTargetComponent_eventSwitchTargetManual_Parms), Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "SwitchTargetManual", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::LockOnTargetComponent_eventSwitchTargetManual_Parms), Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -670,13 +666,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "Feed Pitch input for input buffer." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "SwitchTargetPitch", nullptr, nullptr, sizeof(LockOnTargetComponent_eventSwitchTargetPitch_Parms), Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "SwitchTargetPitch", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::LockOnTargetComponent_eventSwitchTargetPitch_Parms), Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -705,16 +701,17 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "Feed Yaw input for input buffer." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "SwitchTargetYaw", nullptr, nullptr, sizeof(LockOnTargetComponent_eventSwitchTargetYaw_Parms), Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULockOnTargetComponent, nullptr, "SwitchTargetYaw", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::LockOnTargetComponent_eventSwitchTargetYaw_Parms), Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ULockOnTargetComponent);
 	UClass* Z_Construct_UClass_ULockOnTargetComponent_NoRegister()
 	{
 		return ULockOnTargetComponent::StaticClass();
@@ -816,19 +813,19 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_LockOnTarget,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_ULockOnTargetComponent_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_ClearTarget, "ClearTarget" }, // 184644230
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_EnableTargeting, "EnableTargeting" }, // 2122570979
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation, "GetCapturedLocation" }, // 828017067
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket, "GetCapturedSocket" }, // 2625371697
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent, "GetHelperComponent" }, // 2152648100
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetInputBufferThreshold, "GetInputBufferThreshold" }, // 4271515438
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetTarget, "GetTarget" }, // 882697775
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration, "GetTargetingDuration" }, // 2909042705
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked, "IsTargetLocked" }, // 2938956772
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget, "SetLockOnTarget" }, // 2146665295
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual, "SwitchTargetManual" }, // 3506411304
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch, "SwitchTargetPitch" }, // 1303156360
-		{ &Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw, "SwitchTargetYaw" }, // 3511280778
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_ClearTarget, "ClearTarget" }, // 1359412563
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_EnableTargeting, "EnableTargeting" }, // 3761560919
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedLocation, "GetCapturedLocation" }, // 2876769765
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetCapturedSocket, "GetCapturedSocket" }, // 4103866256
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetHelperComponent, "GetHelperComponent" }, // 4106220905
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetInputBufferThreshold, "GetInputBufferThreshold" }, // 947618045
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetTarget, "GetTarget" }, // 1262485988
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_GetTargetingDuration, "GetTargetingDuration" }, // 2836835243
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_IsTargetLocked, "IsTargetLocked" }, // 2404912917
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_SetLockOnTarget, "SetLockOnTarget" }, // 220683766
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetManual, "SwitchTargetManual" }, // 2975572535
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetPitch, "SwitchTargetPitch" }, // 3152894283
+		{ &Z_Construct_UFunction_ULockOnTargetComponent_SwitchTargetYaw, "SwitchTargetYaw" }, // 340393036
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ULockOnTargetComponent_Statics::Class_MetaDataParams[] = {
@@ -995,7 +992,7 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "Called when Target is Locked." },
 	};
 #endif
-	const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetLocked = { "OnTargetLocked", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ULockOnTargetComponent, OnTargetLocked), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature, METADATA_PARAMS(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetLocked_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetLocked_MetaData)) };
+	const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetLocked = { "OnTargetLocked", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ULockOnTargetComponent, OnTargetLocked), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetLocked__DelegateSignature, METADATA_PARAMS(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetLocked_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetLocked_MetaData)) }; // 3040654132
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetNotFound_MetaData[] = {
 		{ "Category", "LockOnTarget" },
@@ -1004,7 +1001,7 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "Called if Target not found while finding or switching. Maybe useful IsTargetLocked()." },
 	};
 #endif
-	const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetNotFound = { "OnTargetNotFound", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ULockOnTargetComponent, OnTargetNotFound), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature, METADATA_PARAMS(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetNotFound_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetNotFound_MetaData)) };
+	const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetNotFound = { "OnTargetNotFound", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ULockOnTargetComponent, OnTargetNotFound), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetNotFound__DelegateSignature, METADATA_PARAMS(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetNotFound_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetNotFound_MetaData)) }; // 3710869440
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetUnlocked_MetaData[] = {
 		{ "Category", "LockOnTarget" },
@@ -1013,13 +1010,13 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 		{ "ToolTip", "Called when Target unlocked." },
 	};
 #endif
-	const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetUnlocked = { "OnTargetUnlocked", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ULockOnTargetComponent, OnTargetUnlocked), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature, METADATA_PARAMS(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetUnlocked_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetUnlocked_MetaData)) };
+	const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetUnlocked = { "OnTargetUnlocked", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ULockOnTargetComponent, OnTargetUnlocked), Z_Construct_UDelegateFunction_LockOnTarget_OnTargetUnlocked__DelegateSignature, METADATA_PARAMS(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetUnlocked_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_OnTargetUnlocked_MetaData)) }; // 1829082331
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_PrivateTargetInfo_MetaData[] = {
 		{ "ModuleRelativePath", "Public/LockOnTargetComponent.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_PrivateTargetInfo = { "PrivateTargetInfo", nullptr, (EPropertyFlags)0x0040008000002000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ULockOnTargetComponent, PrivateTargetInfo), Z_Construct_UScriptStruct_FTargetInfo, METADATA_PARAMS(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_PrivateTargetInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_PrivateTargetInfo_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_PrivateTargetInfo = { "PrivateTargetInfo", nullptr, (EPropertyFlags)0x0040008000002000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(ULockOnTargetComponent, PrivateTargetInfo), Z_Construct_UScriptStruct_FTargetInfo, METADATA_PARAMS(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_PrivateTargetInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_PrivateTargetInfo_MetaData)) }; // 2314130026
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ULockOnTargetComponent_Statics::NewProp_TargetingDuration_MetaData[] = {
 		{ "ModuleRelativePath", "Public/LockOnTargetComponent.h" },
@@ -1068,21 +1065,26 @@ void EmptyLinkFunctionForGeneratedCodeLockOnTargetComponent() {}
 	};
 	UClass* Z_Construct_UClass_ULockOnTargetComponent()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_ULockOnTargetComponent.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_ULockOnTargetComponent_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_ULockOnTargetComponent.OuterSingleton, Z_Construct_UClass_ULockOnTargetComponent_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_ULockOnTargetComponent.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(ULockOnTargetComponent, 1243818847);
 	template<> LOCKONTARGET_API UClass* StaticClass<ULockOnTargetComponent>()
 	{
 		return ULockOnTargetComponent::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_ULockOnTargetComponent(Z_Construct_UClass_ULockOnTargetComponent, &ULockOnTargetComponent::StaticClass, TEXT("/Script/LockOnTarget"), TEXT("ULockOnTargetComponent"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ULockOnTargetComponent);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnTargetComponent_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnTargetComponent_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_ULockOnTargetComponent, ULockOnTargetComponent::StaticClass, TEXT("ULockOnTargetComponent"), &Z_Registration_Info_UClass_ULockOnTargetComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ULockOnTargetComponent), 753925242U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnTargetComponent_h_2895573465(TEXT("/Script/LockOnTarget"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnTargetComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_LockOnTargetComponent_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

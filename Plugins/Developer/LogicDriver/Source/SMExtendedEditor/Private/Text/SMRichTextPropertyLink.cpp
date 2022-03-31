@@ -1,12 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMRichTextPropertyLink.h"
+
 #include "Widgets/Text/STextBlock.h"
 
 void SSMRichTextPropertyLink::Construct(const FArguments& InArgs, const TSharedRef< FSMPropertyRun::FWidgetViewModel >& InViewModel)
 {
-	bIsPressed = false;
-
 	ViewModel = InViewModel;
 
 	SBorder::Construct(SBorder::FArguments()
@@ -14,7 +13,7 @@ void SSMRichTextPropertyLink::Construct(const FArguments& InArgs, const TSharedR
 		.DesiredSizeScale(FVector2D(1.f, 1.f))
 		.BorderBackgroundColor(InArgs._ButtonColor)
 		.ForegroundColor(FLinearColor::Black)
-		.BorderImage(this, &SSMRichTextPropertyLink::GetBorder)
+		.BorderImage(this, &SSMRichTextPropertyLink::GetBorderImage)
 		.HAlign(HAlign_Center)
 		.VAlign(VAlign_Center)
 		.Padding(TAttribute<FMargin>(this, &SSMRichTextPropertyLink::GetCombinedPadding))
@@ -27,6 +26,4 @@ void SSMRichTextPropertyLink::Construct(const FArguments& InArgs, const TSharedR
 	);
 
 	SetButtonStyle(InArgs._ButtonStyle);
-
-	OnPressed = InArgs._OnPressed;
 }

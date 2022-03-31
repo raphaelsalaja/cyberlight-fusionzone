@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphNode_StateNode.h"
 #include "Blueprints/SMBlueprintEditor.h"
@@ -17,7 +17,6 @@
 
 #include "SMUtils.h"
 
-#include "Engine/Engine.h"
 #include "Kismet2/Kismet2NameValidators.h"
 #include "UObject/UObjectThreadContext.h"
 
@@ -95,19 +94,19 @@ FString USMGraphNode_StateNodeBase::GetStateName() const
 bool USMGraphNode_StateNodeBase::IsEndState(bool bCheckAnyState) const
 {
 	// Must have entry.
-	if(!HasInputConnections())
+	if (!HasInputConnections())
 	{
 		return false;
 	}
 
-	// Check any states since they add transitions to this node on compile.
+	// Check Any States since they add transitions to this node on compile.
 	if (bCheckAnyState && FSMBlueprintEditorUtils::IsNodeImpactedFromAnyStateNode(this))
 	{
 		return false;
 	}
 	
 	// If no output definitely end state.
-	if(GetOutputPin()->LinkedTo.Num() == 0)
+	if (GetOutputPin()->LinkedTo.Num() == 0)
 	{
 		return true;
 	}
@@ -117,7 +116,7 @@ bool USMGraphNode_StateNodeBase::IsEndState(bool bCheckAnyState) const
 		if (USMGraphNode_TransitionEdge* Transition = Cast<USMGraphNode_TransitionEdge>(Pin->GetOwningNode()))
 		{
 			// Transitioning to self doesn't count.
-			if(Transition->GetFromState() == Transition->GetToState())
+			if (Transition->GetFromState() == Transition->GetToState())
 			{
 				continue;
 			}
@@ -350,7 +349,7 @@ UEdGraphPin* USMGraphNode_StateNodeBase::GetConnectedEntryPin() const
 	return nullptr;
 }
 
-FLinearColor USMGraphNode_StateNodeBase::GetBackgroundColorForNodeInstance(USMNodeInstance* NodeInstance) const
+FLinearColor USMGraphNode_StateNodeBase::GetBackgroundColorForNodeInstance(const USMNodeInstance* NodeInstance) const
 {
 	const USMEditorSettings* Settings = FSMBlueprintEditorUtils::GetEditorSettings();
 	const FLinearColor* CustomColor = GetCustomBackgroundColor(NodeInstance);
@@ -438,6 +437,11 @@ void USMGraphNode_StateNodeBase::PostEditChangeChainProperty(FPropertyChangedCha
 			}
 		}
 	}
+}
+
+void USMGraphNode_StateNodeBase::PinConnectionListChanged(UEdGraphPin* Pin)
+{
+	Super::PinConnectionListChanged(Pin);
 }
 
 void USMGraphNode_StateNodeBase::ImportDeprecatedProperties()
@@ -549,7 +553,7 @@ void USMGraphNode_StateNodeBase::PostPasteNode()
 void USMGraphNode_StateNodeBase::DestroyNode()
 {
 	Modify();
-	if(BoundGraph)
+	if (BoundGraph)
 	{
 		BoundGraph->Modify();
 	}
@@ -572,7 +576,7 @@ void USMGraphNode_StateNodeBase::SetRuntimeDefaults(FSMState_Base& State) const
 
 	State.NodePosition = NodePosition;
 	
-	if (USMStateInstance_Base* StateInstance = Cast<USMStateInstance_Base>(GetNodeTemplate()))
+	if (const USMStateInstance_Base* StateInstance = Cast<USMStateInstance_Base>(GetNodeTemplate()))
 	{
 		State.bAlwaysUpdate = StateInstance->GetAlwaysUpdate();
 		State.bDisableTickTransitionEvaluation = StateInstance->GetDisableTickTransitionEvaluation();
@@ -585,68 +589,6 @@ void USMGraphNode_StateNodeBase::SetRuntimeDefaults(FSMState_Base& State) const
 FLinearColor USMGraphNode_StateNodeBase::Internal_GetBackgroundColor() const
 {
 	return GetBackgroundColorForNodeInstance(NodeInstanceTemplate);
-}
-
-void FStateStackContainer::InitTemplate(UObject* Owner, bool bForceInit, bool bForceNewGuid)
-{
-	if (StateStackClass == nullptr)
-	{
-		DestroyTemplate();
-		return;
-	}
-
-	if (!bForceInit && NodeStackInstanceTemplate && NodeStackInstanceTemplate->GetClass() == StateStackClass)
-	{
-		return;
-	}
-
-	Owner->Modify();
-
-	if (bForceNewGuid || !TemplateGuid.IsValid())
-	{
-		TemplateGuid = FGuid::NewGuid();
-	}
-
-	FString NodeName = Owner->GetName();
-	NodeName = FSMBlueprintEditorUtils::GetSafeName(NodeName);
-	
-	const FString TemplateName = FString::Printf(TEXT("NODE_STACK_TEMPLATE_%s_%s_%s"), *NodeName, *StateStackClass->GetName(), *TemplateGuid.ToString());
-	USMStateInstance* NewTemplate = StateStackClass ? NewObject<USMStateInstance>(Owner, StateStackClass, *TemplateName, RF_ArchetypeObject | RF_Transactional | RF_Public) : nullptr;
-
-	if (NodeStackInstanceTemplate)
-	{
-		if (NewTemplate && NewTemplate->GetClass() == NodeStackInstanceTemplate->GetClass())
-		{
-			// Only copy when they're the same class. Causes problems when there's a common base class between the new node template and original template. Packaging won't find the template.
-			UEngine::CopyPropertiesForUnrelatedObjects(NodeStackInstanceTemplate, NewTemplate);
-		}
-
-		// Original template isn't needed any more.
-		DestroyTemplate();
-	}
-
-	NodeStackInstanceTemplate = NewTemplate;
-	if (NodeStackInstanceTemplate)
-	{
-		NodeStackInstanceTemplate->SetTemplateGuid(TemplateGuid);
-
-		const ESMEditorConstructionScriptProjectSetting ConstructionProjectSetting = FSMBlueprintEditorUtils::GetProjectEditorSettings()->EditorNodeConstructionScriptSetting;
-		if (ConstructionProjectSetting == ESMEditorConstructionScriptProjectSetting::SM_Legacy)
-		{
-			// On standard these will be run with the entire blueprint after this operation.
-			NodeStackInstanceTemplate->RunConstructionScript();
-		}
-	}
-}
-
-void FStateStackContainer::DestroyTemplate()
-{
-	if (NodeStackInstanceTemplate)
-	{
-		NodeStackInstanceTemplate->Modify();
-		FSMBlueprintEditorUtils::TrashObject(NodeStackInstanceTemplate);
-		NodeStackInstanceTemplate = nullptr;
-	}
 }
 
 
@@ -721,14 +663,36 @@ void USMGraphNode_StateNode::PostEditChangeProperty(FPropertyChangedEvent& Prope
 		
 		InitStateStack();
 	}
+	else
+	{
+		// Template and state stack require full generation, otherwise quick generation is fine.
+		bPostEditChangeConstructionRequiresFullRefresh = false;
+	}
 	
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 	bCreatePropertyGraphsOnPropertyChange = true;
+	bPostEditChangeConstructionRequiresFullRefresh = true;
 
-	if (bStateChange && PropertyChangedEvent.ChangeType != EPropertyChangeType::Redirected && AreTemplatesFullyLoaded())
+	if (bStateChange && IsSafeToConditionallyCompile(PropertyChangedEvent.ChangeType))
 	{
 		FSMBlueprintEditorUtils::ConditionallyCompileBlueprint(FSMBlueprintEditorUtils::FindBlueprintForNodeChecked(this), false);
 	}
+}
+
+UObject* USMGraphNode_StateNode::GetJumpTargetForDoubleClick() const
+{
+	if (FSMBlueprintEditorUtils::GetEditorSettings()->StateDoubleClickBehavior == ESMJumpToGraphBehavior::PreferExternalGraph)
+	{
+		if (const UClass* Class = GetNodeClass())
+		{
+			if (UBlueprint* NodeBlueprint = UBlueprint::GetBlueprintFromClass(Class))
+			{
+				return NodeBlueprint;
+			}
+		}
+	}
+	
+	return Super::GetJumpTargetForDoubleClick();
 }
 
 void USMGraphNode_StateNode::PlaceDefaultInstanceNodes()
@@ -836,11 +800,6 @@ void USMGraphNode_StateNode::OnCompile(FSMKismetCompilerContext& CompilerContext
 	}
 }
 
-const TArray<FStateStackContainer>& USMGraphNode_StateNode::GetAllNodeStackTemplates() const
-{
-	return StateStack;
-}
-
 int32 USMGraphNode_StateNode::GetIndexOfTemplate(const FGuid& TemplateGuid) const
 {
 	for (int32 Idx = 0; Idx < StateStack.Num(); ++Idx)
@@ -851,7 +810,12 @@ int32 USMGraphNode_StateNode::GetIndexOfTemplate(const FGuid& TemplateGuid) cons
 		}
 	}
 
-	return -1;
+	return INDEX_NONE;
+}
+
+const TArray<FStateStackContainer>& USMGraphNode_StateNode::GetAllNodeStackTemplates() const
+{
+	return StateStack;
 }
 
 USMNodeInstance* USMGraphNode_StateNode::GetTemplateFromIndex(int32 Index) const
@@ -880,58 +844,6 @@ void USMGraphNode_StateNode::DestroyStateStack()
 	}
 
 	StateStack.Reset();
-}
-
-
-USMGraphNode_AnyStateNode::USMGraphNode_AnyStateNode(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer), bAllowInitialReentry(false)
-{
-	NodeName = LOCTEXT("AnyStateNodeTitle", "Any State");
-}
-
-void USMGraphNode_AnyStateNode::AllocateDefaultPins()
-{
-	CreatePin(EGPD_Output, TEXT("Transition"), TEXT("Out"));
-}
-
-void USMGraphNode_AnyStateNode::PostPlacedNewNode()
-{
-	// Skip state base so we don't create a graph.
-	USMGraphNode_Base::PostPlacedNewNode();
-}
-
-void USMGraphNode_AnyStateNode::PostPasteNode()
-{
-	// Skip state because it relies on a graph being present.
-	USMGraphNode_Base::PostPasteNode();
-}
-
-FText USMGraphNode_AnyStateNode::GetNodeTitle(ENodeTitleType::Type TitleType) const
-{
-	return NodeName;
-}
-
-void USMGraphNode_AnyStateNode::OnRenameNode(const FString& NewName)
-{
-	NodeName = FText::FromString(NewName);
-}
-
-FString USMGraphNode_AnyStateNode::GetStateName() const
-{
-	return NodeName.ToString();
-}
-
-FLinearColor USMGraphNode_AnyStateNode::Internal_GetBackgroundColor() const
-{
-	const USMEditorSettings* Settings = FSMBlueprintEditorUtils::GetEditorSettings();
-	const FLinearColor DefaultColor = Settings->AnyStateDefaultColor;
-
-	if (IsEndState())
-	{
-		return DefaultColor * FLinearColor(1.f, 1.f, 1.f, 0.5f);
-	}
-
-	return DefaultColor;
 }
 
 #undef LOCTEXT_NAMESPACE

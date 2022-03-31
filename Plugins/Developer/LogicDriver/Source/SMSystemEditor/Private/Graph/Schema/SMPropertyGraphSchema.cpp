@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMPropertyGraphSchema.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
@@ -65,9 +65,9 @@ void USMPropertyGraphSchema::GetGraphDisplayInformation(const UEdGraph& Graph, F
 bool USMPropertyGraphSchema::TryCreateConnection(UEdGraphPin* A, UEdGraphPin* B) const
 {
 	// Check if the graph is preventing a connection. This can be useful for drag drop operations the graph wants to cancel.
-	if(USMPropertyGraph* PropertyGraph = Cast<USMPropertyGraph>(A->GetOwningNode()->GetGraph()))
+	if (USMPropertyGraph* PropertyGraph = Cast<USMPropertyGraph>(A->GetOwningNode()->GetGraph()))
 	{
-		if(PropertyGraph->PreventConnections.Contains(A) || PropertyGraph->PreventConnections.Contains(B))
+		if (PropertyGraph->PreventConnections.Contains(A) || PropertyGraph->PreventConnections.Contains(B))
 		{
 			PropertyGraph->PreventConnections.Empty();
 			return false;

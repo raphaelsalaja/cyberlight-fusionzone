@@ -1,11 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMStateInstance.h"
-#include "SMStateMachineInstance.generated.h"
 
+#include "SMStateMachineInstance.generated.h"
 
 /**
  * The base class for state machine nodes. These are different from regular state machines (SMInstance) in that they can be assigned to a state machine directly
@@ -37,7 +36,12 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Node Instance")
 	void OnStateShutdown();
 	
-	/** Retrieve all contained state instances defined within the state machine graph this instance represents. These can be States, State Machines, and Conduits. */
+	/**
+	 * Retrieve all contained state instances defined within the state machine graph this instance represents.
+	 * These can be states, state machines, and conduits.
+	 *
+	 * This does not include nested states in sub state machines.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
 	void GetAllStateInstances(TArray<USMStateInstance_Base*>& StateInstances) const;
 
@@ -56,9 +60,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
 	void GetEntryStates(TArray<USMStateInstance_Base*>& EntryStates) const;
 
-	/** Return any states active within this state machine node. */
+	/** Return all states active within this state machine node. */
 	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
 	void GetActiveStates(TArray<USMStateInstance_Base*>& ActiveStates) const;
+
+	/** Return an SMInstance reference if one is assigned. This will be null if this is not a state machine reference. */
+	UFUNCTION(BlueprintCallable, Category = "Logic Driver|Node Instance")
+	USMInstance* GetStateMachineReference() const;
 	
 	// USMNodeInstance
 	/** Special handling to retrieve the real FSM node in the event this is a state machine reference. */
@@ -109,7 +117,7 @@ private:
 	 * Wait for an end state to be hit before evaluating transitions or being considered an end state itself.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "State Machine")
-	bool bWaitForEndState;
+	uint8 bWaitForEndState: 1;
 	
 	/**
 	 * When true the current state is reused on end/start.
@@ -117,13 +125,13 @@ private:
 	 * References will inherit this behavior.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "State Machine")
-	bool bReuseCurrentState;
+	uint8 bReuseCurrentState: 1;
 
 	/**
 	 * Do not reuse if in an end state.
 	 * References will inherit this behavior.
 	 */
 	UPROPERTY(EditDefaultsOnly, Category = "State Machine", meta = (EditCondition = "bReuseCurrentState"))
-	bool bReuseIfNotEndState;
+	uint8 bReuseIfNotEndState: 1;
 };
 

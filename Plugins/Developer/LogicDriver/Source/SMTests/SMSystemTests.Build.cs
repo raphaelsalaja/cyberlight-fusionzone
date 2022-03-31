@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 using UnrealBuildTool;
 using System.IO;
@@ -34,6 +34,7 @@ public class SMSystemTests : ModuleRules
                 "BlueprintGraph",
                 "KismetCompiler",
                 "SlateCore",
+                "InputCore",
                 "SMSystem",
                 "SMSystemEditor",
                 "SMExtendedRuntime",

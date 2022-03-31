@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -19,6 +19,15 @@ struct FSMEditorStateMachine
 	
 	/** Storage for all editor runtime nodes. This memory is manually managed! */
 	TArray<FSMNode_Base*> EditorInstanceNodeStorage;
+};
+
+struct FSMConstructionConfiguration
+{
+	/** Construction scripts will not run if the blueprint is being compiled. */
+	bool bSkipOnCompile = true;
+	
+	/** Requires the construction script refresh the slate node completely. */
+	bool bFullRefreshNeeded = true;
 };
 
 /**
@@ -92,17 +101,18 @@ public:
 	 * Runs all construction scripts for every node in a blueprint. This is executed on the next frame.
 	 *
 	 * @param InObject The exact blueprint or the object belonging to the blueprint to run all construction scripts for.
-	 * @param bSkipOnCompile Construction scripts will not run if the blueprint is being compiled.
+	 * @param InConfiguration Provided configuration for the construction run.
 	 */
-	void RunAllConstructionScriptsForBlueprint(UObject* InObject, bool bSkipOnCompile = true);
+	void RunAllConstructionScriptsForBlueprint(UObject* InObject, const FSMConstructionConfiguration& InConfiguration = FSMConstructionConfiguration());
 
 	/**
 	 * Create or update a state machine for editor use.
 	 *
 	 * @param InBlueprint The blueprint owning the state machine.
 	 */
-	FSMEditorStateMachine& RebuildEditorStateMachine(USMBlueprint* InBlueprint);
+	FSMEditorStateMachine& CreateEditorStateMachine(USMBlueprint* InBlueprint);
 
+protected:
 	/**
 	 * Instantiate the editor instance / root state machine.
 	 *
@@ -112,21 +122,24 @@ public:
 	 * @return The state machine reference.
 	 */
 	FSMEditorStateMachine& GetOrCreateEditorStateMachine(USMBlueprint* InBlueprint, bool& bWasCreated);
-
-protected:
+	
+	/** Configure the initial root FSM for a state machine blueprint. */
+	void SetupRootStateMachine(FSMStateMachine& StateMachineInOut, const USMBlueprint* InBlueprint) const;
+	
 	/**
 	 * Assemble editor state machines and run construction scripts this frame.
 	 *
 	 * @param InBlueprint The blueprint to run all construction scripts for.
+	 * @param InConfigurationData Configuration data to apply.
 	 */
-	void RunAllConstructionScriptsForBlueprint_Internal(USMBlueprint* InBlueprint);
+	void RunAllConstructionScriptsForBlueprint_Internal(USMBlueprint* InBlueprint, const FSMConstructionConfiguration& InConfigurationData);
 	
 private:
 	/** Loaded blueprints mapped to their editor state machine. */
 	TMap<TWeakObjectPtr<USMBlueprint>, FSMEditorStateMachine> EditorStateMachines;
 
 	/** All blueprints waiting to have their construction scripts run. */
-	TSet<TWeakObjectPtr<USMBlueprint>> BlueprintsPendingConstruction;
+	TMap<TWeakObjectPtr<USMBlueprint>, FSMConstructionConfiguration> BlueprintsPendingConstruction;
 
 	/** All blueprints in process of being constructed for a frame. */
 	TSet<TWeakObjectPtr<USMBlueprint>> BlueprintsBeingConstructed;

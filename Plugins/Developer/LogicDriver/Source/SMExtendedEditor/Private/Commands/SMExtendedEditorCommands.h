@@ -1,10 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "EditorStyle.h"
+#include "Framework/Commands/UICommandList.h"
 #include "Framework/Commands/Commands.h"
-
+#include "EditorStyleSet.h"
 
 class FSMExtendedEditorCommands : public TCommands<FSMExtendedEditorCommands>
 {

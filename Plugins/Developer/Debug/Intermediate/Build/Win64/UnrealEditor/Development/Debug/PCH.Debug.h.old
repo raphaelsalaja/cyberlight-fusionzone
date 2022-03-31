@@ -1,4 +1,4 @@
-// PCH for D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Source\Debug\Public\Debug.h
+// PCH for D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Source\Debug\Public\Debug.h
 #define IS_PROGRAM 0
 #define UE_EDITOR 1
 #define ENABLE_PGO_PROFILE 0
@@ -319,4 +319,4 @@
 #define CLOTHINGSYSTEMRUNTIMEINTERFACE_API DLLIMPORT
 #define ANIMATIONDATACONTROLLER_API DLLIMPORT
 #define DEBUG_API DLLEXPORT
-#include "D:/Projects/UnrealEngine/Revenant5/Plugins/Developer/Debug/Source/Debug/Public/Debug.h"
+#include "D:/Projects/UnrealEngine/revenant-5.00-ea/Plugins/Developer/Debug/Source/Debug/Public/Debug.h"

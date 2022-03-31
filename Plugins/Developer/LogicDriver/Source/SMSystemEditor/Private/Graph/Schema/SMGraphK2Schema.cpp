@@ -1,27 +1,27 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Schema.h"
-#include "Framework/MultiBox/MultiBoxBuilder.h"
-#include "Framework/Commands/GenericCommands.h"
-#include "K2Node_Composite.h"
-#include "K2Node_Select.h"
-#include "BlueprintEditorSettings.h"
-#include "ToolMenusEditor.h"
-#include "K2Node_FunctionEntry.h"
-#include "GraphEditorActions.h"
-#include "BlueprintEditorSettings.h"
 #include "Blueprints/SMBlueprintEditor.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_RootNode.h"
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_StateMachineSelectNode.h"
+
+#include "Framework/MultiBox/MultiBoxBuilder.h"
+#include "Framework/Commands/GenericCommands.h"
+#include "K2Node_Composite.h"
+#include "K2Node_Select.h"
+#include "K2Node_FunctionEntry.h"
 #include "K2Node_ExecutionSequence.h"
 #include "K2Node_Switch.h"
 #include "K2Node_ActorBoundEvent.h"
 #include "K2Node_Variable.h"
 #include "K2Node_SetFieldsInStruct.h"
 #include "Kismet2/KismetEditorUtilities.h"
-
+#include "GraphEditorActions.h"
+#include "BlueprintEditorSettings.h"
+#include "BlueprintEditorSettings.h"
+#include "ToolMenusEditor.h"
 
 #define LOCTEXT_NAMESPACE "SMGraphK2Schema"
 
@@ -432,7 +432,7 @@ void USMGraphK2Schema::HandleGraphBeingDeleted(UEdGraph& GraphBeingRemoved) cons
 			}
 		}
 
-		if(FSMBlueprintEditor* Editor = FSMBlueprintEditorUtils::GetStateMachineEditor(&GraphBeingRemoved))
+		if (FSMBlueprintEditor* Editor = FSMBlueprintEditorUtils::GetStateMachineEditor(&GraphBeingRemoved))
 		{
 			// 4.21 has issues closing tabs on deleted nodes and we're adding handling to get around this.
 			Editor->CloseInvalidTabs();

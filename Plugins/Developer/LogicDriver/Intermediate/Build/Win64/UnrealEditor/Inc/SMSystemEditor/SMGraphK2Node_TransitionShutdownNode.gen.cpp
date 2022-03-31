@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/Nodes/RootNodes/SMGraphK2Node_TransitionShutdownNode.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMGraphK2Node_TransitionShutdownNode() {}
 // Cross Module References
@@ -21,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphK2Node_TransitionShutdownNode() {}
 	void USMGraphK2Node_TransitionShutdownNode::StaticRegisterNativesUSMGraphK2Node_TransitionShutdownNode()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMGraphK2Node_TransitionShutdownNode);
 	UClass* Z_Construct_UClass_USMGraphK2Node_TransitionShutdownNode_NoRegister()
 	{
 		return USMGraphK2Node_TransitionShutdownNode::StaticClass();
@@ -66,21 +63,26 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphK2Node_TransitionShutdownNode() {}
 	};
 	UClass* Z_Construct_UClass_USMGraphK2Node_TransitionShutdownNode()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMGraphK2Node_TransitionShutdownNode.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMGraphK2Node_TransitionShutdownNode_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMGraphK2Node_TransitionShutdownNode.OuterSingleton, Z_Construct_UClass_USMGraphK2Node_TransitionShutdownNode_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMGraphK2Node_TransitionShutdownNode.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMGraphK2Node_TransitionShutdownNode, 2652586369);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMGraphK2Node_TransitionShutdownNode>()
 	{
 		return USMGraphK2Node_TransitionShutdownNode::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMGraphK2Node_TransitionShutdownNode(Z_Construct_UClass_USMGraphK2Node_TransitionShutdownNode, &USMGraphK2Node_TransitionShutdownNode::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMGraphK2Node_TransitionShutdownNode"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMGraphK2Node_TransitionShutdownNode);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_RootNodes_SMGraphK2Node_TransitionShutdownNode_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_RootNodes_SMGraphK2Node_TransitionShutdownNode_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMGraphK2Node_TransitionShutdownNode, USMGraphK2Node_TransitionShutdownNode::StaticClass, TEXT("USMGraphK2Node_TransitionShutdownNode"), &Z_Registration_Info_UClass_USMGraphK2Node_TransitionShutdownNode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMGraphK2Node_TransitionShutdownNode), 306531222U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_RootNodes_SMGraphK2Node_TransitionShutdownNode_h_2371539023(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_RootNodes_SMGraphK2Node_TransitionShutdownNode_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_RootNodes_SMGraphK2Node_TransitionShutdownNode_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

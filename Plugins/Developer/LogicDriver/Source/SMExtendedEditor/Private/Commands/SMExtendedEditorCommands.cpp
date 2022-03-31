@@ -1,9 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMExtendedEditorCommands.h"
-#include "Blueprints/SMBlueprintEditor.h"
 #include "Graph/Nodes/PropertyNodes/SMGraphK2Node_TextPropertyNode.h"
 #include "Graph/SMTextPropertyGraph.h"
+
+#include "Blueprints/SMBlueprintEditor.h"
 
 #define LOCTEXT_NAMESPACE "SMExtendedEditorCommands"
 
@@ -26,9 +27,9 @@ void FSMExtendedEditorCommands::OnEditorCommandsCreated(FSMBlueprintEditor* Edit
 
 void FSMExtendedEditorCommands::EditText(FSMBlueprintEditor* Editor)
 {
-	if(USMGraphK2Node_TextPropertyNode* TextNode = Cast<USMGraphK2Node_TextPropertyNode>(Editor->SelectedPropertyNode))
+	if (USMGraphK2Node_TextPropertyNode* TextNode = Cast<USMGraphK2Node_TextPropertyNode>(Editor->SelectedPropertyNode))
 	{
-		if(USMTextPropertyGraph* TextGraph = Cast<USMTextPropertyGraph>(TextNode->GetPropertyGraph()))
+		if (USMTextPropertyGraph* TextGraph = Cast<USMTextPropertyGraph>(TextNode->GetPropertyGraph()))
 		{
 			TextGraph->SetTextEditMode(true);
 		}

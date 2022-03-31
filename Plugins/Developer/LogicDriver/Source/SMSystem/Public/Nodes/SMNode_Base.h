@@ -1,103 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMGraphProperty_Base.h"
+
 #include "SMNode_Base.generated.h"
 
 class USMInstance;
 class USMNodeInstance;
-
-UENUM()
-enum class ESMTransactionType : uint8
-{
-	SM_Transition,
-	SM_State
-};
-
-#define SM_ACTIVE_TIME_NOT_SET -1.f
-
-/** Data to send across the network. Default Implementation uses this to record TRANSITIONS which should be taken. */
-USTRUCT()
-struct SMSYSTEM_API FSMNetworkedTransaction
-{
-	GENERATED_BODY()
-	
-	FSMNetworkedTransaction() : FSMNetworkedTransaction(FGuid()) {}
-	
-	explicit FSMNetworkedTransaction(const FGuid& TGuid, ESMTransactionType Type = ESMTransactionType::SM_Transition) :
-		BaseGuid(TGuid), TransactionGuid(FGuid::NewGuid()), Timestamp(0), ActiveTime(SM_ACTIVE_TIME_NOT_SET), TransactionType((int32)Type), bIsActive(false), bIsServer(0)
-	{
-	}
-
-	/** The node path guid. */
-	UPROPERTY()
-	FGuid BaseGuid;
-	
-	/** Unique to this transaction. */
-	UPROPERTY(meta = (IgnoreForMemberInitializationTest))
-	FGuid TransactionGuid;
-
-	/**
-	 * Additional guids for a transaction. For transitions this can be source and destination states.
-	 * When using conduits that information may be required and can't be calculated from a single transition.
-	 */
-	UPROPERTY()
-	TArray<FGuid> AdditionalGuids;
-	
-	/** A UTC timestamp. Should be set manually. */
-	UPROPERTY()
-	FDateTime Timestamp;
-
-	/** Source state or this state's time in state. */
-	UPROPERTY()
-	float ActiveTime;
-	
-	/** ESMTransactionType. */
-	UPROPERTY()
-	uint8 TransactionType: 1;
-
-	/** If the state is active. Valid only for a TransactionType of SM_State. */
-	UPROPERTY()
-	uint8 bIsActive: 1;
-
-	/** Set from server during processing. */
-	uint8 bIsServer: 1;
-
-	FORCEINLINE bool IsTransition() const { return (ESMTransactionType)TransactionType == ESMTransactionType::SM_Transition; }
-	FORCEINLINE bool IsState() const { return (ESMTransactionType)TransactionType == ESMTransactionType::SM_State; }
-
-	FORCEINLINE bool AreAdditionalGuidsSetupForTransitions() const { return AdditionalGuids.Num() == 2; }
-	FORCEINLINE const FGuid& GetTransitionSourceGuid() const { check(AreAdditionalGuidsSetupForTransitions()); return AdditionalGuids[0]; }
-	FORCEINLINE const FGuid& GetTransitionDestinationGuid() const  { check(AreAdditionalGuidsSetupForTransitions()); return AdditionalGuids[1]; }
-};
-
-USTRUCT()
-struct SMSYSTEM_API FSMActiveStateTransaction
-{
-	GENERATED_BODY();
-
-	FSMActiveStateTransaction() : StartTime(0), TimeInState(0)
-	{
-	}
-
-	FSMActiveStateTransaction(const FGuid& InGuid, const FDateTime& InStartTime, const float InTimeInState)
-	{
-		StateGuid = InGuid;
-		StartTime = InStartTime;
-		TimeInState = InTimeInState;
-	}
-	
-	UPROPERTY(meta = (IgnoreForMemberInitializationTest))
-	FGuid StateGuid;
-
-	UPROPERTY()
-	FDateTime StartTime;
-
-	UPROPERTY()
-	float TimeInState;
-};
 
 /**
  * Base struct for all state machine nodes. The Guid MUST be manually initialized right after construction.
@@ -110,10 +20,6 @@ struct SMSYSTEM_API FSMNode_Base
 	friend class FSMEditorConstructionManager;
 	
 public:
-	/** The primary graph evaluator. */
-	UPROPERTY()
-	TArray<FSMExposedFunctionHandler> GraphEvaluator;
-
 	/** Entry point to when a transition is first initialized. */
 	UPROPERTY()
 	TArray<FSMExposedFunctionHandler> TransitionInitializedGraphEvaluators;
@@ -122,6 +28,14 @@ public:
 	UPROPERTY()
 	TArray<FSMExposedFunctionHandler> TransitionShutdownGraphEvaluators;
 
+	/** When the owning blueprint's root state machine starts. */
+	UPROPERTY()
+	TArray<FSMExposedFunctionHandler> OnRootStateMachineStartedGraphEvaluator;
+
+	/** When the owning blueprint's root state machine stops. */
+	UPROPERTY()
+	TArray<FSMExposedFunctionHandler> OnRootStateMachineStoppedGraphEvaluator;
+	
 	/** The current time spent in the state. */
 	UPROPERTY(BlueprintReadWrite, Category = "State Machines")
 	float TimeInState;
@@ -150,12 +64,26 @@ public:
 	virtual ~FSMNode_Base() = default;
 	FSMNode_Base(const FSMNode_Base& Node) = default;
 
-	/** Initialize the graph evaluator with the instance. */
+	/** Initialize specific properties and node instances. */
 	virtual void Initialize(UObject* Instance);
-	bool IsInitialized() const { return bInitialized; }
+
+	/** Initialize all graph evaluator functions. Must be called from GameThread! */
+	virtual void InitializeGraphFunctions();
 
 	/** Resets persistent data. */
 	virtual void Reset();
+	
+	/** Called when the blueprint owning this node is started. */
+	virtual void OnStartedByInstance(USMInstance* Instance);
+
+	/** Called when the blueprint owning this node has stopped. */
+	virtual void OnStoppedByInstance(USMInstance* Instance);
+	
+	/** If all graph function initialization has taken place once. */
+	bool HaveGraphFunctionsInitialized() const { return bHaveGraphFunctionsInitialized; }
+
+	/** If the node is currently initialized for this run. */
+	bool IsInitializedForRun() const { return bIsInitializedForRun; }
 
 	/** Unique identifier used in constructing nodes from a graph. May not be unique if this is from a parent graph or a reference. */
 	const FGuid& GetNodeGuid() const;
@@ -164,9 +92,11 @@ public:
 	/** Unique identifier taking into account qualified path. Unique across blueprints if called after Instance initialization. */
 	const FGuid& GetGuid() const;
 	/** Calculate the value returned from GetGuid(). Gets all owner nodes and builds a path to this node. Hashes the path and sets PathGuid. */
-	virtual void CalculatePathGuid(TMap<FString, int32>& MappedPaths);
+	virtual void CalculatePathGuid(TMap<FString, int32>& InOutMappedPaths);
 	/** Unhashed string format of the guid path. MappedPaths are used to adjust for collisions. */
-	FString GetGuidPath(TMap<FString, int32>& MappedPaths) const;
+	FString GetGuidPath(TMap<FString, int32>& InOutMappedPaths) const;
+	/** Calculate the path guid but do not set the guid. */
+	FGuid CalculatePathGuidConst() const;
 	
 	/** Only generate a new guid if the current guid is invalid. This needs to be called
 	 * on new nodes. */
@@ -178,6 +108,9 @@ public:
 	/** Unique identifier to help determine which state machine this node belongs to. */
 	const FGuid& GetOwnerNodeGuid() const { return OwnerGuid; }
 
+	/** Property name of the NodeGuid. */
+	static FName GetNodeGuidPropertyName() { return GET_MEMBER_NAME_CHECKED(FSMNode_Base, Guid); }
+	
 	/** The node directly owning this node. Should be a StateMachine. */
 	void SetOwnerNode(FSMNode_Base* Owner);
 	/** The node directly owning this node. Should be a StateMachine. */
@@ -199,6 +132,12 @@ public:
 	
 	/** Return the current node instance. Only valid after initialization and may be nullptr. */
 	virtual USMNodeInstance* GetNodeInstance() const { return NodeInstance; }
+
+	/** Create a node instance on demand if needed. Only required for default node classes. Initialization should be completed before calling. */
+	virtual USMNodeInstance* GetOrCreateNodeInstance();
+
+	/** If the node can at some point create a node instance. */
+	virtual bool CanEverCreateNodeInstance() const { return true; }
 	
 	/** Returns the current stack instances. */
 	const TArray<USMNodeInstance*>& GetStackInstances() const { return StackNodeInstances; }
@@ -208,6 +147,12 @@ public:
 	
 	/** The default node instance class. Each derived node class needs to implement. */
 	virtual UClass* GetDefaultNodeInstanceClass() const { return nullptr; }
+
+	/** The current in use node class. */
+	UClass* GetNodeInstanceClass() const { return NodeInstanceClass; }
+
+	/** Is the default node class assigned. */
+	bool IsUsingDefaultNodeClass() const { return GetDefaultNodeInstanceClass() == GetNodeInstanceClass(); }
 	
 	void AddVariableGraphProperty(const FSMGraphProperty_Base_Runtime& GraphProperty, const FGuid& OwningTemplateGuid);
 
@@ -216,7 +161,7 @@ public:
 	
 	void SetTemplateName(const FName& Name);
 	const FName& GetTemplateName() const { return TemplateName; }
-	void AddStackTemplateName(const FName& Name);
+	void AddStackTemplateName(const FName& Name, UClass* TemplateClass);
 	
 	/** If this node is active. */
 	virtual bool IsActive() const { return bIsActive; }
@@ -242,19 +187,26 @@ public:
 	
 	/**
 	 * Evaluates graph properties.
+	 * @param ForNodeInstance The node instance we are evaluating.
 	 * @param ForTemplateGuid If specified only graph properties for this template will be executed. If null all properties will be executed.
 	 */
-	void ExecuteGraphProperties(const FGuid* ForTemplateGuid = nullptr);
+	void ExecuteGraphProperties(USMNodeInstance* ForNodeInstance, const FGuid* ForTemplateGuid);
 
 	/** Retrieve the embedded graph properties. */
 	const TArray<FSMGraphProperty_Base_Runtime*>& GetGraphProperties() const { return GraphProperties; }
+
+	/** Retrieve the template variable graph properties. */
+	const TMap<FGuid, FSMGraphPropertyTemplateOwner>& GetTemplateGraphProperties() const { return TemplateVariableGraphProperties; }
+
+	/** See if the user wants variables reset. */
+	virtual void TryResetVariables();
 	
 #if WITH_EDITORONLY_DATA
 	virtual bool IsDebugActive() const { return bIsActive; }
 	virtual bool WasDebugActive() const { return bWasActive; }
 	
 	/** Debug helper in case a state switches to inactive in one frame. */
-	bool bWasActive = false;
+	mutable bool bWasActive = false;
 #endif
 
 #if WITH_EDITOR
@@ -264,7 +216,7 @@ public:
 	
 protected:
 	/** Execute the graph. */
-	virtual void Execute();
+	virtual void PrepareGraphExecution();
 	virtual void SetActive(bool bValue);
 
 	void ResetGraphProperties();
@@ -272,10 +224,16 @@ protected:
 	void CreateGraphPropertiesForTemplate(USMNodeInstance* Template, const TSet<FProperty*>& GraphStructPropertiesForStateMachine);
 protected:
 	/*
-	 * NodeGuid used in constructing nodes from a graph. Set initially from the editor graph.
-	 * This is not guaranteed to be unique across Blueprints.
+	 * NodeGuid must always be unique. Do not duplicate the guid in any other node in any blueprint.
+	 *
+	 * This is not the same guid that is used at run-time. At run-time all NodeGuids in a path to a node
+	 * are hashed to form the PathGuid. This is done to account for multiple references and parent graph calls.
+	 *
+	 * If you need to change the path of a node (such as collapse it to a nested state machine) and you need to maintain
+	 * the old guid for run-time saves to work, you should use the GuidRedirectMap on the primary state machine instance
+	 * which accepts PathGuids.
 	 */
-	UPROPERTY(BlueprintReadWrite, Category = "State Machines")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Graph Node")
 	FGuid Guid;
 
 	/** The state machine's NodeGuid owning this node. */
@@ -290,7 +248,7 @@ protected:
 	 * 
 	 * ReadWrite so it can be easily read from custom graph nodes.
 	 */
-	UPROPERTY(BlueprintReadWrite, Category = "State Machines")
+	UPROPERTY(BlueprintReadWrite, Category = "Graph Node")
 	FGuid PathGuid;
 	
 	/** The node directly owning this node. Should be a StateMachine. */
@@ -310,6 +268,22 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Transient, Category = "Node Class")
 	TArray<USMNodeInstance*> StackNodeInstances;
 
+	/**
+	 * All classes used in the node stack. The classes are stored here only to help with dependency loading by the engine,
+	 * specifically with BP nativization. This isn't very useful otherwise as the archetypes (dynamically added
+	 * default sub-objects) contain instance information which the class won't have.
+	 *
+	 * Without this there may be runtime errors when trying to access internal resources.
+	 * An example is setting a custom node icon for a stack node with the primary node not loading a custom icon.
+	 *
+	 * The nativization code generated that fails is:
+	 * "NodeIcon = CastChecked<UTexture2D>(CastChecked<UDynamicClass>(UTransitionStackA_C__pf1010915279::StaticClass())->UsedAssets[0], ECastCheckedType::NullAllowed);"
+	 *
+	 * TODO: Consider removing with UE 5.0 as nativization is deprecated.
+	 */
+	UPROPERTY()
+	TArray<UClass*> NodeStackClasses;
+	
 	/** The state machine instance owning this node. */
 	UPROPERTY()
 	USMInstance* OwningInstance;
@@ -333,6 +307,7 @@ private:
 	/** Last recorded active time in state from the server. */
 	float ServerTimeInState;
 	
-	bool bInitialized;
-	bool bIsActive;
+	uint8 bHaveGraphFunctionsInitialized: 1;
+	uint8 bIsInitializedForRun: 1;
+	uint8 bIsActive: 1;
 };

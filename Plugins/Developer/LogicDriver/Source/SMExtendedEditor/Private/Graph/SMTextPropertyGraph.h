@@ -1,10 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "Graph/SMPropertyGraph.h"
-#include "SMTextPropertyGraph.generated.h"
 
+#include "SMTextPropertyGraph.generated.h"
 
 DECLARE_DELEGATE_OneParam(FSwitchTextEditAction, bool);
 

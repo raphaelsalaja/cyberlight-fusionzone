@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_TransitionInitializedNode.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
@@ -28,7 +28,7 @@ void USMGraphK2Node_TransitionInitializedNode::AllocateDefaultPins()
 
 void USMGraphK2Node_TransitionInitializedNode::PostPlacedNewNode()
 {
-	RuntimeNodeGuid = GetRuntimeContainer()->GetRunTimeNodeChecked()->GetNodeGuid();
+	RuntimeNodeGuid = GetRuntimeContainerChecked()->GetRunTimeNodeChecked()->GetNodeGuid();
 }
 
 FText USMGraphK2Node_TransitionInitializedNode::GetMenuCategory() const

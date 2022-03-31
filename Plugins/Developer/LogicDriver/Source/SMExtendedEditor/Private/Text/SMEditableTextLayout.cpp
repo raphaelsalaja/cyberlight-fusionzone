@@ -1,6 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMEditableTextLayout.h"
+#include "SMTextEditHelper.h"
+
+#include "Utilities/SMNodeInstanceUtils.h"
+
 #include "Styling/CoreStyle.h"
 #include "Layout/WidgetPath.h"
 #include "Framework/Application/MenuStack.h"
@@ -16,8 +20,6 @@
 #include "Framework/Commands/GenericCommands.h"
 #include "Internationalization/BreakIterator.h"
 #include "HAL/PlatformApplicationMisc.h"
-#include "SMTextEditHelper.h"
-#include "Utilities/SMNodeInstanceUtils.h"
 
 /**
  * Ensure that text transactions are always completed.
@@ -779,11 +781,11 @@ bool FSMEditableTextLayout::HandleFocusLost(const FFocusEvent& InFocusEvent)
 		break;
 	}
 
-	if(TextAction == ETextCommit::OnUserMovedFocus)
+	if (TextAction == ETextCommit::OnUserMovedFocus)
 	{
 		// SM-fix: Selecting scroll bars while in edit mode loses focus and you can't scroll using the mouse. This detects and fixes that.
 		TSharedPtr<SWidget> FocusedWidget = FSlateApplication::Get().GetUserFocusedWidget(InFocusEvent.GetUser());
-		if(FSMNodeInstanceUtils::IsWidgetChildOf(FocusedWidget, OwnerWidget->GetSlateWidgetPtr()))
+		if (FSMNodeInstanceUtils::IsWidgetChildOf(FocusedWidget, OwnerWidget->GetSlateWidgetPtr()))
 		{
 			return false;
 		}
@@ -3375,7 +3377,10 @@ FVector2D FSMEditableTextLayout::ComputeDesiredSize(float LayoutScaleMultiplier)
 		MarginValue.Right += CaretWidth;
 
 		const FVector2D HintTextSize = HintTextLayout->ComputeDesiredSize(
-			FSlateTextBlockLayout::FWidgetArgs(HintText, FText::GetEmpty(), WrapTextAt, AutoWrapText, WrappingPolicy, ETextTransformPolicy::None, MarginValue, LineHeightPercentage, Justification),
+			FSlateTextBlockLayout::FWidgetDesiredSizeArgs(HintText.Get(), FText::GetEmpty(),
+				WrapTextAt.Get(), AutoWrapText.Get(), WrappingPolicy.Get(),
+				ETextTransformPolicy::None, MarginValue, LineHeightPercentage.Get(),
+				Justification.Get()),
 			LayoutScaleMultiplier, HintTextStyle
 		);
 
@@ -3786,7 +3791,7 @@ bool FSMEditableTextLayout::FTextInputMethodContext::GetTextBounds(const uint32 
 
 	// Translate the position (which is in local space) into screen (absolute) space
 	// Note: The local positions are pre-scaled, so we don't scale them again here
-	Position += CachedGeometry.AbsolutePosition;
+	Position += CachedGeometry.GetAbsolutePosition();
 
 	return false; // false means "not clipped"
 }
@@ -3800,7 +3805,7 @@ void FSMEditableTextLayout::FTextInputMethodContext::GetScreenBounds(FVector2D& 
 		return;
 	}
 
-	Position = CachedGeometry.AbsolutePosition;
+	Position = CachedGeometry.GetAbsolutePosition();
 	Size = CachedGeometry.GetDrawSize();
 }
 

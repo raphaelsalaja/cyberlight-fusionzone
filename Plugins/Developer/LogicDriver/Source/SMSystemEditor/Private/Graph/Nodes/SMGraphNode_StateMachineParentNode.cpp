@@ -1,9 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphNode_StateMachineParentNode.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
-#include "Kismet2/KismetEditorUtilities.h"
 
+#include "Kismet2/KismetEditorUtilities.h"
 
 #define LOCTEXT_NAMESPACE "SMGraphStateMachineParentNode"
 
@@ -20,12 +20,12 @@ void USMGraphNode_StateMachineParentNode::PostPlacedNewNode()
 
 UObject* USMGraphNode_StateMachineParentNode::GetJumpTargetForDoubleClick() const
 {
-	if(ParentClass.Get())
+	if (ParentClass.Get())
 	{
-		if(UBlueprint* Blueprint = UBlueprint::GetBlueprintFromClass(ParentClass.Get()))
+		if (UBlueprint* Blueprint = UBlueprint::GetBlueprintFromClass(ParentClass.Get()))
 		{
 			// Only lookup the immediate graph of the blueprint.
-			if(UObject* Target = FSMBlueprintEditorUtils::GetRootStateMachineGraph(Blueprint, false))
+			if (UObject* Target = FSMBlueprintEditorUtils::GetRootStateMachineGraph(Blueprint, false))
 			{
 				return Target;
 			}
@@ -68,7 +68,7 @@ void USMGraphNode_StateMachineParentNode::CreateBoundGraph()
 
 void USMGraphNode_StateMachineParentNode::UpdateEditState()
 {
-	if(BoundGraph)
+	if (BoundGraph)
 	{
 		BoundGraph->bEditable = false;
 	}
@@ -87,7 +87,7 @@ TSet<USMGraph*> USMGraphNode_StateMachineParentNode::GetAllNestedExpandedParents
 {
 	TSet<USMGraph*> Graphs;
 	
-	if(!ExpandedGraph)
+	if (!ExpandedGraph)
 	{
 		return Graphs;
 	}
@@ -96,7 +96,7 @@ TSet<USMGraph*> USMGraphNode_StateMachineParentNode::GetAllNestedExpandedParents
 
 	TArray<USMGraphNode_StateMachineParentNode*> Nodes;
 	FSMBlueprintEditorUtils::GetAllNodesOfClassNested<USMGraphNode_StateMachineParentNode>(ExpandedGraph, Nodes);
-	for(USMGraphNode_StateMachineParentNode* Node : Nodes)
+	for (USMGraphNode_StateMachineParentNode* Node : Nodes)
 	{
 		Graphs.Append(Node->GetAllNestedExpandedParents());
 	}
@@ -117,7 +117,7 @@ FLinearColor USMGraphNode_StateMachineParentNode::Internal_GetBackgroundColor() 
 		{
 			EndStateColor.R = 0.2;
 		}
-		if(EndStateColor.G < 0.2)
+		if (EndStateColor.G < 0.2)
 		{
 			EndStateColor.G = 0.2;
 		}

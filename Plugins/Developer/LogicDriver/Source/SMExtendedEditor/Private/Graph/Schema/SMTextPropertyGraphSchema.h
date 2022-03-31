@@ -1,11 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Graph/Schema/SMPropertyGraphSchema.h"
-#include "SMTextPropertyGraphSchema.generated.h"
 
+#include "CoreMinimal.h"
+
+#include "SMTextPropertyGraphSchema.generated.h"
 
 UCLASS()
 class SMEXTENDEDEDITOR_API USMTextPropertyGraphSchema : public USMPropertyGraphSchema

@@ -1,10 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_RuntimeNodeContainer.h"
-#include "SMGraphK2Node_FunctionNodes.generated.h"
 
+#include "SMGraphK2Node_FunctionNodes.generated.h"
 
 UCLASS(MinimalAPI)
 class USMGraphK2Node_FunctionNode : public USMGraphK2Node_RuntimeNodeReference
@@ -27,7 +27,7 @@ public:
 	virtual bool CanCollapseNode() const override { return true; }
 	virtual bool CanCollapseToFunctionOrMacro() const override { return true; }
 	virtual UEdGraphPin* GetInputPin() const override;
-	//~ End UEdGraphNode Interface
+	// ~UEdGraphNode
 
 	virtual bool ExpandAndWireStandardFunction(UFunction* Function, UEdGraphPin* SelfPin, FSMKismetCompilerContext& CompilerContext, USMGraphK2Node_RuntimeNodeContainer* RuntimeNodeContainer, FProperty* NodeProperty);
 };

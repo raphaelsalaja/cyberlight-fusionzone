@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMStateMachine.h"
 #include "SMInstance.h"
@@ -6,27 +6,32 @@
 #include "SMUtils.h"
 #include "SMStateMachineInstance.h"
 
+#define EXECUTE_ON_REFERENCE(function) \
+		if (ReferencedStateMachine) \
+		{ \
+			return ReferencedStateMachine->GetRootStateMachine().function; \
+		} \
+
 
 FSMStateMachine::FSMStateMachine() : Super(), bHasAdditionalLogic(false), bReuseCurrentState(false),
                                      bOnlyReuseIfNotEndState(false), bAllowIndependentTick(false),
-                                     bCallReferenceTickOnManualUpdate(true), bReuseReference(false),
+                                     bCallReferenceTickOnManualUpdate(true),
                                      bWaitForEndState(false),
-                                     AllActiveTransactions(nullptr),
                                      ReferencedStateMachineClass(nullptr),
-                                     ReferencedStateMachine(nullptr),
-                                     IsReferencedByInstance(nullptr), IsReferencedByStateMachine(nullptr),
-                                     TimeSpentWaitingForUpdate(0.f), MaxTimeToSpendWaitingForUpdate(2.f),
-                                     bWaitingForTransitionUpdate(false), bCanEvaluateTransitions(true),
-                                     bCanTakeTransitions(true)
+                                     ReferencedTemplateName(NAME_None),
+                                     DynamicStateMachineReferenceVariable(NAME_None), ReferencedStateMachine(nullptr),
+                                     IsReferencedByInstance(nullptr),
+                                     IsReferencedByStateMachine(nullptr), TimeSpentWaitingForUpdate(0.f),
+                                     bWaitingForTransitionUpdate(false), bCanEvaluateTransitions(true), bCanTakeTransitions(true)
 {
 }
 
-void FSMStateMachine::SetNetworkedConditions(TArray<FSMNetworkedTransaction>& TransitionArray, bool bEvaluateTransitions, bool bTakeTransitions, float MaxTimeToWait, bool bCanExecuteStateLogic)
+void FSMStateMachine::SetNetworkedConditions(TScriptInterface<ISMStateMachineNetworkedInterface> InNetworkInterface,
+	bool bEvaluateTransitions, bool bTakeTransitions, bool bCanExecuteStateLogic)
 {
-	AllActiveTransactions = &TransitionArray;
+	NetworkedInterface = InNetworkInterface;
 	bCanEvaluateTransitions = bEvaluateTransitions;
 	bCanTakeTransitions = bTakeTransitions;
-	MaxTimeToSpendWaitingForUpdate = MaxTimeToWait;
 
 	for (FSMState_Base* State : States)
 	{
@@ -34,67 +39,98 @@ void FSMStateMachine::SetNetworkedConditions(TArray<FSMNetworkedTransaction>& Tr
 	}
 }
 
-void FSMStateMachine::ProcessStates(float DeltaSeconds, bool bForceTransitionEvaluationOnly, const FGuid& InCurrentRunGuid)
+void FSMStateMachine::ProcessStates(float DeltaSeconds, bool bForceTransitionEvaluationOnly, const FGuid& InCurrentRunGuid,
+const TArray<FSMState_Base*>& InScopedToStates)
 {
-	if (ReferencedStateMachine)
-	{
-		ReferencedStateMachine->GetRootStateMachine().ProcessStates(DeltaSeconds, bForceTransitionEvaluationOnly, InCurrentRunGuid);
-		return;
-	}
+	EXECUTE_ON_REFERENCE(ProcessStates(DeltaSeconds, bForceTransitionEvaluationOnly, InCurrentRunGuid, InScopedToStates));
 
 	// Establish a run id unique to this call. This can allow a manual transition evaluation check
 	// during an existing ProcessStates call while also preventing stack overflow.
 	const bool bInitialRun = !InCurrentRunGuid.IsValid();
 	const FGuid CurrentRunGuid = bInitialRun ? FGuid::NewGuid() : InCurrentRunGuid;
+
+	struct FStateTime
+	{
+		FDateTime StartTime;
+		FDateTime EndTime;
+	};
+
+	TArray<FSMState_Base*> ActiveStatesCopy = InScopedToStates.Num() > 0 ? InScopedToStates : GetActiveStates();
+	TMap<FSMState_Base*, FStateTime> ActiveStatesToActiveTime;
 	
 	auto AddProcessingState = [this, CurrentRunGuid](FSMState_Base* NewProcessingState)
 	{
 		TSet<FSMState_Base*>& IsProcessing = ProcessingStates.FindOrAdd(CurrentRunGuid);
-		IsProcessing.Add(NewProcessingState);
+		if (!IsProcessing.Contains(NewProcessingState))
+		{
+			IsProcessing.Add(NewProcessingState);
+			return true;
+		}
+		
+		return false;
 	};
 
-	bool bStateChanged = false;
-	TArray<FSMState_Base*> ActiveStatesCopy = GetActiveStates();
+	auto RemoveProcessingState = [this, CurrentRunGuid](const FSMState_Base* ExistingProcessingState)
+	{
+		TSet<FSMState_Base*>& IsProcessing = ProcessingStates.FindChecked(CurrentRunGuid);
+		IsProcessing.Remove(ExistingProcessingState);
+	};
+	
+	auto AddModifiedDateTracking = [&](FSMState_Base* InState)
+	{
+		ActiveStatesToActiveTime.Add(InState, FStateTime { InState->GetStartTime(), InState->GetEndTime() });
+	};
+	
 	for (FSMState_Base* CurrentState : ActiveStatesCopy)
 	{
-		bool bStateJustStarted = false;
-		
-		// Always start the state before attempting a transition.
-		if (!CurrentState->IsActive() || CurrentState->HasBeenReenteredFromParallelState())
-		{
-			// prevents repeated reentry if this state was ending and triggered a transition which led to processing.
-			if (CurrentState->IsStateEnding())
-			{
-				continue;
-			}
+		AddModifiedDateTracking(CurrentState);
+	}
 
-			if (!CurrentState->IsActive() || !CurrentState->HasBeenReenteredFromParallelState() || CurrentState->bAllowParallelReentry)
-			{
-				CurrentState->StartState();
-				bStateJustStarted = true;
-			}
-			
-			// Prevents repeated reentry with parallel states.
-			CurrentState->NotifyOfParallelReentry(false);
-			
-			// It's possible the current state is null depending on start state's logic (such as if it is shutting down this state machine).
-			if (!ActiveStates.Contains(CurrentState) || !CurrentState->bEvalTransitionsOnStart)
-			{
-				// Don't perform transition evaluation in same tick unless specified.
-				continue;
-			}
+#define CONTINUE() \
+	ActiveStatesCopy.RemoveAt(0, 1, false); \
+	continue; \
+	
+	while (ActiveStatesCopy.Num() > 0)
+	{
+		FSMState_Base* CurrentState = ActiveStatesCopy[0];
+		const FStateTime& ModifiedTime = ActiveStatesToActiveTime.FindChecked(CurrentState);
+
+		// Check if the active status has somehow changed during iteration,
+		// such as if an event in OnStateBegin triggered a state change.
+		if (CurrentState->GetStartTime() != ModifiedTime.StartTime ||
+			CurrentState->GetEndTime() != ModifiedTime.EndTime)
+		{
+			CONTINUE();
 		}
 
-		if (TSet<FSMState_Base*>* CurrentRun = ProcessingStates.Find(CurrentRunGuid))
+		const bool bReentered = CurrentState->HasBeenReenteredFromParallelState(); // Gets cleared in TryStartState.
+		
+		// Always start the state before attempting a transition.
+		bool bSafeToCheckTransitions = false;
+		const bool bStateJustStarted = TryStartState(CurrentState, &bSafeToCheckTransitions);
+
+		// Parallel re-entry has started, but it may be slated for another update this cycle. Update the current time so it can
+		// run its update logic on its next turn.
+		if (bStateJustStarted && bReentered && ActiveStatesCopy.FindLast(CurrentState) > 0)
+		{
+			AddModifiedDateTracking(CurrentState);
+		}
+		
+		if (!bSafeToCheckTransitions)
+		{
+			CONTINUE();
+		}
+		
+		if (const TSet<FSMState_Base*>* CurrentRun = ProcessingStates.Find(CurrentRunGuid))
 		{
 			if (CurrentRun->Contains(CurrentState))
 			{
 				/*
 				 * This can occur when there are multiple active states, and the first one transitions and reentries into the next one.
-				 * Without this check that would cause a stack overflow.
+				 * Without this check that would cause an infinite loop. TODO: may not be needed with new iterative approach for 2.6.
 				 */
 				
-				continue;
+				CONTINUE();
 			}
 		}
 
@@ -105,9 +141,9 @@ void FSMStateMachine::ProcessStates(float DeltaSeconds, bool bForceTransitionEva
 
 		if (bCanCheckTransitions && CurrentState->IsStateMachine())
 		{
-			if (((FSMStateMachine*)CurrentState)->bWaitForEndState)
+			if (static_cast<FSMStateMachine*>(CurrentState)->bWaitForEndState)
 			{
-				bCanCheckTransitions = (FSMStateMachine*)CurrentState->IsInEndState();
+				bCanCheckTransitions = static_cast<FSMStateMachine*>(CurrentState)->IsInEndState();
 			}
 		}
 		
@@ -115,46 +151,37 @@ void FSMStateMachine::ProcessStates(float DeltaSeconds, bool bForceTransitionEva
 		if (bCanCheckTransitions && CurrentState->GetValidTransition(ParallelTransitionChains))
 		{
 			bool bSuccess = false;
+			int32 ActiveIdxToInsert = 1;
 			for (const TArray<FSMTransition*>& TransitionChain : ParallelTransitionChains)
 			{
 				if (TransitionChain.Num() > 0)
 				{
-					// This specific transition doesn't allow same tick eval with start state.
-					if (bStateJustStarted && !FSMTransition::CanEvaluateWithStartState(TransitionChain))
+					const bool bAddedProcessingState = AddProcessingState(CurrentState);
+					FSMState_Base* DestinationState = nullptr;
+					if (TryTakeTransitionChain(TransitionChain, DeltaSeconds, bStateJustStarted, &DestinationState))
 					{
-						continue;
+						check(DestinationState);
+						bSuccess = true;
+						
+						// These destination states will be processed in the order they are discovered and
+						// before the original active states are processed.
+						ActiveStatesCopy.Insert(DestinationState, ActiveIdxToInsert);
+						AddModifiedDateTracking(DestinationState);
+						++ActiveIdxToInsert;
 					}
-					
-					FSMState_Base* SourceState = TransitionChain[0]->GetFromState();
-					FSMState_Base* DestinationState = FSMTransition::GetFinalStateFromChain(TransitionChain);
+					else if (bAddedProcessingState)
 					{
-						// If the next state is already active the transition may not allow evaluation. Doesn't apply to self transitions.
-						if (DestinationState != CurrentState && DestinationState->IsActive() && !FSMTransition::CanChainEvalIfNextStateActive(TransitionChain))
-						{
-							continue;
-						}
-					}
-				
-					for (FSMTransition* Transition : TransitionChain)
-					{
-						if (ProcessTransition(Transition, SourceState, DestinationState, nullptr, DeltaSeconds))
-						{
-							AddProcessingState(CurrentState);
-							// If this succeeds once we are good. It's possible a multi chain may have a failure when in a networked environment
-							// because one was already taken.
-							bSuccess = true;
-						}
+						RemoveProcessingState(CurrentState);
 					}
 				}
 			}
 
 			if (bSuccess)
 			{
-				bStateChanged = true;
 				//  May remain active in which case we should update.
 				if (!CurrentState->IsActive())
 				{
-					continue;
+					CONTINUE();
 				}
 			}
 		}
@@ -166,7 +193,7 @@ void FSMStateMachine::ProcessStates(float DeltaSeconds, bool bForceTransitionEva
 				// This is an optimized transition evaluation branch. Forward request directly to nested FSM if present.
 				if (CurrentState->IsStateMachine())
 				{
-					((FSMStateMachine*)CurrentState)->ProcessStates(DeltaSeconds, bForceTransitionEvaluationOnly, CurrentRunGuid);
+					static_cast<FSMStateMachine*>(CurrentState)->ProcessStates(DeltaSeconds, bForceTransitionEvaluationOnly, CurrentRunGuid);
 				}
 			}
 			else
@@ -176,11 +203,8 @@ void FSMStateMachine::ProcessStates(float DeltaSeconds, bool bForceTransitionEva
 				CurrentState->UpdateState(DeltaSeconds);
 			}
 		}
-	}
 
-	if (bStateChanged)
-	{
-		ProcessStates(DeltaSeconds, bForceTransitionEvaluationOnly, CurrentRunGuid);
+		CONTINUE();
 	}
 
 	if (bInitialRun)
@@ -189,12 +213,9 @@ void FSMStateMachine::ProcessStates(float DeltaSeconds, bool bForceTransitionEva
 	}
 }
 
-bool FSMStateMachine::ProcessTransition(FSMTransition* Transition, FSMState_Base* SourceState, FSMState_Base* DestinationState, const FSMNetworkedTransaction* Transaction, float DeltaSeconds, FDateTime* CurrentTime)
+bool FSMStateMachine::ProcessTransition(FSMTransition* Transition, FSMState_Base* SourceState, FSMState_Base* DestinationState, const FSMTransitionTransaction* Transaction, float DeltaSeconds, FDateTime* CurrentTime)
 {
-	if (ReferencedStateMachine)
-	{
-		return ReferencedStateMachine->GetRootStateMachine().ProcessTransition(Transition, SourceState, DestinationState, Transaction, DeltaSeconds, CurrentTime);
-	}
+	EXECUTE_ON_REFERENCE(ProcessTransition(Transition, SourceState, DestinationState, Transaction, DeltaSeconds, CurrentTime));
 
 	check(Transition);
 	check(SourceState);
@@ -205,21 +226,11 @@ bool FSMStateMachine::ProcessTransition(FSMTransition* Transition, FSMState_Base
 
 	bWaitingForTransitionUpdate = false;
 	
-	if (bServerUpdate)
-	{
-		// If the client is continuing execution while the server is processing this can prevent a double fire.
-		if (!ensureAlwaysMsgf(Transaction->IsTransition(), TEXT("Attempted to process a state network transaction when it was expecting a transition network transaction.")) ||
-			PreviousTransactions.Contains(Transaction->TransactionGuid))
-		{
-			return false;
-		}
-	}
-	
 	if (!bServerUpdate && IsNetworked())
 	{
 		// This is a new transition not being supplied by the server.
 
-		FSMNetworkedTransaction NewTransition(Transition->GetGuid());
+		FSMTransitionTransaction NewTransition(Transition->GetGuid());
 		{
 			NewTransition.Timestamp = CurrentTime ? *CurrentTime : FDateTime::UtcNow();
 
@@ -240,17 +251,14 @@ bool FSMStateMachine::ProcessTransition(FSMTransition* Transition, FSMState_Base
 		Transition->SetServerTimeInState(SM_ACTIVE_TIME_NOT_SET);
 		
 		// Don't follow this transition a second time.
-		if (bCanTransitionNow)
-		{
-			PreviousTransactions.Add(NewTransition.TransactionGuid, NewTransition);
-		}
-		else
+		if (!bCanTransitionNow)
 		{
 			bWaitingForTransitionUpdate = true;
 		}
 
-		// Notifies server we are taking a new transition.
-		AllActiveTransactions->Add(MoveTemp(NewTransition));
+		// Notifies server we are taking a new transition. Important to call this before continuing in case
+		// the transition entered logic triggers some state change.
+		NetworkedInterface->ServerTakeTransition(MoveTemp(NewTransition));
 	}
 	else if (bServerUpdate && Transaction)
 	{
@@ -260,8 +268,6 @@ bool FSMStateMachine::ProcessTransition(FSMTransition* Transition, FSMState_Base
 		}
 		
 		Transition->LastNetworkTimestamp = Transaction->Timestamp;
-		// Don't record a server transition more than once either.
-		PreviousTransactions.Add(Transaction->TransactionGuid, *Transaction);
 	}
 
 	// If this was called via server the state is likely still active.
@@ -282,7 +288,7 @@ bool FSMStateMachine::ProcessTransition(FSMTransition* Transition, FSMState_Base
 
 		ToState->SetPreviousActiveTransition(Transition);
 		
-		if(USMInstance* Instance = GetOwningInstance())
+		if (USMInstance* Instance = GetOwningInstance())
 		{
 			Instance->NotifyTransitionTaken(*Transition);
 		}
@@ -307,30 +313,142 @@ bool FSMStateMachine::ProcessTransition(FSMTransition* Transition, FSMState_Base
 	return bCanTransitionNow;
 }
 
-void FSMStateMachine::CleanupPreviousTransactions(const FDateTime& CurrentTime, float PreviousTransactionTimeout)
+bool FSMStateMachine::EvaluateAndTakeTransitionChain(FSMTransition* InFirstTransition)
 {
-	// Check for and remove expired transactions.
-	if (PreviousTransactions.Num())
+	if (!bCanEvaluateTransitions)
 	{
-		const FTimespan Seconds = FTimespan::FromSeconds((double)PreviousTransactionTimeout);
-
-		for (auto TransactionIt = PreviousTransactions.CreateIterator(); TransactionIt; ++TransactionIt)
+		// Not state change authoritative.
+		return false;
+	}
+	
+	check(InFirstTransition && InFirstTransition->GetOwnerNode() == this);
+	
+	if (InFirstTransition->GetFromState()->IsActive())
+	{
+		TArray<FSMTransition*> Chain;
+		if (InFirstTransition->CanTransition(Chain))
 		{
-			const FDateTime ExpirationDate = TransactionIt.Value().Timestamp + Seconds;
-			if (ExpirationDate <= CurrentTime)
+			return TakeTransitionChain(Chain);
+		}
+	}
+	
+	return false;
+}
+
+bool FSMStateMachine::TakeTransitionChain(const TArray<FSMTransition*>& InTransitionChain)
+{
+	FSMState_Base* DestinationState;
+	if (TryTakeTransitionChain(InTransitionChain, 0.f, false, &DestinationState))
+	{
+		if (bCanTakeTransitions)
+		{
+			check(DestinationState);
+			ProcessStates(0.f, true, FGuid(), { DestinationState });
+		}
+				
+		return true;
+	}
+
+	return false;
+}
+
+bool FSMStateMachine::TryStartState(FSMState_Base* InState, bool* bOutSafeToCheckTransitions)
+{
+	check(InState);
+	if (bOutSafeToCheckTransitions)
+	{
+		*bOutSafeToCheckTransitions = true;
+	}
+	bool bStateStarted = false;
+	
+	if (!InState->IsActive() || InState->HasBeenReenteredFromParallelState())
+	{
+		// prevents repeated reentry if this state was ending and triggered a transition which led to processing.
+		if (InState->IsStateEnding())
+		{
+			if (bOutSafeToCheckTransitions)
 			{
-				TransactionIt.RemoveCurrent();
+				*bOutSafeToCheckTransitions = false;
+			}
+			return bStateStarted;
+		}
+
+		if (!InState->IsActive() || !InState->HasBeenReenteredFromParallelState() || InState->bAllowParallelReentry)
+		{
+			InState->StartState();
+			bStateStarted = true;
+		}
+			
+		// Prevents repeated reentry with parallel states.
+		InState->NotifyOfParallelReentry(false);
+			
+		// It's possible the current state is null depending on start state's logic (such as if it is shutting down this state machine).
+		if (!ActiveStates.Contains(InState) || !InState->bEvalTransitionsOnStart)
+		{
+			// Don't perform transition evaluation in same tick unless specified.
+			if (bOutSafeToCheckTransitions)
+			{
+				*bOutSafeToCheckTransitions = false;
+			}
+			return bStateStarted;
+		}
+	}
+
+	return bStateStarted;
+}
+
+bool FSMStateMachine::TryTakeTransitionChain(const TArray<FSMTransition*>& InTransitionChain, float DeltaSeconds,
+	bool bStateJustStarted, FSMState_Base** OutDestinationState)
+{
+	bool bSuccess = false;
+	if (OutDestinationState)
+	{
+		*OutDestinationState = nullptr;
+	}
+	if (InTransitionChain.Num() > 0)
+	{
+		// This specific transition doesn't allow same tick eval with start state.
+		if (bStateJustStarted && !FSMTransition::CanEvaluateWithStartState(InTransitionChain))
+		{
+			return bSuccess;
+		}
+					
+		FSMState_Base* SourceState = InTransitionChain[0]->GetFromState();
+		FSMState_Base* DestinationState = FSMTransition::GetFinalStateFromChain(InTransitionChain);
+		{
+			// If the next state is already active the transition may not allow evaluation. Doesn't apply to self transitions.
+			if (DestinationState != SourceState && DestinationState->IsActive() && !FSMTransition::CanChainEvalIfNextStateActive(InTransitionChain))
+			{
+				return bSuccess;
+			}
+		}
+		
+		for (FSMTransition* Transition : InTransitionChain)
+		{
+			const bool bTransitionProcessed = ProcessTransition(Transition, SourceState, DestinationState, nullptr, DeltaSeconds);
+			ensure(!bSuccess || bTransitionProcessed); // Every transition in the chain should be processed.
+			if (bTransitionProcessed)
+			{
+				bSuccess = true;
+				if (OutDestinationState)
+				{
+					*OutDestinationState = DestinationState;
+				}
 			}
 		}
 	}
+
+	return bSuccess;
+}
+
+bool FSMStateMachine::CanProcessExternalTransition() const
+{
+	return bCanEvaluateTransitions;
 }
 
 void FSMStateMachine::SetReuseCurrentState(bool bValue, bool bOnlyWhenNotInEndState)
 {
-	if (ReferencedStateMachine)
-	{
-		return ReferencedStateMachine->GetRootStateMachine().SetReuseCurrentState(bValue, bOnlyWhenNotInEndState);
-	}
+	EXECUTE_ON_REFERENCE(SetReuseCurrentState(bValue, bOnlyWhenNotInEndState));
 	
 	bReuseCurrentState = bValue;
 	bOnlyReuseIfNotEndState = bOnlyWhenNotInEndState;
@@ -375,22 +493,34 @@ void FSMStateMachine::SetReferencedBy(USMInstance* FromInstance, FSMStateMachine
 	IsReferencedByStateMachine = FromStateMachine;
 }
 
-void FSMStateMachine::AddActiveState(FSMState_Base* State, bool bReplicate)
+ISMStateMachineNetworkedInterface* FSMStateMachine::TryGetNetworkInterfaceIfNetworked() const
 {
-	SetCurrentState(State, nullptr);
-
-	if (bReplicate && IsNetworked() && State)
+	if (OwningInstance)
 	{
-		FSMNetworkedTransaction Transaction(State->GetGuid(), ESMTransactionType::SM_State);
-		Transaction.bIsActive = true;
-		Transaction.Timestamp = FDateTime::UtcNow();
-		Transaction.ActiveTime = 0.f;
-		AllActiveTransactions->Add(MoveTemp(Transaction));
+		return OwningInstance->TryGetNetworkInterface();
 	}
+
+	return nullptr;
 }
 
-void FSMStateMachine::RemoveActiveState(FSMState_Base* State, bool bReplicate)
+const TMap<FString, FSMState_Base*>& FSMStateMachine::GetStateNameMap() const
 {
+	EXECUTE_ON_REFERENCE(GetStateNameMap());
+	return StateNameMap;
+}
+
+void FSMStateMachine::AddActiveState(FSMState_Base* State)
+{
+	SetCurrentState(State, nullptr);
+}
+
+void FSMStateMachine::RemoveActiveState(FSMState_Base* State)
+{
+	if (!ContainsActiveState(State))
+	{
+		return;
+	}
+	
 	State->EndState(0.f);
 	ActiveStates.Remove(State);
 
@@ -402,15 +532,6 @@ void FSMStateMachine::RemoveActiveState(FSMState_Base* State, bool bReplicate)
 	if (IsReferencedByInstance)
 	{
 		IsReferencedByInstance->NotifyStateChange(nullptr, State);
-	}
-	
-	if (bReplicate && IsNetworked() && State)
-	{
-		FSMNetworkedTransaction Transaction(State->GetGuid(), ESMTransactionType::SM_State);
-		Transaction.bIsActive = false;
-		Transaction.Timestamp = FDateTime::UtcNow();
-		Transaction.ActiveTime = State->GetActiveTime();
-		AllActiveTransactions->Add(MoveTemp(Transaction));
 	}
 }
 
@@ -444,12 +565,12 @@ void FSMStateMachine::SetCurrentState(FSMState_Base* ToState, FSMState_Base* Fro
 		}
 	}
 	
-	if(USMInstance* Instance = GetOwningInstance())
+	if (USMInstance* Instance = GetOwningInstance())
 	{
 		Instance->NotifyStateChange(ToState, FromState);
 	}
 
-	if(IsReferencedByInstance)
+	if (IsReferencedByInstance)
 	{
 		IsReferencedByInstance->NotifyStateChange(ToState, FromState);
 	}
@@ -458,9 +579,6 @@ void FSMStateMachine::SetCurrentState(FSMState_Base* ToState, FSMState_Base* Fro
 void FSMStateMachine::Initialize(UObject* Instance)
 {
 	Super::Initialize(Instance);
-
-	USMUtils::InitializeGraphFunctions(UpdateStateGraphEvaluator, Instance);
-	USMUtils::InitializeGraphFunctions(EndStateGraphEvaluator, Instance);
 	
 	if (ReferencedStateMachine)
 	{
@@ -474,10 +592,25 @@ void FSMStateMachine::Initialize(UObject* Instance)
 	}
 }
 
+void FSMStateMachine::InitializeGraphFunctions()
+{
+	FSMState_Base::InitializeGraphFunctions();
+
+	USMUtils::InitializeGraphFunctions(BeginStateGraphEvaluator, OwningInstance, GetNodeInstance());
+	USMUtils::InitializeGraphFunctions(UpdateStateGraphEvaluator, OwningInstance, GetNodeInstance());
+	USMUtils::InitializeGraphFunctions(EndStateGraphEvaluator, OwningInstance, GetNodeInstance());
+
+	for (FSMNode_Base* Node : GetAllNodes())
+	{
+		Node->InitializeGraphFunctions();
+	}
+}
+
 void FSMStateMachine::Reset()
 {
 	Super::Reset();
 	ClearTemporaryInitialStates();
+	USMUtils::ResetGraphFunctions(BeginStateGraphEvaluator);
 	USMUtils::ResetGraphFunctions(UpdateStateGraphEvaluator);
 	USMUtils::ResetGraphFunctions(EndStateGraphEvaluator);
 }
@@ -489,11 +622,12 @@ bool FSMStateMachine::StartState()
 		return false;
 	}
 
-	if(bHasAdditionalLogic)
+	if (bHasAdditionalLogic)
 	{
 		if (CanExecuteLogic())
 		{
-			Execute();
+			PrepareGraphExecution();
+			USMUtils::ExecuteGraphFunctions(BeginStateGraphEvaluator);
 		}
 		
 		// The additional logic will call start on the instance.
@@ -515,7 +649,7 @@ bool FSMStateMachine::StartState()
 		{
 			SetCurrentState(InitialState, nullptr);
 		}
-		if(HasTemporaryEntryStates())
+		if (HasTemporaryEntryStates())
 		{
 			ClearTemporaryInitialStates();
 		}
@@ -527,6 +661,7 @@ bool FSMStateMachine::StartState()
 	}
 	
 	ProcessStates(0.f);
+	FirePostStartEvents();
 
 	return true;
 }
@@ -554,19 +689,8 @@ bool FSMStateMachine::UpdateState(float DeltaSeconds)
 	
 	if (ReferencedStateMachine)
 	{
-		ReferencedStateMachine->Update(DeltaSeconds);
+		ReferencedStateMachine->RunUpdateAsReference(DeltaSeconds);
 		return true;
-	}
-
-	if (bWaitingForTransitionUpdate && MaxTimeToSpendWaitingForUpdate > 0.f)
-	{
-		TimeSpentWaitingForUpdate += DeltaSeconds;
-
-		if (TimeSpentWaitingForUpdate >= MaxTimeToSpendWaitingForUpdate)
-		{
-			bWaitingForTransitionUpdate = false;
-			TimeSpentWaitingForUpdate = 0.f;
-		}
 	}
 
 	if (USMStateMachineInstance* Instance = Cast<USMStateMachineInstance>(GetNodeInstance()))
@@ -596,6 +720,8 @@ bool FSMStateMachine::EndState(float DeltaSeconds, const FSMTransition* Transiti
 		// The additional logic will call stop on the instance.
 		if (ReferencedStateMachine)
 		{
+			// Outgoing transitions of this container node still need to run.
+			ShutdownTransitions();
 			return true;
 		}
 	}
@@ -605,17 +731,20 @@ bool FSMStateMachine::EndState(float DeltaSeconds, const FSMTransition* Transiti
 		// Manually set transition since Stop won't provide one.
 		ReferencedStateMachine->GetRootStateMachine().SetTransitionToTake(TransitionToTake);
 		ReferencedStateMachine->Stop();
+
+		// Outgoing transitions of this container node still need to run.
+		ShutdownTransitions();
 		return true;
 	}
 
 	USMStateMachineInstance* Instance = Cast<USMStateMachineInstance>(GetNodeInstance());
-	if(Instance)
+	if (Instance)
 	{
 		Instance->OnStateEnd();
 	}
 
 	TArray<FSMState_Base*> ActiveStatesCopy = GetActiveStates();
-	for(FSMState_Base* CurrentState: ActiveStatesCopy)
+	for (FSMState_Base* CurrentState: ActiveStatesCopy)
 	{
 		CurrentState->EndState(DeltaSeconds);
 
@@ -624,6 +753,8 @@ bool FSMStateMachine::EndState(float DeltaSeconds, const FSMTransition* Transiti
 			SetCurrentState(nullptr, CurrentState);
 		}
 	}
+
+	ShutdownTransitions();
 
 	if (Instance)
 	{
@@ -635,6 +766,16 @@ bool FSMStateMachine::EndState(float DeltaSeconds, const FSMTransition* Transiti
 
 void FSMStateMachine::ExecuteInitializeNodes()
 {
+	if (IsInitializedForRun())
+	{
+		return;
+	}
+
+	if (NodeInstance)
+	{
+		NodeInstance->NativeInitialize();
+	}
+	
 	Super::ExecuteInitializeNodes();
 
 	if (!IsReferencedByInstance)
@@ -651,9 +792,13 @@ void FSMStateMachine::ExecuteShutdownNodes()
 {
 	Super::ExecuteShutdownNodes();
 
+	if (NodeInstance)
+	{
+		NodeInstance->NativeShutdown();
+	}
+	
 	if (!IsReferencedByInstance)
 	{
-		// Don't double call this from a reference.
 		if (USMStateMachineInstance* StateInstance = Cast<USMStateMachineInstance>(GetNodeInstance()))
 		{
 			StateInstance->OnStateShutdown();
@@ -670,7 +815,7 @@ void FSMStateMachine::OnStartedByInstance(USMInstance* Instance)
 
 	if (!IsReferencedByInstance && !Instance->GetReferenceOwnerConst())
 	{
-		// Root state machine calls in FSMs only reflect the master root state machine so only call this if
+		// Root state machine calls in FSMs only reflect the primary root state machine so only call this if
 		// if this node is not a proxy and the owning instance isn't a reference.
 		if (USMStateMachineInstance* StateInstance = Cast<USMStateMachineInstance>(GetNodeInstance()))
 		{
@@ -688,7 +833,7 @@ void FSMStateMachine::OnStoppedByInstance(USMInstance* Instance)
 
 	if (!IsReferencedByInstance && !Instance->GetReferenceOwnerConst())
 	{
-		// Root state machine calls in FSMs only reflect the master root state machine so only call this if
+		// Root state machine calls in FSMs only reflect the primary root state machine so only call this if
 		// if this node is not a proxy and the owning instance isn't a reference.
 		if (USMStateMachineInstance* StateInstance = Cast<USMStateMachineInstance>(GetNodeInstance()))
 		{
@@ -697,30 +842,19 @@ void FSMStateMachine::OnStoppedByInstance(USMInstance* Instance)
 	}
 }
 
-// This is only necessary for legacy operations with reusing references that reference themselves. Also assists with unit test for reusing references.
-static TSet<FSMStateMachine*> CalculatingInstances;
-
 void FSMStateMachine::CalculatePathGuid(TMap<FString, int32>& MappedPaths)
 {
-	if(CalculatingInstances.Contains(this))
-	{
-		return;
-	}
-	CalculatingInstances.Add(this);
-	
 	Super::CalculatePathGuid(MappedPaths);
 
-	if(ReferencedStateMachine)
+	if (ReferencedStateMachine)
 	{
 		ReferencedStateMachine->GetRootStateMachine().CalculatePathGuid(MappedPaths);
 	}
 	
-	for(FSMNode_Base* Node : GetAllNodes())
+	for (FSMNode_Base* Node : GetAllNodes())
 	{
 		Node->CalculatePathGuid(MappedPaths);
 	}
-
-	CalculatingInstances.Remove(this);
 }
 
 void FSMStateMachine::RunConstructionScripts()
@@ -736,30 +870,34 @@ void FSMStateMachine::RunConstructionScripts()
 	}
 }
 
+void FSMStateMachine::NotifyInstanceStateHasStarted()
+{
+	// Don't double fire.
+	if (!IsReferencedByInstance)
+	{
+		if (USMInstance* Instance = GetOwningInstance())
+		{
+			Instance->NotifyStateStarted(*this);
+		}
+	}
+}
+
 void FSMStateMachine::AddInitialState(FSMState_Base* State)
 {
-	if (ReferencedStateMachine)
-	{
-		ReferencedStateMachine->GetRootStateMachine().AddInitialState(State);
-		return;
-	}
-	
+	EXECUTE_ON_REFERENCE(AddInitialState(State));
+
 	if (State && !States.Contains(State))
 	{
 		ensureAlwaysMsgf(false, TEXT("Could not set initial state %s. It is not located in state machine %s"), *State->GetNodeName(), *GetNodeName());
 		return;
 	}
 
-	EntryStates.Add(State);
+	EntryStates.AddUnique(State);
 }
 
 void FSMStateMachine::AddTemporaryInitialState(FSMState_Base* State)
 {
-	if(ReferencedStateMachine)
-	{
-		ReferencedStateMachine->GetRootStateMachine().AddTemporaryInitialState(State);
-		return;
-	}
+	EXECUTE_ON_REFERENCE(AddTemporaryInitialState(State));
 
 	if (!State)
 	{
@@ -771,32 +909,87 @@ void FSMStateMachine::AddTemporaryInitialState(FSMState_Base* State)
 		return;
 	}
 
-	TemporaryEntryStates.Add(State);
+	TemporaryEntryStates.AddUnique(State);
 }
 
-void FSMStateMachine::ClearTemporaryInitialStates()
+void FSMStateMachine::ClearTemporaryInitialStates(bool bRecursive)
 {
+	EXECUTE_ON_REFERENCE(ClearTemporaryInitialStates(bRecursive));
+	
 	TemporaryEntryStates.Empty();
+
+	if (bRecursive)
+	{
+		for (FSMState_Base* State : States)
+		{
+			if (State->IsStateMachine())
+			{
+				static_cast<FSMStateMachine*>(State)->ClearTemporaryInitialStates(bRecursive);
+			}
+		}
+	}
 }
 
-const TSet<FSMState_Base*>& FSMStateMachine::GetEntryStates() const
+void FSMStateMachine::SetFromTemporaryInitialStates()
 {
-	if (ReferencedStateMachine)
+	EXECUTE_ON_REFERENCE(SetFromTemporaryInitialStates());
+	
+	for (auto ActiveStateIt = ActiveStates.CreateIterator(); ActiveStateIt;)
 	{
-		return ReferencedStateMachine->GetRootStateMachine().GetEntryStates();
+		// Active states that won't be active again need to stop.
+		if (!TemporaryEntryStates.Contains(*ActiveStateIt))
+		{
+			RemoveActiveState(*ActiveStateIt);
+		}
+		else
+		{
+			++ActiveStateIt;
+		}
 	}
+	
+	for (FSMState_Base* TemporaryEntryState : TemporaryEntryStates)
+	{
+		if (TemporaryEntryState->IsStateMachine())
+		{
+			static_cast<FSMStateMachine*>(TemporaryEntryState)->SetFromTemporaryInitialStates();
+		}
+		
+		// Temporary states already active can be ignored.
+		if (ActiveStates.Contains(TemporaryEntryState))
+		{
+			continue;
+		}
+
+		AddActiveState(TemporaryEntryState);
+	}
+
+	ClearTemporaryInitialStates();
+}
+
+bool FSMStateMachine::ContainsActiveState(FSMState_Base* StateToCheck) const
+{
+	EXECUTE_ON_REFERENCE(ContainsActiveState(StateToCheck));
+	return ActiveStates.Contains(StateToCheck);
+}
+
+bool FSMStateMachine::HasActiveStates() const
+{
+	EXECUTE_ON_REFERENCE(HasActiveStates());
+	return ActiveStates.Num() > 0;
+}
+
+const TArray<FSMState_Base*>& FSMStateMachine::GetEntryStates() const
+{
+	EXECUTE_ON_REFERENCE(GetEntryStates());
 
 	return EntryStates;
 }
 
 TArray<FSMState_Base*> FSMStateMachine::GetInitialStates() const
 {
-	if(ReferencedStateMachine)
-	{
-		return ReferencedStateMachine->GetRootStateMachine().GetInitialStates();
-	}
+	EXECUTE_ON_REFERENCE(GetInitialStates());
 	
-	return HasTemporaryEntryStates() ? TemporaryEntryStates.Array() : EntryStates.Array();
+	return HasTemporaryEntryStates() ? TemporaryEntryStates : EntryStates;
 }
 
 FSMState_Base* FSMStateMachine::GetSingleInitialState() const
@@ -812,7 +1005,27 @@ FSMState_Base* FSMStateMachine::GetSingleInitialState() const
 
 FSMState_Base* FSMStateMachine::GetSingleInitialTemporaryState() const
 {
-	return TemporaryEntryStates.Num() > 0 ? TemporaryEntryStates.Array()[0] : nullptr;
+	EXECUTE_ON_REFERENCE(GetSingleInitialTemporaryState());
+	return HasTemporaryEntryStates() ? TemporaryEntryStates[0] : nullptr;
+}
+
+TArray<FSMState_Base*> FSMStateMachine::GetAllNestedInitialTemporaryStates() const
+{
+	EXECUTE_ON_REFERENCE(GetAllNestedInitialTemporaryStates());
+
+	TArray<FSMState_Base*> OutStates;
+	OutStates.Reserve(TemporaryEntryStates.Num());
+
+	for (FSMState_Base* State : TemporaryEntryStates)
+	{
+		OutStates.Add(State);
+		if (State->IsStateMachine())
+		{
+			OutStates.Append(static_cast<FSMStateMachine*>(State)->GetAllNestedInitialTemporaryStates());
+		}
+	}
+
+	return OutStates;
 }
 
 FSMState_Base* FSMStateMachine::FindState(const FGuid& StateGuid) const
@@ -846,9 +1059,15 @@ FSMState_Base* FSMStateMachine::FindState(const FGuid& StateGuid) const
 	return nullptr;
 }
 
+bool FSMStateMachine::HasTemporaryEntryStates() const
+{
+	EXECUTE_ON_REFERENCE(HasTemporaryEntryStates());
+	return TemporaryEntryStates.Num() > 0;
+}
+
 FSMState_Base* FSMStateMachine::GetSingleActiveState() const
 {
-	if(FSMState_Base* State = ReferencedStateMachine ? ReferencedStateMachine->GetRootStateMachine().GetSingleActiveState() : nullptr)
+	if (FSMState_Base* State = ReferencedStateMachine ? ReferencedStateMachine->GetRootStateMachine().GetSingleActiveState() : nullptr)
 	{
 		return State;
 	}
@@ -864,28 +1083,19 @@ FSMState_Base* FSMStateMachine::GetSingleActiveState() const
 
 TArray<FSMState_Base*> FSMStateMachine::GetActiveStates() const
 {
-	if (ReferencedStateMachine)
-	{
-		if (ReferencedStateMachine->GetRootStateMachine().HasActiveStates())
-		{
-			return ReferencedStateMachine->GetRootStateMachine().GetActiveStates();
-		}
-	}
+	EXECUTE_ON_REFERENCE(GetActiveStates());
 	
 	if (HasActiveStates())
 	{
 		return ActiveStates;
 	}
 	
-	return ReferencedStateMachine ? ReferencedStateMachine->GetRootStateMachine().TemporaryEntryStates.Array() : TemporaryEntryStates.Array();
+	return TemporaryEntryStates;
 }
 
 TArray<FSMState_Base*> FSMStateMachine::GetAllNestedActiveStates() const
 {
-	if (ReferencedStateMachine)
-	{
-		return ReferencedStateMachine->GetAllActiveStates();
-	}
+	EXECUTE_ON_REFERENCE(GetAllNestedActiveStates());
 
 	TArray<FSMState_Base*> OutStates = GetActiveStates();
 
@@ -893,7 +1103,7 @@ TArray<FSMState_Base*> FSMStateMachine::GetAllNestedActiveStates() const
 	{
 		if (State->IsStateMachine())
 		{
-			OutStates.Append(((FSMStateMachine*)State)->GetAllNestedActiveStates());
+			OutStates.Append(static_cast<FSMStateMachine*>(State)->GetAllNestedActiveStates());
 		}
 	}
 
@@ -902,10 +1112,7 @@ TArray<FSMState_Base*> FSMStateMachine::GetAllNestedActiveStates() const
 
 bool FSMStateMachine::IsInEndState() const
 {
-	if (ReferencedStateMachine)
-	{
-		return ReferencedStateMachine->IsInEndState();
-	}
+	EXECUTE_ON_REFERENCE(IsInEndState());
 
 	for (FSMState_Base* CurrentState : ActiveStates)
 	{
@@ -935,12 +1142,22 @@ bool FSMStateMachine::IsNodeInstanceClassCompatible(UClass* NewNodeInstanceClass
 
 USMNodeInstance* FSMStateMachine::GetNodeInstance() const
 {
-	if (ReferencedStateMachine)
+	if (IsReferencedByStateMachine)
 	{
-		return ReferencedStateMachine->GetRootStateMachine().GetNodeInstance();
+		return IsReferencedByStateMachine->GetNodeInstance();
 	}
 
 	return Super::GetNodeInstance();
+}
+
+USMNodeInstance* FSMStateMachine::GetOrCreateNodeInstance()
+{
+	if (IsReferencedByStateMachine)
+	{
+		return IsReferencedByStateMachine->GetOrCreateNodeInstance();
+	}
+	
+	return FSMState_Base::GetOrCreateNodeInstance();
 }
 
 UClass* FSMStateMachine::GetDefaultNodeInstanceClass() const
@@ -960,6 +1177,8 @@ FSMNode_Base* FSMStateMachine::GetOwnerNode() const
 
 void FSMStateMachine::SetStartTime(const FDateTime& InStartTime)
 {
+	EXECUTE_ON_REFERENCE(SetStartTime(InStartTime));
+	
 	for (FSMState_Base* State : GetInitialStates())
 	{
 		State->SetStartTime(InStartTime);
@@ -968,11 +1187,25 @@ void FSMStateMachine::SetStartTime(const FDateTime& InStartTime)
 	Super::SetStartTime(InStartTime);
 }
 
+void FSMStateMachine::SetEndTime(const FDateTime& InEndTime)
+{
+	EXECUTE_ON_REFERENCE(SetEndTime(InEndTime));
+	
+	for (FSMState_Base* State : GetActiveStates())
+	{
+		State->SetEndTime(InEndTime);
+	}
+
+	Super::SetEndTime(InEndTime);
+}
+
 void FSMStateMachine::SetServerTimeInState(float InTime)
 {
+	EXECUTE_ON_REFERENCE(SetServerTimeInState(InTime));
+	
 	Super::SetServerTimeInState(InTime);
 	
-	for (FSMState_Base* State : ActiveStates)
+	for (FSMState_Base* State : GetActiveStates())
 	{
 		State->SetServerTimeInState(InTime);
 	}
@@ -991,20 +1224,25 @@ void FSMStateMachine::AddTransition(FSMTransition* Transition)
 	Transitions.AddUnique(Transition);
 }
 
-TArray<FSMNode_Base*> FSMStateMachine::GetAllNodes(bool bIncludeNested) const
+TArray<FSMNode_Base*> FSMStateMachine::GetAllNodes(bool bIncludeNested, bool bForwardToReference) const
 {
+	if (bForwardToReference)
+	{
+		EXECUTE_ON_REFERENCE(GetAllNodes(bIncludeNested, bForwardToReference));
+	}
+	
 	TArray<FSMNode_Base*> Results;
 	
 	Results.Append(States);
 	Results.Append(Transitions);
 
-	if(bIncludeNested)
+	if (bIncludeNested)
 	{
-		for(FSMState_Base* State : States)
+		for (FSMState_Base* State : States)
 		{
-			if(State->IsStateMachine())
+			if (State->IsStateMachine())
 			{
-				FSMStateMachine* StateMachine = (FSMStateMachine*)State;
+				const FSMStateMachine* StateMachine = static_cast<FSMStateMachine*>(State);
 				
 				if (StateMachine->ReferencedStateMachine)
 				{
@@ -1013,11 +1251,23 @@ TArray<FSMNode_Base*> FSMStateMachine::GetAllNodes(bool bIncludeNested) const
 				}
 				else
 				{
-					Results.Append(((FSMStateMachine*)State)->GetAllNodes(bIncludeNested));
+					Results.Append(static_cast<FSMStateMachine*>(State)->GetAllNodes(bIncludeNested));
 				}
 			}
 		}
 	}
 
 	return Results;
+}
+
+const TArray<FSMState_Base*>& FSMStateMachine::GetStates() const
+{
+	EXECUTE_ON_REFERENCE(GetStates());
+	return States;
+}
+
+const TArray<FSMTransition*>& FSMStateMachine::GetTransitions() const
+{
+	EXECUTE_ON_REFERENCE(GetTransitions());
+	return Transitions;
 }

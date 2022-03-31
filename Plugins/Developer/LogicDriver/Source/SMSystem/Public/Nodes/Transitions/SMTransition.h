@@ -1,19 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "SMState.h"
+
 #include "SMTransition.generated.h"
-
-
-UENUM()
-enum class ESMConditionalEvaluationType : uint8
-{
-	SM_Graph,			// BP Graph eval required
-	SM_NodeInstance,	// Node instance only 
-	SM_AlwaysFalse,		// Never eval graph and never take conditionally
-	SM_AlwaysTrue		// Never eval graph and always take conditionally
-};
 
 /**
  * Transitions determine when an FSM can exit one state and advance to the next.
@@ -24,6 +15,10 @@ struct SMSYSTEM_API FSMTransition : public FSMNode_Base
 	GENERATED_USTRUCT_BODY()
 
 public:
+	/** Primary transition evaluation. */
+	UPROPERTY()
+	TArray<FSMExposedFunctionHandler> CanEnterTransitionGraphEvaluator;
+	
 	/** Entry point to when a transition is taken. */
 	UPROPERTY()
 	TArray<FSMExposedFunctionHandler> TransitionEnteredGraphEvaluator;
@@ -42,44 +37,48 @@ public:
 
 	/** Set from graph execution. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Result, meta = (AlwaysAsPin))
-	uint32 bCanEnterTransition: 1;
+	uint16 bCanEnterTransition: 1;
 
 	/** Set from graph execution when updated by event. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Result, meta = (AlwaysAsPin))
-	uint32 bCanEnterTransitionFromEvent: 1;
+	uint16 bCanEnterTransitionFromEvent: 1;
 
 	/** Set internally and from auto bound events. True only during evaluation. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Result, meta = (AlwaysAsPin))
-	uint32 bIsEvaluating: 1;
+	uint16 bIsEvaluating: 1;
 	
 	/** Set from graph execution or configurable from details panel. Must be true for the transition to be evaluated conditionally. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Transition)
-	uint32 bCanEvaluate: 1;
+	uint16 bCanEvaluate: 1;
 
 	/** Allows auto-bound events to evaluate. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Transition)
-	uint32 bCanEvaluateFromEvent: 1;
+	uint16 bCanEvaluateFromEvent: 1;
 
 	/**
 	 * This transition will not prevent the next transition in the priority sequence from being evaluated.
 	 * This allows the possibility for multiple active states.
 	 */
 	UPROPERTY()
-	uint32 bRunParallel: 1;
+	uint16 bRunParallel: 1;
 
 	/**
 	 * If the transition should still evaluate if already connecting to an active state.
 	 */
 	UPROPERTY()
-	uint32 bEvalIfNextStateActive: 1;
+	uint16 bEvalIfNextStateActive: 1;
 
 	/** Secondary check state machine will make if a state is evaluating transitions on the same tick as Start State. */
 	UPROPERTY()
-	uint32 bCanEvalWithStartState: 1;
+	uint16 bCanEvalWithStartState: 1;
 	
 	/** The transition can never be taken conditionally or from an event. */
 	UPROPERTY()
-	uint32 bAlwaysFalse: 1;
+	uint16 bAlwaysFalse: 1;
+
+	/** The transition has been created by an Any State. */
+	UPROPERTY()
+	uint16 bFromAnyState: 1;
 
 	/** Guid to the state this transition is from. Kismet compiler will convert this into a state link. */
 	UPROPERTY()
@@ -109,6 +108,7 @@ public:
 
 	// FSMNode_Base
 	virtual void Initialize(UObject* Instance) override;
+	virtual void InitializeGraphFunctions() override;
 	virtual void Reset() override;
 	virtual bool IsNodeInstanceClassCompatible(UClass* NewNodeInstanceClass) const override;
 	virtual UClass* GetDefaultNodeInstanceClass() const override;
@@ -155,7 +155,7 @@ public:
 	virtual bool IsDebugActive() const override { return bIsEvaluating ? bIsEvaluating : Super::IsDebugActive(); }
 	virtual bool WasDebugActive() const override { return bWasEvaluating ? bWasEvaluating : Super::WasDebugActive(); }
 	/** Helper to display evaluation color in the editor. */
-	bool bWasEvaluating = false;
+	mutable bool bWasEvaluating = false;
 #endif
 	
 	/** Checks to make sure every transition is allowed to evaluate with the start state. */

@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphProperty_Base.h"
 #include "SMUtils.h"
@@ -8,9 +8,8 @@
 #endif
 
 
-FSMGraphProperty_Base_Runtime::FSMGraphProperty_Base_Runtime(): LinkedProperty(nullptr)
+FSMGraphProperty_Base_Runtime::FSMGraphProperty_Base_Runtime(): LinkedProperty(nullptr), bIsDefaultValueOnly(0)
 {
-	
 }
 
 void FSMGraphProperty_Base_Runtime::Initialize(UObject* Instance)
@@ -21,9 +20,9 @@ void FSMGraphProperty_Base_Runtime::Initialize(UObject* Instance)
 void FSMGraphProperty_Base_Runtime::Execute(void* Params)
 {
 	DECLARE_SCOPE_CYCLE_COUNTER(TEXT("SMGraphProperty_Base::Execute"), STAT_SMGraphProperty_Base_Execute, STATGROUP_LogicDriver);
-
+	
 	USMUtils::ExecuteGraphFunctions(GraphEvaluator, Params);
-
+	
 	// If set then the graph evaluator is actually executing a graph from the linked property.
 	// We should copy the result value into this property.
 	if (LinkedProperty)
@@ -101,7 +100,7 @@ const FGuid& FSMGraphProperty_Base::GenerateNewGuid()
 
 const FGuid& FSMGraphProperty_Base::GenerateNewGuidIfNotValid()
 {
-	if(!Guid.IsValid())
+	if (!Guid.IsValid())
 	{
 		GenerateNewGuid();
 	}
@@ -157,7 +156,7 @@ UClass* FSMGraphProperty_Base::GetGraphClass(UObject* Outer) const
 {
 	if (!CachedGraphClass)
 	{
-		const_cast<FSMGraphProperty_Base*>(this)->CachedGraphClass = FindObject<UClass>(Outer, *GraphClassName.ToString());
+		CachedGraphClass = FindObject<UClass>(Outer, *GraphClassName.ToString());
 	}
 
 	return CachedGraphClass;
@@ -167,7 +166,7 @@ UClass* FSMGraphProperty_Base::GetGraphSchemaClass(UObject* Outer) const
 {
 	if (!CachedSchemaClass)
 	{
-		const_cast<FSMGraphProperty_Base*>(this)->CachedSchemaClass = FindObject<UClass>(Outer, *GraphSchemaClassName.ToString());
+		CachedSchemaClass = FindObject<UClass>(Outer, *GraphSchemaClassName.ToString());
 	}
 
 	return CachedSchemaClass;
@@ -194,7 +193,7 @@ const FString& FSMGraphProperty_Base::GetPropertyDisplayName() const
 FText FSMGraphProperty_Base::GetDisplayName() const
 {
 	const FString& DisplayName = GetPropertyDisplayName();
-	if(!DisplayName.IsEmpty())
+	if (!DisplayName.IsEmpty())
 	{
 		return FText::FromString(DisplayName);
 	}

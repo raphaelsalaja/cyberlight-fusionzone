@@ -1,6 +1,32 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTestHelpers.h"
+#include "SMTestContext.h"
+
+#include "Graph/Nodes/RootNodes/SMGraphK2Node_IntermediateNodes.h"
+#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionEnteredNode.h"
+#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionInitializedNode.h"
+#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionShutdownNode.h"
+#include "Graph/Nodes/SMGraphNode_StateNode.h"
+#include "Graph/Nodes/RootNodes/SMGraphK2Node_StateEntryNode.h"
+#include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
+#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionResultNode.h"
+#include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
+#include "Graph/Nodes/RootNodes/SMGraphK2Node_StateUpdateNode.h"
+#include "Graph/Nodes/RootNodes/SMGraphK2Node_StateEndNode.h"
+#include "Graph/Nodes/Helpers/SMGraphK2Node_StateReadNodes.h"
+#include "Graph/SMStateGraph.h"
+#include "Graph/SMTransitionGraph.h"
+#include "Graph/SMGraph.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+#include "Utilities/SMNodeInstanceUtils.h"
+#include "Utilities/SMVersionUtils.h"
+
+#include "Blueprints/SMBlueprintFactory.h"
+#include "Blueprints/SMBlueprint.h"
+
+#include "SMUtils.h"
+
 #include "Modules/ModuleManager.h"
 #include "Misc/AutomationTest.h"
 #include "PackageTools.h"
@@ -8,35 +34,15 @@
 #include "HAL/FileManager.h"
 #include "AssetRegistryModule.h"
 #include "UObject/Package.h"
-#include "UnrealEd.h"
+#include "UObject/SavePackage.h"
 #include "BlueprintEditorSettings.h"
+#include "EdGraphUtilities.h"
 #include "Kismet2/KismetEditorUtilities.h"
-#include "Blueprints/SMBlueprintFactory.h"
-#include "Blueprints/SMBlueprint.h"
-#include "SMTestContext.h"
-#include "SMUtils.h"
 #include "K2Node_CallFunction.h"
 #include "K2Node_DynamicCast.h"
-#include "Graph/Nodes/SMGraphNode_StateNode.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_StateEntryNode.h"
-#include "Graph/SMStateGraph.h"
-#include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionResultNode.h"
-#include "Graph/SMTransitionGraph.h"
-#include "Graph/SMGraph.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineEntryNode.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_StateUpdateNode.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_StateEndNode.h"
-#include "Graph/Nodes/Helpers/SMGraphK2Node_StateReadNodes.h"
 #include "K2Node_FunctionEntry.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-#include "Utilities/SMNodeInstanceUtils.h"
-#include "Utilities/SMVersionUtils.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_IntermediateNodes.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionEnteredNode.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionInitializedNode.h"
-#include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionShutdownNode.h"
-
+#include "UnrealEdGlobals.h"
+#include "Editor/UnrealEdEngine.h"
 
 bool FAssetHandler::CreateAsset()
 {
@@ -67,8 +73,17 @@ bool FAssetHandler::SaveAsset()
 		Package->SetDirtyFlag(true);
 		const FString PackagePath = FString::Printf(TEXT("%s%s"), *GamePath, *Name);
 
-		return UPackage::SavePackage(Package, nullptr, RF_Standalone, *FPackageName::LongPackageNameToFilename(PackagePath, FPackageName::GetAssetPackageExtension()),
-			GError, nullptr, false, true, SAVE_NoError);
+		FSavePackageArgs Args;
+		Args.TopLevelFlags = RF_Standalone;
+		Args.Error = GError;
+		Args.bForceByteSwapping = false;
+		Args.bWarnOfLongFilename = true;
+		Args.SaveFlags = SAVE_NoError;
+		
+		return UPackage::SavePackage(Package,
+			nullptr,
+			*FPackageName::LongPackageNameToFilename(PackagePath, FPackageName::GetAssetPackageExtension()),
+			Args);
 	}
 
 	return false;
@@ -82,7 +97,7 @@ bool FAssetHandler::LoadAsset()
 	const FString PackagePath = FString::Printf(TEXT("%s%s"), *GamePath, *Name);
 
 	Package = LoadPackage(nullptr, *FPackageName::LongPackageNameToFilename(PackagePath, FPackageName::GetAssetPackageExtension()), LOAD_None);
-	if(!Package)
+	if (!Package)
 	{
 		return false;
 	}
@@ -96,7 +111,7 @@ bool FAssetHandler::DeleteAsset()
 {
 	bool bSuccessful = false;
 
-	if(Object)
+	if (Object)
 	{
 		bSuccessful = ObjectTools::DeleteSingleObject(Object, false);
 
@@ -112,7 +127,7 @@ bool FAssetHandler::DeleteAsset()
 		if (bSuccessful)
 		{
 			FString PackageFilename;
-			if (FPackageName::DoesPackageExist(Package->GetName(), nullptr, &PackageFilename))
+			if (FPackageName::DoesPackageExist(Package->GetName(), &PackageFilename))
 			{
 				TArray<UPackage*> PackagesToDelete;
 				PackagesToDelete.Add(Package);
@@ -216,13 +231,13 @@ USMInstance* TestHelpers::CreateNewStateMachineInstanceFromBP(FAutomationTestBas
 
 	for (USMInstance* Instance : AllInstances)
 	{
-		USMStateMachineInstance* StateMachineClassInstance = CastChecked<USMStateMachineInstance>(Instance->GetRootStateMachine().GetNodeInstance());
+		USMStateMachineInstance* StateMachineClassInstance = CastChecked<USMStateMachineInstance>(Instance->GetRootStateMachine().GetOrCreateNodeInstance());
 		const FString& NodeName = StateMachineClassInstance->GetNodeName();
 
 		USMInstance* ReferenceOwner = Instance->GetReferenceOwner();
 		if (ReferenceOwner == nullptr)
 		{
-			Test->TestTrue("The correct name is assigned to the root instance", NodeName == TEXT("Root"));
+			Test->TestTrue("The correct name is assigned to the root instance", NodeName == USMInstance::GetRootNodeNameDefault());
 		}
 		else
 		{
@@ -278,48 +293,28 @@ USMInstance* TestHelpers::CreateNewStateMachineInstanceFromBP(FAutomationTestBas
 		bool bHasReusedInstances = false;
 		// Total amount reused not including base instance.
 		int32 TotalReused = 0;
-		for(FSMStateMachine* SM : ReferencedStateMachines)
+		for (FSMStateMachine* SM : ReferencedStateMachines)
 		{
 			TotalReferences.Add(SM->GetInstanceReference());
 
 			int32& Count = ReferenceInstanceCount.FindOrAdd(SM->GetInstanceReference());
-			if(++Count > 1)
+			if (++Count > 1)
 			{
-				Test->TestTrue("Reused reference is correct", SM->bReuseReference);
 				bHasReusedInstances = true;
 				TotalReused++;
 			}
 		}
 		const TSet<USMInstance*> UniqueReferences(TotalReferences);
 
-		if(bHasReusedInstances)
-		{
-			Test->TestEqual("Reused unique reference count less than total count", UniqueReferences.Num(), TotalReferences.Num() - TotalReused);
+		Test->TestFalse("References can no longer be reused", bHasReusedInstances);
 
-			int32 TotalDupedNodes = 0;
-			for(auto& KeyVal : ReferenceInstanceCount)
-			{
-				if(KeyVal.Value == 1)
-				{
-					continue;
-				}
+		Test->TestEqual("References are not reused and unique", UniqueReferences.Num(), TotalReferences.Num());
 
-				const TArray<FSMNode_Base*> DupeNodes = KeyVal.Key->GetRootStateMachine().GetAllNodes(true);
-				TotalDupedNodes += DupeNodes.Num();
-			}
-
-			Test->TestEqual("Calculated node hashes matches node count", NodeMap.Num(), Nodes.Num() - TotalDupedNodes);
-		}
-		else
-		{
-			Test->TestEqual("References are not reused and unique", UniqueReferences.Num(), TotalReferences.Num());
-
-			TSet<FSMNode_Base*> UniqueNodes(Nodes);
-			Test->TestEqual("All nodes unique", UniqueNodes.Num(), Nodes.Num());
-			
-			// They should be the same less 1 because the root state machine used to initiate the search isn't counted.
-			Test->TestEqual("Calculated node hashes matches node count", NodeMap.Num(), Nodes.Num() + 1);
-		}
+		TSet<FSMNode_Base*> UniqueNodes(Nodes);
+		Test->TestEqual("All nodes unique", UniqueNodes.Num(), Nodes.Num());
+		
+		// They should be the same less 1 because the root state machine used to initiate the search isn't counted.
+		Test->TestEqual("Calculated node hashes matches node count", NodeMap.Num(), Nodes.Num() + 1);
 	}
 	
 	return StateMachineInstance;
@@ -343,6 +338,17 @@ FAssetHandler TestHelpers::ConstructNewStateMachineAsset()
 	const FString AssetName(FGuid::NewGuid().ToString());
 
 	return FAssetHandler(AssetName, USMBlueprint::StaticClass(), NewObject<USMBlueprintFactory>());
+}
+
+FAssetHandler TestHelpers::CreateAssetFromBlueprint(UBlueprint* InBlueprint)
+{
+	FString ReferencedPath = InBlueprint->GetPathName();
+	FAssetHandler ReferencedAsset(InBlueprint->GetName(), USMBlueprint::StaticClass(), NewObject<USMBlueprintFactory>(), &ReferencedPath);
+	ReferencedAsset.Object = InBlueprint;
+
+	UPackage* Package = FAssetData(InBlueprint).GetPackage();
+	ReferencedAsset.Package = Package;
+	return MoveTemp(ReferencedAsset);
 }
 
 bool TestHelpers::TryCreateNewStateMachineAsset(FAutomationTestBase* Test, FAssetHandler& NewAsset, bool Save)
@@ -397,14 +403,14 @@ bool TestHelpers::TryCreateNewNodeAsset(FAutomationTestBase* Test, FAssetHandler
 	Test->TestEqual("Construction nodes created", ConstructionNodes.Num(), 3); // Entry, parent call, execution environment.
 
 	int32 NodesChecked = 0;
-	for(UK2Node* Node : ConstructionNodes)
+	for (UK2Node* Node : ConstructionNodes)
 	{
-		if(UK2Node_FunctionEntry* EntryNode = Cast<UK2Node_FunctionEntry>(Node))
+		if (UK2Node_FunctionEntry* EntryNode = Cast<UK2Node_FunctionEntry>(Node))
 		{
 			NodesChecked++;
-			Test->TestEqual("Construction entry exists", EntryNode->FunctionReference.GetMemberName(), USMNodeInstance::GetConstructonScriptFunctionName());
+			Test->TestEqual("Construction entry exists", EntryNode->FunctionReference.GetMemberName(), USMNodeInstance::GetConstructionScriptFunctionName());
 		}
-		else if(UK2Node_CallParentFunction* Parent = Cast<UK2Node_CallParentFunction>(Node))
+		else if (UK2Node_CallParentFunction* Parent = Cast<UK2Node_CallParentFunction>(Node))
 		{
 			NodesChecked++;
 		}
@@ -430,7 +436,7 @@ bool TestHelpers::TryCreateNewNodeAsset(FAutomationTestBase* Test, FAssetHandler
 		Test->TestEqual("OnStateUpdate exists", StateNodes[1]->EventReference.GetMemberName(), GET_FUNCTION_NAME_CHECKED(USMStateInstance_Base, OnStateUpdate));
 		Test->TestEqual("OnStateEnd exists", StateNodes[2]->EventReference.GetMemberName(), GET_FUNCTION_NAME_CHECKED(USMStateInstance_Base, OnStateEnd));
 	}
-	else if(NodeBlueprint->ParentClass->IsChildOf<USMTransitionInstance>())
+	else if (NodeBlueprint->ParentClass->IsChildOf<USMTransitionInstance>())
 	{
 		TArray<UK2Node*> TransitionNodes;
 		FSMBlueprintEditorUtils::GetAllNodesOfClassNested<UK2Node>(NodeBlueprint->FunctionGraphs[1], TransitionNodes);
@@ -471,7 +477,7 @@ UK2Node_CallFunction* TestHelpers::CreateContextGetter(FAutomationTestBase* Test
 
 	Test->TestNotNull("Expected to find ContextOutPin", FoundPin);
 
-	if(FoundPin)
+	if (FoundPin)
 	{
 		*ContextOutPin = *FoundPin;
 	}
@@ -541,7 +547,7 @@ void TestHelpers::BuildLinearStateMachine(FAutomationTestBase* Test, USMGraph* S
 	// Choose start pin.
 	UEdGraphPin* FromPin = FromPinInOut && *FromPinInOut ? *FromPinInOut : StateMachineGraph->GetEntryNode()->GetOutputPin();
 
-	for(int32 i = 0; i < NumStates; ++i)
+	for (int32 i = 0; i < NumStates; ++i)
 	{
 		// Add a new node.
 		USMGraphNode_StateNode* StateNode = TestHelpers::CreateNewNode<USMGraphNode_StateNode>(Test, StateMachineGraph, FromPin);
@@ -555,7 +561,7 @@ void TestHelpers::BuildLinearStateMachine(FAutomationTestBase* Test, USMGraph* S
 		AddStateEndLogic(Test, StateNode);
 
 		// Make sure a transition can exist.
-		if(FromPin->GetOwningNode()->IsA<USMGraphNode_StateNodeBase>())
+		if (FromPin->GetOwningNode()->IsA<USMGraphNode_StateNodeBase>())
 		{
 			// Make the transition able to be taken.
 			USMGraphNode_TransitionEdge* Transition = CastChecked<USMGraphNode_TransitionEdge>(StateNode->GetInputPin()->LinkedTo[0]->GetOwningNode());
@@ -574,7 +580,7 @@ void TestHelpers::BuildLinearStateMachine(FAutomationTestBase* Test, USMGraph* S
 	}
 
 	// Most recent outgoing pin.
-	if(FromPinInOut)
+	if (FromPinInOut)
 	{
 		*FromPinInOut = FromPin;
 	}
@@ -619,6 +625,12 @@ void TestHelpers::BuildBranchingStateMachine(FAutomationTestBase* Test, USMGraph
 					SetNodeClass(Test, Transition, TransitionClass);
 
 					AddTransitionResultLogic(Test, Transition);
+
+					TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionInitializedNode>(Test, Transition,
+						USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionInit)));
+
+					TestHelpers::AddEventWithLogic<USMGraphK2Node_TransitionShutdownNode>(Test, Transition,
+						USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseTransitionShutdown)));
 
 					Transition->GetNodeTemplateAs<USMTransitionInstance>()->SetRunParallel(bRunParallel);
 					Transition->GetNodeTemplateAs<USMTransitionInstance>()->SetEvalIfNextStateActive(bEvalIfNextStateActive);
@@ -671,12 +683,82 @@ USMGraphNode_StateMachineStateNode* TestHelpers::BuildNestedStateMachine(FAutoma
 		*FromPinInOut = FromPin;
 	}
 
-	if(NestedPinOut)
+	if (NestedPinOut)
 	{
 		*NestedPinOut = LastNestedPin;
 	}
 	
 	return NestedStateMachineNode;
+}
+
+int32 TestHelpers::BuildStateMachineWithReferences(FAutomationTestBase* Test, USMGraph* StateMachineGraph, int32 NumStatesBeforeReferences, int32 NumStatesAfterReferences, int32 NumReferences, int32 NumNestedStates,
+	TArray<FAssetHandler>& OutCreatedReferenceAssets, TArray<USMGraphNode_StateMachineStateNode*>& OutNestedStateMachineNodes)
+{
+	OutCreatedReferenceAssets.Reserve(NumReferences);
+	OutNestedStateMachineNodes.Reserve(NumReferences);
+	
+	// Total states to test.
+	int32 TotalStates = 0;
+	int32 TotalTopLevelStates = 0;
+	UEdGraphPin* LastStatePin = nullptr;
+
+	// Build top level state machine.
+	{
+		const int32 CurrentStates = NumStatesBeforeReferences;
+		BuildLinearStateMachine(Test, StateMachineGraph, CurrentStates, &LastStatePin);
+
+		TotalStates += CurrentStates;
+		TotalTopLevelStates += CurrentStates;
+	}
+
+	// Build a nested state machine.
+	for (int32 Idx = 0; Idx < NumReferences; ++Idx)
+	{
+		UEdGraphPin* EntryPointForNestedStateMachine = LastStatePin;
+		USMGraphNode_StateMachineStateNode* NestedStateMachineNode = TestHelpers::CreateNewNode<USMGraphNode_StateMachineStateNode>(Test, StateMachineGraph, EntryPointForNestedStateMachine);
+
+		UEdGraphPin* LastNestedPin = nullptr;
+		{
+			const int32 CurrentStates = NumNestedStates;
+			BuildLinearStateMachine(Test, Cast<USMGraph>(NestedStateMachineNode->GetBoundGraph()), CurrentStates, &LastNestedPin, USMStateTestInstance::StaticClass(), USMTransitionTestInstance::StaticClass());
+			const FString ReferenceName = "Nested_State_Machine_For_Reference_" + FGuid::NewGuid().ToString();
+			NestedStateMachineNode->GetBoundGraph()->Rename(*ReferenceName);
+			LastStatePin = NestedStateMachineNode->GetOutputPin();
+
+			TotalStates += CurrentStates;
+			TotalTopLevelStates += 1;
+		}
+
+		// Add logic to the state machine transition.
+		USMGraphNode_TransitionEdge* TransitionToNestedStateMachine = CastChecked<USMGraphNode_TransitionEdge>(NestedStateMachineNode->GetInputPin()->LinkedTo[0]->GetOwningNode());
+		AddTransitionResultLogic(Test, TransitionToNestedStateMachine);
+
+		Test->TestTrue("Nested state machine has correct node count", NestedStateMachineNode->GetBoundGraph()->Nodes.Num() > 1);
+
+		// Now convert the state machine to a reference.
+		USMBlueprint* NewReferencedBlueprint = FSMBlueprintEditorUtils::ConvertStateMachineToReference(NestedStateMachineNode, false, nullptr, nullptr);
+		Test->TestNotNull("New referenced blueprint created", NewReferencedBlueprint);
+		Test->TestTrue("Nested state machine has had all nodes removed.", NestedStateMachineNode->GetBoundGraph()->Nodes.Num() == 1);
+
+		FKismetEditorUtilities::CompileBlueprint(NewReferencedBlueprint);
+
+		// Store handler information so we can delete the object.
+		FAssetHandler ReferencedAsset = CreateAssetFromBlueprint(NewReferencedBlueprint);
+
+		OutNestedStateMachineNodes.Add(NestedStateMachineNode);
+		OutCreatedReferenceAssets.Add(MoveTemp(ReferencedAsset));
+	}
+	
+	// Add more top level.
+	{
+		const int32 CurrentStates = NumStatesAfterReferences;
+		BuildLinearStateMachine(Test, StateMachineGraph, CurrentStates, &LastStatePin);
+
+		TotalStates += CurrentStates;
+		TotalTopLevelStates += CurrentStates;
+	}
+	
+	return TotalStates;
 }
 
 USMInstance* TestHelpers::TestLinearStateMachine(FAutomationTestBase* Test, USMBlueprint* Blueprint, int32 NumStates, bool bShutdownStateMachine)
@@ -703,7 +785,7 @@ USMInstance* TestHelpers::TestLinearStateMachine(FAutomationTestBase* Test, USMB
 	
 	StateMachineInstance->Start();
 	
-	for(int32 i = 0; i < NumStates; ++i)
+	for (int32 i = 0; i < NumStates; ++i)
 	{
 		const float DeltaTime = 1.f;
 		const bool bIsEndState = i == NumStates - 1;
@@ -737,6 +819,13 @@ USMInstance* TestHelpers::TestLinearStateMachine(FAutomationTestBase* Test, USMB
 			
 			if (USMTransitionTestInstance* TransitionInstance = Cast<USMTransitionTestInstance>(StateInstance->GetTransitionByIndex(0)))
 			{
+				Test->TestEqual("Transition root sm start hit", TransitionInstance->TransitionRootSMStartHit.Count, 1);
+
+				if (StateMachineInstance->IsActive())
+				{
+					Test->TestEqual("Transition root sm stop not hit", TransitionInstance->TransitionRootSMStopHit.Count, 0);
+				}
+				
 				Test->TestEqual("Transition initialized hit", TransitionInstance->TransitionInitializedHit.Count, 1);
 				Test->TestTrue("State initialize fired before transition initialized", StateInstance->StateInitializedEventHit.TimeStamp > 0.f &&
 					StateInstance->StateInitializedEventHit.TimeStamp < TransitionInstance->TransitionInitializedHit.TimeStamp);
@@ -752,14 +841,14 @@ USMInstance* TestHelpers::TestLinearStateMachine(FAutomationTestBase* Test, USMB
 		
 		// Test that the state won't change if it can't transition.
 		Context->bCanTransition = false;
-		Context->TestUpdateInt = 0;
+		Context->TestUpdateFromDeltaSecondsInt = 0;
 
 		CurrentTime = FDateTime::UtcNow();
 		StateMachineInstance->Update(DeltaTime);
 
 		Test->TestEqual("Test current state", StateMachineInstance->GetRootStateMachine().GetSingleActiveState()->GetGuid(), CurrentGuid);
 		Test->TestEqual("Context int should be unchanged", Context->GetEntryInt(), CurrentInt);
-		Test->TestEqual("Context update int should have increased", Context->GetUpdateInt(), (int32)DeltaTime);
+		Test->TestEqual("Context update int should have increased", Context->GetUpdateFromDeltaSecondsInt(), (int32)DeltaTime);
 
 		// Instance checks.
 		if (USMStateTestInstance* StateInstance = Cast<USMStateTestInstance>(NodeInstance))
@@ -835,6 +924,9 @@ USMInstance* TestHelpers::TestLinearStateMachine(FAutomationTestBase* Test, USMB
 					Test->TestEqual("Transition shutdown hit", TransitionInstance->TransitionShutdownHit.Count, 1);
 
 					Test->TestEqual("Transition taken event hit", TransitionInstance->TransitionEnteredEventHit.Count, 1);
+
+					Test->TestEqual("Transition root sm start hit", TransitionInstance->TransitionRootSMStartHit.Count, 1);
+					Test->TestEqual("Transition root sm stop hit", TransitionInstance->TransitionRootSMStopHit.Count, 1);
 				}
 			}
 		}
@@ -847,24 +939,31 @@ USMInstance* TestHelpers::TestLinearStateMachine(FAutomationTestBase* Test, USMB
 }
 
 USMInstance* TestHelpers::RunStateMachineToCompletion(FAutomationTestBase* Test, USMBlueprint* Blueprint,
-	int32& LogicEntryValueOut, int32& LogicUpdateValueOut, int32& LogicEndValueOut, int32 MaxIterations, bool bShutdownStateMachine, bool bTestCompletion, bool bCompile, int32* IterationsRan)
+	int32& LogicEntryValueOut, int32& LogicUpdateValueOut, int32& LogicEndValueOut, int32 MaxIterations,
+	bool bShutdownStateMachine, bool bTestCompletion, bool bCompile, int32* IterationsRan, USMInstance* UseInstance)
 {
 	if (bCompile)
 	{
+		check(UseInstance == nullptr);
 		FKismetEditorUtilities::CompileBlueprint(Blueprint);
 	}
 	
 	// Create a context we will run the state machine for.
 	USMTestContext* Context = NewObject<USMTestContext>();
-	USMInstance* StateMachineInstance = CreateNewStateMachineInstanceFromBP(Test, Blueprint, Context);
-
+	USMInstance* StateMachineInstance = UseInstance ? UseInstance : CreateNewStateMachineInstanceFromBP(Test, Blueprint, Context);
+	if (UseInstance)
+	{
+		StateMachineInstance->Initialize(Context);
+	}
+	StateMachineInstance->SetCanEverTick(false);
+	StateMachineInstance->SetAutoManageTime(false);
 	StateMachineInstance->Start();
 	Test->TestTrue("State Machine should have started", StateMachineInstance->IsActive());
 
 	// Run until an end state is reached or the max iterations is hit.
 	const float DeltaTime = 1.f;
 	int32 CurrentIterations = 0;
-	while(!StateMachineInstance->GetRootStateMachine().IsInEndState() && CurrentIterations < MaxIterations)
+	while (!StateMachineInstance->GetRootStateMachine().IsInEndState() && CurrentIterations < MaxIterations)
 	{
 		TArray<FSMState_Base*> ActiveStates = StateMachineInstance->GetRootStateMachine().GetActiveStates();
 
@@ -884,7 +983,7 @@ USMInstance* TestHelpers::RunStateMachineToCompletion(FAutomationTestBase* Test,
 		
 		StateMachineInstance->Update(DeltaTime);
 
-		if(CurrentIterations++ > MaxIterations)
+		if (CurrentIterations++ > MaxIterations)
 		{
 			break;
 		}
@@ -903,7 +1002,7 @@ USMInstance* TestHelpers::RunStateMachineToCompletion(FAutomationTestBase* Test,
 	}
 
 	LogicEntryValueOut = Context->GetEntryInt();
-	LogicUpdateValueOut = Context->GetUpdateInt();
+	LogicUpdateValueOut = Context->GetUpdateFromDeltaSecondsInt();
 	LogicEndValueOut = Context->GetEndInt();
 
 	if (IterationsRan)
@@ -924,6 +1023,7 @@ int32 TestHelpers::RunAllStateMachinesToCompletion(FAutomationTestBase* Test, US
 {
 	const float DeltaTime = 1.f;
 	int32 StatesHit = 0;
+	StateMachine = StateMachine ? StateMachine : &Instance->GetRootStateMachine();
 	TArray<FSMState_Base*> StatesRemaining = StateMachine->GetStates();
 
 	if (bBindEvents)
@@ -932,15 +1032,15 @@ int32 TestHelpers::RunAllStateMachinesToCompletion(FAutomationTestBase* Test, US
 		Instance->OnStateMachineStateChangedEvent.AddUniqueDynamic(Cast<USMTestContext>(Instance->GetContext()), &USMTestContext::OnStateChanged);
 	}
 	
-	if(!Instance->HasStarted())
+	if (!Instance->HasStarted())
 	{
 		Instance->Start();
 		Test->TestTrue("State Machine should have started", Instance->IsActive());
 	}
 	
-	while(!StateMachine->IsInEndState())
+	while (!StateMachine->IsInEndState())
 	{
-		if(ShouldAbortStateMachineRun(AbortAfterStatesHit, StatesHit))
+		if (ShouldAbortStateMachineRun(AbortAfterStatesHit, StatesHit))
 		{
 			return StatesHit;
 		}
@@ -958,7 +1058,7 @@ int32 TestHelpers::RunAllStateMachinesToCompletion(FAutomationTestBase* Test, US
 		Test->TestEqual("", Info.Guid, NestedActiveState->GetGuid());
 
 		// Test retrieving basic transition information.
-		for(FSMTransitionInfo& TransitionInfo : Info.OutgoingTransitions)
+		for (FSMTransitionInfo& TransitionInfo : Info.OutgoingTransitions)
 		{
 			FSMTransitionInfo FoundTransition;
 			Instance->TryGetTransitionInfo(TransitionInfo.Guid, FoundTransition, bSuccess);
@@ -975,6 +1075,11 @@ int32 TestHelpers::RunAllStateMachinesToCompletion(FAutomationTestBase* Test, US
 		{
 			FSMStateMachine* NestedStateMachine = (FSMStateMachine*)ActiveState;
 			StatesHit += RunAllStateMachinesToCompletion(Test, Instance, NestedStateMachine, AbortAfterStatesHit < 0 ? AbortAfterStatesHit : (AbortAfterStatesHit - StatesHit), CheckStatesHit, false);
+
+			USMStateMachineInstance* NestedNodeInstance = CastChecked<USMStateMachineInstance>(NestedStateMachine->GetOrCreateNodeInstance());
+			USMInstance* ReferencedInstance = NestedNodeInstance->GetStateMachineReference();
+			
+			Test->TestEqual("Reference assigned correctly", ReferencedInstance, NestedStateMachine->GetInstanceReference());
 		}
 		else
 		{
@@ -986,7 +1091,7 @@ int32 TestHelpers::RunAllStateMachinesToCompletion(FAutomationTestBase* Test, US
 		Instance->Update(DeltaTime);
 
 		// Won't get hit otherwise.
-		if(StateMachine->IsInEndState())
+		if (StateMachine->IsInEndState())
 		{
 			StatesRemaining.Remove(StateMachine->GetSingleActiveState());
 		}
@@ -1006,8 +1111,58 @@ int32 TestHelpers::RunAllStateMachinesToCompletion(FAutomationTestBase* Test, US
 		Instance->OnStateMachineTransitionTakenEvent.RemoveDynamic(Cast<USMTestContext>(Instance->GetContext()), &USMTestContext::OnTransitionTaken);
 		Instance->OnStateMachineStateChangedEvent.RemoveDynamic(Cast<USMTestContext>(Instance->GetContext()), &USMTestContext::OnStateChanged);
 	}
+
+	for (const TTuple<FGuid, FSMState_Base*>& Node : Instance->GetStateMap())
+	{
+		if (Node.Value->IsInitializedForRun())
+		{
+			Test->TestTrue("Node has not shutdown", Node.Value->IsActive());
+		}
+		else
+		{
+			Test->TestFalse("Nodes has shutdown", Node.Value->IsActive());
+		}
+	}
+
+	for (const TTuple<FGuid, FSMTransition*>& Node : Instance->GetTransitionMap())
+	{
+		if (Node.Value->GetFromState()->IsActive())
+		{
+			Test->TestTrue("Transition has not shutdown", Node.Value->IsInitializedForRun());
+		}
+		else
+		{
+			Test->TestFalse("Transition has shutdown", Node.Value->IsInitializedForRun());
+		}
+	}
 	
 	return StatesHit;
+}
+
+UK2Node_CallFunction* TestHelpers::AddGenericContextLogicToExecutionEntry(FAutomationTestBase* Test,
+	USMGraphK2Node_RuntimeNode_Base* ExecutionEntry, const FName& ContextFunctionName)
+{
+	UEdGraph* Graph = ExecutionEntry->GetGraph();
+	const UEdGraphSchema_K2* GraphSchema = CastChecked<UEdGraphSchema_K2>(Graph->GetSchema());
+	
+	// Add a get context node.
+	UEdGraphPin* ContextOutPin = nullptr;
+	UK2Node_CallFunction* GetContextNode = CreateContextGetter(Test, Graph, &ContextOutPin);
+
+	// Add a call to execute logic on the context.
+	UK2Node_CallFunction* ExecuteNode = CreateFunctionCall(Graph, USMTestContext::StaticClass()->FindFunctionByName(ContextFunctionName));
+
+	// The logic self pin (make this function a method).
+	UEdGraphPin* LogicSelfPin = ExecuteNode->FindPin(TEXT("self"), EGPD_Input);
+	Test->TestNotNull("Expected to find ExecuteTargetPin", LogicSelfPin);
+
+	// Convert the context 'object' type out to our context type.
+	UK2Node_DynamicCast* CastNode = CreateAndLinkPureCastNode(Test, Graph, ContextOutPin, LogicSelfPin);
+
+	// Now connect entry exec out pin to the logic exec in pin.
+	Test->TestTrue("Tried to make connection from entry node to logic execute node", GraphSchema->TryCreateConnection(ExecutionEntry->GetOutputPin(), ExecuteNode->GetExecPin()));
+
+	return ExecuteNode;
 }
 
 void TestHelpers::AddStateEntryLogic(FAutomationTestBase* Test, USMGraphNode_StateNode* StateNode)
@@ -1022,24 +1177,9 @@ void TestHelpers::AddStateEntryLogic(FAutomationTestBase* Test, USMGraphNode_Sta
 	{
 		OldEntryToPin = Entry->Pins[0]->LinkedTo[0];
 	}
+
+	UK2Node_CallFunction* ExecuteNode = AddGenericContextLogicToExecutionEntry(Test, Entry, GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseEntryInt));
 	
-	// Add a get context node.
-	UEdGraphPin* ContextOutPin = nullptr;
-	UK2Node_CallFunction* GetContextNode = CreateContextGetter(Test, Graph, &ContextOutPin);
-
-	// Add a call to execute logic on the context.
-	UK2Node_CallFunction* ExecuteNode = CreateFunctionCall(Graph, USMTestContext::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(USMTestContext, IncreaseEntryInt)));
-
-	// The logic self pin (make this function a method).
-	UEdGraphPin* LogicSelfPin = ExecuteNode->FindPin(TEXT("self"), EGPD_Input);
-	Test->TestNotNull("Expected to find ExecuteTargetPin", LogicSelfPin);
-
-	// Convert the context 'object' type out to our context type.
-	UK2Node_DynamicCast* CastNode = CreateAndLinkPureCastNode(Test, Graph, ContextOutPin, LogicSelfPin);
-
-	// Now connect entry exec out pin to the logic exec in pin.
-	Test->TestTrue("Tried to make connection from entry node to logic execute node", GraphSchema->TryCreateConnection(Entry->GetOutputPin(), ExecuteNode->GetExecPin()));
-
 	// Wire any old logic after our function pin.
 	if (OldEntryToPin)
 	{
@@ -1070,7 +1210,7 @@ void TestHelpers::AddStateUpdateLogic(FAutomationTestBase* Test, USMGraphNode_St
 	// Find the update node's float output.
 	UEdGraphPin** FloatOutputPin = UpdateNode->Pins.FindByPredicate([&](UEdGraphPin* Pin)
 	{
-		return Pin->Direction == EGPD_Output && Pin->PinType.PinCategory == UEdGraphSchema_K2::PC_Float;
+		return Pin->Direction == EGPD_Output && Pin->PinType.PinCategory == UEdGraphSchema_K2::PC_Real;
 	});
 	check(FloatOutputPin);
 
@@ -1084,7 +1224,7 @@ void TestHelpers::AddStateUpdateLogic(FAutomationTestBase* Test, USMGraphNode_St
 	// Find the float input pin of the execute node.
 	UEdGraphPin** FloatInputPin = ExecuteNode->Pins.FindByPredicate([&](UEdGraphPin* Pin)
 	{
-		return Pin->Direction == EGPD_Input && Pin->PinType.PinCategory == UEdGraphSchema_K2::PC_Float;
+		return Pin->Direction == EGPD_Input && Pin->PinType.PinCategory == UEdGraphSchema_K2::PC_Real;
 	});
 	check(FloatInputPin);
 
@@ -1206,6 +1346,39 @@ void TestHelpers::TestSetTemplate(FAutomationTestBase* Test, USMInstance* Templa
 	Test->TestTrue("Template has string property created.", bStringDefaultValueVerified);
 }
 
+TSet<UEdGraphNode*> TestHelpers::DuplicateNodes(const TArray<UEdGraphNode*>& InNodes)
+{
+	UEdGraph* GraphToUse = nullptr;
+	TSet<UObject*> NodesToCopy;
+	NodesToCopy.Reserve(InNodes.Num());
+	for (UObject* Object : InNodes)
+	{
+		if (UEdGraphNode* Node = Cast<UEdGraphNode>(Object))
+		{
+			if (Node->CanDuplicateNode())
+			{
+				if (GraphToUse)
+				{
+					check(GraphToUse == Node->GetGraph())
+				}
+				GraphToUse = Node->GetGraph();
+				Node->PrepareForCopying();
+
+				NodesToCopy.Add(Node);
+			}
+		}
+	}
+
+	check(GraphToUse);
+	
+	FString ExportedText;
+	FEdGraphUtilities::ExportNodesToText(NodesToCopy, /*out*/ ExportedText);
+
+	TSet<UEdGraphNode*> OutNodes;
+	FEdGraphUtilities::ImportNodesFromText(GraphToUse, ExportedText, OutNodes);
+	return OutNodes;
+}
+
 void TestHelpers::SetNodeClass(FAutomationTestBase* Test, USMGraphNode_Base* Node, TSubclassOf<USMNodeInstance> Class)
 {
 	Node->SetNodeClass(Class);
@@ -1223,7 +1396,7 @@ void TestHelpers::SetNodeClass(FAutomationTestBase* Test, USMGraphNode_Base* Nod
 			}
 		}
 		
-		if(FSMNodeInstanceUtils::IsPropertyExposedToGraphNode(*It))
+		if (FSMNodeInstanceUtils::IsPropertyExposedToGraphNode(*It))
 		{
 			ExposedProperties.Add(*It);
 		}

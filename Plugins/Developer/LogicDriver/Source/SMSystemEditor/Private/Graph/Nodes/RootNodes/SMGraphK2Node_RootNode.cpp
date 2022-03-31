@@ -1,6 +1,6 @@
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
+
 #include "SMGraphK2Node_RootNode.h"
-#include "K2Node_Composite.h"
-#include "EdGraph/EdGraph.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "Configuration/SMEditorStyle.h"
 

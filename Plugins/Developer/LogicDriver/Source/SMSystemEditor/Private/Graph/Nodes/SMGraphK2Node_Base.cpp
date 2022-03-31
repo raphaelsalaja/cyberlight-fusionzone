@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_Base.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
@@ -74,7 +74,6 @@ UEdGraphNode* USMGraphK2Node_Base::GetOutputNode() const
 
 	if (OutputPin)
 	{
-		check(OutputPin->LinkedTo.Num() <= 1);
 		if (OutputPin->LinkedTo.Num() > 0 && OutputPin->LinkedTo[INDEX_PIN_INPUT]->GetOwningNode() != nullptr)
 		{
 			return OutputPin->LinkedTo[INDEX_PIN_INPUT]->GetOwningNode();
@@ -86,7 +85,15 @@ UEdGraphNode* USMGraphK2Node_Base::GetOutputNode() const
 
 UEdGraphPin* USMGraphK2Node_Base::GetThenPin() const
 {
-	return FindPin(UEdGraphSchema_K2::PN_Then);
+	if (UEdGraphPin* ThenPin = FindPin(UEdGraphSchema_K2::PN_Then))
+	{
+		return ThenPin;
+	}
+
+	// Old pre 2.1 pins.
+	UEdGraphPin* OutputPin = GetOutputPin();
+	check(OutputPin);
+	return OutputPin;
 }
 
 #undef LOCTEXT_NAMESPACE

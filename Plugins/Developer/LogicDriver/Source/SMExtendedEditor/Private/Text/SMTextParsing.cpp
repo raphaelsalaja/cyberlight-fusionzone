@@ -1,12 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTextParsing.h"
+#include "SMRunTypes.h"
+
+#include "Utilities/SMBlueprintEditorUtils.h"
+
 #include "Framework/Text/RichTextMarkupProcessing.h"
 #include "Framework/Text/IRichTextMarkupWriter.h"
 #include "Kismet2/Kismet2NameValidators.h"
-#include "SMRunTypes.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-
 
 SMTextParser::FParserResults SMTextParser::ConvertToRichText(const FText& InText, UBlueprint* InBlueprint, TMap<FName, FGuid>* ExistingVariables, TMap<FName, FGuid>* ExistingFunctions)
 {
@@ -19,18 +20,18 @@ SMTextParser::FParserResults SMTextParser::ConvertToRichText(const FText& InText
 	FString OutRichString;
 	FString CurrentNameAsStr;
 	int32 OpeningBracket = -1;
-	for(int32 i = 0; i < AsString.Len(); i++)
+	for (int32 i = 0; i < AsString.Len(); i++)
 	{
 		const TCHAR& CurrentChar = AsString[i];
 
 		// Start of variable. The key ` should prevent this from being parsed according to UE4 spec.
-		if(CurrentChar == '{' && !(i > 0 && AsString[i - 1] == '`'))
+		if (CurrentChar == '{' && !(i > 0 && AsString[i - 1] == '`'))
 		{
 			CurrentNameAsStr.Empty();
 			OpeningBracket = i;
 		}
 		// Looking for variable
-		else if(OpeningBracket >= 0)
+		else if (OpeningBracket >= 0)
 		{
 			// End of variable
 			if (CurrentChar == '}')
@@ -40,7 +41,7 @@ SMTextParser::FParserResults SMTextParser::ConvertToRichText(const FText& InText
 				const FName CurrentName = FName(*CurrentNameAsStr);
 				FString FinalNameAsStr = CurrentNameAsStr;
 
-				if(UFunction* Function = FindFunction(CurrentName, InBlueprint, ExistingFunctions))
+				if (UFunction* Function = FindFunction(CurrentName, InBlueprint, ExistingFunctions))
 				{
 					RunInfo = FRunTypeUtils::CreateFunctionRunInfo(Function);
 					FinalNameAsStr = Function->GetName();
@@ -136,14 +137,14 @@ bool SMTextParser::FindVariable(const FName& VarName, UBlueprint* InBlueprint, T
 UFunction* SMTextParser::FindFunction(const FName& Name, UBlueprint* InBlueprint, TMap<FName, FGuid>* ExistingFunctions)
 {
 	// Look for an existing function which may have been renamed.
-	if(ExistingFunctions != nullptr)
+	if (ExistingFunctions != nullptr)
 	{
-		if(FGuid* ExistingGuid = ExistingFunctions->Find(Name))
+		if (FGuid* ExistingGuid = ExistingFunctions->Find(Name))
 		{
 			const FName FunctionName = InBlueprint->GetFunctionNameFromClassByGuid(InBlueprint->SkeletonGeneratedClass, *ExistingGuid);
-			if(!FunctionName.IsNone())
+			if (!FunctionName.IsNone())
 			{
-				if(UFunction* Function = FindUField<UFunction>(InBlueprint->SkeletonGeneratedClass, FunctionName))
+				if (UFunction* Function = FindUField<UFunction>(InBlueprint->SkeletonGeneratedClass, FunctionName))
 				{
 					return Function;
 				}
@@ -152,7 +153,7 @@ UFunction* SMTextParser::FindFunction(const FName& Name, UBlueprint* InBlueprint
 	}
 	
 	UFunction* Function = FindUField<UFunction>(InBlueprint->SkeletonGeneratedClass, Name);
-	if(!Function)
+	if (!Function)
 	{
 		Function = FMemberReference::FindRemappedField<UFunction>(InBlueprint->GeneratedClass, Name);
 	}

@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystem/Public/Nodes/States/SMStateMachine.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMStateMachine() {}
 // Cross Module References
@@ -17,8 +13,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachine() {}
 	UPackage* Z_Construct_UPackage__Script_SMSystem();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMState_Base();
 	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMExposedFunctionHandler();
-	SMSYSTEM_API UScriptStruct* Z_Construct_UScriptStruct_FSMNetworkedTransaction();
-	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FGuid();
+	SMSYSTEM_API UClass* Z_Construct_UClass_USMStateMachineNetworkedInterface_NoRegister();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UObject_NoRegister();
 	SMSYSTEM_API UClass* Z_Construct_UClass_USMInstance_NoRegister();
@@ -26,28 +21,19 @@ void EmptyLinkFunctionForGeneratedCodeSMStateMachine() {}
 
 static_assert(std::is_polymorphic<FSMStateMachine>() == std::is_polymorphic<FSMState_Base>(), "USTRUCT FSMStateMachine cannot be polymorphic unless super FSMState_Base is polymorphic");
 
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMStateMachine;
 class UScriptStruct* FSMStateMachine::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMStateMachine.OuterSingleton)
 	{
-		extern SMSYSTEM_API uint32 Get_Z_Construct_UScriptStruct_FSMStateMachine_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMStateMachine, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMStateMachine"), sizeof(FSMStateMachine), Get_Z_Construct_UScriptStruct_FSMStateMachine_Hash());
+		Z_Registration_Info_UScriptStruct_SMStateMachine.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMStateMachine, Z_Construct_UPackage__Script_SMSystem(), TEXT("SMStateMachine"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMStateMachine.OuterSingleton;
 }
 template<> SMSYSTEM_API UScriptStruct* StaticStruct<FSMStateMachine>()
 {
 	return FSMStateMachine::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMStateMachine(FSMStateMachine::StaticStruct, TEXT("/Script/SMSystem"), TEXT("SMStateMachine"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
-{
-	FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMStateMachine")),new UScriptStruct::TCppStructOps<FSMStateMachine>);
-	}
-} ScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine;
 	struct Z_Construct_UScriptStruct_FSMStateMachine_Statics
 	{
 #if WITH_METADATA
@@ -80,15 +66,15 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 		static void NewProp_bCallReferenceTickOnManualUpdate_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_bCallReferenceTickOnManualUpdate;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_bReuseReference_MetaData[];
-#endif
-		static void NewProp_bReuseReference_SetBit(void* Obj);
-		static const UECodeGen_Private::FBoolPropertyParams NewProp_bReuseReference;
-#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bWaitForEndState_MetaData[];
 #endif
 		static void NewProp_bWaitForEndState_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_bWaitForEndState;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_BeginStateGraphEvaluator_Inner;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_BeginStateGraphEvaluator_MetaData[];
+#endif
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_BeginStateGraphEvaluator;
 		static const UECodeGen_Private::FStructPropertyParams NewProp_UpdateStateGraphEvaluator_Inner;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_UpdateStateGraphEvaluator_MetaData[];
@@ -99,12 +85,10 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_EndStateGraphEvaluator_MetaData[];
 #endif
 		static const UECodeGen_Private::FArrayPropertyParams NewProp_EndStateGraphEvaluator;
-		static const UECodeGen_Private::FStructPropertyParams NewProp_PreviousTransactions_ValueProp;
-		static const UECodeGen_Private::FStructPropertyParams NewProp_PreviousTransactions_Key_KeyProp;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_PreviousTransactions_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_NetworkedInterface_MetaData[];
 #endif
-		static const UECodeGen_Private::FMapPropertyParams NewProp_PreviousTransactions;
+		static const UECodeGen_Private::FInterfacePropertyParams NewProp_NetworkedInterface;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_ReferencedStateMachineClass_MetaData[];
 #endif
@@ -113,6 +97,10 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_ReferencedTemplateName_MetaData[];
 #endif
 		static const UECodeGen_Private::FNamePropertyParams NewProp_ReferencedTemplateName;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_DynamicStateMachineReferenceVariable_MetaData[];
+#endif
+		static const UECodeGen_Private::FNamePropertyParams NewProp_DynamicStateMachineReferenceVariable;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_ReferencedStateMachine_MetaData[];
 #endif
@@ -148,7 +136,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 	{
 		((FSMStateMachine*)Obj)->bHasAdditionalLogic = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bHasAdditionalLogic = { "bHasAdditionalLogic", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bHasAdditionalLogic_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bHasAdditionalLogic_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bHasAdditionalLogic_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bHasAdditionalLogic = { "bHasAdditionalLogic", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bHasAdditionalLogic_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bHasAdditionalLogic_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bHasAdditionalLogic_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState_MetaData[] = {
 		{ "Comment", "/** The current state is not cleared on end and will be resumed on start. */" },
@@ -160,7 +148,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 	{
 		((FSMStateMachine*)Obj)->bReuseCurrentState = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState = { "bReuseCurrentState", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState = { "bReuseCurrentState", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseCurrentState_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState_MetaData[] = {
 		{ "Comment", "/** Don't reuse if the state machine is in an end state. */" },
@@ -172,7 +160,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 	{
 		((FSMStateMachine*)Obj)->bOnlyReuseIfNotEndState = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState = { "bOnlyReuseIfNotEndState", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState = { "bOnlyReuseIfNotEndState", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick_MetaData[] = {
 		{ "Comment", "/** Allows the state machine reference to tick on its own. */" },
@@ -184,7 +172,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 	{
 		((FSMStateMachine*)Obj)->bAllowIndependentTick = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick = { "bAllowIndependentTick", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick = { "bAllowIndependentTick", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate_MetaData[] = {
 		{ "Comment", "/** Notifies instance to call tick on manual update. Only valid for references. */" },
@@ -196,19 +184,7 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 	{
 		((FSMStateMachine*)Obj)->bCallReferenceTickOnManualUpdate = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate = { "bCallReferenceTickOnManualUpdate", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate_MetaData)) };
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseReference_MetaData[] = {
-		{ "Comment", "/** The reference will only be instantiated once and reused. */" },
-		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachine.h" },
-		{ "ToolTip", "The reference will only be instantiated once and reused." },
-	};
-#endif
-	void Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseReference_SetBit(void* Obj)
-	{
-		((FSMStateMachine*)Obj)->bReuseReference = 1;
-	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseReference = { "bReuseReference", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseReference_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseReference_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseReference_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate = { "bCallReferenceTickOnManualUpdate", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState_MetaData[] = {
 		{ "Comment", "/** Wait for an end state to be hit before evaluating transitions or being considered an end state itself. */" },
@@ -220,31 +196,34 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 	{
 		((FSMStateMachine*)Obj)->bWaitForEndState = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState = { "bWaitForEndState", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator_Inner = { "UpdateStateGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState = { "bWaitForEndState", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Bool , RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(uint8), sizeof(FSMStateMachine), &Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_BeginStateGraphEvaluator_Inner = { "BeginStateGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_BeginStateGraphEvaluator_MetaData[] = {
+		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachine.h" },
+	};
+#endif
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_BeginStateGraphEvaluator = { "BeginStateGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, BeginStateGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_BeginStateGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_BeginStateGraphEvaluator_MetaData)) }; // 163563912
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator_Inner = { "UpdateStateGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachine.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator = { "UpdateStateGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, UpdateStateGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator_Inner = { "EndStateGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator = { "UpdateStateGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, UpdateStateGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator_MetaData)) }; // 163563912
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator_Inner = { "EndStateGraphEvaluator", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FSMExposedFunctionHandler, METADATA_PARAMS(nullptr, 0) }; // 163563912
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachine.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator = { "EndStateGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, EndStateGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions_ValueProp = { "PreviousTransactions", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 1, Z_Construct_UScriptStruct_FSMNetworkedTransaction, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions_Key_KeyProp = { "PreviousTransactions_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator = { "EndStateGraphEvaluator", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, EndStateGraphEvaluator), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator_MetaData)) }; // 163563912
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions_MetaData[] = {
-		{ "Comment", "/* The transaction ID mapped to the transaction. */" },
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_NetworkedInterface_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachine.h" },
-		{ "ToolTip", "The transaction ID mapped to the transaction." },
 	};
 #endif
-	const UECodeGen_Private::FMapPropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions = { "PreviousTransactions", nullptr, (EPropertyFlags)0x0040000000002000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, PreviousTransactions), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions_MetaData)) };
+	const UECodeGen_Private::FInterfacePropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_NetworkedInterface = { "NetworkedInterface", nullptr, (EPropertyFlags)0x0044000000000000, UECodeGen_Private::EPropertyGenFlags::Interface, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, NetworkedInterface), Z_Construct_UClass_USMStateMachineNetworkedInterface_NoRegister, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_NetworkedInterface_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_NetworkedInterface_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_ReferencedStateMachineClass_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachine.h" },
@@ -259,6 +238,14 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 	};
 #endif
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_ReferencedTemplateName = { "ReferencedTemplateName", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, ReferencedTemplateName), METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_ReferencedTemplateName_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_ReferencedTemplateName_MetaData)) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_DynamicStateMachineReferenceVariable_MetaData[] = {
+		{ "Comment", "/** The name of a variable stored on the owning SMInstance that should be used to find the class for this reference. */" },
+		{ "ModuleRelativePath", "Public/Nodes/States/SMStateMachine.h" },
+		{ "ToolTip", "The name of a variable stored on the owning SMInstance that should be used to find the class for this reference." },
+	};
+#endif
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_DynamicStateMachineReferenceVariable = { "DynamicStateMachineReferenceVariable", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMStateMachine, DynamicStateMachineReferenceVariable), METADATA_PARAMS(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_DynamicStateMachineReferenceVariable_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_DynamicStateMachineReferenceVariable_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_ReferencedStateMachine_MetaData[] = {
 		{ "Comment", "/** This state machine is referencing an instance. */" },
@@ -281,17 +268,17 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bOnlyReuseIfNotEndState,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bAllowIndependentTick,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bCallReferenceTickOnManualUpdate,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bReuseReference,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_bWaitForEndState,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_BeginStateGraphEvaluator_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_BeginStateGraphEvaluator,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_UpdateStateGraphEvaluator,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_EndStateGraphEvaluator,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions_ValueProp,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions_Key_KeyProp,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_PreviousTransactions,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_NetworkedInterface,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_ReferencedStateMachineClass,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_ReferencedTemplateName,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_DynamicStateMachineReferenceVariable,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_ReferencedStateMachine,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewProp_IsReferencedByInstance,
 	};
@@ -310,21 +297,21 @@ static struct FScriptStruct_SMSystem_StaticRegisterNativesFSMStateMachine
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FSMStateMachine()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMStateMachine_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystem();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMStateMachine"), sizeof(FSMStateMachine), Get_Z_Construct_UScriptStruct_FSMStateMachine_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMStateMachine.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMStateMachine_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMStateMachine.InnerSingleton, Z_Construct_UScriptStruct_FSMStateMachine_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMStateMachine.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMStateMachine_Hash() { return 885904700U; }
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h_Statics
+	{
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
+	};
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h_Statics::ScriptStructInfo[] = {
+		{ FSMStateMachine::StaticStruct, Z_Construct_UScriptStruct_FSMStateMachine_Statics::NewStructOps, TEXT("SMStateMachine"), &Z_Registration_Info_UScriptStruct_SMStateMachine, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMStateMachine), 1118833463U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h_3565794662(TEXT("/Script/SMSystem"),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystem_Public_Nodes_States_SMStateMachine_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

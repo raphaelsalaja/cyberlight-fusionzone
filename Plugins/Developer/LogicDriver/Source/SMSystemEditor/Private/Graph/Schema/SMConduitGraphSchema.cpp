@@ -1,13 +1,13 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMConduitGraphSchema.h"
-#include "Kismet2/BlueprintEditorUtils.h"
 #include "Graph/Nodes/SMGraphNode_StateNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/SMGraphNode_ConduitNode.h"
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_ConduitResultNode.h"
 #include "Graph/SMConduitGraph.h"
 
+#include "Kismet2/BlueprintEditorUtils.h"
 
 #define LOCTEXT_NAMESPACE "SMConduitGraphSchema"
 

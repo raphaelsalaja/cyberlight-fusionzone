@@ -1,8 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SGraphPin_ActorSoftReferencePin.h"
 #include "Graph/Nodes/PropertyNodes/SMGraphK2Node_PropertyNode.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
+#include "SGraphPin_SMDefaults.h"
 
 #include "Editor.h"
 #include "EngineUtils.h"
@@ -11,19 +12,6 @@
 #include "Engine/Selection.h"
 
 #define LOCTEXT_NAMESPACE "SMActorSoftReferencePin"
-
-// Active Combo pin alpha
-constexpr float ActiveComboAlpha = 1.f;
-// InActive Combo pin alpha
-constexpr float InActiveComboAlpha = 0.6f;
-// Active foreground pin alpha
-constexpr float ActivePinForegroundAlpha = 1.f;
-// InActive foreground pin alpha
-constexpr float InactivePinForegroundAlpha = 0.15f;
-// Active background pin alpha
-constexpr float ActivePinBackgroundAlpha = 0.8f;
-// InActive background pin alpha
-constexpr float InactivePinBackgroundAlpha = 0.4f;
 
 TSharedPtr<SGraphPin> FSMActorSoftReferencePinFactory::CreatePin(UEdGraphPin* InPin) const
 {
@@ -39,7 +27,7 @@ TSharedPtr<SGraphPin> FSMActorSoftReferencePinFactory::CreatePin(UEdGraphPin* In
 	}
 
 	if (!OwningNode->IsA<USMGraphK2Node_PropertyNode_Base>() &&
-		FSMBlueprintEditorUtils::GetEditorSettings()->OverrideActorSoftReferencePins != ESMPinOverride::AllBlueprints)
+		FSMBlueprintEditorUtils::GetProjectEditorSettings()->OverrideActorSoftReferencePins != ESMPinOverride::AllBlueprints)
 	{
 		// User has opted not to override generic soft actor reference pins.
 		return nullptr;
@@ -93,7 +81,7 @@ TSharedRef<SWidget> SGraphPin_ActorSoftReferencePin::GetDefaultValueWidget()
 
 	if (Schema->ShouldShowAssetPickerForPin(GraphPinObj))
 	{
-		TSharedRef<SWidget> ActorPicker =
+		const TSharedRef<SWidget> ActorPicker =
 			PropertyCustomizationHelpers::MakeInteractiveActorPicker(
 				FOnGetAllowedClasses::CreateSP(
 					this, &SGraphPin_ActorSoftReferencePin::OnGetAllowedClasses),
@@ -105,9 +93,9 @@ TSharedRef<SWidget> SGraphPin_ActorSoftReferencePin::GetDefaultValueWidget()
 		return SNew(SHorizontalBox)
 			.Visibility(this, &SGraphPin::GetDefaultValueVisibility)
 			+ SHorizontalBox::Slot()
-			  .AutoWidth()
-			  .Padding(2, 0)
-			  .MaxWidth(200.0f)
+			.AutoWidth()
+			.Padding(2, 0)
+			.MaxWidth(200.0f)
 			[
 				SAssignNew(AssetPickerAnchor, SComboButton)
 				.ButtonStyle(FEditorStyle::Get(), "PropertyEditor.AssetComboStyle")
@@ -127,10 +115,17 @@ TSharedRef<SWidget> SGraphPin_ActorSoftReferencePin::GetDefaultValueWidget()
 				]
 				.OnGetMenuContent(this, &SGraphPin_ActorSoftReferencePin::OnGetMenuContent)
 			]
+			+SHorizontalBox::Slot()
+			.Padding(2.0f, 0.0f)
+			.AutoWidth()
+			.VAlign(VAlign_Center)
+			[
+				PropertyCustomizationHelpers::MakeBrowseButton(FSimpleDelegate::CreateSP(this, &SGraphPin_ActorSoftReferencePin::OnBrowseToSelected))
+			]
 			+ SHorizontalBox::Slot()
-			  .Padding(2.0f, 0.0f)
-			  .AutoWidth()
-			  .VAlign(VAlign_Center)
+			.Padding(2.0f, 0.0f)
+			.AutoWidth()
+			.VAlign(VAlign_Center)
 			[
 				ActorPicker
 			];
@@ -188,14 +183,6 @@ FSlateColor SGraphPin_ActorSoftReferencePin::OnGetComboForeground() const
 	return FSlateColor(FLinearColor(1.f, 1.f, 1.f, Alpha));
 }
 
-FSlateColor SGraphPin_ActorSoftReferencePin::OnGetWidgetForeground() const
-{
-	const float Alpha = (IsHovered() || bOnlyShowDefaultValue)
-		                    ? ActivePinForegroundAlpha
-		                    : InactivePinForegroundAlpha;
-	return FSlateColor(FLinearColor(1.f, 1.f, 1.f, Alpha));
-}
-
 FSlateColor SGraphPin_ActorSoftReferencePin::OnGetWidgetBackground() const
 {
 	const float Alpha = (IsHovered() || bOnlyShowDefaultValue)
@@ -249,6 +236,41 @@ void SGraphPin_ActorSoftReferencePin::OnActorSelected(AActor* InActor)
 		const FScopedTransaction Transaction(NSLOCTEXT("ActorSoftReferencePin", "ChangePinValue", "Select Soft Reference"));
 		GraphPinObj->Modify();
 		GraphPinObj->GetSchema()->TrySetDefaultValue(*GraphPinObj, InActor->GetPathName());
+	}
+}
+
+void SGraphPin_ActorSoftReferencePin::OnBrowseToSelected()
+{
+	if (!GraphPinObj || GraphPinObj->IsPendingKill())
+	{
+		return;
+	}
+
+	bool bBrowseToClass = false;
+	if (AActor* Actor = GetActorFromAssetData())
+	{
+		GEditor->SelectNone(true, true, false);
+		GEditor->SelectActor(Actor, true, true);
+		GEditor->MoveViewportCamerasToActor(*Actor, true);
+	}
+	else
+	{
+		bBrowseToClass = true;
+	}
+
+	if (bBrowseToClass)
+	{
+		const FAssetData& CurrentAssetData = GetAssetData(true);
+		if (const UClass* Class = CurrentAssetData.GetClass())
+		{
+			UBlueprint* Blueprint = Cast<UBlueprint>(Class->ClassGeneratedBy);
+			if (ensure(Blueprint))
+			{
+				TArray<UObject*> SyncObjects;
+				SyncObjects.Add(Blueprint);
+				GEditor->SyncBrowserToObjects(SyncObjects);
+			}
+		}
 	}
 }
 
@@ -320,6 +342,28 @@ const FAssetData& SGraphPin_ActorSoftReferencePin::GetAssetData(bool bRuntimePat
 	}
 
 	return CachedAssetData;
+}
+
+AActor* SGraphPin_ActorSoftReferencePin::GetActorFromAssetData() const
+{
+	const FAssetData& CurrentAssetData = GetAssetData(true);
+	AActor* Actor = nullptr;
+	if (CurrentAssetData.IsValid())
+	{
+		UWorld* World = GEditor->GetEditorWorldContext().World();
+		for (TActorIterator<AActor> ActorItr(World); ActorItr; ++ActorItr)
+		{
+			FString ActorName = *ActorItr->GetPathName();
+			FString AssetName = CurrentAssetData.ObjectPath.ToString();
+			if (ActorName == AssetName)
+			{
+				Actor = *ActorItr;
+				break;
+			}
+		}
+	}
+
+	return Actor;
 }
 
 #undef LOCTEXT_NAMESPACE

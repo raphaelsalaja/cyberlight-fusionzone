@@ -1,12 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
-#include "Blueprints/SMBlueprint.h"
 #include "SMTestHelpers.h"
+#include "Helpers/SMTestBoilerplate.h"
+
 #include "Blueprints/SMBlueprintFactory.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "SMTestContext.h"
-#include "EdGraph/EdGraph.h"
-#include "Kismet2/KismetEditorUtilities.h"
 #include "Graph/SMGraph.h"
 #include "Graph/SMTextPropertyGraph.h"
 #include "Graph/Nodes/SMGraphK2Node_StateMachineNode.h"
@@ -17,6 +16,10 @@
 #include "Graph/Nodes/Helpers/SMGraphK2Node_StateReadNodes.h"
 #include "Graph/Nodes/PropertyNodes/SMGraphK2Node_TextPropertyNode.h"
 
+#include "Blueprints/SMBlueprint.h"
+
+#include "EdGraph/EdGraph.h"
+#include "Kismet2/KismetEditorUtilities.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -25,27 +28,12 @@
 /**
  * Collapse states down to a nested state machine.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCollapseStateMachineTest, "SMTests.CollapseStateMachine", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCollapseStateMachineTest, "LogicDriver.Commands.CollapseStateMachine", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FCollapseStateMachineTest::RunTest(const FString& Parameters)
+bool FCollapseStateMachineTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 5;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(5)
 
 	UEdGraphPin* LastStatePin = nullptr;
 
@@ -102,192 +90,14 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCollapseStateMachineTest, "SMTests.CollapseSta
 }
 
 /**
- * Assemble a hierarchical state machine and convert the nested state machine to a reference, then run and wait for the referenced state machine to finish.
- */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReferenceStateMachineTest, "SMTests.ReferenceStateMachine", EAutomationTestFlags::ApplicationContextMask |
-	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
-
-	bool FReferenceStateMachineTest::RunTest(const FString& Parameters)
-{
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-	
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 0;
-	int32 TotalTopLevelStates = 0;
-	UEdGraphPin* LastStatePin = nullptr;
-
-	// Build top level state machine.
-	{
-		const int32 CurrentStates = 2;
-		TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, CurrentStates, &LastStatePin);
-		if (!NewAsset.SaveAsset(this))
-		{
-			return false;
-		}
-		TotalStates += CurrentStates;
-		TotalTopLevelStates += CurrentStates;
-	}
-
-	// Build a nested state machine.
-	UEdGraphPin* EntryPointForNestedStateMachine = LastStatePin;
-	USMGraphNode_StateMachineStateNode* NestedStateMachineNode = TestHelpers::CreateNewNode<USMGraphNode_StateMachineStateNode>(this, StateMachineGraph, EntryPointForNestedStateMachine);
-
-	UEdGraphPin* LastNestedPin = nullptr;
-	{
-		const int32 CurrentStates = 10;
-		TestHelpers::BuildLinearStateMachine(this, Cast<USMGraph>(NestedStateMachineNode->GetBoundGraph()), CurrentStates, &LastNestedPin, USMStateTestInstance::StaticClass(), USMTransitionTestInstance::StaticClass());
-		NestedStateMachineNode->GetBoundGraph()->Rename(TEXT("Nested_State_Machine_For_Reference"));
-		LastStatePin = NestedStateMachineNode->GetOutputPin();
-
-		TotalStates += CurrentStates;
-		TotalTopLevelStates += 1;
-	}
-
-	// Add logic to the state machine transition.
-	USMGraphNode_TransitionEdge* TransitionToNestedStateMachine = CastChecked<USMGraphNode_TransitionEdge>(NestedStateMachineNode->GetInputPin()->LinkedTo[0]->GetOwningNode());
-	TestHelpers::AddTransitionResultLogic(this, TransitionToNestedStateMachine);
-
-	// Add more top level.
-	{
-		const int32 CurrentStates = 10;
-		TestHelpers::BuildLinearStateMachine(this, StateMachineGraph, CurrentStates, &LastStatePin);
-		if (!NewAsset.SaveAsset(this))
-		{
-			return false;
-		}
-		TotalStates += CurrentStates;
-		TotalTopLevelStates += CurrentStates;
-	}
-
-	TestTrue("Nested state machine has correct node count", NestedStateMachineNode->GetBoundGraph()->Nodes.Num() > 1);
-
-	// Now convert the state machine to a reference.
-	USMBlueprint* NewReferencedBlueprint = FSMBlueprintEditorUtils::ConvertStateMachineToReference(NestedStateMachineNode, false, nullptr, nullptr);
-	TestNotNull("New referenced blueprint created", NewReferencedBlueprint);
-	TestTrue("Nested state machine has had all nodes removed.", NestedStateMachineNode->GetBoundGraph()->Nodes.Num() == 1);
-
-	FKismetEditorUtilities::CompileBlueprint(NewReferencedBlueprint);
-
-	// Store handler information so we can delete the object.
-	FString ReferencedPath = NewReferencedBlueprint->GetPathName();
-	FAssetHandler ReferencedAsset(NewReferencedBlueprint->GetName(), USMBlueprint::StaticClass(), NewObject<USMBlueprintFactory>(), &ReferencedPath);
-	ReferencedAsset.Object = NewReferencedBlueprint;
-
-	UPackage* Package = FAssetData(NewReferencedBlueprint).GetPackage();
-	ReferencedAsset.Package = Package;
-
-	// This will run the nested machine only up to the first state.
-	TestHelpers::TestLinearStateMachine(this, NewBP, TotalTopLevelStates);
-
-	int32 ExpectedEntryValue = TotalTopLevelStates;
-
-	// Run the same machine until an end state is reached. The result should be the same as the top level machine won't wait for the nested machine.
-	{
-		int32 EntryHits = 0; int32 UpdateHits = 0; int32 EndHits = 0;
-		TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits);
-
-		TestEqual("State Machine generated value", EntryHits, ExpectedEntryValue);
-		TestEqual("State Machine generated value", UpdateHits, 0);
-		TestEqual("State Machine generated value", EndHits, ExpectedEntryValue);
-	}
-
-	// Now let's try waiting for the nested state machine. Clear the graph except for the result node.
-	{
-		USMGraphNode_TransitionEdge* TransitionFromNestedStateMachine = CastChecked<USMGraphNode_TransitionEdge>(NestedStateMachineNode->GetOutputPin()->LinkedTo[0]->GetOwningNode());
-		UEdGraph* TransitionGraph = TransitionFromNestedStateMachine->GetBoundGraph();
-		TransitionGraph->Nodes.Empty();
-		TransitionGraph->GetSchema()->CreateDefaultNodesForGraph(*TransitionGraph);
-
-		TestHelpers::AddSpecialBooleanTransitionLogic<USMGraphK2Node_StateMachineReadNode_InEndState>(this, TransitionFromNestedStateMachine);
-		ExpectedEntryValue = TotalStates;
-
-		// Run the same machine until an end state is reached. This time the result should be modified by all nested states.
-		int32 EntryHits = 0; int32 UpdateHits = 0; int32 EndHits = 0;
-		TestHelpers::RunStateMachineToCompletion(this, NewBP, EntryHits, UpdateHits, EndHits);
-
-		TestEqual("State Machine generated value", EntryHits, ExpectedEntryValue);
-		TestEqual("State Machine generated value", UpdateHits, 0);
-		TestEqual("State Machine generated value", EndHits, ExpectedEntryValue);
-	}
-
-	// Verify it can't reference itself.
-	bool bReferenceSelf = NestedStateMachineNode->ReferenceStateMachine(NewBP, true);
-	TestFalse("State Machine should not have been allowed to reference itself", bReferenceSelf);
-
-	// Finally let's check circular references and make sure it doesn't stack overflow.
-	bReferenceSelf = NestedStateMachineNode->ReferenceStateMachine(NewBP, false);
-	TestTrue("State Machine has been overridden to reference itself", bReferenceSelf);
-
-	FKismetEditorUtilities::CompileBlueprint(NewBP);
-
-	// As long as generating the state machine is successful we are fine. Running it would cause a stack overflow because we have no exit conditions.
-	// That doesn't need to be tested as that is up to user implementation.
-	USMTestContext* Context = NewObject<USMTestContext>();
-
-	AddExpectedError(FString("Attempted to generate state machine with circular referencing"));
-	USMInstance* ReferencesNoReuse = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context, false); // Don't test node map that will stack overflow.
-	const int32 NoReuse = ReferencesNoReuse->GetAllReferencedInstances(true).Num();
-	
-	// Now check legacy behavior if the same reference is reused.
-	NestedStateMachineNode->bUseTemplate = false;
-	NestedStateMachineNode->bReuseReference = true;
-
-	FKismetEditorUtilities::CompileBlueprint(NewBP);
-
-	/*
-	if (PLATFORM_WINDOWS) // Linux may stack overflow here. Really this should be investigated more but this is around unsupported behavior as it is.
-	{
-		USMInstance* ReferencesWithReuse = TestHelpers::CreateNewStateMachineInstanceFromBP(this, NewBP, Context, false);
-		// Didn't crash? Great!
-
-		const int32 WithReuse = ReferencesWithReuse->GetAllReferencedInstances(true).Num();
-		// We expect more references because with circular referencing and instancing state machine generation aborts with an error message.
-		// When reusing instances this gets around that behavior.
-		// ------------
-		// Changed with guid paths... Specifically CalculatePathGuid under FSMStateMachine helps prevent stack overflow.
-		TestTrue("References reused", WithReuse < NoReuse);
-	}
-	*/
-	ReferencedAsset.DeleteAsset(this);
-	return NewAsset.DeleteAsset(this);
-}
-
-/**
  * Replace a node in the state machine.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReplaceNodesTest, "SMTests.ReplaceNodes", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReplaceNodesTest, "LogicDriver.Commands.ReplaceNodes", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FReplaceNodesTest::RunTest(const FString& Parameters)
+bool FReplaceNodesTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 5;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(5)
 
 	UEdGraphPin* LastStatePin = nullptr;
 
@@ -344,27 +154,12 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReplaceNodesTest, "SMTests.ReplaceNodes", EAut
 /**
  * Test combining multiple states and variables into one state stack.
  */
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateStackMergeTest, "SMTests.StateStackMerge", EAutomationTestFlags::ApplicationContextMask |
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateStackMergeTest, "LogicDriver.Commands.StateStackMerge", EAutomationTestFlags::ApplicationContextMask |
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::EngineFilter)
 
-	bool FStateStackMergeTest::RunTest(const FString& Parameters)
+bool FStateStackMergeTest::RunTest(const FString& Parameters)
 {
-	FAssetHandler NewAsset;
-	if (!TestHelpers::TryCreateNewStateMachineAsset(this, NewAsset, false))
-	{
-		return false;
-	}
-
-	USMBlueprint* NewBP = NewAsset.GetObjectAs<USMBlueprint>();
-
-	// Find root state machine.
-	USMGraphK2Node_StateMachineNode* RootStateMachineNode = FSMBlueprintEditorUtils::GetRootStateMachineNode(NewBP);
-
-	// Find the state machine graph.
-	USMGraph* StateMachineGraph = RootStateMachineNode->GetStateMachineGraph();
-
-	// Total states to test.
-	int32 TotalStates = 3;
+	SETUP_NEW_STATE_MACHINE_FOR_TEST(3)
 
 	UEdGraphPin* LastStatePin = nullptr;
 
@@ -496,7 +291,6 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FStateStackMergeTest, "SMTests.StateStackMerge"
 		TestEqual("Stack evaluated", StateStackInstance->StateUpdateHit.Count, 0);
 		TestEqual("Stack evaluated", StateStackInstance->StateEndHit.Count, ExpectedHits);
 	}
-
 	
 	// State stack from first node.
 	{

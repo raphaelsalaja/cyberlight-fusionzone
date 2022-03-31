@@ -1,18 +1,20 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SGraphNode_StateMachineStateNode.h"
+
+#include "Graph/Nodes/SMGraphNode_StateNode.h"
+#include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
+#include "Graph/Nodes/SMGraphNode_StateMachineParentNode.h"
+#include "Configuration/SMEditorStyle.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
+
 #include "SLevelOfDetailBranchNode.h"
 #include "SCommentBubble.h"
 #include "SGraphPin.h"
 #include "Widgets/Images/SImage.h"
 #include "Components/VerticalBox.h"
 #include "GraphEditorSettings.h"
-#include "Graph/Nodes/SMGraphNode_StateNode.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
-#include "Configuration/SMEditorStyle.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-#include "Graph/Nodes/SMGraphNode_StateMachineParentNode.h"
-
+#include "Kismet2/KismetEditorUtilities.h"
 
 #define LOCTEXT_NAMESPACE "SGraphStateMachineStateNode"
 
@@ -26,13 +28,19 @@ void SGraphNode_StateMachineStateNode::Construct(const FArguments& InArgs, USMGr
 	SGraphNode_StateNode::Construct(Args, InNode);
 
 	{
-		const FSlateBrush* ImageBrush = FEditorStyle::Get().GetBrush(TEXT("Graph.Event.InterfaceEventIcon"));
+		const FSlateBrush* ImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.IntermediateGraph"));
 		IntermediateWidget =
-			SNew(SImage)
-			.Image(ImageBrush)
-			.ToolTipText(NSLOCTEXT("StateMachineStateNode", "StateMachineStateNodeIntermediateTooltip", "Intermediate Graph Enabled: Manage state machine calls directly."))
-			.ColorAndOpacity(FLinearColor(1.f, 1.f, 1.f, 0.72f))
-			.Visibility(EVisibility::Visible);
+			SNew(SBorder)
+			.BorderImage(FEditorStyle::GetBrush("NoBorder"))
+			.Cursor(EMouseCursor::Hand)
+			.OnMouseDoubleClick(this, &SGraphNode_StateMachineStateNode::OnIntermediateIconDoubleClick)
+			[
+				SNew(SImage)
+				.Image(ImageBrush)
+				.ToolTipText(NSLOCTEXT("StateMachineStateNode", "StateMachineStateNodeIntermediateTooltip", "Intermediate (Local) graph is enabled to manage the state machine reference. From within the local graph you can call GetStateMachineReference."))
+				.ColorAndOpacity(FLinearColor(1.f, 1.f, 1.f, 0.72f))
+				.Visibility(EVisibility::Visible)
+			];
 	}
 
 	{
@@ -69,7 +77,7 @@ TArray<FOverlayWidgetInfo> SGraphNode_StateMachineStateNode::GetOverlayWidgets(b
 
 			if (StateMachineNode->IsUsingIntermediateGraph())
 			{
-				const FSlateBrush* ImageBrush = FEditorStyle::Get().GetBrush(TEXT("Graph.Event.InterfaceEventIcon"));
+				const FSlateBrush* ImageBrush = FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.IntermediateGraph"));
 
 				FOverlayWidgetInfo Info;
 				Info.OverlayOffset = FVector2D(WidgetSize.X - (ImageBrush->ImageSize.X * 0.5f) - (Widgets.Num() * OverlayWidgetPadding), -(ImageBrush->ImageSize.Y * 0.5f));
@@ -86,29 +94,30 @@ TArray<FOverlayWidgetInfo> SGraphNode_StateMachineStateNode::GetOverlayWidgets(b
 const FSlateBrush* SGraphNode_StateMachineStateNode::GetNameIcon() const
 {
 	USMGraphNode_StateMachineStateNode* StateMachineNode = CastChecked<USMGraphNode_StateMachineStateNode>(GraphNode);
-	if (StateMachineNode->IsStateMachineReference())
-	{
-		return FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.StateMachineReference_16x"));
-	}
 
 	if (const FSlateBrush* Brush = StateMachineNode->GetNodeIcon())
 	{
 		return Brush;
 	}
 	
+	if (StateMachineNode->IsStateMachineReference())
+    {
+    	return FSMEditorStyle::Get()->GetBrush(TEXT("SMGraph.StateMachineReference_16x"));
+    }
+
 	return FEditorStyle::GetBrush(TEXT("GraphEditor.StateMachine_16x"));
 }
 
-TSharedRef<SVerticalBox> SGraphNode_StateMachineStateNode::BuildComplexTooltip()
+TSharedPtr<SVerticalBox> SGraphNode_StateMachineStateNode::BuildComplexTooltip()
 {
-	TSharedRef<SVerticalBox> Widget = SGraphNode_StateNode::BuildComplexTooltip();
+	TSharedPtr<SVerticalBox> Widget = SGraphNode_StateNode::BuildComplexTooltip();
 	USMGraphNode_StateMachineStateNode* StateMachineNode = CastChecked<USMGraphNode_StateMachineStateNode>(GraphNode);
 
-	if(USMGraphNode_StateMachineParentNode* Parent = Cast<USMGraphNode_StateMachineParentNode>(GraphNode))
+	if (USMGraphNode_StateMachineParentNode* Parent = Cast<USMGraphNode_StateMachineParentNode>(GraphNode))
 	{
-		if(USMBlueprintGeneratedClass* BPGC = Cast<USMBlueprintGeneratedClass>(Parent->ParentClass.Get()))
+		if (USMBlueprintGeneratedClass* BPGC = Cast<USMBlueprintGeneratedClass>(Parent->ParentClass.Get()))
 		{
-			if(UBlueprint* Blueprint = UBlueprint::GetBlueprintFromClass(BPGC))
+			if (UBlueprint* Blueprint = UBlueprint::GetBlueprintFromClass(BPGC))
 			{
 				Widget->AddSlot()
 					.AutoHeight()
@@ -161,7 +170,7 @@ TSharedRef<SVerticalBox> SGraphNode_StateMachineStateNode::BuildComplexTooltip()
 		}
 	}
 
-	if(StateMachineNode->IsUsingIntermediateGraph())
+	if (StateMachineNode->IsUsingIntermediateGraph())
 	{
 		Widget->AddSlot()
 			.AutoHeight()
@@ -186,7 +195,7 @@ UEdGraph* SGraphNode_StateMachineStateNode::GetGraphToUseForTooltip() const
 		{
 			if (UBlueprint* Blueprint = UBlueprint::GetBlueprintFromClass(BPGC))
 			{
-				if(USMGraph* StateMachineGraph = FSMBlueprintEditorUtils::GetRootStateMachineGraph(Blueprint))
+				if (USMGraph* StateMachineGraph = FSMBlueprintEditorUtils::GetRootStateMachineGraph(Blueprint))
 				{
 					return StateMachineGraph;
 				}
@@ -195,20 +204,34 @@ UEdGraph* SGraphNode_StateMachineStateNode::GetGraphToUseForTooltip() const
 	}
 	
 	// This blueprint graph.
-	if(!StateMachineNode->IsStateMachineReference())
+	if (!StateMachineNode->IsStateMachineReference())
 	{
 		return SGraphNode_StateNode::GetGraphToUseForTooltip();
 	}
 
 	// Other blueprint graph.
 	USMGraph* StateMachineGraph = FSMBlueprintEditorUtils::GetRootStateMachineGraph(StateMachineNode->GetStateMachineReference(), true);
-	if(StateMachineGraph != nullptr)
+	if (StateMachineGraph != nullptr)
 	{
 		return StateMachineGraph;
 	}
 
 	// No graph could be found, use the top most level k2 graph instead which is likely empty.
 	return FSMBlueprintEditorUtils::GetTopLevelStateMachineGraph(StateMachineNode->GetStateMachineReference());
+}
+
+FReply SGraphNode_StateMachineStateNode::OnIntermediateIconDoubleClick(const FGeometry& InMyGeometry,
+	const FPointerEvent& InMouseEvent)
+{
+	const USMGraphNode_StateMachineStateNode* StateMachineNode = CastChecked<USMGraphNode_StateMachineStateNode>(GraphNode);
+	if (StateMachineNode->IsUsingIntermediateGraph())
+	{
+		if (const UEdGraph* Graph = StateMachineNode->GetBoundGraph())
+		{
+			FKismetEditorUtilities::BringKismetToFocusAttentionOnObject(Graph);
+		}
+	}
+	return FReply::Handled();
 }
 
 #undef LOCTEXT_NAMESPACE

@@ -1,6 +1,7 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTextNodeWidgetInfo.h"
+
 #include "Styling/CoreStyle.h"
 
 FSMTextNodeWidgetInfo::FSMTextNodeWidgetInfo() : Super()
@@ -10,14 +11,18 @@ FSMTextNodeWidgetInfo::FSMTextNodeWidgetInfo() : Super()
 	MaxWidth = 300;
 	MinHeight = 50;
 	MaxHeight = 250;
-	DisplayOrder = 0;
 	bConsiderForDefaultWidget = false;
 
-	EditableTextStyle = FCoreStyle::Get().GetWidgetStyle<FInlineEditableTextBlockStyle>("InlineEditableTextBlockStyle");
+	if (IsInGameThread())
+	{
+		// CoreStyle isn't safe to access from other threads and isn't required apart from the editor.
+		EditableTextStyle = FCoreStyle::Get().GetWidgetStyle<FInlineEditableTextBlockStyle>("InlineEditableTextBlockStyle");
+	}
 	EditableTextStyle.EditableTextBoxStyle.Font.Size = 11;
 	EditableTextStyle.EditableTextBoxStyle.BackgroundColor = FLinearColor(0.71f, 0.71f, 0.71f);
 	EditableTextStyle.TextStyle.Font.Size = 11;
 	EditableTextStyle.TextStyle.Font.OutlineSettings.OutlineSize = 2;
+	
 	WrapTextAt = 0;
 #endif
 }

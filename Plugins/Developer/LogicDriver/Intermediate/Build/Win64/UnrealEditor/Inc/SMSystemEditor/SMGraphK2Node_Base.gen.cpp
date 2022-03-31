@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/Nodes/SMGraphK2Node_Base.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMGraphK2Node_Base() {}
 // Cross Module References
@@ -21,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphK2Node_Base() {}
 	void USMGraphK2Node_Base::StaticRegisterNativesUSMGraphK2Node_Base()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMGraphK2Node_Base);
 	UClass* Z_Construct_UClass_USMGraphK2Node_Base_NoRegister()
 	{
 		return USMGraphK2Node_Base::StaticClass();
@@ -64,21 +61,26 @@ void EmptyLinkFunctionForGeneratedCodeSMGraphK2Node_Base() {}
 	};
 	UClass* Z_Construct_UClass_USMGraphK2Node_Base()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMGraphK2Node_Base.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMGraphK2Node_Base_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMGraphK2Node_Base.OuterSingleton, Z_Construct_UClass_USMGraphK2Node_Base_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMGraphK2Node_Base.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMGraphK2Node_Base, 2035652273);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMGraphK2Node_Base>()
 	{
 		return USMGraphK2Node_Base::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMGraphK2Node_Base(Z_Construct_UClass_USMGraphK2Node_Base, &USMGraphK2Node_Base::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMGraphK2Node_Base"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMGraphK2Node_Base);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphK2Node_Base_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphK2Node_Base_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMGraphK2Node_Base, USMGraphK2Node_Base::StaticClass, TEXT("USMGraphK2Node_Base"), &Z_Registration_Info_UClass_USMGraphK2Node_Base, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMGraphK2Node_Base), 2827312851U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphK2Node_Base_h_2890560894(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphK2Node_Base_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Nodes_SMGraphK2Node_Base_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

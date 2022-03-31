@@ -1,10 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Nodes/RootNodes/SMGraphK2Node_IntermediateNodes.h"
 #include "SMStateGraph.h"
+
+#include "CoreMinimal.h"
+
 #include "SMIntermediateGraph.generated.h"
 
 class USMGraphNode_StateNode;

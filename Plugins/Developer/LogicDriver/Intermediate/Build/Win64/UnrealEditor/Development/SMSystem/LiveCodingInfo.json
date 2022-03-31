@@ -19,37 +19,42 @@
 			"SMTransitionInstance.cpp.obj",
 			"SMGraphProperty_Base.cpp.obj",
 			"SMNodeWidgetInfo.cpp.obj",
-			"SMBlueprintFunctions.cpp.obj",
+			"SMExposedFunctions.cpp.obj",
 			"SMInstance.cpp.obj",
+			"SMRuntimeSettings.cpp.obj",
 			"SMStateMachineComponent.cpp.obj",
 			"SMSystemModule.cpp.obj",
 			"SMUtils.cpp.obj"
 		],
-		"Module.SMSystem.gen.1_of_3.cpp.obj": [
+		"Module.SMSystem.gen.1_of_4.cpp.obj": [
 			"ISMStateMachineInterface.gen.cpp.obj",
 			"SMBlueprint.gen.cpp.obj",
-			"SMBlueprintFunctions.gen.cpp.obj",
 			"SMBlueprintGeneratedClass.gen.cpp.obj",
 			"SMConduit.gen.cpp.obj",
 			"SMConduitInstance.gen.cpp.obj",
+			"SMExposedFunctions.gen.cpp.obj",
 			"SMGraphProperty_Base.gen.cpp.obj",
 			"SMInputTypes.gen.cpp.obj",
 			"SMInstance.gen.cpp.obj"
 		],
-		"Module.SMSystem.gen.2_of_3.cpp.obj": [
+		"Module.SMSystem.gen.2_of_4.cpp.obj": [
 			"SMNodeInstance.gen.cpp.obj",
 			"SMNodeRules.gen.cpp.obj",
 			"SMNodeWidgetInfo.gen.cpp.obj",
 			"SMNode_Base.gen.cpp.obj",
 			"SMNode_Info.gen.cpp.obj",
+			"SMRuntimeSettings.gen.cpp.obj",
 			"SMState.gen.cpp.obj",
 			"SMStateInstance.gen.cpp.obj"
 		],
-		"Module.SMSystem.gen.3_of_3.cpp.obj": [
+		"Module.SMSystem.gen.3_of_4.cpp.obj": [
 			"SMStateMachine.gen.cpp.obj",
 			"SMStateMachineComponent.gen.cpp.obj",
 			"SMStateMachineInstance.gen.cpp.obj",
 			"SMSystem.init.gen.cpp.obj",
+			"SMTransactions.gen.cpp.obj"
+		],
+		"Module.SMSystem.gen.4_of_4.cpp.obj": [
 			"SMTransition.gen.cpp.obj",
 			"SMTransitionInstance.gen.cpp.obj",
 			"SMUtils.gen.cpp.obj"

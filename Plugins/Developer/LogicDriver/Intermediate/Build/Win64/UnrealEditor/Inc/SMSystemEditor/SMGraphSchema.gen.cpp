@@ -6,193 +6,34 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/Schema/SMGraphSchema.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMGraphSchema() {}
 // Cross Module References
-	SMSYSTEMEDITOR_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment();
+	SMSYSTEMEDITOR_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode();
 	UPackage* Z_Construct_UPackage__Script_SMSystemEditor();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FEdGraphSchemaAction();
 	SMSYSTEMEDITOR_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode();
-	SMSYSTEMEDITOR_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode();
+	SMSYSTEMEDITOR_API UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment();
 	SMSYSTEMEDITOR_API UClass* Z_Construct_UClass_USMGraphSchema_NoRegister();
 	SMSYSTEMEDITOR_API UClass* Z_Construct_UClass_USMGraphSchema();
 	ENGINE_API UClass* Z_Construct_UClass_UEdGraphSchema();
 // End Cross Module References
 
-static_assert(std::is_polymorphic<FSMGraphSchemaAction_NewComment>() == std::is_polymorphic<FEdGraphSchemaAction>(), "USTRUCT FSMGraphSchemaAction_NewComment cannot be polymorphic unless super FEdGraphSchemaAction is polymorphic");
-
-class UScriptStruct* FSMGraphSchemaAction_NewComment::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
-	{
-		extern SMSYSTEMEDITOR_API uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("SMGraphSchemaAction_NewComment"), sizeof(FSMGraphSchemaAction_NewComment), Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Hash());
-	}
-	return Singleton;
-}
-template<> SMSYSTEMEDITOR_API UScriptStruct* StaticStruct<FSMGraphSchemaAction_NewComment>()
-{
-	return FSMGraphSchemaAction_NewComment::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMGraphSchemaAction_NewComment(FSMGraphSchemaAction_NewComment::StaticStruct, TEXT("/Script/SMSystemEditor"), TEXT("SMGraphSchemaAction_NewComment"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewComment
-{
-	FScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewComment()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMGraphSchemaAction_NewComment")),new UScriptStruct::TCppStructOps<FSMGraphSchemaAction_NewComment>);
-	}
-} ScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewComment;
-	struct Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-		static const UECodeGen_Private::FStructParams ReturnStructParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::Struct_MetaDataParams[] = {
-		{ "Comment", "/** Action to create new comment */" },
-		{ "ModuleRelativePath", "Private/Graph/Schema/SMGraphSchema.h" },
-		{ "ToolTip", "Action to create new comment" },
-	};
-#endif
-	void* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphSchemaAction_NewComment>();
-	}
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_SMSystemEditor,
-		Z_Construct_UScriptStruct_FEdGraphSchemaAction,
-		&NewStructOps,
-		"SMGraphSchemaAction_NewComment",
-		sizeof(FSMGraphSchemaAction_NewComment),
-		alignof(FSMGraphSchemaAction_NewComment),
-		nullptr,
-		0,
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystemEditor();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMGraphSchemaAction_NewComment"), sizeof(FSMGraphSchemaAction_NewComment), Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Hash() { return 4010356199U; }
-
-static_assert(std::is_polymorphic<FSMGraphSchemaAction_NewStateMachineReferenceNode>() == std::is_polymorphic<FSMGraphSchemaAction_NewNode>(), "USTRUCT FSMGraphSchemaAction_NewStateMachineReferenceNode cannot be polymorphic unless super FSMGraphSchemaAction_NewNode is polymorphic");
-
-class UScriptStruct* FSMGraphSchemaAction_NewStateMachineReferenceNode::StaticStruct()
-{
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
-	{
-		extern SMSYSTEMEDITOR_API uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("SMGraphSchemaAction_NewStateMachineReferenceNode"), sizeof(FSMGraphSchemaAction_NewStateMachineReferenceNode), Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Hash());
-	}
-	return Singleton;
-}
-template<> SMSYSTEMEDITOR_API UScriptStruct* StaticStruct<FSMGraphSchemaAction_NewStateMachineReferenceNode>()
-{
-	return FSMGraphSchemaAction_NewStateMachineReferenceNode::StaticStruct();
-}
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode(FSMGraphSchemaAction_NewStateMachineReferenceNode::StaticStruct, TEXT("/Script/SMSystemEditor"), TEXT("SMGraphSchemaAction_NewStateMachineReferenceNode"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewStateMachineReferenceNode
-{
-	FScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewStateMachineReferenceNode()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMGraphSchemaAction_NewStateMachineReferenceNode")),new UScriptStruct::TCppStructOps<FSMGraphSchemaAction_NewStateMachineReferenceNode>);
-	}
-} ScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewStateMachineReferenceNode;
-	struct Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
-#endif
-		static void* NewStructOps();
-		static const UECodeGen_Private::FStructParams ReturnStructParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::Struct_MetaDataParams[] = {
-		{ "Comment", "/** Action to reference a state machine */" },
-		{ "ModuleRelativePath", "Private/Graph/Schema/SMGraphSchema.h" },
-		{ "ToolTip", "Action to reference a state machine" },
-	};
-#endif
-	void* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::NewStructOps()
-	{
-		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphSchemaAction_NewStateMachineReferenceNode>();
-	}
-	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::ReturnStructParams = {
-		(UObject* (*)())Z_Construct_UPackage__Script_SMSystemEditor,
-		Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode,
-		&NewStructOps,
-		"SMGraphSchemaAction_NewStateMachineReferenceNode",
-		sizeof(FSMGraphSchemaAction_NewStateMachineReferenceNode),
-		alignof(FSMGraphSchemaAction_NewStateMachineReferenceNode),
-		nullptr,
-		0,
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::Struct_MetaDataParams))
-	};
-	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode()
-	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystemEditor();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMGraphSchemaAction_NewStateMachineReferenceNode"), sizeof(FSMGraphSchemaAction_NewStateMachineReferenceNode), Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
-		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::ReturnStructParams);
-		}
-		return ReturnStruct;
-	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Hash() { return 1651060801U; }
-
 static_assert(std::is_polymorphic<FSMGraphSchemaAction_NewNode>() == std::is_polymorphic<FEdGraphSchemaAction>(), "USTRUCT FSMGraphSchemaAction_NewNode cannot be polymorphic unless super FEdGraphSchemaAction is polymorphic");
 
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewNode;
 class UScriptStruct* FSMGraphSchemaAction_NewNode::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewNode.OuterSingleton)
 	{
-		extern SMSYSTEMEDITOR_API uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("SMGraphSchemaAction_NewNode"), sizeof(FSMGraphSchemaAction_NewNode), Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Hash());
+		Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewNode.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("SMGraphSchemaAction_NewNode"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewNode.OuterSingleton;
 }
 template<> SMSYSTEMEDITOR_API UScriptStruct* StaticStruct<FSMGraphSchemaAction_NewNode>()
 {
 	return FSMGraphSchemaAction_NewNode::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMGraphSchemaAction_NewNode(FSMGraphSchemaAction_NewNode::StaticStruct, TEXT("/Script/SMSystemEditor"), TEXT("SMGraphSchemaAction_NewNode"), false, nullptr, nullptr);
-static struct FScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewNode
-{
-	FScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewNode()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMGraphSchemaAction_NewNode")),new UScriptStruct::TCppStructOps<FSMGraphSchemaAction_NewNode>);
-	}
-} ScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAction_NewNode;
 	struct Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Statics
 	{
 #if WITH_METADATA
@@ -227,23 +68,128 @@ static struct FScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAc
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMSystemEditor();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMGraphSchemaAction_NewNode"), sizeof(FSMGraphSchemaAction_NewNode), Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewNode.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewNode.InnerSingleton, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewNode.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Hash() { return 1240329134U; }
+
+static_assert(std::is_polymorphic<FSMGraphSchemaAction_NewStateMachineReferenceNode>() == std::is_polymorphic<FSMGraphSchemaAction_NewNode>(), "USTRUCT FSMGraphSchemaAction_NewStateMachineReferenceNode cannot be polymorphic unless super FSMGraphSchemaAction_NewNode is polymorphic");
+
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewStateMachineReferenceNode;
+class UScriptStruct* FSMGraphSchemaAction_NewStateMachineReferenceNode::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewStateMachineReferenceNode.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewStateMachineReferenceNode.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("SMGraphSchemaAction_NewStateMachineReferenceNode"));
+	}
+	return Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewStateMachineReferenceNode.OuterSingleton;
+}
+template<> SMSYSTEMEDITOR_API UScriptStruct* StaticStruct<FSMGraphSchemaAction_NewStateMachineReferenceNode>()
+{
+	return FSMGraphSchemaAction_NewStateMachineReferenceNode::StaticStruct();
+}
+	struct Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
+#endif
+		static void* NewStructOps();
+		static const UECodeGen_Private::FStructParams ReturnStructParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::Struct_MetaDataParams[] = {
+		{ "Comment", "/** Action to reference a state machine */" },
+		{ "ModuleRelativePath", "Private/Graph/Schema/SMGraphSchema.h" },
+		{ "ToolTip", "Action to reference a state machine" },
+	};
+#endif
+	void* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphSchemaAction_NewStateMachineReferenceNode>();
+	}
+	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::ReturnStructParams = {
+		(UObject* (*)())Z_Construct_UPackage__Script_SMSystemEditor,
+		Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode,
+		&NewStructOps,
+		"SMGraphSchemaAction_NewStateMachineReferenceNode",
+		sizeof(FSMGraphSchemaAction_NewStateMachineReferenceNode),
+		alignof(FSMGraphSchemaAction_NewStateMachineReferenceNode),
+		nullptr,
+		0,
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EStructFlags(0x00000201),
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::Struct_MetaDataParams))
+	};
+	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode()
+	{
+		if (!Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewStateMachineReferenceNode.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewStateMachineReferenceNode.InnerSingleton, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::ReturnStructParams);
+		}
+		return Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewStateMachineReferenceNode.InnerSingleton;
+	}
+
+static_assert(std::is_polymorphic<FSMGraphSchemaAction_NewComment>() == std::is_polymorphic<FEdGraphSchemaAction>(), "USTRUCT FSMGraphSchemaAction_NewComment cannot be polymorphic unless super FEdGraphSchemaAction is polymorphic");
+
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewComment;
+class UScriptStruct* FSMGraphSchemaAction_NewComment::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewComment.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewComment.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment, Z_Construct_UPackage__Script_SMSystemEditor(), TEXT("SMGraphSchemaAction_NewComment"));
+	}
+	return Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewComment.OuterSingleton;
+}
+template<> SMSYSTEMEDITOR_API UScriptStruct* StaticStruct<FSMGraphSchemaAction_NewComment>()
+{
+	return FSMGraphSchemaAction_NewComment::StaticStruct();
+}
+	struct Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
+#endif
+		static void* NewStructOps();
+		static const UECodeGen_Private::FStructParams ReturnStructParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::Struct_MetaDataParams[] = {
+		{ "Comment", "/** Action to create new comment */" },
+		{ "ModuleRelativePath", "Private/Graph/Schema/SMGraphSchema.h" },
+		{ "ToolTip", "Action to create new comment" },
+	};
+#endif
+	void* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FSMGraphSchemaAction_NewComment>();
+	}
+	const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::ReturnStructParams = {
+		(UObject* (*)())Z_Construct_UPackage__Script_SMSystemEditor,
+		Z_Construct_UScriptStruct_FEdGraphSchemaAction,
+		&NewStructOps,
+		"SMGraphSchemaAction_NewComment",
+		sizeof(FSMGraphSchemaAction_NewComment),
+		alignof(FSMGraphSchemaAction_NewComment),
+		nullptr,
+		0,
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EStructFlags(0x00000201),
+		METADATA_PARAMS(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::Struct_MetaDataParams))
+	};
+	UScriptStruct* Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment()
+	{
+		if (!Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewComment.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewComment.InnerSingleton, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::ReturnStructParams);
+		}
+		return Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewComment.InnerSingleton;
+	}
 	void USMGraphSchema::StaticRegisterNativesUSMGraphSchema()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMGraphSchema);
 	UClass* Z_Construct_UClass_USMGraphSchema_NoRegister()
 	{
 		return USMGraphSchema::StaticClass();
@@ -287,21 +233,32 @@ static struct FScriptStruct_SMSystemEditor_StaticRegisterNativesFSMGraphSchemaAc
 	};
 	UClass* Z_Construct_UClass_USMGraphSchema()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMGraphSchema.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMGraphSchema_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMGraphSchema.OuterSingleton, Z_Construct_UClass_USMGraphSchema_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMGraphSchema.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMGraphSchema, 2015684406);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMGraphSchema>()
 	{
 		return USMGraphSchema::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMGraphSchema(Z_Construct_UClass_USMGraphSchema, &USMGraphSchema::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMGraphSchema"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMGraphSchema);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMGraphSchema_h_Statics
+	{
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMGraphSchema_h_Statics::ScriptStructInfo[] = {
+		{ FSMGraphSchemaAction_NewNode::StaticStruct, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewNode_Statics::NewStructOps, TEXT("SMGraphSchemaAction_NewNode"), &Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewNode, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMGraphSchemaAction_NewNode), 561578188U) },
+		{ FSMGraphSchemaAction_NewStateMachineReferenceNode::StaticStruct, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewStateMachineReferenceNode_Statics::NewStructOps, TEXT("SMGraphSchemaAction_NewStateMachineReferenceNode"), &Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewStateMachineReferenceNode, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMGraphSchemaAction_NewStateMachineReferenceNode), 1369869865U) },
+		{ FSMGraphSchemaAction_NewComment::StaticStruct, Z_Construct_UScriptStruct_FSMGraphSchemaAction_NewComment_Statics::NewStructOps, TEXT("SMGraphSchemaAction_NewComment"), &Z_Registration_Info_UScriptStruct_SMGraphSchemaAction_NewComment, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMGraphSchemaAction_NewComment), 1467352279U) },
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMGraphSchema_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMGraphSchema, USMGraphSchema::StaticClass, TEXT("USMGraphSchema"), &Z_Registration_Info_UClass_USMGraphSchema, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMGraphSchema), 2930518952U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMGraphSchema_h_4118017847(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMGraphSchema_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMGraphSchema_h_Statics::ClassInfo),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMGraphSchema_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMGraphSchema_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

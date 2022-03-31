@@ -1,12 +1,11 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "EdGraph/EdGraphSchema.h"
-#include "EdGraphSchema_K2.h"
-#include "SMGraphSchema.generated.h"
 
+#include "SMGraphSchema.generated.h"
 
 class USMGraphNode_StateNode;
 class USMGraphNode_TransitionEdge;
@@ -24,9 +23,11 @@ public:
 		: FEdGraphSchemaAction(InNodeCategory, InMenuDesc, InToolTip, InGrouping), NodeTemplate(nullptr),
 		  NodeClass(nullptr), bDontOverrideDefaultClass(false) {}
 
+	// FEdGraphSchemaAction
 	virtual UEdGraphNode* PerformAction(class UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode = true) override;
 	virtual void AddReferencedObjects(FReferenceCollector& Collector) override;
-
+	// ~FEdGraphSchemaAction
+	
 	UEdGraphNode* NodeTemplate;
 
 	UClass* NodeClass;
@@ -51,8 +52,9 @@ public:
 		bDontOverrideDefaultClass = true;
 	}
 
+	// FEdGraphSchemaAction
 	virtual UEdGraphNode* PerformAction(class UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode = true) override;
-
+	// ~FEdGraphSchemaAction
 };
 
 /** Action to create new comment */
@@ -69,9 +71,9 @@ struct SMSYSTEMEDITOR_API FSMGraphSchemaAction_NewComment : public FEdGraphSchem
 		: FEdGraphSchemaAction(MoveTemp(InNodeCategory), MoveTemp(InMenuDesc), MoveTemp(InToolTip), InGrouping)
 	{}
 
-	//~ Begin FEdGraphSchemaAction Interface
+	// FEdGraphSchemaAction
 	virtual UEdGraphNode* PerformAction(class UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode = true) override;
-	//~ End FEdGraphSchemaAction Interface
+	// ~FEdGraphSchemaAction
 };
 
 UCLASS()

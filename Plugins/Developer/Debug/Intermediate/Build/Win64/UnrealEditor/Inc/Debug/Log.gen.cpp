@@ -6,27 +6,23 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "Debug/Public/Log.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeLog() {}
 // Cross Module References
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogComparisonMethod();
-	UPackage* Z_Construct_UPackage__Script_Debug();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogTimeUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogLightUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogForceUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogAngularUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogSpeedUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogMassUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogLengthUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogDataUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogVolumeUnit();
-	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit();
 	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogNumberSystems();
+	UPackage* Z_Construct_UPackage__Script_Debug();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogVolumeUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogDataUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogLengthUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogMassUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogSpeedUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogAngularUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogForceUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogLightUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogTimeUnit();
+	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogComparisonMethod();
 	DEBUG_API UClass* Z_Construct_UClass_ULog_NoRegister();
 	DEBUG_API UClass* Z_Construct_UClass_ULog();
 	ENGINE_API UClass* Z_Construct_UClass_UBlueprintFunctionLibrary();
@@ -44,930 +40,917 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	DEBUG_API UEnum* Z_Construct_UEnum_Debug_EDebugLogType();
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 // End Cross Module References
-	static UEnum* EDebugLogComparisonMethod_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogComparisonMethod, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogComparisonMethod"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogComparisonMethod>()
-	{
-		return EDebugLogComparisonMethod_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogComparisonMethod(EDebugLogComparisonMethod_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogComparisonMethod"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Hash() { return 2738695203U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogComparisonMethod()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogComparisonMethod"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "CM_Equal_To", (int64)CM_Equal_To },
-				{ "CM_Not_Equal_To", (int64)CM_Not_Equal_To },
-				{ "CM_Greater_Than_Or_Equal_To", (int64)CM_Greater_Than_Or_Equal_To },
-				{ "CM_Less_Than_Or_Equal_To", (int64)CM_Less_Than_Or_Equal_To },
-				{ "CM_Greater_Than", (int64)CM_Greater_Than },
-				{ "CM_Less_Than", (int64)CM_Less_Than },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "CM_Equal_To.DisplayName", "Equal To (==)" },
-				{ "CM_Equal_To.Name", "CM_Equal_To" },
-				{ "CM_Greater_Than.DisplayName", "Greater Than (>)" },
-				{ "CM_Greater_Than.Name", "CM_Greater_Than" },
-				{ "CM_Greater_Than_Or_Equal_To.DisplayName", "Greater Than or Equal To (>=)" },
-				{ "CM_Greater_Than_Or_Equal_To.Name", "CM_Greater_Than_Or_Equal_To" },
-				{ "CM_Less_Than.DisplayName", "Less Than (<)" },
-				{ "CM_Less_Than.Name", "CM_Less_Than" },
-				{ "CM_Less_Than_Or_Equal_To.DisplayName", "Less Than or Equal To (<=)" },
-				{ "CM_Less_Than_Or_Equal_To.Name", "CM_Less_Than_Or_Equal_To" },
-				{ "CM_Not_Equal_To.DisplayName", "Not Equal To (!=)" },
-				{ "CM_Not_Equal_To.Name", "CM_Not_Equal_To" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogComparisonMethod",
-				"EDebugLogComparisonMethod",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogTimeUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogTimeUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogTimeUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogTimeUnit>()
-	{
-		return EDebugLogTimeUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogTimeUnit(EDebugLogTimeUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogTimeUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Hash() { return 1142778646U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogTimeUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogTimeUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLTU_Nanoseconds", (int64)DLTU_Nanoseconds },
-				{ "DLTU_Microseconds", (int64)DLTU_Microseconds },
-				{ "DLTU_Milliseconds", (int64)DLTU_Milliseconds },
-				{ "DLTU_Seconds", (int64)DLTU_Seconds },
-				{ "DLTU_Minutes", (int64)DLTU_Minutes },
-				{ "DLTU_Hours", (int64)DLTU_Hours },
-				{ "DLTU_Days", (int64)DLTU_Days },
-				{ "DLTU_Weeks", (int64)DLTU_Weeks },
-				{ "DLTU_Months", (int64)DLTU_Months },
-				{ "DLTU_Years", (int64)DLTU_Years },
-				{ "DLTU_Decades", (int64)DLTU_Decades },
-				{ "DLTU_Centuries", (int64)DLTU_Centuries },
-				{ "DLTU_Millennium", (int64)DLTU_Millennium },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLTU_Centuries.DisplayName", "Centuries (century)" },
-				{ "DLTU_Centuries.Name", "DLTU_Centuries" },
-				{ "DLTU_Days.DisplayName", "Days (day)" },
-				{ "DLTU_Days.Name", "DLTU_Days" },
-				{ "DLTU_Decades.DisplayName", "Decades (decade)" },
-				{ "DLTU_Decades.Name", "DLTU_Decades" },
-				{ "DLTU_Hours.DisplayName", "Hours (hr)" },
-				{ "DLTU_Hours.Name", "DLTU_Hours" },
-				{ "DLTU_Microseconds.DisplayName", "Microseconds (us)" },
-				{ "DLTU_Microseconds.Name", "DLTU_Microseconds" },
-				{ "DLTU_Millennium.DisplayName", "Millennuim" },
-				{ "DLTU_Millennium.Name", "DLTU_Millennium" },
-				{ "DLTU_Milliseconds.DisplayName", "Milliseconds (ms)" },
-				{ "DLTU_Milliseconds.Name", "DLTU_Milliseconds" },
-				{ "DLTU_Minutes.DisplayName", "Minutes (min)" },
-				{ "DLTU_Minutes.Name", "DLTU_Minutes" },
-				{ "DLTU_Months.DisplayName", "Months (mth)" },
-				{ "DLTU_Months.Name", "DLTU_Months" },
-				{ "DLTU_Nanoseconds.DisplayName", "Nanoseconds (ns)" },
-				{ "DLTU_Nanoseconds.Name", "DLTU_Nanoseconds" },
-				{ "DLTU_Seconds.DisplayName", "Seconds (sec)" },
-				{ "DLTU_Seconds.Name", "DLTU_Seconds" },
-				{ "DLTU_Weeks.DisplayName", "Weeks (wk)" },
-				{ "DLTU_Weeks.Name", "DLTU_Weeks" },
-				{ "DLTU_Years.DisplayName", "Years (yrs)" },
-				{ "DLTU_Years.Name", "DLTU_Years" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogTimeUnit",
-				"EDebugLogTimeUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogLightUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogLightUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogLightUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogLightUnit>()
-	{
-		return EDebugLogLightUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogLightUnit(EDebugLogLightUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogLightUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogLightUnit_Hash() { return 3204938073U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogLightUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogLightUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogLightUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLLU_Lumens", (int64)DLLU_Lumens },
-				{ "DLLU_Candela", (int64)DLLU_Candela },
-				{ "DLLU_Lux", (int64)DLLU_Lux },
-				{ "DLLU_CandelaPerMeter2", (int64)DLLU_CandelaPerMeter2 },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLLU_Candela.DisplayName", "Candela (cd)" },
-				{ "DLLU_Candela.Name", "DLLU_Candela" },
-				{ "DLLU_CandelaPerMeter2.DisplayName", "CandelaPerMeter2 (cd/m2)" },
-				{ "DLLU_CandelaPerMeter2.Name", "DLLU_CandelaPerMeter2" },
-				{ "DLLU_Lumens.DisplayName", "Lumens (lm)" },
-				{ "DLLU_Lumens.Name", "DLLU_Lumens" },
-				{ "DLLU_Lux.DisplayName", "Lux (lx)" },
-				{ "DLLU_Lux.Name", "DLLU_Lux" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogLightUnit",
-				"EDebugLogLightUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogFrequencyUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogFrequencyUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogFrequencyUnit>()
-	{
-		return EDebugLogFrequencyUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogFrequencyUnit(EDebugLogFrequencyUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogFrequencyUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Hash() { return 4019074333U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogFrequencyUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLFU_Hertz", (int64)DLFU_Hertz },
-				{ "DLFU_Kilohertz", (int64)DLFU_Kilohertz },
-				{ "DLFU_Megahertz", (int64)DLFU_Megahertz },
-				{ "DLFU_Gigahertz", (int64)DLFU_Gigahertz },
-				{ "DLFU_RevolutionsPerMinute", (int64)DLFU_RevolutionsPerMinute },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLFU_Gigahertz.DisplayName", "Gigahertz (GHz)" },
-				{ "DLFU_Gigahertz.Name", "DLFU_Gigahertz" },
-				{ "DLFU_Hertz.DisplayName", "Hertz (Hz)" },
-				{ "DLFU_Hertz.Name", "DLFU_Hertz" },
-				{ "DLFU_Kilohertz.DisplayName", "Kilohertz (kHz)" },
-				{ "DLFU_Kilohertz.Name", "DLFU_Kilohertz" },
-				{ "DLFU_Megahertz.DisplayName", "Megahertz (MHz)" },
-				{ "DLFU_Megahertz.Name", "DLFU_Megahertz" },
-				{ "DLFU_RevolutionsPerMinute.DisplayName", "RevolutionsPerMinute (rpm)" },
-				{ "DLFU_RevolutionsPerMinute.Name", "DLFU_RevolutionsPerMinute" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogFrequencyUnit",
-				"EDebugLogFrequencyUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogForceUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogForceUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogForceUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogForceUnit>()
-	{
-		return EDebugLogForceUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogForceUnit(EDebugLogForceUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogForceUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogForceUnit_Hash() { return 2790060016U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogForceUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogForceUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogForceUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLFU_Newtons", (int64)DLFU_Newtons },
-				{ "DLFU_PoundsForce", (int64)DLFU_PoundsForce },
-				{ "DLFU_KilogramsForce", (int64)DLFU_KilogramsForce },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLFU_KilogramsForce.DisplayName", "Kilograms Force (kgf)" },
-				{ "DLFU_KilogramsForce.Name", "DLFU_KilogramsForce" },
-				{ "DLFU_Newtons.DisplayName", "Newtons (N)" },
-				{ "DLFU_Newtons.Name", "DLFU_Newtons" },
-				{ "DLFU_PoundsForce.DisplayName", "Pounds Force (lbf)" },
-				{ "DLFU_PoundsForce.Name", "DLFU_PoundsForce" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogForceUnit",
-				"EDebugLogForceUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogAngularUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogAngularUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogAngularUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogAngularUnit>()
-	{
-		return EDebugLogAngularUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogAngularUnit(EDebugLogAngularUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogAngularUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Hash() { return 4128443838U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogAngularUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogAngularUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLAU_Degrees", (int64)DLAU_Degrees },
-				{ "DLAU_Radians", (int64)DLAU_Radians },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLAU_Degrees.DisplayName", "Degrees (deg)" },
-				{ "DLAU_Degrees.Name", "DLAU_Degrees" },
-				{ "DLAU_Radians.DisplayName", "Radians (rad)" },
-				{ "DLAU_Radians.Name", "DLAU_Radians" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogAngularUnit",
-				"EDebugLogAngularUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogSpeedUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogSpeedUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogSpeedUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogSpeedUnit>()
-	{
-		return EDebugLogSpeedUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogSpeedUnit(EDebugLogSpeedUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogSpeedUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Hash() { return 3901012577U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogSpeedUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogSpeedUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLSU_CentimetersPerSec", (int64)DLSU_CentimetersPerSec },
-				{ "DLSU_CentimetersPerHour", (int64)DLSU_CentimetersPerHour },
-				{ "DLSU_MicrometersPerSec", (int64)DLSU_MicrometersPerSec },
-				{ "DLSU_MicrometersPerHour", (int64)DLSU_MicrometersPerHour },
-				{ "DLSU_MillimetersPerSec", (int64)DLSU_MillimetersPerSec },
-				{ "DLSU_MillimetersPerHour", (int64)DLSU_MillimetersPerHour },
-				{ "DLSU_MetersPerSec", (int64)DLSU_MetersPerSec },
-				{ "DLSU_MetersPerHour", (int64)DLSU_MetersPerHour },
-				{ "DLSU_KilometersPerSec", (int64)DLSU_KilometersPerSec },
-				{ "DLSU_KilometersPerHour", (int64)DLSU_KilometersPerHour },
-				{ "DLSU_InchesPerSec", (int64)DLSU_InchesPerSec },
-				{ "DLSU_InchesPerHour", (int64)DLSU_InchesPerHour },
-				{ "DLSU_FeetPerSec", (int64)DLSU_FeetPerSec },
-				{ "DLSU_FeetPerHour", (int64)DLSU_FeetPerHour },
-				{ "DLSU_MilesPerSec", (int64)DLSU_MilesPerSec },
-				{ "DLSU_MilesPerHour", (int64)DLSU_MilesPerHour },
-				{ "DLSU_YardsPerSec", (int64)DLSU_YardsPerSec },
-				{ "DLSU_YardsPerHour", (int64)DLSU_YardsPerHour },
-				{ "DLSU_Knots", (int64)DLSU_Knots },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLSU_CentimetersPerHour.DisplayName", "Centimeters per Hour (cm/h))" },
-				{ "DLSU_CentimetersPerHour.Name", "DLSU_CentimetersPerHour" },
-				{ "DLSU_CentimetersPerSec.DisplayName", "Centimeters per Sec (cm/s)" },
-				{ "DLSU_CentimetersPerSec.Name", "DLSU_CentimetersPerSec" },
-				{ "DLSU_FeetPerHour.DisplayName", "Feet per Hour (ft/h)" },
-				{ "DLSU_FeetPerHour.Name", "DLSU_FeetPerHour" },
-				{ "DLSU_FeetPerSec.DisplayName", "Feet per Sec (ft/s)" },
-				{ "DLSU_FeetPerSec.Name", "DLSU_FeetPerSec" },
-				{ "DLSU_InchesPerHour.DisplayName", "Inches per Hour (in/h)" },
-				{ "DLSU_InchesPerHour.Name", "DLSU_InchesPerHour" },
-				{ "DLSU_InchesPerSec.DisplayName", "Inches per Sec (in/s)" },
-				{ "DLSU_InchesPerSec.Name", "DLSU_InchesPerSec" },
-				{ "DLSU_KilometersPerHour.DisplayName", "Kilometers per Hour (km/h)" },
-				{ "DLSU_KilometersPerHour.Name", "DLSU_KilometersPerHour" },
-				{ "DLSU_KilometersPerSec.DisplayName", "Kilometers per Sec (km/s)" },
-				{ "DLSU_KilometersPerSec.Name", "DLSU_KilometersPerSec" },
-				{ "DLSU_Knots.DisplayName", "Knots (kn)" },
-				{ "DLSU_Knots.Name", "DLSU_Knots" },
-				{ "DLSU_MetersPerHour.DisplayName", "Meters per Hour (m/h)" },
-				{ "DLSU_MetersPerHour.Name", "DLSU_MetersPerHour" },
-				{ "DLSU_MetersPerSec.DisplayName", "Meters per Sec (m/s)" },
-				{ "DLSU_MetersPerSec.Name", "DLSU_MetersPerSec" },
-				{ "DLSU_MicrometersPerHour.DisplayName", "Micrometers per Hour (um/h)" },
-				{ "DLSU_MicrometersPerHour.Name", "DLSU_MicrometersPerHour" },
-				{ "DLSU_MicrometersPerSec.DisplayName", "Micrometers per Sec (um/s)" },
-				{ "DLSU_MicrometersPerSec.Name", "DLSU_MicrometersPerSec" },
-				{ "DLSU_MilesPerHour.DisplayName", "Miles per Hour (mi/h)" },
-				{ "DLSU_MilesPerHour.Name", "DLSU_MilesPerHour" },
-				{ "DLSU_MilesPerSec.DisplayName", "Miles per Sec (mi/s)" },
-				{ "DLSU_MilesPerSec.Name", "DLSU_MilesPerSec" },
-				{ "DLSU_MillimetersPerHour.DisplayName", "Millimeters per Hour (mm/h)" },
-				{ "DLSU_MillimetersPerHour.Name", "DLSU_MillimetersPerHour" },
-				{ "DLSU_MillimetersPerSec.DisplayName", "Millimeters per Sec (mm/s)" },
-				{ "DLSU_MillimetersPerSec.Name", "DLSU_MillimetersPerSec" },
-				{ "DLSU_YardsPerHour.DisplayName", "Yards per Hour (yd/h)" },
-				{ "DLSU_YardsPerHour.Name", "DLSU_YardsPerHour" },
-				{ "DLSU_YardsPerSec.DisplayName", "Yards per Sec (yd/s)" },
-				{ "DLSU_YardsPerSec.Name", "DLSU_YardsPerSec" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogSpeedUnit",
-				"EDebugLogSpeedUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogMassUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogMassUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogMassUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogMassUnit>()
-	{
-		return EDebugLogMassUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogMassUnit(EDebugLogMassUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogMassUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogMassUnit_Hash() { return 585474085U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogMassUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogMassUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogMassUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLMU_Microgram", (int64)DLMU_Microgram },
-				{ "DLMU_Milligram", (int64)DLMU_Milligram },
-				{ "DLMU_Gram", (int64)DLMU_Gram },
-				{ "DLMU_Kilogram", (int64)DLMU_Kilogram },
-				{ "DLMU_Tonne", (int64)DLMU_Tonne },
-				{ "DLMU_Ounce", (int64)DLMU_Ounce },
-				{ "DLMU_Pound", (int64)DLMU_Pound },
-				{ "DLMU_Stone", (int64)DLMU_Stone },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLMU_Gram.DisplayName", "Gram (g)" },
-				{ "DLMU_Gram.Name", "DLMU_Gram" },
-				{ "DLMU_Kilogram.DisplayName", "Kilogram (kg)" },
-				{ "DLMU_Kilogram.Name", "DLMU_Kilogram" },
-				{ "DLMU_Microgram.DisplayName", "Microgram (\xce\xbcg)" },
-				{ "DLMU_Microgram.Name", "DLMU_Microgram" },
-				{ "DLMU_Milligram.DisplayName", "Milligram (mg)" },
-				{ "DLMU_Milligram.Name", "DLMU_Milligram" },
-				{ "DLMU_Ounce.DisplayName", "Ounce (oz)" },
-				{ "DLMU_Ounce.Name", "DLMU_Ounce" },
-				{ "DLMU_Pound.DisplayName", "Pound (lb)" },
-				{ "DLMU_Pound.Name", "DLMU_Pound" },
-				{ "DLMU_Stone.DisplayName", "Stone (st)" },
-				{ "DLMU_Stone.Name", "DLMU_Stone" },
-				{ "DLMU_Tonne.DisplayName", "Tonne (t)" },
-				{ "DLMU_Tonne.Name", "DLMU_Tonne" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogMassUnit",
-				"EDebugLogMassUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogLengthUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogLengthUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogLengthUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogLengthUnit>()
-	{
-		return EDebugLogLengthUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogLengthUnit(EDebugLogLengthUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogLengthUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Hash() { return 2564313611U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogLengthUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogLengthUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLLU_Centimeter", (int64)DLLU_Centimeter },
-				{ "DLLU_Micrometer", (int64)DLLU_Micrometer },
-				{ "DLLU_Millimeter", (int64)DLLU_Millimeter },
-				{ "DLLU_Meter", (int64)DLLU_Meter },
-				{ "DLLU_Kilometer", (int64)DLLU_Kilometer },
-				{ "DLLU_Inch", (int64)DLLU_Inch },
-				{ "DLLU_Feet", (int64)DLLU_Feet },
-				{ "DLLU_Mile", (int64)DLLU_Mile },
-				{ "DLLU_NauticalMile", (int64)DLLU_NauticalMile },
-				{ "DLLU_Yard", (int64)DLLU_Yard },
-				{ "DLLU_Lightyears", (int64)DLLU_Lightyears },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLLU_Centimeter.DisplayName", "Centimeter (cm)" },
-				{ "DLLU_Centimeter.Name", "DLLU_Centimeter" },
-				{ "DLLU_Feet.DisplayName", "Feet (ft)" },
-				{ "DLLU_Feet.Name", "DLLU_Feet" },
-				{ "DLLU_Inch.DisplayName", "Inches (in)" },
-				{ "DLLU_Inch.Name", "DLLU_Inch" },
-				{ "DLLU_Kilometer.DisplayName", "Kilometer (km)" },
-				{ "DLLU_Kilometer.Name", "DLLU_Kilometer" },
-				{ "DLLU_Lightyears.DisplayName", "Lightyears (ly)" },
-				{ "DLLU_Lightyears.Name", "DLLU_Lightyears" },
-				{ "DLLU_Meter.DisplayName", "Meter (m)" },
-				{ "DLLU_Meter.Name", "DLLU_Meter" },
-				{ "DLLU_Micrometer.DisplayName", "Micrometer (um)" },
-				{ "DLLU_Micrometer.Name", "DLLU_Micrometer" },
-				{ "DLLU_Mile.DisplayName", "Miles (mi)" },
-				{ "DLLU_Mile.Name", "DLLU_Mile" },
-				{ "DLLU_Millimeter.DisplayName", "Millimeter (mm)" },
-				{ "DLLU_Millimeter.Name", "DLLU_Millimeter" },
-				{ "DLLU_NauticalMile.DisplayName", "Nautical Mile (nm)" },
-				{ "DLLU_NauticalMile.Name", "DLLU_NauticalMile" },
-				{ "DLLU_Yard.DisplayName", "Yard (yd)" },
-				{ "DLLU_Yard.Name", "DLLU_Yard" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogLengthUnit",
-				"EDebugLogLengthUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogDataUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogDataUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogDataUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogDataUnit>()
-	{
-		return EDebugLogDataUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogDataUnit(EDebugLogDataUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogDataUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogDataUnit_Hash() { return 3453899625U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogDataUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogDataUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogDataUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLDU_Bit", (int64)DLDU_Bit },
-				{ "DLDU_Byte", (int64)DLDU_Byte },
-				{ "DLDU_Kilobyte", (int64)DLDU_Kilobyte },
-				{ "DLDU_Megabyte", (int64)DLDU_Megabyte },
-				{ "DLDU_Gigabyte", (int64)DLDU_Gigabyte },
-				{ "DLDU_Terabyte", (int64)DLDU_Terabyte },
-				{ "DLDU_Petabyte", (int64)DLDU_Petabyte },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLDU_Bit.DisplayName", "Bit (bit)" },
-				{ "DLDU_Bit.Name", "DLDU_Bit" },
-				{ "DLDU_Byte.DisplayName", "Byte (byte)" },
-				{ "DLDU_Byte.Name", "DLDU_Byte" },
-				{ "DLDU_Gigabyte.DisplayName", "Gigabyte (GB)" },
-				{ "DLDU_Gigabyte.Name", "DLDU_Gigabyte" },
-				{ "DLDU_Kilobyte.DisplayName", "Kilobyte (KB)" },
-				{ "DLDU_Kilobyte.Name", "DLDU_Kilobyte" },
-				{ "DLDU_Megabyte.DisplayName", "Megabyte (MB)" },
-				{ "DLDU_Megabyte.Name", "DLDU_Megabyte" },
-				{ "DLDU_Petabyte.DisplayName", "Petabyte (PB)" },
-				{ "DLDU_Petabyte.Name", "DLDU_Petabyte" },
-				{ "DLDU_Terabyte.DisplayName", "Terabyte (TB)" },
-				{ "DLDU_Terabyte.Name", "DLDU_Terabyte" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogDataUnit",
-				"EDebugLogDataUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogVolumeUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogVolumeUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogVolumeUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogVolumeUnit>()
-	{
-		return EDebugLogVolumeUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogVolumeUnit(EDebugLogVolumeUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogVolumeUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Hash() { return 4294886415U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogVolumeUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogVolumeUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLVU_Litre", (int64)DLVU_Litre },
-				{ "DLVU_Millilitre", (int64)DLVU_Millilitre },
-				{ "DLVU_Gallon", (int64)DLVU_Gallon },
-				{ "DLVU_Pint", (int64)DLVU_Pint },
-				{ "DLVU_Quart", (int64)DLVU_Quart },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLVU_Gallon.DisplayName", "Gallon (GAL)" },
-				{ "DLVU_Gallon.Name", "DLVU_Gallon" },
-				{ "DLVU_Litre.DisplayName", "Litre (L)" },
-				{ "DLVU_Litre.Name", "DLVU_Litre" },
-				{ "DLVU_Millilitre.DisplayName", "Millilitre (ml)" },
-				{ "DLVU_Millilitre.Name", "DLVU_Millilitre" },
-				{ "DLVU_Pint.DisplayName", "Pint (pt)" },
-				{ "DLVU_Pint.Name", "DLVU_Pint" },
-				{ "DLVU_Quart.DisplayName", "Quart (qt)" },
-				{ "DLVU_Quart.Name", "DLVU_Quart" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogVolumeUnit",
-				"EDebugLogVolumeUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
-	static UEnum* EDebugLogTemperatureUnit_StaticEnum()
-	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
-		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogTemperatureUnit"));
-		}
-		return Singleton;
-	}
-	template<> DEBUG_API UEnum* StaticEnum<EDebugLogTemperatureUnit>()
-	{
-		return EDebugLogTemperatureUnit_StaticEnum();
-	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogTemperatureUnit(EDebugLogTemperatureUnit_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogTemperatureUnit"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Hash() { return 4100926794U; }
-	UEnum* Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit()
-	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogTemperatureUnit"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
-		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLTU_Celsius", (int64)DLTU_Celsius },
-				{ "DLTU_Fahrenheit", (int64)DLTU_Fahrenheit },
-				{ "DLTU_Kelvin", (int64)DLTU_Kelvin },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "DLTU_Celsius.DisplayName", "Celsius (C)" },
-				{ "DLTU_Celsius.Name", "DLTU_Celsius" },
-				{ "DLTU_Fahrenheit.DisplayName", "Fahrenheit (F)" },
-				{ "DLTU_Fahrenheit.Name", "DLTU_Fahrenheit" },
-				{ "DLTU_Kelvin.DisplayName", "Kelvin (K)" },
-				{ "DLTU_Kelvin.Name", "DLTU_Kelvin" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogTemperatureUnit",
-				"EDebugLogTemperatureUnit",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
-		}
-		return ReturnEnum;
-	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogNumberSystems;
 	static UEnum* EDebugLogNumberSystems_StaticEnum()
 	{
-		static UEnum* Singleton = nullptr;
-		if (!Singleton)
+		if (!Z_Registration_Info_UEnum_EDebugLogNumberSystems.OuterSingleton)
 		{
-			Singleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogNumberSystems, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogNumberSystems"));
+			Z_Registration_Info_UEnum_EDebugLogNumberSystems.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogNumberSystems, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogNumberSystems"));
 		}
-		return Singleton;
+		return Z_Registration_Info_UEnum_EDebugLogNumberSystems.OuterSingleton;
 	}
 	template<> DEBUG_API UEnum* StaticEnum<EDebugLogNumberSystems>()
 	{
 		return EDebugLogNumberSystems_StaticEnum();
 	}
-	static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EDebugLogNumberSystems(EDebugLogNumberSystems_StaticEnum, TEXT("/Script/Debug"), TEXT("EDebugLogNumberSystems"), false, nullptr, nullptr);
-	uint32 Get_Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Hash() { return 1514502838U; }
+	struct Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics::Enumerators[] = {
+		{ "DLNS_Decimal", (int64)DLNS_Decimal },
+		{ "DLNS_Binary", (int64)DLNS_Binary },
+		{ "DLNS_Hex", (int64)DLNS_Hex },
+		{ "DLNS_Octal", (int64)DLNS_Octal },
+		{ "DLNS_Roman", (int64)DLNS_Roman },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "Comment", "// Quick debug logging macros\n" },
+		{ "DLNS_Binary.DisplayName", "Binary (Base 2)" },
+		{ "DLNS_Binary.Name", "DLNS_Binary" },
+		{ "DLNS_Decimal.DisplayName", "Decimal (Base 10)" },
+		{ "DLNS_Decimal.Name", "DLNS_Decimal" },
+		{ "DLNS_Hex.DisplayName", "Hexadecimal (Base 16)" },
+		{ "DLNS_Hex.Name", "DLNS_Hex" },
+		{ "DLNS_Octal.DisplayName", "Octal (Base 8)" },
+		{ "DLNS_Octal.Name", "DLNS_Octal" },
+		{ "DLNS_Roman.DisplayName", "Roman Numerals (Base 10)" },
+		{ "DLNS_Roman.Name", "DLNS_Roman" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+		{ "ToolTip", "Quick debug logging macros" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogNumberSystems",
+		"EDebugLogNumberSystems",
+		Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics::Enum_MetaDataParams))
+	};
 	UEnum* Z_Construct_UEnum_Debug_EDebugLogNumberSystems()
 	{
-#if WITH_HOT_RELOAD
-		UPackage* Outer = Z_Construct_UPackage__Script_Debug();
-		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EDebugLogNumberSystems"), 0, Get_Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Hash(), false);
-#else
-		static UEnum* ReturnEnum = nullptr;
-#endif // WITH_HOT_RELOAD
-		if (!ReturnEnum)
+		if (!Z_Registration_Info_UEnum_EDebugLogNumberSystems.InnerSingleton)
 		{
-			static const UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-				{ "DLNS_Decimal", (int64)DLNS_Decimal },
-				{ "DLNS_Binary", (int64)DLNS_Binary },
-				{ "DLNS_Hex", (int64)DLNS_Hex },
-				{ "DLNS_Octal", (int64)DLNS_Octal },
-				{ "DLNS_Roman", (int64)DLNS_Roman },
-			};
-#if WITH_METADATA
-			const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
-				{ "BlueprintType", "true" },
-				{ "Comment", "// Quick debug logging macros\n" },
-				{ "DLNS_Binary.DisplayName", "Binary (Base 2)" },
-				{ "DLNS_Binary.Name", "DLNS_Binary" },
-				{ "DLNS_Decimal.DisplayName", "Decimal (Base 10)" },
-				{ "DLNS_Decimal.Name", "DLNS_Decimal" },
-				{ "DLNS_Hex.DisplayName", "Hexadecimal (Base 16)" },
-				{ "DLNS_Hex.Name", "DLNS_Hex" },
-				{ "DLNS_Octal.DisplayName", "Octal (Base 8)" },
-				{ "DLNS_Octal.Name", "DLNS_Octal" },
-				{ "DLNS_Roman.DisplayName", "Roman Numerals (Base 10)" },
-				{ "DLNS_Roman.Name", "DLNS_Roman" },
-				{ "ModuleRelativePath", "Public/Log.h" },
-				{ "ToolTip", "Quick debug logging macros" },
-			};
-#endif
-			static const UECodeGen_Private::FEnumParams EnumParams = {
-				(UObject*(*)())Z_Construct_UPackage__Script_Debug,
-				nullptr,
-				"EDebugLogNumberSystems",
-				"EDebugLogNumberSystems",
-				Enumerators,
-				UE_ARRAY_COUNT(Enumerators),
-				RF_Public|RF_Transient|RF_MarkAsNative,
-				EEnumFlags::None,
-				UECodeGen_Private::EDynamicType::NotDynamic,
-				(uint8)UEnum::ECppForm::Regular,
-				METADATA_PARAMS(Enum_MetaDataParams, UE_ARRAY_COUNT(Enum_MetaDataParams))
-			};
-			UECodeGen_Private::ConstructUEnum(ReturnEnum, EnumParams);
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogNumberSystems.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogNumberSystems_Statics::EnumParams);
 		}
-		return ReturnEnum;
+		return Z_Registration_Info_UEnum_EDebugLogNumberSystems.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogTemperatureUnit;
+	static UEnum* EDebugLogTemperatureUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogTemperatureUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogTemperatureUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogTemperatureUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogTemperatureUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogTemperatureUnit>()
+	{
+		return EDebugLogTemperatureUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics::Enumerators[] = {
+		{ "DLTU_Celsius", (int64)DLTU_Celsius },
+		{ "DLTU_Fahrenheit", (int64)DLTU_Fahrenheit },
+		{ "DLTU_Kelvin", (int64)DLTU_Kelvin },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLTU_Celsius.DisplayName", "Celsius (C)" },
+		{ "DLTU_Celsius.Name", "DLTU_Celsius" },
+		{ "DLTU_Fahrenheit.DisplayName", "Fahrenheit (F)" },
+		{ "DLTU_Fahrenheit.Name", "DLTU_Fahrenheit" },
+		{ "DLTU_Kelvin.DisplayName", "Kelvin (K)" },
+		{ "DLTU_Kelvin.Name", "DLTU_Kelvin" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogTemperatureUnit",
+		"EDebugLogTemperatureUnit",
+		Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogTemperatureUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogTemperatureUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogTemperatureUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogVolumeUnit;
+	static UEnum* EDebugLogVolumeUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogVolumeUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogVolumeUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogVolumeUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogVolumeUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogVolumeUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogVolumeUnit>()
+	{
+		return EDebugLogVolumeUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics::Enumerators[] = {
+		{ "DLVU_Litre", (int64)DLVU_Litre },
+		{ "DLVU_Millilitre", (int64)DLVU_Millilitre },
+		{ "DLVU_Gallon", (int64)DLVU_Gallon },
+		{ "DLVU_Pint", (int64)DLVU_Pint },
+		{ "DLVU_Quart", (int64)DLVU_Quart },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLVU_Gallon.DisplayName", "Gallon (GAL)" },
+		{ "DLVU_Gallon.Name", "DLVU_Gallon" },
+		{ "DLVU_Litre.DisplayName", "Litre (L)" },
+		{ "DLVU_Litre.Name", "DLVU_Litre" },
+		{ "DLVU_Millilitre.DisplayName", "Millilitre (ml)" },
+		{ "DLVU_Millilitre.Name", "DLVU_Millilitre" },
+		{ "DLVU_Pint.DisplayName", "Pint (pt)" },
+		{ "DLVU_Pint.Name", "DLVU_Pint" },
+		{ "DLVU_Quart.DisplayName", "Quart (qt)" },
+		{ "DLVU_Quart.Name", "DLVU_Quart" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogVolumeUnit",
+		"EDebugLogVolumeUnit",
+		Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogVolumeUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogVolumeUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogVolumeUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogVolumeUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogVolumeUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogDataUnit;
+	static UEnum* EDebugLogDataUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogDataUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogDataUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogDataUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogDataUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogDataUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogDataUnit>()
+	{
+		return EDebugLogDataUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics::Enumerators[] = {
+		{ "DLDU_Bit", (int64)DLDU_Bit },
+		{ "DLDU_Byte", (int64)DLDU_Byte },
+		{ "DLDU_Kilobyte", (int64)DLDU_Kilobyte },
+		{ "DLDU_Megabyte", (int64)DLDU_Megabyte },
+		{ "DLDU_Gigabyte", (int64)DLDU_Gigabyte },
+		{ "DLDU_Terabyte", (int64)DLDU_Terabyte },
+		{ "DLDU_Petabyte", (int64)DLDU_Petabyte },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLDU_Bit.DisplayName", "Bit (bit)" },
+		{ "DLDU_Bit.Name", "DLDU_Bit" },
+		{ "DLDU_Byte.DisplayName", "Byte (byte)" },
+		{ "DLDU_Byte.Name", "DLDU_Byte" },
+		{ "DLDU_Gigabyte.DisplayName", "Gigabyte (GB)" },
+		{ "DLDU_Gigabyte.Name", "DLDU_Gigabyte" },
+		{ "DLDU_Kilobyte.DisplayName", "Kilobyte (KB)" },
+		{ "DLDU_Kilobyte.Name", "DLDU_Kilobyte" },
+		{ "DLDU_Megabyte.DisplayName", "Megabyte (MB)" },
+		{ "DLDU_Megabyte.Name", "DLDU_Megabyte" },
+		{ "DLDU_Petabyte.DisplayName", "Petabyte (PB)" },
+		{ "DLDU_Petabyte.Name", "DLDU_Petabyte" },
+		{ "DLDU_Terabyte.DisplayName", "Terabyte (TB)" },
+		{ "DLDU_Terabyte.Name", "DLDU_Terabyte" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogDataUnit",
+		"EDebugLogDataUnit",
+		Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogDataUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogDataUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogDataUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogDataUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogDataUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogLengthUnit;
+	static UEnum* EDebugLogLengthUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogLengthUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogLengthUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogLengthUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogLengthUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogLengthUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogLengthUnit>()
+	{
+		return EDebugLogLengthUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics::Enumerators[] = {
+		{ "DLLU_Centimeter", (int64)DLLU_Centimeter },
+		{ "DLLU_Micrometer", (int64)DLLU_Micrometer },
+		{ "DLLU_Millimeter", (int64)DLLU_Millimeter },
+		{ "DLLU_Meter", (int64)DLLU_Meter },
+		{ "DLLU_Kilometer", (int64)DLLU_Kilometer },
+		{ "DLLU_Inch", (int64)DLLU_Inch },
+		{ "DLLU_Feet", (int64)DLLU_Feet },
+		{ "DLLU_Mile", (int64)DLLU_Mile },
+		{ "DLLU_NauticalMile", (int64)DLLU_NauticalMile },
+		{ "DLLU_Yard", (int64)DLLU_Yard },
+		{ "DLLU_Lightyears", (int64)DLLU_Lightyears },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLLU_Centimeter.DisplayName", "Centimeter (cm)" },
+		{ "DLLU_Centimeter.Name", "DLLU_Centimeter" },
+		{ "DLLU_Feet.DisplayName", "Feet (ft)" },
+		{ "DLLU_Feet.Name", "DLLU_Feet" },
+		{ "DLLU_Inch.DisplayName", "Inches (in)" },
+		{ "DLLU_Inch.Name", "DLLU_Inch" },
+		{ "DLLU_Kilometer.DisplayName", "Kilometer (km)" },
+		{ "DLLU_Kilometer.Name", "DLLU_Kilometer" },
+		{ "DLLU_Lightyears.DisplayName", "Lightyears (ly)" },
+		{ "DLLU_Lightyears.Name", "DLLU_Lightyears" },
+		{ "DLLU_Meter.DisplayName", "Meter (m)" },
+		{ "DLLU_Meter.Name", "DLLU_Meter" },
+		{ "DLLU_Micrometer.DisplayName", "Micrometer (um)" },
+		{ "DLLU_Micrometer.Name", "DLLU_Micrometer" },
+		{ "DLLU_Mile.DisplayName", "Miles (mi)" },
+		{ "DLLU_Mile.Name", "DLLU_Mile" },
+		{ "DLLU_Millimeter.DisplayName", "Millimeter (mm)" },
+		{ "DLLU_Millimeter.Name", "DLLU_Millimeter" },
+		{ "DLLU_NauticalMile.DisplayName", "Nautical Mile (nm)" },
+		{ "DLLU_NauticalMile.Name", "DLLU_NauticalMile" },
+		{ "DLLU_Yard.DisplayName", "Yard (yd)" },
+		{ "DLLU_Yard.Name", "DLLU_Yard" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogLengthUnit",
+		"EDebugLogLengthUnit",
+		Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogLengthUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogLengthUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogLengthUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogLengthUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogLengthUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogMassUnit;
+	static UEnum* EDebugLogMassUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogMassUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogMassUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogMassUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogMassUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogMassUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogMassUnit>()
+	{
+		return EDebugLogMassUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics::Enumerators[] = {
+		{ "DLMU_Microgram", (int64)DLMU_Microgram },
+		{ "DLMU_Milligram", (int64)DLMU_Milligram },
+		{ "DLMU_Gram", (int64)DLMU_Gram },
+		{ "DLMU_Kilogram", (int64)DLMU_Kilogram },
+		{ "DLMU_Tonne", (int64)DLMU_Tonne },
+		{ "DLMU_Ounce", (int64)DLMU_Ounce },
+		{ "DLMU_Pound", (int64)DLMU_Pound },
+		{ "DLMU_Stone", (int64)DLMU_Stone },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLMU_Gram.DisplayName", "Gram (g)" },
+		{ "DLMU_Gram.Name", "DLMU_Gram" },
+		{ "DLMU_Kilogram.DisplayName", "Kilogram (kg)" },
+		{ "DLMU_Kilogram.Name", "DLMU_Kilogram" },
+		{ "DLMU_Microgram.DisplayName", "Microgram (\xce\xbcg)" },
+		{ "DLMU_Microgram.Name", "DLMU_Microgram" },
+		{ "DLMU_Milligram.DisplayName", "Milligram (mg)" },
+		{ "DLMU_Milligram.Name", "DLMU_Milligram" },
+		{ "DLMU_Ounce.DisplayName", "Ounce (oz)" },
+		{ "DLMU_Ounce.Name", "DLMU_Ounce" },
+		{ "DLMU_Pound.DisplayName", "Pound (lb)" },
+		{ "DLMU_Pound.Name", "DLMU_Pound" },
+		{ "DLMU_Stone.DisplayName", "Stone (st)" },
+		{ "DLMU_Stone.Name", "DLMU_Stone" },
+		{ "DLMU_Tonne.DisplayName", "Tonne (t)" },
+		{ "DLMU_Tonne.Name", "DLMU_Tonne" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogMassUnit",
+		"EDebugLogMassUnit",
+		Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogMassUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogMassUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogMassUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogMassUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogMassUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogSpeedUnit;
+	static UEnum* EDebugLogSpeedUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogSpeedUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogSpeedUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogSpeedUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogSpeedUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogSpeedUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogSpeedUnit>()
+	{
+		return EDebugLogSpeedUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics::Enumerators[] = {
+		{ "DLSU_CentimetersPerSec", (int64)DLSU_CentimetersPerSec },
+		{ "DLSU_CentimetersPerHour", (int64)DLSU_CentimetersPerHour },
+		{ "DLSU_MicrometersPerSec", (int64)DLSU_MicrometersPerSec },
+		{ "DLSU_MicrometersPerHour", (int64)DLSU_MicrometersPerHour },
+		{ "DLSU_MillimetersPerSec", (int64)DLSU_MillimetersPerSec },
+		{ "DLSU_MillimetersPerHour", (int64)DLSU_MillimetersPerHour },
+		{ "DLSU_MetersPerSec", (int64)DLSU_MetersPerSec },
+		{ "DLSU_MetersPerHour", (int64)DLSU_MetersPerHour },
+		{ "DLSU_KilometersPerSec", (int64)DLSU_KilometersPerSec },
+		{ "DLSU_KilometersPerHour", (int64)DLSU_KilometersPerHour },
+		{ "DLSU_InchesPerSec", (int64)DLSU_InchesPerSec },
+		{ "DLSU_InchesPerHour", (int64)DLSU_InchesPerHour },
+		{ "DLSU_FeetPerSec", (int64)DLSU_FeetPerSec },
+		{ "DLSU_FeetPerHour", (int64)DLSU_FeetPerHour },
+		{ "DLSU_MilesPerSec", (int64)DLSU_MilesPerSec },
+		{ "DLSU_MilesPerHour", (int64)DLSU_MilesPerHour },
+		{ "DLSU_YardsPerSec", (int64)DLSU_YardsPerSec },
+		{ "DLSU_YardsPerHour", (int64)DLSU_YardsPerHour },
+		{ "DLSU_Knots", (int64)DLSU_Knots },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLSU_CentimetersPerHour.DisplayName", "Centimeters per Hour (cm/h))" },
+		{ "DLSU_CentimetersPerHour.Name", "DLSU_CentimetersPerHour" },
+		{ "DLSU_CentimetersPerSec.DisplayName", "Centimeters per Sec (cm/s)" },
+		{ "DLSU_CentimetersPerSec.Name", "DLSU_CentimetersPerSec" },
+		{ "DLSU_FeetPerHour.DisplayName", "Feet per Hour (ft/h)" },
+		{ "DLSU_FeetPerHour.Name", "DLSU_FeetPerHour" },
+		{ "DLSU_FeetPerSec.DisplayName", "Feet per Sec (ft/s)" },
+		{ "DLSU_FeetPerSec.Name", "DLSU_FeetPerSec" },
+		{ "DLSU_InchesPerHour.DisplayName", "Inches per Hour (in/h)" },
+		{ "DLSU_InchesPerHour.Name", "DLSU_InchesPerHour" },
+		{ "DLSU_InchesPerSec.DisplayName", "Inches per Sec (in/s)" },
+		{ "DLSU_InchesPerSec.Name", "DLSU_InchesPerSec" },
+		{ "DLSU_KilometersPerHour.DisplayName", "Kilometers per Hour (km/h)" },
+		{ "DLSU_KilometersPerHour.Name", "DLSU_KilometersPerHour" },
+		{ "DLSU_KilometersPerSec.DisplayName", "Kilometers per Sec (km/s)" },
+		{ "DLSU_KilometersPerSec.Name", "DLSU_KilometersPerSec" },
+		{ "DLSU_Knots.DisplayName", "Knots (kn)" },
+		{ "DLSU_Knots.Name", "DLSU_Knots" },
+		{ "DLSU_MetersPerHour.DisplayName", "Meters per Hour (m/h)" },
+		{ "DLSU_MetersPerHour.Name", "DLSU_MetersPerHour" },
+		{ "DLSU_MetersPerSec.DisplayName", "Meters per Sec (m/s)" },
+		{ "DLSU_MetersPerSec.Name", "DLSU_MetersPerSec" },
+		{ "DLSU_MicrometersPerHour.DisplayName", "Micrometers per Hour (um/h)" },
+		{ "DLSU_MicrometersPerHour.Name", "DLSU_MicrometersPerHour" },
+		{ "DLSU_MicrometersPerSec.DisplayName", "Micrometers per Sec (um/s)" },
+		{ "DLSU_MicrometersPerSec.Name", "DLSU_MicrometersPerSec" },
+		{ "DLSU_MilesPerHour.DisplayName", "Miles per Hour (mi/h)" },
+		{ "DLSU_MilesPerHour.Name", "DLSU_MilesPerHour" },
+		{ "DLSU_MilesPerSec.DisplayName", "Miles per Sec (mi/s)" },
+		{ "DLSU_MilesPerSec.Name", "DLSU_MilesPerSec" },
+		{ "DLSU_MillimetersPerHour.DisplayName", "Millimeters per Hour (mm/h)" },
+		{ "DLSU_MillimetersPerHour.Name", "DLSU_MillimetersPerHour" },
+		{ "DLSU_MillimetersPerSec.DisplayName", "Millimeters per Sec (mm/s)" },
+		{ "DLSU_MillimetersPerSec.Name", "DLSU_MillimetersPerSec" },
+		{ "DLSU_YardsPerHour.DisplayName", "Yards per Hour (yd/h)" },
+		{ "DLSU_YardsPerHour.Name", "DLSU_YardsPerHour" },
+		{ "DLSU_YardsPerSec.DisplayName", "Yards per Sec (yd/s)" },
+		{ "DLSU_YardsPerSec.Name", "DLSU_YardsPerSec" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogSpeedUnit",
+		"EDebugLogSpeedUnit",
+		Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogSpeedUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogSpeedUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogSpeedUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogSpeedUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogSpeedUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogAngularUnit;
+	static UEnum* EDebugLogAngularUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogAngularUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogAngularUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogAngularUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogAngularUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogAngularUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogAngularUnit>()
+	{
+		return EDebugLogAngularUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics::Enumerators[] = {
+		{ "DLAU_Degrees", (int64)DLAU_Degrees },
+		{ "DLAU_Radians", (int64)DLAU_Radians },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLAU_Degrees.DisplayName", "Degrees (deg)" },
+		{ "DLAU_Degrees.Name", "DLAU_Degrees" },
+		{ "DLAU_Radians.DisplayName", "Radians (rad)" },
+		{ "DLAU_Radians.Name", "DLAU_Radians" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogAngularUnit",
+		"EDebugLogAngularUnit",
+		Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogAngularUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogAngularUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogAngularUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogAngularUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogAngularUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogForceUnit;
+	static UEnum* EDebugLogForceUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogForceUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogForceUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogForceUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogForceUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogForceUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogForceUnit>()
+	{
+		return EDebugLogForceUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics::Enumerators[] = {
+		{ "DLFU_Newtons", (int64)DLFU_Newtons },
+		{ "DLFU_PoundsForce", (int64)DLFU_PoundsForce },
+		{ "DLFU_KilogramsForce", (int64)DLFU_KilogramsForce },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLFU_KilogramsForce.DisplayName", "Kilograms Force (kgf)" },
+		{ "DLFU_KilogramsForce.Name", "DLFU_KilogramsForce" },
+		{ "DLFU_Newtons.DisplayName", "Newtons (N)" },
+		{ "DLFU_Newtons.Name", "DLFU_Newtons" },
+		{ "DLFU_PoundsForce.DisplayName", "Pounds Force (lbf)" },
+		{ "DLFU_PoundsForce.Name", "DLFU_PoundsForce" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogForceUnit",
+		"EDebugLogForceUnit",
+		Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogForceUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogForceUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogForceUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogForceUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogForceUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogFrequencyUnit;
+	static UEnum* EDebugLogFrequencyUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogFrequencyUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogFrequencyUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogFrequencyUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogFrequencyUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogFrequencyUnit>()
+	{
+		return EDebugLogFrequencyUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics::Enumerators[] = {
+		{ "DLFU_Hertz", (int64)DLFU_Hertz },
+		{ "DLFU_Kilohertz", (int64)DLFU_Kilohertz },
+		{ "DLFU_Megahertz", (int64)DLFU_Megahertz },
+		{ "DLFU_Gigahertz", (int64)DLFU_Gigahertz },
+		{ "DLFU_RevolutionsPerMinute", (int64)DLFU_RevolutionsPerMinute },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLFU_Gigahertz.DisplayName", "Gigahertz (GHz)" },
+		{ "DLFU_Gigahertz.Name", "DLFU_Gigahertz" },
+		{ "DLFU_Hertz.DisplayName", "Hertz (Hz)" },
+		{ "DLFU_Hertz.Name", "DLFU_Hertz" },
+		{ "DLFU_Kilohertz.DisplayName", "Kilohertz (kHz)" },
+		{ "DLFU_Kilohertz.Name", "DLFU_Kilohertz" },
+		{ "DLFU_Megahertz.DisplayName", "Megahertz (MHz)" },
+		{ "DLFU_Megahertz.Name", "DLFU_Megahertz" },
+		{ "DLFU_RevolutionsPerMinute.DisplayName", "RevolutionsPerMinute (rpm)" },
+		{ "DLFU_RevolutionsPerMinute.Name", "DLFU_RevolutionsPerMinute" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogFrequencyUnit",
+		"EDebugLogFrequencyUnit",
+		Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogFrequencyUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogFrequencyUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogFrequencyUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogLightUnit;
+	static UEnum* EDebugLogLightUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogLightUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogLightUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogLightUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogLightUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogLightUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogLightUnit>()
+	{
+		return EDebugLogLightUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics::Enumerators[] = {
+		{ "DLLU_Lumens", (int64)DLLU_Lumens },
+		{ "DLLU_Candela", (int64)DLLU_Candela },
+		{ "DLLU_Lux", (int64)DLLU_Lux },
+		{ "DLLU_CandelaPerMeter2", (int64)DLLU_CandelaPerMeter2 },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLLU_Candela.DisplayName", "Candela (cd)" },
+		{ "DLLU_Candela.Name", "DLLU_Candela" },
+		{ "DLLU_CandelaPerMeter2.DisplayName", "CandelaPerMeter2 (cd/m2)" },
+		{ "DLLU_CandelaPerMeter2.Name", "DLLU_CandelaPerMeter2" },
+		{ "DLLU_Lumens.DisplayName", "Lumens (lm)" },
+		{ "DLLU_Lumens.Name", "DLLU_Lumens" },
+		{ "DLLU_Lux.DisplayName", "Lux (lx)" },
+		{ "DLLU_Lux.Name", "DLLU_Lux" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogLightUnit",
+		"EDebugLogLightUnit",
+		Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogLightUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogLightUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogLightUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogLightUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogLightUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogTimeUnit;
+	static UEnum* EDebugLogTimeUnit_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogTimeUnit.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogTimeUnit.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogTimeUnit, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogTimeUnit"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogTimeUnit.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogTimeUnit>()
+	{
+		return EDebugLogTimeUnit_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics::Enumerators[] = {
+		{ "DLTU_Nanoseconds", (int64)DLTU_Nanoseconds },
+		{ "DLTU_Microseconds", (int64)DLTU_Microseconds },
+		{ "DLTU_Milliseconds", (int64)DLTU_Milliseconds },
+		{ "DLTU_Seconds", (int64)DLTU_Seconds },
+		{ "DLTU_Minutes", (int64)DLTU_Minutes },
+		{ "DLTU_Hours", (int64)DLTU_Hours },
+		{ "DLTU_Days", (int64)DLTU_Days },
+		{ "DLTU_Weeks", (int64)DLTU_Weeks },
+		{ "DLTU_Months", (int64)DLTU_Months },
+		{ "DLTU_Years", (int64)DLTU_Years },
+		{ "DLTU_Decades", (int64)DLTU_Decades },
+		{ "DLTU_Centuries", (int64)DLTU_Centuries },
+		{ "DLTU_Millennium", (int64)DLTU_Millennium },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "DLTU_Centuries.DisplayName", "Centuries (century)" },
+		{ "DLTU_Centuries.Name", "DLTU_Centuries" },
+		{ "DLTU_Days.DisplayName", "Days (day)" },
+		{ "DLTU_Days.Name", "DLTU_Days" },
+		{ "DLTU_Decades.DisplayName", "Decades (decade)" },
+		{ "DLTU_Decades.Name", "DLTU_Decades" },
+		{ "DLTU_Hours.DisplayName", "Hours (hr)" },
+		{ "DLTU_Hours.Name", "DLTU_Hours" },
+		{ "DLTU_Microseconds.DisplayName", "Microseconds (us)" },
+		{ "DLTU_Microseconds.Name", "DLTU_Microseconds" },
+		{ "DLTU_Millennium.DisplayName", "Millennuim" },
+		{ "DLTU_Millennium.Name", "DLTU_Millennium" },
+		{ "DLTU_Milliseconds.DisplayName", "Milliseconds (ms)" },
+		{ "DLTU_Milliseconds.Name", "DLTU_Milliseconds" },
+		{ "DLTU_Minutes.DisplayName", "Minutes (min)" },
+		{ "DLTU_Minutes.Name", "DLTU_Minutes" },
+		{ "DLTU_Months.DisplayName", "Months (mth)" },
+		{ "DLTU_Months.Name", "DLTU_Months" },
+		{ "DLTU_Nanoseconds.DisplayName", "Nanoseconds (ns)" },
+		{ "DLTU_Nanoseconds.Name", "DLTU_Nanoseconds" },
+		{ "DLTU_Seconds.DisplayName", "Seconds (sec)" },
+		{ "DLTU_Seconds.Name", "DLTU_Seconds" },
+		{ "DLTU_Weeks.DisplayName", "Weeks (wk)" },
+		{ "DLTU_Weeks.Name", "DLTU_Weeks" },
+		{ "DLTU_Years.DisplayName", "Years (yrs)" },
+		{ "DLTU_Years.Name", "DLTU_Years" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogTimeUnit",
+		"EDebugLogTimeUnit",
+		Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogTimeUnit()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogTimeUnit.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogTimeUnit.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogTimeUnit_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogTimeUnit.InnerSingleton;
+	}
+	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EDebugLogComparisonMethod;
+	static UEnum* EDebugLogComparisonMethod_StaticEnum()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogComparisonMethod.OuterSingleton)
+		{
+			Z_Registration_Info_UEnum_EDebugLogComparisonMethod.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_Debug_EDebugLogComparisonMethod, Z_Construct_UPackage__Script_Debug(), TEXT("EDebugLogComparisonMethod"));
+		}
+		return Z_Registration_Info_UEnum_EDebugLogComparisonMethod.OuterSingleton;
+	}
+	template<> DEBUG_API UEnum* StaticEnum<EDebugLogComparisonMethod>()
+	{
+		return EDebugLogComparisonMethod_StaticEnum();
+	}
+	struct Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics
+	{
+		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FEnumParams EnumParams;
+	};
+	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics::Enumerators[] = {
+		{ "CM_Equal_To", (int64)CM_Equal_To },
+		{ "CM_Not_Equal_To", (int64)CM_Not_Equal_To },
+		{ "CM_Greater_Than_Or_Equal_To", (int64)CM_Greater_Than_Or_Equal_To },
+		{ "CM_Less_Than_Or_Equal_To", (int64)CM_Less_Than_Or_Equal_To },
+		{ "CM_Greater_Than", (int64)CM_Greater_Than },
+		{ "CM_Less_Than", (int64)CM_Less_Than },
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics::Enum_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "CM_Equal_To.DisplayName", "Equal To (==)" },
+		{ "CM_Equal_To.Name", "CM_Equal_To" },
+		{ "CM_Greater_Than.DisplayName", "Greater Than (>)" },
+		{ "CM_Greater_Than.Name", "CM_Greater_Than" },
+		{ "CM_Greater_Than_Or_Equal_To.DisplayName", "Greater Than or Equal To (>=)" },
+		{ "CM_Greater_Than_Or_Equal_To.Name", "CM_Greater_Than_Or_Equal_To" },
+		{ "CM_Less_Than.DisplayName", "Less Than (<)" },
+		{ "CM_Less_Than.Name", "CM_Less_Than" },
+		{ "CM_Less_Than_Or_Equal_To.DisplayName", "Less Than or Equal To (<=)" },
+		{ "CM_Less_Than_Or_Equal_To.Name", "CM_Less_Than_Or_Equal_To" },
+		{ "CM_Not_Equal_To.DisplayName", "Not Equal To (!=)" },
+		{ "CM_Not_Equal_To.Name", "CM_Not_Equal_To" },
+		{ "ModuleRelativePath", "Public/Log.h" },
+	};
+#endif
+	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics::EnumParams = {
+		(UObject*(*)())Z_Construct_UPackage__Script_Debug,
+		nullptr,
+		"EDebugLogComparisonMethod",
+		"EDebugLogComparisonMethod",
+		Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics::Enumerators,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics::Enumerators),
+		RF_Public|RF_Transient|RF_MarkAsNative,
+		EEnumFlags::None,
+		(uint8)UEnum::ECppForm::Regular,
+		METADATA_PARAMS(Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics::Enum_MetaDataParams))
+	};
+	UEnum* Z_Construct_UEnum_Debug_EDebugLogComparisonMethod()
+	{
+		if (!Z_Registration_Info_UEnum_EDebugLogComparisonMethod.InnerSingleton)
+		{
+			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EDebugLogComparisonMethod.InnerSingleton, Z_Construct_UEnum_Debug_EDebugLogComparisonMethod_Statics::EnumParams);
+		}
+		return Z_Registration_Info_UEnum_EDebugLogComparisonMethod.InnerSingleton;
 	}
 	DEFINE_FUNCTION(ULog::execUnImplemented)
 	{
@@ -2573,7 +2556,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_InAngleValue = { "InAngleValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, InAngleValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_AngleUnit = { "AngleUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, AngleUnit), Z_Construct_UEnum_Debug_EDebugLogAngularUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_AngleUnit = { "AngleUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, AngleUnit), Z_Construct_UEnum_Debug_EDebugLogAngularUnit, METADATA_PARAMS(nullptr, 0) }; // 1703008011
 	void Z_Construct_UFunction_ULog_Angle_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventAngle_Parms*)Obj)->bConvertValueToInt = 1;
@@ -2591,7 +2574,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Angle_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Angle_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Angle_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAngle_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -2626,13 +2609,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an angular value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Angle_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Angle", nullptr, nullptr, sizeof(Log_eventAngle_Parms), Z_Construct_UFunction_ULog_Angle_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Angle_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Angle_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Angle_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Angle_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Angle", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Angle_Statics::Log_eventAngle_Parms), Z_Construct_UFunction_ULog_Angle_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Angle_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Angle_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Angle_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Angle()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Angle_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Angle_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -2680,7 +2663,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Bool_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Bool_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Bool_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Bool_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Bool_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Bool_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Bool_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Bool_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Bool_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Bool_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Bool_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Bool_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Bool_Statics::PropPointers[] = {
@@ -2709,13 +2692,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of bools to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Bool_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Bool", nullptr, nullptr, sizeof(Log_eventArray_Bool_Parms), Z_Construct_UFunction_ULog_Array_Bool_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Bool_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Bool_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Bool_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Bool_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Bool", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Bool_Statics::Log_eventArray_Bool_Parms), Z_Construct_UFunction_ULog_Array_Bool_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Bool_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Bool_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Bool_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Bool()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Bool_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Bool_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -2771,7 +2754,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Color_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Color_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Color_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Color_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Color_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Color_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Color_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Color_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Color_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Color_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Color_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Color_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Color_Statics::PropPointers[] = {
@@ -2802,13 +2785,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FLinearColor to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Color_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Color", nullptr, nullptr, sizeof(Log_eventArray_Color_Parms), Z_Construct_UFunction_ULog_Array_Color_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Color_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Color_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Color_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Color_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Color", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Color_Statics::Log_eventArray_Color_Parms), Z_Construct_UFunction_ULog_Array_Color_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Color_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Color_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Color_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Color()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Color_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Color_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -2856,7 +2839,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_DateTime_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_DateTime_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_DateTime_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_DateTime_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_DateTime_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_DateTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_DateTime_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_DateTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_DateTime_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_DateTime_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_DateTime_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_DateTime_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_DateTime_Statics::PropPointers[] = {
@@ -2885,13 +2868,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FDateTime to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_DateTime_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_DateTime", nullptr, nullptr, sizeof(Log_eventArray_DateTime_Parms), Z_Construct_UFunction_ULog_Array_DateTime_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_DateTime_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_DateTime_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_DateTime_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_DateTime_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_DateTime", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_DateTime_Statics::Log_eventArray_DateTime_Parms), Z_Construct_UFunction_ULog_Array_DateTime_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_DateTime_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_DateTime_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_DateTime_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_DateTime()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_DateTime_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_DateTime_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -2939,7 +2922,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Float_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Float_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Float_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Float_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Float_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Float_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Float_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Float_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Float_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Float_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Float_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Float_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Float_Statics::PropPointers[] = {
@@ -2968,13 +2951,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of floats to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Float_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Float", nullptr, nullptr, sizeof(Log_eventArray_Float_Parms), Z_Construct_UFunction_ULog_Array_Float_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Float_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Float_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Float_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Float_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Float", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Float_Statics::Log_eventArray_Float_Parms), Z_Construct_UFunction_ULog_Array_Float_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Float_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Float_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Float_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Float()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Float_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Float_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3022,7 +3005,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Int32_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int32_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Int32_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int32_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Int32_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int32_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Int32_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int32_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Int32_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int32_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Int32_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int32_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Int32_Statics::PropPointers[] = {
@@ -3051,13 +3034,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of int32 to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Int32_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Int32", nullptr, nullptr, sizeof(Log_eventArray_Int32_Parms), Z_Construct_UFunction_ULog_Array_Int32_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int32_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Int32_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int32_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Int32_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Int32", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Int32_Statics::Log_eventArray_Int32_Parms), Z_Construct_UFunction_ULog_Array_Int32_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int32_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Int32_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int32_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Int32()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Int32_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Int32_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3105,7 +3088,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Int64_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int64_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Int64_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int64_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Int64_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int64_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Int64_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int64_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Int64_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int64_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Int64_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Int64_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Int64_Statics::PropPointers[] = {
@@ -3134,13 +3117,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of int64 to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Int64_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Int64", nullptr, nullptr, sizeof(Log_eventArray_Int64_Parms), Z_Construct_UFunction_ULog_Array_Int64_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int64_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Int64_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int64_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Int64_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Int64", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Int64_Statics::Log_eventArray_Int64_Parms), Z_Construct_UFunction_ULog_Array_Int64_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int64_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Int64_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Int64_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Int64()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Int64_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Int64_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3196,7 +3179,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Matrix_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Matrix_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Matrix_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Matrix_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Matrix_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Matrix_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Matrix_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Matrix_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Matrix_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Matrix_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Matrix_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Matrix_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Matrix_Statics::PropPointers[] = {
@@ -3225,13 +3208,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of Matrix to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Matrix_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Matrix", nullptr, nullptr, sizeof(Log_eventArray_Matrix_Parms), Z_Construct_UFunction_ULog_Array_Matrix_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Matrix_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Matrix_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Matrix_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Matrix_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Matrix", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Matrix_Statics::Log_eventArray_Matrix_Parms), Z_Construct_UFunction_ULog_Array_Matrix_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Matrix_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Matrix_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Matrix_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Matrix()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Matrix_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Matrix_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3279,7 +3262,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Name_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Name_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Name_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Name_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Name_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Name_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Name_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Name_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Name_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Name_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Name_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Name_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Name_Statics::PropPointers[] = {
@@ -3308,13 +3291,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FName to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Name_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Name", nullptr, nullptr, sizeof(Log_eventArray_Name_Parms), Z_Construct_UFunction_ULog_Array_Name_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Name_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Name_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Name_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Name_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Name", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Name_Statics::Log_eventArray_Name_Parms), Z_Construct_UFunction_ULog_Array_Name_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Name_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Name_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Name_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Name()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Name_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Name_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3370,7 +3353,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Quat_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Quat_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Quat_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Quat_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Quat_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Quat_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Quat_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Quat_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Quat_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Quat_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Quat_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Quat_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Quat_Statics::PropPointers[] = {
@@ -3401,13 +3384,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of Quaternion to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Quat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Quat", nullptr, nullptr, sizeof(Log_eventArray_Quat_Parms), Z_Construct_UFunction_ULog_Array_Quat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Quat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Quat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Quat_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Quat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Quat", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Quat_Statics::Log_eventArray_Quat_Parms), Z_Construct_UFunction_ULog_Array_Quat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Quat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Quat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Quat_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Quat()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Quat_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Quat_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3463,7 +3446,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Rotator_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Rotator_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Rotator_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Rotator_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Rotator_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Rotator_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Rotator_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Rotator_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Rotator_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Rotator_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Rotator_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Rotator_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Rotator_Statics::PropPointers[] = {
@@ -3494,13 +3477,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FRotator to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Rotator_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Rotator", nullptr, nullptr, sizeof(Log_eventArray_Rotator_Parms), Z_Construct_UFunction_ULog_Array_Rotator_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Rotator_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Rotator_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Rotator_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Rotator_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Rotator", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Rotator_Statics::Log_eventArray_Rotator_Parms), Z_Construct_UFunction_ULog_Array_Rotator_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Rotator_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Rotator_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Rotator_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Rotator()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Rotator_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Rotator_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3548,7 +3531,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_String_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_String_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_String_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_String_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_String_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_String_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_String_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_String_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_String_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_String_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_String_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_String_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_String_Statics::PropPointers[] = {
@@ -3577,13 +3560,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FString to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_String_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_String", nullptr, nullptr, sizeof(Log_eventArray_String_Parms), Z_Construct_UFunction_ULog_Array_String_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_String_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_String_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_String_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_String_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_String", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_String_Statics::Log_eventArray_String_Parms), Z_Construct_UFunction_ULog_Array_String_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_String_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_String_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_String_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_String()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_String_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_String_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3631,7 +3614,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Text_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Text_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Text_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Text_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Text_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Text_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Text_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Text_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Text_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Text_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Text_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Text_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Text_Statics::PropPointers[] = {
@@ -3660,13 +3643,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FText to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Text_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Text", nullptr, nullptr, sizeof(Log_eventArray_Text_Parms), Z_Construct_UFunction_ULog_Array_Text_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Text_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Text_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Text_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Text_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Text", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Text_Statics::Log_eventArray_Text_Parms), Z_Construct_UFunction_ULog_Array_Text_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Text_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Text_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Text_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Text()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Text_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Text_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3714,7 +3697,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Transform_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Transform_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Transform_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Transform_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Transform_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Transform_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Transform_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Transform_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Transform_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Transform_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Transform_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Transform_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Transform_Statics::PropPointers[] = {
@@ -3743,13 +3726,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FTransform to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Transform_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Transform", nullptr, nullptr, sizeof(Log_eventArray_Transform_Parms), Z_Construct_UFunction_ULog_Array_Transform_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Transform_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Transform_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Transform_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Transform_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Transform", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Transform_Statics::Log_eventArray_Transform_Parms), Z_Construct_UFunction_ULog_Array_Transform_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Transform_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Transform_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Transform_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Transform()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Transform_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Transform_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3805,7 +3788,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Vector_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Vector_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Vector_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Vector_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Vector_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Vector_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Vector_Statics::PropPointers[] = {
@@ -3836,13 +3819,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FVectors to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Vector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Vector", nullptr, nullptr, sizeof(Log_eventArray_Vector_Parms), Z_Construct_UFunction_ULog_Array_Vector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Vector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Vector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Vector", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Vector_Statics::Log_eventArray_Vector_Parms), Z_Construct_UFunction_ULog_Array_Vector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Vector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Vector()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Vector_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Vector_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3898,7 +3881,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Array_Vector2D_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector2D_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Vector2D_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector2D_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Array_Vector2D_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector2D_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Array_Vector2D_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector2D_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Array_Vector2D_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventArray_Vector2D_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Array_Vector2D_Statics::PropPointers[] = {
@@ -3929,13 +3912,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an array of FVector2D to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Vector2D_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Vector2D", nullptr, nullptr, sizeof(Log_eventArray_Vector2D_Parms), Z_Construct_UFunction_ULog_Array_Vector2D_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Array_Vector2D_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Array_Vector2D", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::Log_eventArray_Vector2D_Parms), Z_Construct_UFunction_ULog_Array_Vector2D_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Array_Vector2D_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Array_Vector2D()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Array_Vector2D_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Array_Vector2D_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -3980,7 +3963,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssert_False_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_Assert_False_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssert_False_Parms), &Z_Construct_UFunction_ULog_Assert_False_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Assert_False_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_False_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Assert_False_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_False_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Assert_False_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_False_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Assert_False_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_False_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Assert_False_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_False_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4017,13 +4000,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that a bool value is false" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Assert_False_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Assert_False", nullptr, nullptr, sizeof(Log_eventAssert_False_Parms), Z_Construct_UFunction_ULog_Assert_False_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_False_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Assert_False_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_False_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Assert_False_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Assert_False", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Assert_False_Statics::Log_eventAssert_False_Parms), Z_Construct_UFunction_ULog_Assert_False_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_False_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Assert_False_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_False_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Assert_False()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Assert_False_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Assert_False_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4063,7 +4046,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssert_IsValid_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_Assert_IsValid_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssert_IsValid_Parms), &Z_Construct_UFunction_ULog_Assert_IsValid_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Assert_IsValid_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_IsValid_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Assert_IsValid_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_IsValid_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Assert_IsValid_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_IsValid_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Assert_IsValid_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_IsValid_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Assert_IsValid_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_IsValid_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4100,13 +4083,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that an object is valid" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Assert_IsValid_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Assert_IsValid", nullptr, nullptr, sizeof(Log_eventAssert_IsValid_Parms), Z_Construct_UFunction_ULog_Assert_IsValid_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_IsValid_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Assert_IsValid_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_IsValid_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Assert_IsValid_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Assert_IsValid", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Assert_IsValid_Statics::Log_eventAssert_IsValid_Parms), Z_Construct_UFunction_ULog_Assert_IsValid_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_IsValid_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Assert_IsValid_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_IsValid_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Assert_IsValid()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Assert_IsValid_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Assert_IsValid_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4151,7 +4134,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssert_True_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_Assert_True_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssert_True_Parms), &Z_Construct_UFunction_ULog_Assert_True_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Assert_True_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_True_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Assert_True_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_True_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Assert_True_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_True_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Assert_True_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_True_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Assert_True_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssert_True_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4188,13 +4171,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that a bool value is true" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Assert_True_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Assert_True", nullptr, nullptr, sizeof(Log_eventAssert_True_Parms), Z_Construct_UFunction_ULog_Assert_True_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_True_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Assert_True_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_True_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Assert_True_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Assert_True", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Assert_True_Statics::Log_eventAssert_True_Parms), Z_Construct_UFunction_ULog_Assert_True_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_True_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Assert_True_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Assert_True_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Assert_True()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Assert_True_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Assert_True_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4247,7 +4230,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Bool_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Bool_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Bool_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Bool_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Bool_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Bool_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Bool_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4285,13 +4268,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two bools are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Bool", nullptr, nullptr, sizeof(Log_eventAssertEqual_Bool_Parms), Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Bool", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::Log_eventAssertEqual_Bool_Parms), Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Bool()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Bool_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4334,7 +4317,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Color_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Color_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Color_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Color_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Color_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Color_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Color_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4372,13 +4355,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two colors are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Color", nullptr, nullptr, sizeof(Log_eventAssertEqual_Color_Parms), Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Color", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::Log_eventAssertEqual_Color_Parms), Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Color()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Color_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4421,7 +4404,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_DateTime_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_DateTime_Parms), &Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_DateTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_DateTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_DateTime_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_DateTime_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_DateTime_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4459,13 +4442,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two DateTime values are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_DateTime", nullptr, nullptr, sizeof(Log_eventAssertEqual_DateTime_Parms), Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_DateTime", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::Log_eventAssertEqual_DateTime_Parms), Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_DateTime()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_DateTime_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4508,7 +4491,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Float_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Float_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Float_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Float_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Float_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Float_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Float_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4546,13 +4529,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two floats are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Float", nullptr, nullptr, sizeof(Log_eventAssertEqual_Float_Parms), Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Float", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::Log_eventAssertEqual_Float_Parms), Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Float()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Float_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4595,7 +4578,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Integer_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Integer_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Integer_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Integer_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Integer_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Integer_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Integer_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4633,13 +4616,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two integers are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Integer", nullptr, nullptr, sizeof(Log_eventAssertEqual_Integer_Parms), Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Integer", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::Log_eventAssertEqual_Integer_Parms), Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Integer()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Integer_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4682,7 +4665,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Name_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Name_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Name_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Name_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Name_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Name_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Name_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4720,13 +4703,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two names are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Name", nullptr, nullptr, sizeof(Log_eventAssertEqual_Name_Parms), Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Name", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::Log_eventAssertEqual_Name_Parms), Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Name()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Name_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4769,7 +4752,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Object_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Object_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Object_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Object_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Object_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Object_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Object_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4807,13 +4790,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two objects are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Object", nullptr, nullptr, sizeof(Log_eventAssertEqual_Object_Parms), Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Object", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::Log_eventAssertEqual_Object_Parms), Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Object()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Object_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4856,7 +4839,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Quat_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Quat_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Quat_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Quat_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Quat_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Quat_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Quat_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4894,13 +4877,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two quaternions are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Quat", nullptr, nullptr, sizeof(Log_eventAssertEqual_Quat_Parms), Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Quat", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::Log_eventAssertEqual_Quat_Parms), Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Quat()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Quat_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -4943,7 +4926,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Rotator_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Rotator_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Rotator_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Rotator_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Rotator_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Rotator_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Rotator_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -4981,13 +4964,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two rotators are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Rotator", nullptr, nullptr, sizeof(Log_eventAssertEqual_Rotator_Parms), Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Rotator", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::Log_eventAssertEqual_Rotator_Parms), Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Rotator()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Rotator_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5030,7 +5013,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_String_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_String_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_String_Parms), &Z_Construct_UFunction_ULog_AssertEqual_String_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_String_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_String_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_String_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_String_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_String_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_String_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_String_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_String_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_String_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_String_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5068,13 +5051,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two strings are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_String_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_String", nullptr, nullptr, sizeof(Log_eventAssertEqual_String_Parms), Z_Construct_UFunction_ULog_AssertEqual_String_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_String_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_String_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_String_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_String_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_String", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_String_Statics::Log_eventAssertEqual_String_Parms), Z_Construct_UFunction_ULog_AssertEqual_String_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_String_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_String_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_String_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_String()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_String_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_String_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5125,7 +5108,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Transform_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Transform_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Transform_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Transform_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Transform_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Transform_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Transform_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5165,13 +5148,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two transforms are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Transform", nullptr, nullptr, sizeof(Log_eventAssertEqual_Transform_Parms), Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Transform", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::Log_eventAssertEqual_Transform_Parms), Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Transform()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Transform_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5214,7 +5197,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Vector_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Vector_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5252,13 +5235,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two vectors are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Vector", nullptr, nullptr, sizeof(Log_eventAssertEqual_Vector_Parms), Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Vector", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::Log_eventAssertEqual_Vector_Parms), Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Vector()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Vector_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5301,7 +5284,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertEqual_Vector2D_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertEqual_Vector2D_Parms), &Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector2D_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector2D_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector2D_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector2D_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertEqual_Vector2D_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5339,13 +5322,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two vectors are equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Vector2D", nullptr, nullptr, sizeof(Log_eventAssertEqual_Vector2D_Parms), Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertEqual_Vector2D", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::Log_eventAssertEqual_Vector2D_Parms), Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertEqual_Vector2D()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertEqual_Vector2D_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5388,7 +5371,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_Color_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_Color_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Color_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Color_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Color_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Color_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Color_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5426,13 +5409,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two colors are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Color", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_Color_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Color", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::Log_eventAssertNotEqual_Color_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_Color()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Color_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5475,7 +5458,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_Name_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_Name_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Name_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Name_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Name_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Name_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Name_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5513,13 +5496,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two names are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Name", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_Name_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Name", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::Log_eventAssertNotEqual_Name_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_Name()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Name_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5562,7 +5545,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_Object_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_Object_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Object_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Object_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Object_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Object_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Object_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5600,13 +5583,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two objects are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Object", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_Object_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Object", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::Log_eventAssertNotEqual_Object_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_Object()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Object_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5649,7 +5632,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_Quat_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_Quat_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Quat_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Quat_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Quat_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Quat_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Quat_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5687,13 +5670,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two quaternions are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Quat", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_Quat_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Quat", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::Log_eventAssertNotEqual_Quat_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_Quat()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Quat_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5736,7 +5719,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_Rotator_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_Rotator_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Rotator_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Rotator_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Rotator_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Rotator_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Rotator_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5774,13 +5757,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two rotators are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Rotator", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_Rotator_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Rotator", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::Log_eventAssertNotEqual_Rotator_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_Rotator()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Rotator_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5823,7 +5806,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_String_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_String_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_String_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_String_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_String_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_String_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_String_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5861,13 +5844,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two strings are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_String", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_String_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_String", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::Log_eventAssertNotEqual_String_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_String()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_String_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -5918,7 +5901,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_Transform_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_Transform_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Transform_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Transform_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Transform_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Transform_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Transform_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -5958,13 +5941,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two transforms are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Transform", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_Transform_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Transform", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::Log_eventAssertNotEqual_Transform_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_Transform()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Transform_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6007,7 +5990,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_Vector_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_Vector_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -6045,13 +6028,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two vectors are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Vector", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_Vector_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Vector", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::Log_eventAssertNotEqual_Vector_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_Vector()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Vector_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6094,7 +6077,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventAssertNotEqual_Vector2D_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertNotEqual_Vector2D_Parms), &Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector2D_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector2D_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector2D_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector2D_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertNotEqual_Vector2D_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -6132,13 +6115,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert that two vectors are not equal" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Vector2D", nullptr, nullptr, sizeof(Log_eventAssertNotEqual_Vector2D_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertNotEqual_Vector2D", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::Log_eventAssertNotEqual_Vector2D_Parms), Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6177,14 +6160,14 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_Actual = { "Actual", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, Actual), Z_Construct_UScriptStruct_FDateTime, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_Expected = { "Expected", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, Expected), Z_Construct_UScriptStruct_FDateTime, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_ShouldBe = { "ShouldBe", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, ShouldBe), Z_Construct_UEnum_Debug_EDebugLogComparisonMethod, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_ShouldBe = { "ShouldBe", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, ShouldBe), Z_Construct_UEnum_Debug_EDebugLogComparisonMethod, METADATA_PARAMS(nullptr, 0) }; // 1272746575
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, Message), METADATA_PARAMS(nullptr, 0) };
 	void Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_bCrashOnFailure_SetBit(void* Obj)
 	{
 		((Log_eventAssertValue_DateTime_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertValue_DateTime_Parms), &Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_DateTime_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -6223,13 +6206,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert a relationship between two DateTime values" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertValue_DateTime", nullptr, nullptr, sizeof(Log_eventAssertValue_DateTime_Parms), Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertValue_DateTime", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::Log_eventAssertValue_DateTime_Parms), Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertValue_DateTime()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertValue_DateTime_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6268,14 +6251,14 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_Actual = { "Actual", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, Actual), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_Expected = { "Expected", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, Expected), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_ShouldBe = { "ShouldBe", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, ShouldBe), Z_Construct_UEnum_Debug_EDebugLogComparisonMethod, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_ShouldBe = { "ShouldBe", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, ShouldBe), Z_Construct_UEnum_Debug_EDebugLogComparisonMethod, METADATA_PARAMS(nullptr, 0) }; // 1272746575
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, Message), METADATA_PARAMS(nullptr, 0) };
 	void Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_bCrashOnFailure_SetBit(void* Obj)
 	{
 		((Log_eventAssertValue_Float_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertValue_Float_Parms), &Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Float_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -6314,13 +6297,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert on a relationship between two floats" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertValue_Float", nullptr, nullptr, sizeof(Log_eventAssertValue_Float_Parms), Z_Construct_UFunction_ULog_AssertValue_Float_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_Float_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertValue_Float_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_Float_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertValue_Float_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertValue_Float", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertValue_Float_Statics::Log_eventAssertValue_Float_Parms), Z_Construct_UFunction_ULog_AssertValue_Float_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_Float_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertValue_Float_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_Float_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertValue_Float()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertValue_Float_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertValue_Float_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6359,14 +6342,14 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_Actual = { "Actual", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, Actual), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_Expected = { "Expected", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, Expected), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_ShouldBe = { "ShouldBe", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, ShouldBe), Z_Construct_UEnum_Debug_EDebugLogComparisonMethod, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_ShouldBe = { "ShouldBe", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, ShouldBe), Z_Construct_UEnum_Debug_EDebugLogComparisonMethod, METADATA_PARAMS(nullptr, 0) }; // 1272746575
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, Message), METADATA_PARAMS(nullptr, 0) };
 	void Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_bCrashOnFailure_SetBit(void* Obj)
 	{
 		((Log_eventAssertValue_Integer_Parms*)Obj)->bCrashOnFailure = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_bCrashOnFailure = { "bCrashOnFailure", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventAssertValue_Integer_Parms), &Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_bCrashOnFailure_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventAssertValue_Integer_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -6405,13 +6388,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Assert on a relationship between two integers" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertValue_Integer", nullptr, nullptr, sizeof(Log_eventAssertValue_Integer_Parms), Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "AssertValue_Integer", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::Log_eventAssertValue_Integer_Parms), Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_AssertValue_Integer()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_AssertValue_Integer_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6464,7 +6447,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Bool_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBool_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Bool_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bool_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Bool_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBool_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Bool_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBool_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Bool_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBool_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Bool_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBool_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Bool_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBool_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -6495,13 +6478,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log the given bool value to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Bool_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Bool", nullptr, nullptr, sizeof(Log_eventBool_Parms), Z_Construct_UFunction_ULog_Bool_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bool_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Bool_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bool_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Bool_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Bool", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Bool_Statics::Log_eventBool_Parms), Z_Construct_UFunction_ULog_Bool_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bool_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Bool_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bool_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Bool()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Bool_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Bool_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6522,7 +6505,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Bye_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBye_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Bye_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBye_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Bye_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBye_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Bye_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventBye_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Bye_Statics::PropPointers[] = {
@@ -6545,13 +6528,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a bye message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Bye_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Bye", nullptr, nullptr, sizeof(Log_eventBye_Parms), Z_Construct_UFunction_ULog_Bye_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bye_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Bye_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bye_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Bye_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Bye", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Bye_Statics::Log_eventBye_Parms), Z_Construct_UFunction_ULog_Bye_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bye_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Bye_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Bye_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Bye()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Bye_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Bye_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6599,13 +6582,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "This function executes the expression and, if it results in a false assertion, halts execution." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_CheckCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "CheckCondition", nullptr, nullptr, sizeof(Log_eventCheckCondition_Parms), Z_Construct_UFunction_ULog_CheckCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_CheckCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_CheckCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_CheckCondition_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_CheckCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "CheckCondition", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_CheckCondition_Statics::Log_eventCheckCondition_Parms), Z_Construct_UFunction_ULog_CheckCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_CheckCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_CheckCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_CheckCondition_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_CheckCondition()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_CheckCondition_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_CheckCondition_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6631,7 +6614,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_CheckNoEntry_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_CheckNoEntry_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6657,7 +6640,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_CheckNoRecursion_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_CheckNoRecursion_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6684,7 +6667,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_CheckNoReEntry_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_CheckNoReEntry_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6727,13 +6710,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "This function executes the expression and, if it results in a false assertion, halts execution." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_CheckObject_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "CheckObject", nullptr, nullptr, sizeof(Log_eventCheckObject_Parms), Z_Construct_UFunction_ULog_CheckObject_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_CheckObject_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_CheckObject_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_CheckObject_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_CheckObject_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "CheckObject", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_CheckObject_Statics::Log_eventCheckObject_Parms), Z_Construct_UFunction_ULog_CheckObject_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_CheckObject_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_CheckObject_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_CheckObject_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_CheckObject()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_CheckObject_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_CheckObject_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6797,7 +6780,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Color_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventColor_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Color_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Color_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Color_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventColor_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Color_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventColor_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Color_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventColor_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Color_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventColor_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Color_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventColor_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -6830,13 +6813,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a color value to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Color_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Color", nullptr, nullptr, sizeof(Log_eventColor_Parms), Z_Construct_UFunction_ULog_Color_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Color_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Color_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Color_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Color_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Color", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Color_Statics::Log_eventColor_Parms), Z_Construct_UFunction_ULog_Color_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Color_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Color_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Color_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Color()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Color_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Color_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6893,13 +6876,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Crash the game, and log the message to the console and log file. FromFunction means the function (as a string) that this 'Crash' function was called from. Ultimately, this is for better debug information and is optional" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Crash_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Crash", nullptr, nullptr, sizeof(Log_eventCrash_Parms), Z_Construct_UFunction_ULog_Crash_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Crash_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Crash_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Crash_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Crash_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Crash", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Crash_Statics::Log_eventCrash_Parms), Z_Construct_UFunction_ULog_Crash_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Crash_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Crash_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Crash_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Crash()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Crash_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Crash_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6920,7 +6903,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Cya_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventCya_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Cya_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventCya_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Cya_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventCya_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Cya_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventCya_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Cya_Statics::PropPointers[] = {
@@ -6943,13 +6926,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a cya message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Cya_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Cya", nullptr, nullptr, sizeof(Log_eventCya_Parms), Z_Construct_UFunction_ULog_Cya_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Cya_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Cya_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Cya_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Cya_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Cya", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Cya_Statics::Log_eventCya_Parms), Z_Construct_UFunction_ULog_Cya_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Cya_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Cya_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Cya_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Cya()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Cya_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Cya_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -6990,7 +6973,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_InDataValue = { "InDataValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, InDataValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_DataUnit = { "DataUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, DataUnit), Z_Construct_UEnum_Debug_EDebugLogDataUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_DataUnit = { "DataUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, DataUnit), Z_Construct_UEnum_Debug_EDebugLogDataUnit, METADATA_PARAMS(nullptr, 0) }; // 1079651007
 	void Z_Construct_UFunction_ULog_Data_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventData_Parms*)Obj)->bConvertValueToInt = 1;
@@ -7008,7 +6991,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Data_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Data_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Data_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventData_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -7042,13 +7025,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a data unit value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Data_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Data", nullptr, nullptr, sizeof(Log_eventData_Parms), Z_Construct_UFunction_ULog_Data_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Data_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Data_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Data_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Data_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Data", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Data_Statics::Log_eventData_Parms), Z_Construct_UFunction_ULog_Data_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Data_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Data_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Data_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Data()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Data_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Data_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7104,7 +7087,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_DateTime_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDateTime_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_DateTime_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DateTime_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DateTime_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDateTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DateTime_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDateTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_DateTime_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDateTime_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_DateTime_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDateTime_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_DateTime_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDateTime_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -7135,13 +7118,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a DateTime value to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_DateTime_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "DateTime", nullptr, nullptr, sizeof(Log_eventDateTime_Parms), Z_Construct_UFunction_ULog_DateTime_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DateTime_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_DateTime_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DateTime_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_DateTime_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "DateTime", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_DateTime_Statics::Log_eventDateTime_Parms), Z_Construct_UFunction_ULog_DateTime_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DateTime_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_DateTime_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DateTime_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_DateTime()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_DateTime_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_DateTime_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7174,14 +7157,14 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_LogSeverity = { "LogSeverity", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_Parms, LogSeverity), Z_Construct_UEnum_Debug_EDebugLogType, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_LogSeverity = { "LogSeverity", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_Parms, LogSeverity), Z_Construct_UEnum_Debug_EDebugLogType, METADATA_PARAMS(nullptr, 0) }; // 3378774514
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_Message_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_Parms, Message), METADATA_PARAMS(Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_Message_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_Message_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_DebugMessage_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventDebugMessage_Parms*)Obj)->bAddPrefix = 1;
@@ -7216,13 +7199,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a debug message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_DebugMessage_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "DebugMessage", nullptr, nullptr, sizeof(Log_eventDebugMessage_Parms), Z_Construct_UFunction_ULog_DebugMessage_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_DebugMessage_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_DebugMessage_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "DebugMessage", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_DebugMessage_Statics::Log_eventDebugMessage_Parms), Z_Construct_UFunction_ULog_DebugMessage_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_DebugMessage_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_DebugMessage()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_DebugMessage_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_DebugMessage_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7258,7 +7241,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_LogSeverity = { "LogSeverity", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_WithCondition_Parms, LogSeverity), Z_Construct_UEnum_Debug_EDebugLogType, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_LogSeverity = { "LogSeverity", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_WithCondition_Parms, LogSeverity), Z_Construct_UEnum_Debug_EDebugLogType, METADATA_PARAMS(nullptr, 0) }; // 3378774514
 	void Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_bCondition_SetBit(void* Obj)
 	{
 		((Log_eventDebugMessage_WithCondition_Parms*)Obj)->bCondition = 1;
@@ -7270,7 +7253,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_WithCondition_Parms, Message), METADATA_PARAMS(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_Message_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_Message_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDebugMessage_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventDebugMessage_WithCondition_Parms*)Obj)->bAddPrefix = 1;
@@ -7307,13 +7290,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a debug message to the console or viewport, only if the condition is met" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "DebugMessage_WithCondition", nullptr, nullptr, sizeof(Log_eventDebugMessage_WithCondition_Parms), Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "DebugMessage_WithCondition", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::Log_eventDebugMessage_WithCondition_Parms), Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_DebugMessage_WithCondition()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_DebugMessage_WithCondition_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7369,7 +7352,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Dollar_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDollar_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Dollar_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Dollar_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Dollar_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDollar_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Dollar_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDollar_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Dollar_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDollar_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Dollar_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDollar_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Dollar_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventDollar_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -7402,13 +7385,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a dollar value to the console or viewport (Just adds the $ symbol at the start)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Dollar_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Dollar", nullptr, nullptr, sizeof(Log_eventDollar_Parms), Z_Construct_UFunction_ULog_Dollar_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Dollar_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Dollar_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Dollar_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Dollar_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Dollar", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Dollar_Statics::Log_eventDollar_Parms), Z_Construct_UFunction_ULog_Dollar_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Dollar_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Dollar_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Dollar_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Dollar()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Dollar_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Dollar_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7467,13 +7450,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Verifies the expression and if it fails generates a callstack leading to that point to the Output Log window. (With an optional message parameter)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_EnsureCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "EnsureCondition", nullptr, nullptr, sizeof(Log_eventEnsureCondition_Parms), Z_Construct_UFunction_ULog_EnsureCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_EnsureCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_EnsureCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_EnsureCondition_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_EnsureCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "EnsureCondition", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_EnsureCondition_Statics::Log_eventEnsureCondition_Parms), Z_Construct_UFunction_ULog_EnsureCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_EnsureCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_EnsureCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_EnsureCondition_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_EnsureCondition()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_EnsureCondition_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_EnsureCondition_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7527,13 +7510,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Verifies the object and if it fails generates a callstack leading to that point to the Output Log window. (With an optional message parameter)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_EnsureObject_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "EnsureObject", nullptr, nullptr, sizeof(Log_eventEnsureObject_Parms), Z_Construct_UFunction_ULog_EnsureObject_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_EnsureObject_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_EnsureObject_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_EnsureObject_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_EnsureObject_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "EnsureObject", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_EnsureObject_Statics::Log_eventEnsureObject_Parms), Z_Construct_UFunction_ULog_EnsureObject_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_EnsureObject_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_EnsureObject_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_EnsureObject_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_EnsureObject()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_EnsureObject_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_EnsureObject_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7570,7 +7553,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Error_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventError_Parms, Message), METADATA_PARAMS(Z_Construct_UFunction_ULog_Error_Statics::NewProp_Message_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_Statics::NewProp_Message_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Error_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventError_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Error_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventError_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_Error_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventError_Parms*)Obj)->bAddPrefix = 1;
@@ -7604,13 +7587,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an error message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Error_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Error", nullptr, nullptr, sizeof(Log_eventError_Parms), Z_Construct_UFunction_ULog_Error_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Error_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Error_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Error", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Error_Statics::Log_eventError_Parms), Z_Construct_UFunction_ULog_Error_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Error_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Error()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Error_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Error_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7655,7 +7638,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventError_WithCondition_Parms*)Obj)->bCondition = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_Error_WithCondition_Statics::NewProp_bCondition = { "bCondition", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventError_WithCondition_Parms), &Z_Construct_UFunction_ULog_Error_WithCondition_Statics::NewProp_bCondition_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Error_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventError_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Error_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventError_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_Error_WithCondition_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventError_WithCondition_Parms*)Obj)->bAddPrefix = 1;
@@ -7691,13 +7674,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an error message to the console or viewport, only if the condition is met" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Error_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Error_WithCondition", nullptr, nullptr, sizeof(Log_eventError_WithCondition_Parms), Z_Construct_UFunction_ULog_Error_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Error_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_WithCondition_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Error_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Error_WithCondition", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Error_WithCondition_Statics::Log_eventError_WithCondition_Parms), Z_Construct_UFunction_ULog_Error_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Error_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Error_WithCondition_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Error_WithCondition()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Error_WithCondition_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Error_WithCondition_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7735,13 +7718,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a fatal error message to the console and crash" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Fatal_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Fatal", nullptr, nullptr, sizeof(Log_eventFatal_Parms), Z_Construct_UFunction_ULog_Fatal_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Fatal_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Fatal_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Fatal_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Fatal_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Fatal", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Fatal_Statics::Log_eventFatal_Parms), Z_Construct_UFunction_ULog_Fatal_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Fatal_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Fatal_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Fatal_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Fatal()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Fatal_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Fatal_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7789,13 +7772,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a fatal error message to the console and crash, only if the condition is met" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Fatal_WithCondition", nullptr, nullptr, sizeof(Log_eventFatal_WithCondition_Parms), Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Fatal_WithCondition", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::Log_eventFatal_WithCondition_Parms), Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Fatal_WithCondition()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Fatal_WithCondition_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7836,7 +7819,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_InForceValue = { "InForceValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, InForceValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_ForceUnit = { "ForceUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, ForceUnit), Z_Construct_UEnum_Debug_EDebugLogForceUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_ForceUnit = { "ForceUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, ForceUnit), Z_Construct_UEnum_Debug_EDebugLogForceUnit, METADATA_PARAMS(nullptr, 0) }; // 1099395096
 	void Z_Construct_UFunction_ULog_Force_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventForce_Parms*)Obj)->bConvertValueToInt = 1;
@@ -7854,7 +7837,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Force_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Force_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Force_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventForce_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -7888,13 +7871,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a force value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Force_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Force", nullptr, nullptr, sizeof(Log_eventForce_Parms), Z_Construct_UFunction_ULog_Force_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Force_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Force_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Force_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Force_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Force", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Force_Statics::Log_eventForce_Parms), Z_Construct_UFunction_ULog_Force_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Force_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Force_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Force_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Force()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Force_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Force_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -7935,7 +7918,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_InFrequencyValue = { "InFrequencyValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, InFrequencyValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_FrequencyUnit = { "FrequencyUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, FrequencyUnit), Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_FrequencyUnit = { "FrequencyUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, FrequencyUnit), Z_Construct_UEnum_Debug_EDebugLogFrequencyUnit, METADATA_PARAMS(nullptr, 0) }; // 2151769612
 	void Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventFrequency_Parms*)Obj)->bConvertValueToInt = 1;
@@ -7953,7 +7936,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Frequency_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventFrequency_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -7987,13 +7970,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a frequency value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Frequency_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Frequency", nullptr, nullptr, sizeof(Log_eventFrequency_Parms), Z_Construct_UFunction_ULog_Frequency_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Frequency_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Frequency_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Frequency_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Frequency_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Frequency", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Frequency_Statics::Log_eventFrequency_Parms), Z_Construct_UFunction_ULog_Frequency_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Frequency_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Frequency_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Frequency_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Frequency()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Frequency_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Frequency_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8014,7 +7997,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Goodbye_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventGoodbye_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Goodbye_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventGoodbye_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Goodbye_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventGoodbye_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Goodbye_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventGoodbye_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Goodbye_Statics::PropPointers[] = {
@@ -8037,13 +8020,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a goodbye message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Goodbye_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Goodbye", nullptr, nullptr, sizeof(Log_eventGoodbye_Parms), Z_Construct_UFunction_ULog_Goodbye_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Goodbye_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Goodbye_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Goodbye_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Goodbye_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Goodbye", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Goodbye_Statics::Log_eventGoodbye_Parms), Z_Construct_UFunction_ULog_Goodbye_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Goodbye_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Goodbye_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Goodbye_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Goodbye()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Goodbye_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Goodbye_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8064,7 +8047,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Hello_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventHello_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Hello_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventHello_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Hello_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventHello_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Hello_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventHello_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Hello_Statics::PropPointers[] = {
@@ -8087,13 +8070,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a hello message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Hello_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Hello", nullptr, nullptr, sizeof(Log_eventHello_Parms), Z_Construct_UFunction_ULog_Hello_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Hello_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Hello_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Hello_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Hello_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Hello", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Hello_Statics::Log_eventHello_Parms), Z_Construct_UFunction_ULog_Hello_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Hello_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Hello_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Hello_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Hello()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Hello_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Hello_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8114,7 +8097,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Hey_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventHey_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Hey_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventHey_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Hey_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventHey_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Hey_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventHey_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Hey_Statics::PropPointers[] = {
@@ -8137,13 +8120,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a hey message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Hey_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Hey", nullptr, nullptr, sizeof(Log_eventHey_Parms), Z_Construct_UFunction_ULog_Hey_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Hey_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Hey_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Hey_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Hey_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Hey", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Hey_Statics::Log_eventHey_Parms), Z_Construct_UFunction_ULog_Hey_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Hey_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Hey_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Hey_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Hey()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Hey_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Hey_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8177,13 +8160,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Return the name with brackets () around it" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "InBrackets_Name_Blueprint", nullptr, nullptr, sizeof(Log_eventInBrackets_Name_Blueprint_Parms), Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "InBrackets_Name_Blueprint", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::Log_eventInBrackets_Name_Blueprint_Parms), Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8225,13 +8208,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Return the string with brackets () around it" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "InBrackets_String_Blueprint", nullptr, nullptr, sizeof(Log_eventInBrackets_String_Blueprint_Parms), Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "InBrackets_String_Blueprint", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::Log_eventInBrackets_String_Blueprint_Parms), Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_InBrackets_String_Blueprint()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_InBrackets_String_Blueprint_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8265,13 +8248,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Return the text with brackets () around it" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "InBrackets_Text_Blueprint", nullptr, nullptr, sizeof(Log_eventInBrackets_Text_Blueprint_Parms), Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "InBrackets_Text_Blueprint", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::Log_eventInBrackets_Text_Blueprint_Parms), Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8308,7 +8291,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Info_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInfo_Parms, Message), METADATA_PARAMS(Z_Construct_UFunction_ULog_Info_Statics::NewProp_Message_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_Statics::NewProp_Message_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Info_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInfo_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Info_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInfo_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_Info_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventInfo_Parms*)Obj)->bAddPrefix = 1;
@@ -8342,13 +8325,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an information message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Info_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Info", nullptr, nullptr, sizeof(Log_eventInfo_Parms), Z_Construct_UFunction_ULog_Info_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Info_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Info_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Info", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Info_Statics::Log_eventInfo_Parms), Z_Construct_UFunction_ULog_Info_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Info_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Info()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Info_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Info_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8393,7 +8376,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventInfo_WithCondition_Parms*)Obj)->bCondition = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_Info_WithCondition_Statics::NewProp_bCondition = { "bCondition", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventInfo_WithCondition_Parms), &Z_Construct_UFunction_ULog_Info_WithCondition_Statics::NewProp_bCondition_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Info_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInfo_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Info_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInfo_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_Info_WithCondition_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventInfo_WithCondition_Parms*)Obj)->bAddPrefix = 1;
@@ -8429,13 +8412,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an information message to the console or viewport, only if the condition is met" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Info_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Info_WithCondition", nullptr, nullptr, sizeof(Log_eventInfo_WithCondition_Parms), Z_Construct_UFunction_ULog_Info_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Info_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_WithCondition_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Info_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Info_WithCondition", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Info_WithCondition_Statics::Log_eventInfo_WithCondition_Parms), Z_Construct_UFunction_ULog_Info_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Info_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Info_WithCondition_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Info_WithCondition()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Info_WithCondition_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Info_WithCondition_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8478,7 +8461,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Invalid_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInvalid_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Invalid_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Invalid_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Invalid_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInvalid_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Invalid_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInvalid_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Invalid_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInvalid_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Invalid_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventInvalid_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Invalid_Statics::PropPointers[] = {
@@ -8505,13 +8488,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an 'invalid' message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Invalid_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Invalid", nullptr, nullptr, sizeof(Log_eventInvalid_Parms), Z_Construct_UFunction_ULog_Invalid_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Invalid_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Invalid_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Invalid_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Invalid_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Invalid", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Invalid_Statics::Log_eventInvalid_Parms), Z_Construct_UFunction_ULog_Invalid_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Invalid_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Invalid_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Invalid_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Invalid()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Invalid_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Invalid_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8552,7 +8535,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_InLengthValue = { "InLengthValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, InLengthValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_LengthUnit = { "LengthUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, LengthUnit), Z_Construct_UEnum_Debug_EDebugLogLengthUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_LengthUnit = { "LengthUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, LengthUnit), Z_Construct_UEnum_Debug_EDebugLogLengthUnit, METADATA_PARAMS(nullptr, 0) }; // 245212822
 	void Z_Construct_UFunction_ULog_Length_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventLength_Parms*)Obj)->bConvertValueToInt = 1;
@@ -8570,7 +8553,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Length_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Length_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Length_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLength_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -8604,13 +8587,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a length unit value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Length_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Length", nullptr, nullptr, sizeof(Log_eventLength_Parms), Z_Construct_UFunction_ULog_Length_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Length_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Length_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Length_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Length_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Length", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Length_Statics::Log_eventLength_Parms), Z_Construct_UFunction_ULog_Length_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Length_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Length_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Length_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Length()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Length_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Length_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8651,7 +8634,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_InLightValue = { "InLightValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, InLightValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_LightUnit = { "LightUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, LightUnit), Z_Construct_UEnum_Debug_EDebugLogLightUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_LightUnit = { "LightUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, LightUnit), Z_Construct_UEnum_Debug_EDebugLogLightUnit, METADATA_PARAMS(nullptr, 0) }; // 713776357
 	void Z_Construct_UFunction_ULog_Light_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventLight_Parms*)Obj)->bConvertValueToInt = 1;
@@ -8669,7 +8652,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Light_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Light_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Light_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLight_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -8703,13 +8686,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a light value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Light_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Light", nullptr, nullptr, sizeof(Log_eventLight_Parms), Z_Construct_UFunction_ULog_Light_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Light_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Light_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Light_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Light_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Light", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Light_Statics::Log_eventLight_Parms), Z_Construct_UFunction_ULog_Light_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Light_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Light_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Light_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Light()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Light_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Light_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8726,7 +8709,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_LineBreak_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLineBreak_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_LineBreak_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLineBreak_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_LineBreak_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ULog_LineBreak_Statics::NewProp_LoggingOption,
 	};
@@ -8740,13 +8723,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a line break to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_LineBreak_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "LineBreak", nullptr, nullptr, sizeof(Log_eventLineBreak_Parms), Z_Construct_UFunction_ULog_LineBreak_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_LineBreak_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_LineBreak_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "LineBreak", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_LineBreak_Statics::Log_eventLineBreak_Parms), Z_Construct_UFunction_ULog_LineBreak_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_LineBreak_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_LineBreak()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_LineBreak_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_LineBreak_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8774,7 +8757,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::NewProp_Symbol = { "Symbol", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLineBreak_Symbol_Parms, Symbol), METADATA_PARAMS(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::NewProp_Symbol_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::NewProp_Symbol_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLineBreak_Symbol_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventLineBreak_Symbol_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::NewProp_Symbol,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::NewProp_LoggingOption,
@@ -8790,13 +8773,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a line break with a symbol string to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "LineBreak_Symbol", nullptr, nullptr, sizeof(Log_eventLineBreak_Symbol_Parms), Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "LineBreak_Symbol", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::Log_eventLineBreak_Symbol_Parms), Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_LineBreak_Symbol()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_LineBreak_Symbol_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8837,7 +8820,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_InMassValue = { "InMassValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, InMassValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_MassUnit = { "MassUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, MassUnit), Z_Construct_UEnum_Debug_EDebugLogMassUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_MassUnit = { "MassUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, MassUnit), Z_Construct_UEnum_Debug_EDebugLogMassUnit, METADATA_PARAMS(nullptr, 0) }; // 1999722458
 	void Z_Construct_UFunction_ULog_Mass_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventMass_Parms*)Obj)->bConvertValueToInt = 1;
@@ -8855,7 +8838,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Mass_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Mass_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Mass_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMass_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -8889,13 +8872,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a mass unit value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Mass_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Mass", nullptr, nullptr, sizeof(Log_eventMass_Parms), Z_Construct_UFunction_ULog_Mass_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Mass_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Mass_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Mass_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Mass_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Mass", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Mass_Statics::Log_eventMass_Parms), Z_Construct_UFunction_ULog_Mass_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Mass_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Mass_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Mass_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Mass()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Mass_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Mass_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -8959,7 +8942,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Matrix_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMatrix_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Matrix_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Matrix_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Matrix_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMatrix_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Matrix_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMatrix_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Matrix_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMatrix_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Matrix_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMatrix_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Matrix_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventMatrix_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -8990,13 +8973,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a matrix value to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Matrix_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Matrix", nullptr, nullptr, sizeof(Log_eventMatrix_Parms), Z_Construct_UFunction_ULog_Matrix_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Matrix_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Matrix_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Matrix_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Matrix_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Matrix", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Matrix_Statics::Log_eventMatrix_Parms), Z_Construct_UFunction_ULog_Matrix_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Matrix_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Matrix_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Matrix_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Matrix()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Matrix_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Matrix_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9082,13 +9065,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a message in the world" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_MessageInWorld_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "MessageInWorld", nullptr, nullptr, sizeof(Log_eventMessageInWorld_Parms), Z_Construct_UFunction_ULog_MessageInWorld_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_MessageInWorld_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_MessageInWorld_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_MessageInWorld_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_MessageInWorld_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "MessageInWorld", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_MessageInWorld_Statics::Log_eventMessageInWorld_Parms), Z_Construct_UFunction_ULog_MessageInWorld_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_MessageInWorld_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_MessageInWorld_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_MessageInWorld_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_MessageInWorld()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_MessageInWorld_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_MessageInWorld_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9144,7 +9127,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_NetRole_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNetRole_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_NetRole_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_NetRole_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_NetRole_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNetRole_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_NetRole_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNetRole_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_NetRole_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNetRole_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_NetRole_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNetRole_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_NetRole_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNetRole_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9177,13 +9160,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log an actor's net role value to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_NetRole_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "NetRole", nullptr, nullptr, sizeof(Log_eventNetRole_Parms), Z_Construct_UFunction_ULog_NetRole_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_NetRole_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_NetRole_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_NetRole_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_NetRole_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "NetRole", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_NetRole_Statics::Log_eventNetRole_Parms), Z_Construct_UFunction_ULog_NetRole_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_NetRole_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_NetRole_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_NetRole_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_NetRole()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_NetRole_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_NetRole_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9226,7 +9209,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_No_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNo_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_No_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_No_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_No_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNo_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_No_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNo_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_No_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNo_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_No_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNo_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_No_Statics::PropPointers[] = {
@@ -9253,13 +9236,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a no message to the console or viewport (with an optional prefix and suffix string)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_No_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "No", nullptr, nullptr, sizeof(Log_eventNo_Parms), Z_Construct_UFunction_ULog_No_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_No_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_No_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_No_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_No_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "No", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_No_Statics::Log_eventNo_Parms), Z_Construct_UFunction_ULog_No_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_No_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_No_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_No_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_No()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_No_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_No_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9307,7 +9290,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Float_Blueprint_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Float_Blueprint_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Float_Blueprint_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Float_Blueprint_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Float_Blueprint_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Float_Blueprint_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9339,13 +9322,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a number to the console or viewport (float version)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Number_Float_Blueprint", nullptr, nullptr, sizeof(Log_eventNumber_Float_Blueprint_Parms), Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Number_Float_Blueprint", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::Log_eventNumber_Float_Blueprint_Parms), Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Number_Float_Blueprint()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Number_Float_Blueprint_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9395,8 +9378,8 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Int_Blueprint_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_NumberSystem = { "NumberSystem", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Int_Blueprint_Parms, NumberSystem), Z_Construct_UEnum_Debug_EDebugLogNumberSystems, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Int_Blueprint_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_NumberSystem = { "NumberSystem", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Int_Blueprint_Parms, NumberSystem), Z_Construct_UEnum_Debug_EDebugLogNumberSystems, METADATA_PARAMS(nullptr, 0) }; // 3467050032
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Int_Blueprint_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Int_Blueprint_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Int_Blueprint_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventNumber_Int_Blueprint_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9430,13 +9413,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a number to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Number_Int_Blueprint", nullptr, nullptr, sizeof(Log_eventNumber_Int_Blueprint_Parms), Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Number_Int_Blueprint", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::Log_eventNumber_Int_Blueprint_Parms), Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04082401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Number_Int_Blueprint()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Number_Int_Blueprint_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9470,7 +9453,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventObjectName_Parms*)Obj)->bSilenceOnError = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_ObjectName_Statics::NewProp_bSilenceOnError = { "bSilenceOnError", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventObjectName_Parms), &Z_Construct_UFunction_ULog_ObjectName_Statics::NewProp_bSilenceOnError_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_ObjectName_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectName_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_ObjectName_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectName_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_ObjectName_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectName_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_ObjectName_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectName_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_ObjectName_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectName_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9499,13 +9482,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log the given object's name, if it's valid" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_ObjectName_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "ObjectName", nullptr, nullptr, sizeof(Log_eventObjectName_Parms), Z_Construct_UFunction_ULog_ObjectName_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_ObjectName_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_ObjectName_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_ObjectName_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_ObjectName_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "ObjectName", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_ObjectName_Statics::Log_eventObjectName_Parms), Z_Construct_UFunction_ULog_ObjectName_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_ObjectName_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_ObjectName_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_ObjectName_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_ObjectName()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_ObjectName_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_ObjectName_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9539,7 +9522,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventObjectValidity_Parms*)Obj)->bSilenceOnError = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_ObjectValidity_Statics::NewProp_bSilenceOnError = { "bSilenceOnError", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventObjectValidity_Parms), &Z_Construct_UFunction_ULog_ObjectValidity_Statics::NewProp_bSilenceOnError_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_ObjectValidity_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectValidity_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_ObjectValidity_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectValidity_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_ObjectValidity_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectValidity_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_ObjectValidity_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectValidity_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_ObjectValidity_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventObjectValidity_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9568,13 +9551,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log whether the object is valid or not" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_ObjectValidity_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "ObjectValidity", nullptr, nullptr, sizeof(Log_eventObjectValidity_Parms), Z_Construct_UFunction_ULog_ObjectValidity_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_ObjectValidity_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_ObjectValidity_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_ObjectValidity_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_ObjectValidity_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "ObjectValidity", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_ObjectValidity_Statics::Log_eventObjectValidity_Parms), Z_Construct_UFunction_ULog_ObjectValidity_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_ObjectValidity_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_ObjectValidity_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_ObjectValidity_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_ObjectValidity()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_ObjectValidity_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_ObjectValidity_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9622,7 +9605,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Percent_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventPercent_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Percent_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Percent_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Percent_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventPercent_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Percent_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventPercent_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Percent_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventPercent_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Percent_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventPercent_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Percent_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventPercent_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9652,13 +9635,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log the a percentage value to the console or viewport (Just appends a % symbol)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Percent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Percent", nullptr, nullptr, sizeof(Log_eventPercent_Parms), Z_Construct_UFunction_ULog_Percent_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Percent_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Percent_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Percent_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Percent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Percent", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Percent_Statics::Log_eventPercent_Parms), Z_Construct_UFunction_ULog_Percent_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Percent_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Percent_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Percent_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Percent()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Percent_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Percent_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9722,7 +9705,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Quat_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventQuat_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Quat_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Quat_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Quat_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventQuat_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Quat_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventQuat_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Quat_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventQuat_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Quat_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventQuat_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Quat_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventQuat_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9755,13 +9738,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a Quaternion value to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Quat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Quat", nullptr, nullptr, sizeof(Log_eventQuat_Parms), Z_Construct_UFunction_ULog_Quat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Quat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Quat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Quat_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Quat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Quat", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Quat_Statics::Log_eventQuat_Parms), Z_Construct_UFunction_ULog_Quat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Quat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Quat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Quat_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Quat()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Quat_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Quat_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9825,7 +9808,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Rotator_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventRotator_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Rotator_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Rotator_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Rotator_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventRotator_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Rotator_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventRotator_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Rotator_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventRotator_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Rotator_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventRotator_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Rotator_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventRotator_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9858,13 +9841,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a FRotator to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Rotator_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Rotator", nullptr, nullptr, sizeof(Log_eventRotator_Parms), Z_Construct_UFunction_ULog_Rotator_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Rotator_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Rotator_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Rotator_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Rotator_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Rotator", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Rotator_Statics::Log_eventRotator_Parms), Z_Construct_UFunction_ULog_Rotator_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Rotator_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Rotator_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Rotator_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Rotator()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Rotator_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Rotator_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -9905,7 +9888,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_InSpeedValue = { "InSpeedValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, InSpeedValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_SpeedUnit = { "SpeedUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, SpeedUnit), Z_Construct_UEnum_Debug_EDebugLogSpeedUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_SpeedUnit = { "SpeedUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, SpeedUnit), Z_Construct_UEnum_Debug_EDebugLogSpeedUnit, METADATA_PARAMS(nullptr, 0) }; // 724902795
 	void Z_Construct_UFunction_ULog_Speed_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventSpeed_Parms*)Obj)->bConvertValueToInt = 1;
@@ -9923,7 +9906,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Speed_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Speed_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Speed_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSpeed_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -9957,13 +9940,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a speed unit value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Speed_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Speed", nullptr, nullptr, sizeof(Log_eventSpeed_Parms), Z_Construct_UFunction_ULog_Speed_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Speed_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Speed_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Speed_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Speed_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Speed", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Speed_Statics::Log_eventSpeed_Parms), Z_Construct_UFunction_ULog_Speed_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Speed_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Speed_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Speed_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Speed()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Speed_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Speed_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10001,13 +9984,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Creates and starts a debug timer" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_StartDebugTimer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "StartDebugTimer", nullptr, nullptr, sizeof(Log_eventStartDebugTimer_Parms), Z_Construct_UFunction_ULog_StartDebugTimer_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_StartDebugTimer_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_StartDebugTimer_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_StartDebugTimer_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_StartDebugTimer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "StartDebugTimer", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_StartDebugTimer_Statics::Log_eventStartDebugTimer_Parms), Z_Construct_UFunction_ULog_StartDebugTimer_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_StartDebugTimer_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_StartDebugTimer_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_StartDebugTimer_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_StartDebugTimer()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_StartDebugTimer_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_StartDebugTimer_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10038,8 +10021,8 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventStopDebugTimer_Parms*)Obj)->bAutoDetermineTimeUnit = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::NewProp_bAutoDetermineTimeUnit = { "bAutoDetermineTimeUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventStopDebugTimer_Parms), &Z_Construct_UFunction_ULog_StopDebugTimer_Statics::NewProp_bAutoDetermineTimeUnit_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::NewProp_DisplayIn = { "DisplayIn", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventStopDebugTimer_Parms, DisplayIn), Z_Construct_UEnum_Debug_EDebugLogTimeUnit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventStopDebugTimer_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::NewProp_DisplayIn = { "DisplayIn", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventStopDebugTimer_Parms, DisplayIn), Z_Construct_UEnum_Debug_EDebugLogTimeUnit, METADATA_PARAMS(nullptr, 0) }; // 2983906560
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventStopDebugTimer_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventStopDebugTimer_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventStopDebugTimer_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_StopDebugTimer_Statics::PropPointers[] = {
@@ -10066,13 +10049,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Stops and destroys the active debug timer, outputting how long the operation took since StartDebugTimer was called" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "StopDebugTimer", nullptr, nullptr, sizeof(Log_eventStopDebugTimer_Parms), Z_Construct_UFunction_ULog_StopDebugTimer_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_StopDebugTimer_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_StopDebugTimer_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_StopDebugTimer_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_StopDebugTimer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "StopDebugTimer", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_StopDebugTimer_Statics::Log_eventStopDebugTimer_Parms), Z_Construct_UFunction_ULog_StopDebugTimer_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_StopDebugTimer_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_StopDebugTimer_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_StopDebugTimer_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_StopDebugTimer()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_StopDebugTimer_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_StopDebugTimer_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10109,7 +10092,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Success_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSuccess_Parms, Message), METADATA_PARAMS(Z_Construct_UFunction_ULog_Success_Statics::NewProp_Message_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_Statics::NewProp_Message_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Success_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSuccess_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Success_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSuccess_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_Success_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventSuccess_Parms*)Obj)->bAddPrefix = 1;
@@ -10143,13 +10126,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a success message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Success_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Success", nullptr, nullptr, sizeof(Log_eventSuccess_Parms), Z_Construct_UFunction_ULog_Success_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Success_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Success_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Success", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Success_Statics::Log_eventSuccess_Parms), Z_Construct_UFunction_ULog_Success_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Success_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Success()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Success_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Success_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10194,7 +10177,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventSuccess_WithCondition_Parms*)Obj)->bCondition = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_Success_WithCondition_Statics::NewProp_bCondition = { "bCondition", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventSuccess_WithCondition_Parms), &Z_Construct_UFunction_ULog_Success_WithCondition_Statics::NewProp_bCondition_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Success_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSuccess_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Success_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventSuccess_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_Success_WithCondition_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventSuccess_WithCondition_Parms*)Obj)->bAddPrefix = 1;
@@ -10230,13 +10213,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a success message to the console or viewport, only if the condition is met" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Success_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Success_WithCondition", nullptr, nullptr, sizeof(Log_eventSuccess_WithCondition_Parms), Z_Construct_UFunction_ULog_Success_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Success_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_WithCondition_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Success_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Success_WithCondition", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Success_WithCondition_Statics::Log_eventSuccess_WithCondition_Parms), Z_Construct_UFunction_ULog_Success_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Success_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Success_WithCondition_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Success_WithCondition()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Success_WithCondition_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Success_WithCondition_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10277,7 +10260,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_InTemperatureValue = { "InTemperatureValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, InTemperatureValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_TemperatureUnit = { "TemperatureUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, TemperatureUnit), Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_TemperatureUnit = { "TemperatureUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, TemperatureUnit), Z_Construct_UEnum_Debug_EDebugLogTemperatureUnit, METADATA_PARAMS(nullptr, 0) }; // 1306254896
 	void Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventTemperature_Parms*)Obj)->bConvertValueToInt = 1;
@@ -10295,7 +10278,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Temperature_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTemperature_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -10329,13 +10312,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a temperature value in degrees celsius to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Temperature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Temperature", nullptr, nullptr, sizeof(Log_eventTemperature_Parms), Z_Construct_UFunction_ULog_Temperature_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Temperature_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Temperature_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Temperature_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Temperature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Temperature", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Temperature_Statics::Log_eventTemperature_Parms), Z_Construct_UFunction_ULog_Temperature_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Temperature_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Temperature_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Temperature_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Temperature()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Temperature_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Temperature_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10376,7 +10359,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_InTimeValue = { "InTimeValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, InTimeValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_TimeUnit = { "TimeUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, TimeUnit), Z_Construct_UEnum_Debug_EDebugLogTimeUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_TimeUnit = { "TimeUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, TimeUnit), Z_Construct_UEnum_Debug_EDebugLogTimeUnit, METADATA_PARAMS(nullptr, 0) }; // 2983906560
 	void Z_Construct_UFunction_ULog_Time_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventTime_Parms*)Obj)->bConvertValueToInt = 1;
@@ -10394,7 +10377,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Time_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Time_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Time_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTime_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -10428,13 +10411,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a time unit value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Time_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Time", nullptr, nullptr, sizeof(Log_eventTime_Parms), Z_Construct_UFunction_ULog_Time_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Time_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Time_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Time_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Time_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Time", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Time_Statics::Log_eventTime_Parms), Z_Construct_UFunction_ULog_Time_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Time_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Time_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Time_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Time()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Time_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Time_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10487,7 +10470,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventTransform_Parms*)Obj)->bFormat = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_Transform_Statics::NewProp_bFormat = { "bFormat", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventTransform_Parms), &Z_Construct_UFunction_ULog_Transform_Statics::NewProp_bFormat_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Transform_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTransform_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Transform_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTransform_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Transform_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTransform_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Transform_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTransform_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Transform_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventTransform_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -10518,13 +10501,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a FTransform value to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Transform_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Transform", nullptr, nullptr, sizeof(Log_eventTransform_Parms), Z_Construct_UFunction_ULog_Transform_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Transform_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Transform_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Transform_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Transform_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Transform", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Transform_Statics::Log_eventTransform_Parms), Z_Construct_UFunction_ULog_Transform_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Transform_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Transform_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Transform_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Transform()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Transform_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Transform_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10551,7 +10534,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_UnImplemented_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_UnImplemented_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10594,7 +10577,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Valid_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventValid_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Valid_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Valid_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Valid_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventValid_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Valid_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventValid_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Valid_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventValid_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Valid_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventValid_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Valid_Statics::PropPointers[] = {
@@ -10621,13 +10604,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a 'valid' message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Valid_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Valid", nullptr, nullptr, sizeof(Log_eventValid_Parms), Z_Construct_UFunction_ULog_Valid_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Valid_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Valid_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Valid_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Valid_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Valid", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Valid_Statics::Log_eventValid_Parms), Z_Construct_UFunction_ULog_Valid_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Valid_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Valid_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Valid_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Valid()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Valid_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Valid_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10691,7 +10674,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Vector_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Vector_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Vector_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Vector_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Vector_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Vector_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Vector_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -10724,13 +10707,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a FVector to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Vector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Vector", nullptr, nullptr, sizeof(Log_eventVector_Parms), Z_Construct_UFunction_ULog_Vector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Vector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Vector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Vector", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Vector_Statics::Log_eventVector_Parms), Z_Construct_UFunction_ULog_Vector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Vector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Vector()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Vector_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Vector_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10794,7 +10777,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Vector2D_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector2D_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Vector2D_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector2D_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Vector2D_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector2D_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Vector2D_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector2D_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Vector2D_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector2D_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Vector2D_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector2D_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Vector2D_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVector2D_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -10827,13 +10810,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a FVector2D to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Vector2D_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Vector2D", nullptr, nullptr, sizeof(Log_eventVector2D_Parms), Z_Construct_UFunction_ULog_Vector2D_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector2D_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Vector2D_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector2D_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Vector2D_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Vector2D", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Vector2D_Statics::Log_eventVector2D_Parms), Z_Construct_UFunction_ULog_Vector2D_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector2D_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Vector2D_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Vector2D_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Vector2D()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Vector2D_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Vector2D_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10874,7 +10857,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_InVolumeValue = { "InVolumeValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, InVolumeValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_VolumeUnit = { "VolumeUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, VolumeUnit), Z_Construct_UEnum_Debug_EDebugLogVolumeUnit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_VolumeUnit = { "VolumeUnit", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, VolumeUnit), Z_Construct_UEnum_Debug_EDebugLogVolumeUnit, METADATA_PARAMS(nullptr, 0) }; // 2586588722
 	void Z_Construct_UFunction_ULog_Volume_Statics::NewProp_bConvertValueToInt_SetBit(void* Obj)
 	{
 		((Log_eventVolume_Parms*)Obj)->bConvertValueToInt = 1;
@@ -10892,7 +10875,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Volume_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Volume_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_TimeToDisplay = { "TimeToDisplay", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, TimeToDisplay), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Volume_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventVolume_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
@@ -10926,13 +10909,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a volume unit value to the console or viewport (Just adds the appropriate symbol at the end)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Volume_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Volume", nullptr, nullptr, sizeof(Log_eventVolume_Parms), Z_Construct_UFunction_ULog_Volume_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Volume_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Volume_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Volume_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Volume_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Volume", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Volume_Statics::Log_eventVolume_Parms), Z_Construct_UFunction_ULog_Volume_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Volume_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Volume_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Volume_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Volume()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Volume_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Volume_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -10969,7 +10952,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Warning_Statics::NewProp_Message = { "Message", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWarning_Parms, Message), METADATA_PARAMS(Z_Construct_UFunction_ULog_Warning_Statics::NewProp_Message_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_Statics::NewProp_Message_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Warning_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWarning_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Warning_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWarning_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_Warning_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventWarning_Parms*)Obj)->bAddPrefix = 1;
@@ -11003,13 +10986,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a warning message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Warning_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Warning", nullptr, nullptr, sizeof(Log_eventWarning_Parms), Z_Construct_UFunction_ULog_Warning_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Warning_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Warning_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Warning", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Warning_Statics::Log_eventWarning_Parms), Z_Construct_UFunction_ULog_Warning_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Warning_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Warning()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Warning_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Warning_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -11054,7 +11037,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		((Log_eventWarning_WithCondition_Parms*)Obj)->bCondition = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::NewProp_bCondition = { "bCondition", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(Log_eventWarning_WithCondition_Parms), &Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::NewProp_bCondition_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWarning_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWarning_WithCondition_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	void Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::NewProp_bAddPrefix_SetBit(void* Obj)
 	{
 		((Log_eventWarning_WithCondition_Parms*)Obj)->bAddPrefix = 1;
@@ -11090,13 +11073,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a warning message to the console or viewport, only if the condition is met" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Warning_WithCondition", nullptr, nullptr, sizeof(Log_eventWarning_WithCondition_Parms), Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Warning_WithCondition", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::Log_eventWarning_WithCondition_Parms), Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Warning_WithCondition()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Warning_WithCondition_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -11117,7 +11100,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Wassup_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWassup_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Wassup_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWassup_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Wassup_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWassup_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Wassup_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventWassup_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Wassup_Statics::PropPointers[] = {
@@ -11140,13 +11123,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a wassup message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Wassup_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Wassup", nullptr, nullptr, sizeof(Log_eventWassup_Parms), Z_Construct_UFunction_ULog_Wassup_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Wassup_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Wassup_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Wassup_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Wassup_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Wassup", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Wassup_Statics::Log_eventWassup_Parms), Z_Construct_UFunction_ULog_Wassup_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Wassup_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Wassup_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Wassup_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Wassup()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Wassup_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Wassup_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -11189,7 +11172,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_ULog_Yes_Statics::NewProp_Suffix = { "Suffix", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYes_Parms, Suffix), METADATA_PARAMS(Z_Construct_UFunction_ULog_Yes_Statics::NewProp_Suffix_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yes_Statics::NewProp_Suffix_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Yes_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYes_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Yes_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYes_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Yes_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYes_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Yes_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYes_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Yes_Statics::PropPointers[] = {
@@ -11216,13 +11199,13 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a yes message to the console or viewport (with an optional prefix and suffix string)" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Yes_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Yes", nullptr, nullptr, sizeof(Log_eventYes_Parms), Z_Construct_UFunction_ULog_Yes_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yes_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Yes_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yes_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Yes_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Yes", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Yes_Statics::Log_eventYes_Parms), Z_Construct_UFunction_ULog_Yes_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yes_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Yes_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yes_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Yes()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Yes_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Yes_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -11243,7 +11226,7 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Yo_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYo_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_ULog_Yo_Statics::NewProp_LoggingOption = { "LoggingOption", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYo_Parms, LoggingOption), Z_Construct_UEnum_Debug_ELoggingOptions, METADATA_PARAMS(nullptr, 0) }; // 748614807
 	const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_ULog_Yo_Statics::NewProp_ViewportKeyName = { "ViewportKeyName", nullptr, (EPropertyFlags)0x0010040000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYo_Parms, ViewportKeyName), METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ULog_Yo_Statics::NewProp_ContextObject = { "ContextObject", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(Log_eventYo_Parms, ContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ULog_Yo_Statics::PropPointers[] = {
@@ -11266,16 +11249,17 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		{ "ToolTip", "Log a yo message to the console or viewport" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Yo_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Yo", nullptr, nullptr, sizeof(Log_eventYo_Parms), Z_Construct_UFunction_ULog_Yo_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yo_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Yo_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yo_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULog_Yo_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULog, nullptr, "Yo", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULog_Yo_Statics::Log_eventYo_Parms), Z_Construct_UFunction_ULog_Yo_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yo_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULog_Yo_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULog_Yo_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULog_Yo()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULog_Yo_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULog_Yo_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ULog);
 	UClass* Z_Construct_UClass_ULog_NoRegister()
 	{
 		return ULog::StaticClass();
@@ -11295,116 +11279,116 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_Debug,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_ULog_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_ULog_Angle, "Angle" }, // 276410086
-		{ &Z_Construct_UFunction_ULog_Array_Bool, "Array_Bool" }, // 4160664165
-		{ &Z_Construct_UFunction_ULog_Array_Color, "Array_Color" }, // 3464057456
-		{ &Z_Construct_UFunction_ULog_Array_DateTime, "Array_DateTime" }, // 2523632954
-		{ &Z_Construct_UFunction_ULog_Array_Float, "Array_Float" }, // 936325506
-		{ &Z_Construct_UFunction_ULog_Array_Int32, "Array_Int32" }, // 1625696435
-		{ &Z_Construct_UFunction_ULog_Array_Int64, "Array_Int64" }, // 3104858333
-		{ &Z_Construct_UFunction_ULog_Array_Matrix, "Array_Matrix" }, // 1733350358
-		{ &Z_Construct_UFunction_ULog_Array_Name, "Array_Name" }, // 2658181345
-		{ &Z_Construct_UFunction_ULog_Array_Quat, "Array_Quat" }, // 3566792642
-		{ &Z_Construct_UFunction_ULog_Array_Rotator, "Array_Rotator" }, // 317306812
-		{ &Z_Construct_UFunction_ULog_Array_String, "Array_String" }, // 1757037600
-		{ &Z_Construct_UFunction_ULog_Array_Text, "Array_Text" }, // 624101964
-		{ &Z_Construct_UFunction_ULog_Array_Transform, "Array_Transform" }, // 1202521162
-		{ &Z_Construct_UFunction_ULog_Array_Vector, "Array_Vector" }, // 493441730
-		{ &Z_Construct_UFunction_ULog_Array_Vector2D, "Array_Vector2D" }, // 3130482730
-		{ &Z_Construct_UFunction_ULog_Assert_False, "Assert_False" }, // 916299778
-		{ &Z_Construct_UFunction_ULog_Assert_IsValid, "Assert_IsValid" }, // 31350387
-		{ &Z_Construct_UFunction_ULog_Assert_True, "Assert_True" }, // 2504597112
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Bool, "AssertEqual_Bool" }, // 981933055
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Color, "AssertEqual_Color" }, // 3238391876
-		{ &Z_Construct_UFunction_ULog_AssertEqual_DateTime, "AssertEqual_DateTime" }, // 2861397598
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Float, "AssertEqual_Float" }, // 2218399705
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Integer, "AssertEqual_Integer" }, // 2803488381
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Name, "AssertEqual_Name" }, // 1260110603
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Object, "AssertEqual_Object" }, // 24787162
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Quat, "AssertEqual_Quat" }, // 1648751752
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Rotator, "AssertEqual_Rotator" }, // 3810371367
-		{ &Z_Construct_UFunction_ULog_AssertEqual_String, "AssertEqual_String" }, // 2617580434
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Transform, "AssertEqual_Transform" }, // 1197456966
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Vector, "AssertEqual_Vector" }, // 2275706501
-		{ &Z_Construct_UFunction_ULog_AssertEqual_Vector2D, "AssertEqual_Vector2D" }, // 45191710
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Color, "AssertNotEqual_Color" }, // 2450220445
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Name, "AssertNotEqual_Name" }, // 131343343
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Object, "AssertNotEqual_Object" }, // 2359172984
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Quat, "AssertNotEqual_Quat" }, // 1338473042
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Rotator, "AssertNotEqual_Rotator" }, // 2417886424
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_String, "AssertNotEqual_String" }, // 1541532158
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Transform, "AssertNotEqual_Transform" }, // 2155494477
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Vector, "AssertNotEqual_Vector" }, // 3180860077
-		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D, "AssertNotEqual_Vector2D" }, // 3614002043
-		{ &Z_Construct_UFunction_ULog_AssertValue_DateTime, "AssertValue_DateTime" }, // 29528029
-		{ &Z_Construct_UFunction_ULog_AssertValue_Float, "AssertValue_Float" }, // 3620212668
-		{ &Z_Construct_UFunction_ULog_AssertValue_Integer, "AssertValue_Integer" }, // 3169856508
-		{ &Z_Construct_UFunction_ULog_Bool, "Bool" }, // 3584495973
-		{ &Z_Construct_UFunction_ULog_Bye, "Bye" }, // 1433077095
-		{ &Z_Construct_UFunction_ULog_CheckCondition, "CheckCondition" }, // 1964017142
-		{ &Z_Construct_UFunction_ULog_CheckNoEntry, "CheckNoEntry" }, // 490927905
-		{ &Z_Construct_UFunction_ULog_CheckNoRecursion, "CheckNoRecursion" }, // 3228006964
-		{ &Z_Construct_UFunction_ULog_CheckNoReEntry, "CheckNoReEntry" }, // 2100038100
-		{ &Z_Construct_UFunction_ULog_CheckObject, "CheckObject" }, // 4221954143
-		{ &Z_Construct_UFunction_ULog_Color, "Color" }, // 3579676904
-		{ &Z_Construct_UFunction_ULog_Crash, "Crash" }, // 1737753283
-		{ &Z_Construct_UFunction_ULog_Cya, "Cya" }, // 2504971754
-		{ &Z_Construct_UFunction_ULog_Data, "Data" }, // 868811789
-		{ &Z_Construct_UFunction_ULog_DateTime, "DateTime" }, // 313801537
-		{ &Z_Construct_UFunction_ULog_DebugMessage, "DebugMessage" }, // 667580880
-		{ &Z_Construct_UFunction_ULog_DebugMessage_WithCondition, "DebugMessage_WithCondition" }, // 4198549192
-		{ &Z_Construct_UFunction_ULog_Dollar, "Dollar" }, // 3970715624
-		{ &Z_Construct_UFunction_ULog_EnsureCondition, "EnsureCondition" }, // 2434885794
-		{ &Z_Construct_UFunction_ULog_EnsureObject, "EnsureObject" }, // 649379623
-		{ &Z_Construct_UFunction_ULog_Error, "Error" }, // 3478641400
-		{ &Z_Construct_UFunction_ULog_Error_WithCondition, "Error_WithCondition" }, // 427082746
-		{ &Z_Construct_UFunction_ULog_Fatal, "Fatal" }, // 3465379903
-		{ &Z_Construct_UFunction_ULog_Fatal_WithCondition, "Fatal_WithCondition" }, // 1904595583
-		{ &Z_Construct_UFunction_ULog_Force, "Force" }, // 502736567
-		{ &Z_Construct_UFunction_ULog_Frequency, "Frequency" }, // 4036244252
-		{ &Z_Construct_UFunction_ULog_Goodbye, "Goodbye" }, // 2356233903
-		{ &Z_Construct_UFunction_ULog_Hello, "Hello" }, // 3339532049
-		{ &Z_Construct_UFunction_ULog_Hey, "Hey" }, // 1738996455
-		{ &Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint, "InBrackets_Name_Blueprint" }, // 2769504963
-		{ &Z_Construct_UFunction_ULog_InBrackets_String_Blueprint, "InBrackets_String_Blueprint" }, // 3595955216
-		{ &Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint, "InBrackets_Text_Blueprint" }, // 3353585765
-		{ &Z_Construct_UFunction_ULog_Info, "Info" }, // 923051575
-		{ &Z_Construct_UFunction_ULog_Info_WithCondition, "Info_WithCondition" }, // 1635010526
-		{ &Z_Construct_UFunction_ULog_Invalid, "Invalid" }, // 4273551610
-		{ &Z_Construct_UFunction_ULog_Length, "Length" }, // 693318880
-		{ &Z_Construct_UFunction_ULog_Light, "Light" }, // 3575077895
-		{ &Z_Construct_UFunction_ULog_LineBreak, "LineBreak" }, // 1471112258
-		{ &Z_Construct_UFunction_ULog_LineBreak_Symbol, "LineBreak_Symbol" }, // 2484759017
-		{ &Z_Construct_UFunction_ULog_Mass, "Mass" }, // 3002992759
-		{ &Z_Construct_UFunction_ULog_Matrix, "Matrix" }, // 4129069399
-		{ &Z_Construct_UFunction_ULog_MessageInWorld, "MessageInWorld" }, // 2236050965
-		{ &Z_Construct_UFunction_ULog_NetRole, "NetRole" }, // 2583543749
-		{ &Z_Construct_UFunction_ULog_No, "No" }, // 618374800
-		{ &Z_Construct_UFunction_ULog_Number_Float_Blueprint, "Number_Float_Blueprint" }, // 2554218573
-		{ &Z_Construct_UFunction_ULog_Number_Int_Blueprint, "Number_Int_Blueprint" }, // 2313785228
-		{ &Z_Construct_UFunction_ULog_ObjectName, "ObjectName" }, // 4262582145
-		{ &Z_Construct_UFunction_ULog_ObjectValidity, "ObjectValidity" }, // 2986723956
-		{ &Z_Construct_UFunction_ULog_Percent, "Percent" }, // 391684733
-		{ &Z_Construct_UFunction_ULog_Quat, "Quat" }, // 4270856696
-		{ &Z_Construct_UFunction_ULog_Rotator, "Rotator" }, // 3205378127
-		{ &Z_Construct_UFunction_ULog_Speed, "Speed" }, // 367074209
-		{ &Z_Construct_UFunction_ULog_StartDebugTimer, "StartDebugTimer" }, // 3127276409
-		{ &Z_Construct_UFunction_ULog_StopDebugTimer, "StopDebugTimer" }, // 3637295810
-		{ &Z_Construct_UFunction_ULog_Success, "Success" }, // 1596709362
-		{ &Z_Construct_UFunction_ULog_Success_WithCondition, "Success_WithCondition" }, // 521405483
-		{ &Z_Construct_UFunction_ULog_Temperature, "Temperature" }, // 1673504313
-		{ &Z_Construct_UFunction_ULog_Time, "Time" }, // 2226507645
-		{ &Z_Construct_UFunction_ULog_Transform, "Transform" }, // 2839582828
-		{ &Z_Construct_UFunction_ULog_UnImplemented, "UnImplemented" }, // 1829736367
-		{ &Z_Construct_UFunction_ULog_Valid, "Valid" }, // 2708512910
-		{ &Z_Construct_UFunction_ULog_Vector, "Vector" }, // 1505940939
-		{ &Z_Construct_UFunction_ULog_Vector2D, "Vector2D" }, // 810088176
-		{ &Z_Construct_UFunction_ULog_Volume, "Volume" }, // 3019404238
-		{ &Z_Construct_UFunction_ULog_Warning, "Warning" }, // 4225681007
-		{ &Z_Construct_UFunction_ULog_Warning_WithCondition, "Warning_WithCondition" }, // 23803231
-		{ &Z_Construct_UFunction_ULog_Wassup, "Wassup" }, // 3113551384
-		{ &Z_Construct_UFunction_ULog_Yes, "Yes" }, // 4002002906
-		{ &Z_Construct_UFunction_ULog_Yo, "Yo" }, // 178318641
+		{ &Z_Construct_UFunction_ULog_Angle, "Angle" }, // 2070197957
+		{ &Z_Construct_UFunction_ULog_Array_Bool, "Array_Bool" }, // 3268133052
+		{ &Z_Construct_UFunction_ULog_Array_Color, "Array_Color" }, // 3017054551
+		{ &Z_Construct_UFunction_ULog_Array_DateTime, "Array_DateTime" }, // 106383879
+		{ &Z_Construct_UFunction_ULog_Array_Float, "Array_Float" }, // 2694699111
+		{ &Z_Construct_UFunction_ULog_Array_Int32, "Array_Int32" }, // 815491117
+		{ &Z_Construct_UFunction_ULog_Array_Int64, "Array_Int64" }, // 2152024130
+		{ &Z_Construct_UFunction_ULog_Array_Matrix, "Array_Matrix" }, // 466717901
+		{ &Z_Construct_UFunction_ULog_Array_Name, "Array_Name" }, // 305975944
+		{ &Z_Construct_UFunction_ULog_Array_Quat, "Array_Quat" }, // 1267660925
+		{ &Z_Construct_UFunction_ULog_Array_Rotator, "Array_Rotator" }, // 3606942434
+		{ &Z_Construct_UFunction_ULog_Array_String, "Array_String" }, // 2773383824
+		{ &Z_Construct_UFunction_ULog_Array_Text, "Array_Text" }, // 2872822208
+		{ &Z_Construct_UFunction_ULog_Array_Transform, "Array_Transform" }, // 3670628236
+		{ &Z_Construct_UFunction_ULog_Array_Vector, "Array_Vector" }, // 2489490404
+		{ &Z_Construct_UFunction_ULog_Array_Vector2D, "Array_Vector2D" }, // 3399492167
+		{ &Z_Construct_UFunction_ULog_Assert_False, "Assert_False" }, // 3111076504
+		{ &Z_Construct_UFunction_ULog_Assert_IsValid, "Assert_IsValid" }, // 1312109610
+		{ &Z_Construct_UFunction_ULog_Assert_True, "Assert_True" }, // 4230125642
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Bool, "AssertEqual_Bool" }, // 838835309
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Color, "AssertEqual_Color" }, // 1386963070
+		{ &Z_Construct_UFunction_ULog_AssertEqual_DateTime, "AssertEqual_DateTime" }, // 2350733929
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Float, "AssertEqual_Float" }, // 2030095482
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Integer, "AssertEqual_Integer" }, // 794690241
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Name, "AssertEqual_Name" }, // 3363319917
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Object, "AssertEqual_Object" }, // 377028830
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Quat, "AssertEqual_Quat" }, // 1158723473
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Rotator, "AssertEqual_Rotator" }, // 1188309642
+		{ &Z_Construct_UFunction_ULog_AssertEqual_String, "AssertEqual_String" }, // 2773094736
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Transform, "AssertEqual_Transform" }, // 65507247
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Vector, "AssertEqual_Vector" }, // 3679165897
+		{ &Z_Construct_UFunction_ULog_AssertEqual_Vector2D, "AssertEqual_Vector2D" }, // 1820690476
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Color, "AssertNotEqual_Color" }, // 253772135
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Name, "AssertNotEqual_Name" }, // 2436725070
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Object, "AssertNotEqual_Object" }, // 403293885
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Quat, "AssertNotEqual_Quat" }, // 721861888
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Rotator, "AssertNotEqual_Rotator" }, // 1631657470
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_String, "AssertNotEqual_String" }, // 1937624262
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Transform, "AssertNotEqual_Transform" }, // 3627099335
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Vector, "AssertNotEqual_Vector" }, // 393160380
+		{ &Z_Construct_UFunction_ULog_AssertNotEqual_Vector2D, "AssertNotEqual_Vector2D" }, // 2735417688
+		{ &Z_Construct_UFunction_ULog_AssertValue_DateTime, "AssertValue_DateTime" }, // 1732307901
+		{ &Z_Construct_UFunction_ULog_AssertValue_Float, "AssertValue_Float" }, // 1757838103
+		{ &Z_Construct_UFunction_ULog_AssertValue_Integer, "AssertValue_Integer" }, // 3509465153
+		{ &Z_Construct_UFunction_ULog_Bool, "Bool" }, // 694011553
+		{ &Z_Construct_UFunction_ULog_Bye, "Bye" }, // 2118743384
+		{ &Z_Construct_UFunction_ULog_CheckCondition, "CheckCondition" }, // 1232759354
+		{ &Z_Construct_UFunction_ULog_CheckNoEntry, "CheckNoEntry" }, // 147204046
+		{ &Z_Construct_UFunction_ULog_CheckNoRecursion, "CheckNoRecursion" }, // 2920291288
+		{ &Z_Construct_UFunction_ULog_CheckNoReEntry, "CheckNoReEntry" }, // 4293388487
+		{ &Z_Construct_UFunction_ULog_CheckObject, "CheckObject" }, // 3641016164
+		{ &Z_Construct_UFunction_ULog_Color, "Color" }, // 3717059423
+		{ &Z_Construct_UFunction_ULog_Crash, "Crash" }, // 3840536408
+		{ &Z_Construct_UFunction_ULog_Cya, "Cya" }, // 3156532129
+		{ &Z_Construct_UFunction_ULog_Data, "Data" }, // 3737786029
+		{ &Z_Construct_UFunction_ULog_DateTime, "DateTime" }, // 687218209
+		{ &Z_Construct_UFunction_ULog_DebugMessage, "DebugMessage" }, // 2194958404
+		{ &Z_Construct_UFunction_ULog_DebugMessage_WithCondition, "DebugMessage_WithCondition" }, // 277383186
+		{ &Z_Construct_UFunction_ULog_Dollar, "Dollar" }, // 3146612830
+		{ &Z_Construct_UFunction_ULog_EnsureCondition, "EnsureCondition" }, // 1803303807
+		{ &Z_Construct_UFunction_ULog_EnsureObject, "EnsureObject" }, // 2185756785
+		{ &Z_Construct_UFunction_ULog_Error, "Error" }, // 2631737149
+		{ &Z_Construct_UFunction_ULog_Error_WithCondition, "Error_WithCondition" }, // 3887952792
+		{ &Z_Construct_UFunction_ULog_Fatal, "Fatal" }, // 3896569564
+		{ &Z_Construct_UFunction_ULog_Fatal_WithCondition, "Fatal_WithCondition" }, // 1463543424
+		{ &Z_Construct_UFunction_ULog_Force, "Force" }, // 2700942860
+		{ &Z_Construct_UFunction_ULog_Frequency, "Frequency" }, // 1508121762
+		{ &Z_Construct_UFunction_ULog_Goodbye, "Goodbye" }, // 1929756019
+		{ &Z_Construct_UFunction_ULog_Hello, "Hello" }, // 2273710672
+		{ &Z_Construct_UFunction_ULog_Hey, "Hey" }, // 2057705816
+		{ &Z_Construct_UFunction_ULog_InBrackets_Name_Blueprint, "InBrackets_Name_Blueprint" }, // 2985233936
+		{ &Z_Construct_UFunction_ULog_InBrackets_String_Blueprint, "InBrackets_String_Blueprint" }, // 3362171507
+		{ &Z_Construct_UFunction_ULog_InBrackets_Text_Blueprint, "InBrackets_Text_Blueprint" }, // 1857185217
+		{ &Z_Construct_UFunction_ULog_Info, "Info" }, // 3758981875
+		{ &Z_Construct_UFunction_ULog_Info_WithCondition, "Info_WithCondition" }, // 2023153775
+		{ &Z_Construct_UFunction_ULog_Invalid, "Invalid" }, // 902305163
+		{ &Z_Construct_UFunction_ULog_Length, "Length" }, // 2602586831
+		{ &Z_Construct_UFunction_ULog_Light, "Light" }, // 4067315910
+		{ &Z_Construct_UFunction_ULog_LineBreak, "LineBreak" }, // 2039005138
+		{ &Z_Construct_UFunction_ULog_LineBreak_Symbol, "LineBreak_Symbol" }, // 2512102363
+		{ &Z_Construct_UFunction_ULog_Mass, "Mass" }, // 2368257573
+		{ &Z_Construct_UFunction_ULog_Matrix, "Matrix" }, // 555175907
+		{ &Z_Construct_UFunction_ULog_MessageInWorld, "MessageInWorld" }, // 816111964
+		{ &Z_Construct_UFunction_ULog_NetRole, "NetRole" }, // 2939760187
+		{ &Z_Construct_UFunction_ULog_No, "No" }, // 680504990
+		{ &Z_Construct_UFunction_ULog_Number_Float_Blueprint, "Number_Float_Blueprint" }, // 2190951883
+		{ &Z_Construct_UFunction_ULog_Number_Int_Blueprint, "Number_Int_Blueprint" }, // 2845595602
+		{ &Z_Construct_UFunction_ULog_ObjectName, "ObjectName" }, // 1366717154
+		{ &Z_Construct_UFunction_ULog_ObjectValidity, "ObjectValidity" }, // 4088383973
+		{ &Z_Construct_UFunction_ULog_Percent, "Percent" }, // 3851903289
+		{ &Z_Construct_UFunction_ULog_Quat, "Quat" }, // 71315885
+		{ &Z_Construct_UFunction_ULog_Rotator, "Rotator" }, // 1504860432
+		{ &Z_Construct_UFunction_ULog_Speed, "Speed" }, // 2747690971
+		{ &Z_Construct_UFunction_ULog_StartDebugTimer, "StartDebugTimer" }, // 1164515359
+		{ &Z_Construct_UFunction_ULog_StopDebugTimer, "StopDebugTimer" }, // 841289913
+		{ &Z_Construct_UFunction_ULog_Success, "Success" }, // 3057404408
+		{ &Z_Construct_UFunction_ULog_Success_WithCondition, "Success_WithCondition" }, // 1139474922
+		{ &Z_Construct_UFunction_ULog_Temperature, "Temperature" }, // 1190376449
+		{ &Z_Construct_UFunction_ULog_Time, "Time" }, // 2436784055
+		{ &Z_Construct_UFunction_ULog_Transform, "Transform" }, // 82130249
+		{ &Z_Construct_UFunction_ULog_UnImplemented, "UnImplemented" }, // 1577090127
+		{ &Z_Construct_UFunction_ULog_Valid, "Valid" }, // 2593513238
+		{ &Z_Construct_UFunction_ULog_Vector, "Vector" }, // 2948471046
+		{ &Z_Construct_UFunction_ULog_Vector2D, "Vector2D" }, // 3596162122
+		{ &Z_Construct_UFunction_ULog_Volume, "Volume" }, // 2079496976
+		{ &Z_Construct_UFunction_ULog_Warning, "Warning" }, // 2151788146
+		{ &Z_Construct_UFunction_ULog_Warning_WithCondition, "Warning_WithCondition" }, // 1843212459
+		{ &Z_Construct_UFunction_ULog_Wassup, "Wassup" }, // 570605519
+		{ &Z_Construct_UFunction_ULog_Yes, "Yes" }, // 2501773828
+		{ &Z_Construct_UFunction_ULog_Yo, "Yo" }, // 201601006
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ULog_Statics::Class_MetaDataParams[] = {
@@ -11434,21 +11418,42 @@ void EmptyLinkFunctionForGeneratedCodeLog() {}
 	};
 	UClass* Z_Construct_UClass_ULog()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_ULog.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_ULog_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_ULog.OuterSingleton, Z_Construct_UClass_ULog_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_ULog.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(ULog, 2567155471);
 	template<> DEBUG_API UClass* StaticClass<ULog>()
 	{
 		return ULog::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_ULog(Z_Construct_UClass_ULog, &ULog::StaticClass, TEXT("/Script/Debug"), TEXT("ULog"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ULog);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_Statics
+	{
+		static const FEnumRegisterCompiledInInfo EnumInfo[];
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_Statics::EnumInfo[] = {
+		{ EDebugLogNumberSystems_StaticEnum, TEXT("EDebugLogNumberSystems"), &Z_Registration_Info_UEnum_EDebugLogNumberSystems, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3467050032U) },
+		{ EDebugLogTemperatureUnit_StaticEnum, TEXT("EDebugLogTemperatureUnit"), &Z_Registration_Info_UEnum_EDebugLogTemperatureUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1306254896U) },
+		{ EDebugLogVolumeUnit_StaticEnum, TEXT("EDebugLogVolumeUnit"), &Z_Registration_Info_UEnum_EDebugLogVolumeUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2586588722U) },
+		{ EDebugLogDataUnit_StaticEnum, TEXT("EDebugLogDataUnit"), &Z_Registration_Info_UEnum_EDebugLogDataUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1079651007U) },
+		{ EDebugLogLengthUnit_StaticEnum, TEXT("EDebugLogLengthUnit"), &Z_Registration_Info_UEnum_EDebugLogLengthUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 245212822U) },
+		{ EDebugLogMassUnit_StaticEnum, TEXT("EDebugLogMassUnit"), &Z_Registration_Info_UEnum_EDebugLogMassUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1999722458U) },
+		{ EDebugLogSpeedUnit_StaticEnum, TEXT("EDebugLogSpeedUnit"), &Z_Registration_Info_UEnum_EDebugLogSpeedUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 724902795U) },
+		{ EDebugLogAngularUnit_StaticEnum, TEXT("EDebugLogAngularUnit"), &Z_Registration_Info_UEnum_EDebugLogAngularUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1703008011U) },
+		{ EDebugLogForceUnit_StaticEnum, TEXT("EDebugLogForceUnit"), &Z_Registration_Info_UEnum_EDebugLogForceUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1099395096U) },
+		{ EDebugLogFrequencyUnit_StaticEnum, TEXT("EDebugLogFrequencyUnit"), &Z_Registration_Info_UEnum_EDebugLogFrequencyUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2151769612U) },
+		{ EDebugLogLightUnit_StaticEnum, TEXT("EDebugLogLightUnit"), &Z_Registration_Info_UEnum_EDebugLogLightUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 713776357U) },
+		{ EDebugLogTimeUnit_StaticEnum, TEXT("EDebugLogTimeUnit"), &Z_Registration_Info_UEnum_EDebugLogTimeUnit, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2983906560U) },
+		{ EDebugLogComparisonMethod_StaticEnum, TEXT("EDebugLogComparisonMethod"), &Z_Registration_Info_UEnum_EDebugLogComparisonMethod, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1272746575U) },
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_ULog, ULog::StaticClass, TEXT("ULog"), &Z_Registration_Info_UClass_ULog, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ULog), 509032216U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_2178077914(TEXT("/Script/Debug"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_Statics::ClassInfo),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_Debug_Source_Debug_Public_Log_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

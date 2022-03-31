@@ -1,9 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateEndNode.h"
-#include "EdGraph/EdGraph.h"
 #include "Graph/Schema/SMGraphSchema.h"
 #include "Graph/SMStateGraph.h"
+
+#include "EdGraph/EdGraph.h"
 
 #define LOCTEXT_NAMESPACE "SMStateEndNode"
 
@@ -24,7 +25,8 @@ FText USMGraphK2Node_StateEndNode::GetNodeTitle(ENodeTitleType::Type TitleType) 
 
 FText USMGraphK2Node_StateEndNode::GetTooltipText() const
 {
-	return LOCTEXT("StateEndNodeTooltip", "Called when the state completes.");
+	return LOCTEXT("StateEndNodeTooltip", "Called when the state completes. It is not advised to switch states during this event.\
+\nThe state machine will already be in the process of switching states.");
 }
 
 bool USMGraphK2Node_StateEndNode::IsCompatibleWithGraph(UEdGraph const* Graph) const

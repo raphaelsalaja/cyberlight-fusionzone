@@ -1,9 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMNodeSettings.h"
+
 #include "SMProjectEditorSettings.generated.h"
 
 class USMTransitionInstance;
@@ -11,7 +11,18 @@ class USMConduitInstance;
 class USMStateMachineInstance;
 class USMStateInstance;
 
-UCLASS(config = Editor)
+UENUM()
+enum class ESMPinOverride : uint8
+{
+	/** Override is disabled for all assets. Restart required. */
+	None,
+	/** Override is only for Logic Driver assets. */
+	LogicDriverOnly,
+	/** Override is for all blueprint types. */
+	AllBlueprints
+};
+
+UCLASS(config = Editor, defaultconfig)
 class SMSYSTEMEDITOR_API USMProjectEditorSettings : public UObject
 {
 	GENERATED_BODY()
@@ -139,6 +150,25 @@ public:
 	 */
 	UPROPERTY(config, EditAnywhere, Category = "Node Instances")
 	TSoftClassPtr<USMTransitionInstance> DefaultTransitionClass;
+
+	/**
+	 * Newly placed state machine references will have their templates enabled by default.
+	 * This allows custom node classes to be supported with references.
+	 *
+	 * State machine blueprints that have a custom state machine class assigned by default
+	 * will always default to using a template.
+	 */
+	UPROPERTY(config, EditAnywhere, Category = "Node Instances")
+	bool bEnableReferenceTemplatesByDefault;
+
+	/**
+	 * Logic Driver can add support to select soft actor references from UEdGraphPins. Unreal by default does not support this.
+	 * You can add support only to Logic Driver assets, to all blueprint assets, or disable completely.
+	 *
+	 * Switching to None or from None requires an editor restart.
+	 **/
+	UPROPERTY(config, EditAnywhere, Category = "Pins")
+	ESMPinOverride OverrideActorSoftReferencePins;
 	
 	/**
 	 * Enable the preview mode as an available editor mode.

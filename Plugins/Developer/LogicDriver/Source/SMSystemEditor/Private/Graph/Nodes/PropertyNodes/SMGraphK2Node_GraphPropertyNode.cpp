@@ -1,7 +1,7 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_GraphPropertyNode.h"
-#include "Widgets/SSMGraphProperty.h"
+#include "Graph/Nodes/SlateNodes/Properties/SSMGraphProperty.h"
 #include "Graph/Nodes/SMGraphNode_Base.h"
 #include "Graph/SMPropertyGraph.h"
 
@@ -41,6 +41,14 @@ void USMGraphK2Node_GraphPropertyNode::ConfigureRuntimePropertyNode()
 	RuntimeGraphProperty.GraphEvaluator = GraphProperty.GraphEvaluator;
 	RuntimeGraphProperty.SetGuid(GraphProperty.GetGuid());
 	RuntimeGraphProperty.SetOwnerGuid(GraphProperty.GetOwnerGuid());
+	if (const FSMGraphProperty_Base* Prop = GetPropertyNode())
+	{
+		if (const UEdGraphPin* Pin = FindPin(Prop->VariableName, EGPD_Input))
+		{
+			const bool bIsDefaultValue = Pin->LinkedTo.Num() == 0;
+			GraphProperty.SetIsDefaultValueOnly(bIsDefaultValue);
+		}
+	}
 }
 
 FSMGraphProperty_Base_Runtime* USMGraphK2Node_GraphPropertyNode::GetRuntimePropertyNode()

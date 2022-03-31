@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/Schema/SMConduitGraphSchema.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMConduitGraphSchema() {}
 // Cross Module References
@@ -21,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeSMConduitGraphSchema() {}
 	void USMConduitGraphSchema::StaticRegisterNativesUSMConduitGraphSchema()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMConduitGraphSchema);
 	UClass* Z_Construct_UClass_USMConduitGraphSchema_NoRegister()
 	{
 		return USMConduitGraphSchema::StaticClass();
@@ -64,21 +61,26 @@ void EmptyLinkFunctionForGeneratedCodeSMConduitGraphSchema() {}
 	};
 	UClass* Z_Construct_UClass_USMConduitGraphSchema()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMConduitGraphSchema.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMConduitGraphSchema_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMConduitGraphSchema.OuterSingleton, Z_Construct_UClass_USMConduitGraphSchema_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMConduitGraphSchema.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMConduitGraphSchema, 848587117);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMConduitGraphSchema>()
 	{
 		return USMConduitGraphSchema::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMConduitGraphSchema(Z_Construct_UClass_USMConduitGraphSchema, &USMConduitGraphSchema::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMConduitGraphSchema"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMConduitGraphSchema);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMConduitGraphSchema_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMConduitGraphSchema_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMConduitGraphSchema, USMConduitGraphSchema::StaticClass, TEXT("USMConduitGraphSchema"), &Z_Registration_Info_UClass_USMConduitGraphSchema, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMConduitGraphSchema), 145712514U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMConduitGraphSchema_h_1372471472(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMConduitGraphSchema_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMConduitGraphSchema_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

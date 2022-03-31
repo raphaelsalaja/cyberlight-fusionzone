@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
@@ -13,7 +13,6 @@ class FSMPreviewModeViewportClient;
 class FSMAdvancedPreviewScene;
 class AActor;
 class SWindow;
-
 
 // Helpers for managing previews.
 class SMPREVIEWEDITOR_API FSMPreviewUtils

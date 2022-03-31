@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 using UnrealBuildTool;
 using System.IO;
@@ -45,10 +45,11 @@ public class SMSystemEditor : ModuleRules
                 "SlateCore",
                 "Slate",
                 "EditorStyle",
-                "MessageLog",
                 "EditorWidgets",
                 "ToolMenus",
+                "ToolWidgets",
                 "AssetTools",
+                "GameplayTags",
 
                 "WorkspaceMenuStructure",
 				"DetailCustomizations",

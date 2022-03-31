@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMExtendedRuntime/Public/Properties/SMTextNodeWidgetInfo.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMTextNodeWidgetInfo() {}
 // Cross Module References
@@ -21,28 +17,19 @@ void EmptyLinkFunctionForGeneratedCodeSMTextNodeWidgetInfo() {}
 
 static_assert(std::is_polymorphic<FSMTextNodeWidgetInfo>() == std::is_polymorphic<FSMTextDisplayWidgetInfo>(), "USTRUCT FSMTextNodeWidgetInfo cannot be polymorphic unless super FSMTextDisplayWidgetInfo is polymorphic");
 
+	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SMTextNodeWidgetInfo;
 class UScriptStruct* FSMTextNodeWidgetInfo::StaticStruct()
 {
-	static class UScriptStruct* Singleton = NULL;
-	if (!Singleton)
+	if (!Z_Registration_Info_UScriptStruct_SMTextNodeWidgetInfo.OuterSingleton)
 	{
-		extern SMEXTENDEDRUNTIME_API uint32 Get_Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Hash();
-		Singleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo, Z_Construct_UPackage__Script_SMExtendedRuntime(), TEXT("SMTextNodeWidgetInfo"), sizeof(FSMTextNodeWidgetInfo), Get_Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Hash());
+		Z_Registration_Info_UScriptStruct_SMTextNodeWidgetInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo, Z_Construct_UPackage__Script_SMExtendedRuntime(), TEXT("SMTextNodeWidgetInfo"));
 	}
-	return Singleton;
+	return Z_Registration_Info_UScriptStruct_SMTextNodeWidgetInfo.OuterSingleton;
 }
 template<> SMEXTENDEDRUNTIME_API UScriptStruct* StaticStruct<FSMTextNodeWidgetInfo>()
 {
 	return FSMTextNodeWidgetInfo::StaticStruct();
 }
-static FCompiledInDeferStruct Z_CompiledInDeferStruct_UScriptStruct_FSMTextNodeWidgetInfo(FSMTextNodeWidgetInfo::StaticStruct, TEXT("/Script/SMExtendedRuntime"), TEXT("SMTextNodeWidgetInfo"), false, nullptr, nullptr);
-static struct FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextNodeWidgetInfo
-{
-	FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextNodeWidgetInfo()
-	{
-		UScriptStruct::DeferCppStructOps(FName(TEXT("SMTextNodeWidgetInfo")),new UScriptStruct::TCppStructOps<FSMTextNodeWidgetInfo>);
-	}
-} ScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextNodeWidgetInfo;
 	struct Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics
 	{
 #if WITH_METADATA
@@ -75,7 +62,7 @@ static struct FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextNodeWi
 		{ "ModuleRelativePath", "Public/Properties/SMTextNodeWidgetInfo.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::NewProp_EditableTextStyle = { "EditableTextStyle", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextNodeWidgetInfo, EditableTextStyle), Z_Construct_UScriptStruct_FInlineEditableTextBlockStyle, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::NewProp_EditableTextStyle_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::NewProp_EditableTextStyle_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::NewProp_EditableTextStyle = { "EditableTextStyle", nullptr, (EPropertyFlags)0x0010000000010001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FSMTextNodeWidgetInfo, EditableTextStyle), Z_Construct_UScriptStruct_FInlineEditableTextBlockStyle, METADATA_PARAMS(Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::NewProp_EditableTextStyle_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::NewProp_EditableTextStyle_MetaData)) }; // 3239437105
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::NewProp_WrapTextAt_MetaData[] = {
 		{ "Category", "Style" },
@@ -102,21 +89,21 @@ static struct FScriptStruct_SMExtendedRuntime_StaticRegisterNativesFSMTextNodeWi
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo()
 	{
-#if WITH_HOT_RELOAD
-		extern uint32 Get_Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Hash();
-		UPackage* Outer = Z_Construct_UPackage__Script_SMExtendedRuntime();
-		static UScriptStruct* ReturnStruct = FindExistingStructIfHotReloadOrDynamic(Outer, TEXT("SMTextNodeWidgetInfo"), sizeof(FSMTextNodeWidgetInfo), Get_Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Hash(), false);
-#else
-		static UScriptStruct* ReturnStruct = nullptr;
-#endif
-		if (!ReturnStruct)
+		if (!Z_Registration_Info_UScriptStruct_SMTextNodeWidgetInfo.InnerSingleton)
 		{
-			UECodeGen_Private::ConstructUScriptStruct(ReturnStruct, Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::ReturnStructParams);
+			UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_SMTextNodeWidgetInfo.InnerSingleton, Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::ReturnStructParams);
 		}
-		return ReturnStruct;
+		return Z_Registration_Info_UScriptStruct_SMTextNodeWidgetInfo.InnerSingleton;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Hash() { return 1707721703U; }
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextNodeWidgetInfo_h_Statics
+	{
+		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
+	};
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextNodeWidgetInfo_h_Statics::ScriptStructInfo[] = {
+		{ FSMTextNodeWidgetInfo::StaticStruct, Z_Construct_UScriptStruct_FSMTextNodeWidgetInfo_Statics::NewStructOps, TEXT("SMTextNodeWidgetInfo"), &Z_Registration_Info_UScriptStruct_SMTextNodeWidgetInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSMTextNodeWidgetInfo), 3371374713U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextNodeWidgetInfo_h_531252883(TEXT("/Script/SMExtendedRuntime"),
+		nullptr, 0,
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextNodeWidgetInfo_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMExtendedRuntime_Public_Properties_SMTextNodeWidgetInfo_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

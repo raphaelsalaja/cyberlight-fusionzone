@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SSMPreviewModeEditorView.h"
 
@@ -14,13 +14,14 @@
 
 #include "Blueprints/SMBlueprint.h"
 
-#include "EditorStyle.h"
+#include "EditorStyleSet.h"
 #include "ISceneOutliner.h"
 #include "SceneOutlinerPublicTypes.h"
 #include "SKismetInspector.h"
 #include "Engine/Selection.h"
 #include "ActorTreeItem.h"
-
+#include "UObject/ObjectSaveContext.h"
+#include "Widgets/Input/SCheckBox.h"
 
 #define LOCTEXT_NAMESPACE "SSMPreviewModeEditorView"
 
@@ -45,10 +46,15 @@ SSMPreviewModeEditorView::~SSMPreviewModeEditorView()
 			Blueprint->GetPreviewObject()->OnCurrentWorldChangedEvent.Remove(PreviewWorldChangedHandle);
 		}
 	}
+
+	if (BlueprintEditor.IsValid() && BlueprintEditorModeChangedHandle.IsValid())
+	{
+		BlueprintEditor.Pin()->OnModeSet().Remove(BlueprintEditorModeChangedHandle);
+	}
 	
 	if (BlueprintSavedHandle.IsValid())
 	{
-		UPackage::PackageSavedEvent.Remove(BlueprintSavedHandle);
+		UPackage::PackageSavedWithContextEvent.Remove(BlueprintSavedHandle);
 	}
 
 	if (SelectionChangedHandle.IsValid())
@@ -85,7 +91,9 @@ void SSMPreviewModeEditorView::Construct(const FArguments& InArgs, TSharedPtr<FS
 	BlueprintChangedHandle = Blueprint->OnChanged().AddRaw(this, &SSMPreviewModeEditorView::OnBlueprintChanged);
 	PreviewObjectChangedHandle = Blueprint->GetPreviewObject()->OnPreviewObjectChangedEvent.AddRaw(this, &SSMPreviewModeEditorView::OnPreviewObjectChanged);
 	PreviewWorldChangedHandle = Blueprint->GetPreviewObject()->OnCurrentWorldChangedEvent.AddRaw(this, &SSMPreviewModeEditorView::OnPreviewWorldChanged);
-	BlueprintSavedHandle = UPackage::PackageSavedEvent.AddRaw(this, &SSMPreviewModeEditorView::OnPackageSaved);
+	BlueprintSavedHandle = UPackage::PackageSavedWithContextEvent.AddRaw(this, &SSMPreviewModeEditorView::OnPackageSaved);
+	BlueprintEditorModeChangedHandle = BlueprintEditor.Pin()->OnModeSet().AddRaw(this, &SSMPreviewModeEditorView::OnBlueprintEditorModeChanged);
+	
 	UpdateSelection();
 
 	ChildSlot
@@ -96,39 +104,29 @@ void SSMPreviewModeEditorView::Construct(const FArguments& InArgs, TSharedPtr<FS
 		[
 			SNew(SHorizontalBox)
 			+SHorizontalBox::Slot()
-			.Padding(FMargin( 0.f, 0.f, 2.f, 0.f ))
+			.Padding(FMargin(0.f, 0.f, 2.f, 0.f))
 			[
-				SNew(SBorder)
-				.BorderImage(this, &SSMPreviewModeEditorView::GetBorderBrushByMode, ESMPreviewModeType::SM_OutlineMode)
-				.Padding(0)
+				SNew(SCheckBox)
+				.Style(FEditorStyle::Get(), "RadioButton")
+				.IsChecked(this, &SSMPreviewModeEditorView::IsChecked, ESMPreviewModeType::SM_OutlineMode)
+				.OnCheckStateChanged(this, &SSMPreviewModeEditorView::OnCheckedChanged, ESMPreviewModeType::SM_OutlineMode)
 				[
-					SNew(SCheckBox)
-					.Style(FEditorStyle::Get(), "RadioButton")
-					.IsChecked(this, &SSMPreviewModeEditorView::IsChecked, ESMPreviewModeType::SM_OutlineMode)
-					.OnCheckStateChanged(const_cast<SSMPreviewModeEditorView*>(this), &SSMPreviewModeEditorView::OnCheckedChanged, ESMPreviewModeType::SM_OutlineMode)
-					[
-						SNew( STextBlock )
-						.Font( FCoreStyle::GetDefaultFontStyle("Bold", 9) )
-						.Text( LOCTEXT("LogicDriverOutlineMode", "Edit World") )
-					]
+					SNew(STextBlock)
+					.Font(FCoreStyle::GetDefaultFontStyle("Bold", 9))
+					.Text(LOCTEXT("LogicDriverOutlineMode", "Edit World"))
 				]
 			]
 			+SHorizontalBox::Slot()
 			.Padding(FMargin( 2.f, 0.f, 0.f, 0.f ))
 			[
-				SNew(SBorder)
-				.BorderImage(this, &SSMPreviewModeEditorView::GetBorderBrushByMode, ESMPreviewModeType::SM_DetailsMode)
-				.Padding(0)
+				SNew(SCheckBox)
+				.Style(FEditorStyle::Get(), "RadioButton")
+				.IsChecked(this, &SSMPreviewModeEditorView::IsChecked, ESMPreviewModeType::SM_DetailsMode)
+				.OnCheckStateChanged(this, &SSMPreviewModeEditorView::OnCheckedChanged, ESMPreviewModeType::SM_DetailsMode)
 				[
-					SNew(SCheckBox)
-					.Style(FEditorStyle::Get(), "RadioButton")
-					.IsChecked(this, &SSMPreviewModeEditorView::IsChecked, ESMPreviewModeType::SM_DetailsMode)
-					.OnCheckStateChanged(const_cast<SSMPreviewModeEditorView*>(this), &SSMPreviewModeEditorView::OnCheckedChanged, ESMPreviewModeType::SM_DetailsMode)
-					[
-						SNew( STextBlock )
-						.Font( FCoreStyle::GetDefaultFontStyle("Bold", 9) )
-						.Text( LOCTEXT("LogicDriverSimulationMode", "Edit Simulation") )
-					]
+					SNew(STextBlock)
+					.Font(FCoreStyle::GetDefaultFontStyle("Bold", 9))
+					.Text(LOCTEXT("LogicDriverSimulationMode", "Edit Simulation"))
 				]
 			]
 		]
@@ -139,7 +137,7 @@ void SSMPreviewModeEditorView::Construct(const FArguments& InArgs, TSharedPtr<FS
 			[
 				SNew(SBorder)
 				.Padding(FMargin(2.0f, 5.0f))
-				.BorderImage( FEditorStyle::GetBrush("NoBorder") )
+				.BorderImage(FEditorStyle::GetBrush("NoBorder"))
 				.Visibility(this, &SSMPreviewModeEditorView::IsEditorVisible, ESMPreviewModeType::SM_OutlineMode)
 				[
 					/*
@@ -171,7 +169,7 @@ void SSMPreviewModeEditorView::Construct(const FArguments& InArgs, TSharedPtr<FS
 			[
 				SNew(SBorder)
 				.Padding(FMargin(2.0f, 5.0f))
-				.BorderImage( FEditorStyle::GetBrush("NoBorder") )
+				.BorderImage(FEditorStyle::GetBrush("NoBorder"))
 				.Visibility(this, &SSMPreviewModeEditorView::IsEditorVisible, ESMPreviewModeType::SM_DetailsMode)
 				[
 					/*
@@ -185,9 +183,9 @@ void SSMPreviewModeEditorView::Construct(const FArguments& InArgs, TSharedPtr<FS
 	];
 }
 
-void SSMPreviewModeEditorView::UpdateSelection()
+void SSMPreviewModeEditorView::UpdateSelection(bool bForce)
 {
-	if (!BlueprintEditor.IsValid() || BlueprintEditor.Pin()->GetCurrentMode() != FSMBlueprintEditorModes::SMPreviewMode)
+	if (!BlueprintEditor.IsValid() || (BlueprintEditor.Pin()->GetCurrentMode() != FSMBlueprintEditorModes::SMPreviewMode && !bForce))
 	{
 		return;
 	}
@@ -209,7 +207,7 @@ void SSMPreviewModeEditorView::UpdateSelection()
 				AActor* Actor = static_cast<AActor*>(*It);
 				checkSlow(Actor->IsA(AActor::StaticClass()));
 
-				if (!Actor->IsPendingKill() && Actor->GetWorld() == PreviewObject->GetCurrentWorld())
+				if (IsValid(Actor) && Actor->GetWorld() == PreviewObject->GetCurrentWorld())
 				{
 					// Only add valid actors that exist in this preview world.
 					SelectedActors.Add(Actor);
@@ -256,7 +254,16 @@ void SSMPreviewModeEditorView::OnEditorSelectionChanged(UObject* NewObject)
 	UpdateSelection();
 }
 
-void SSMPreviewModeEditorView::OnPackageSaved(const FString& PackageFileName, UObject* Outer)
+void SSMPreviewModeEditorView::OnBlueprintEditorModeChanged(FName InModeName)
+{
+	if (InModeName == FSMBlueprintEditorModes::SMPreviewMode)
+	{
+		const bool bModeJustChanged = true;
+		UpdateSelection(bModeJustChanged);
+	}
+}
+
+void SSMPreviewModeEditorView::OnPackageSaved(const FString& Filename, UPackage* Package, FObjectPostSaveContext ObjectSaveContext)
 {
 	// TODO: Maybe check the package name to make sure it's the correct package before saving, but this isn't very expensive.
 	if (USMPreviewObject* PreviewObject = Blueprint->GetPreviewObject())

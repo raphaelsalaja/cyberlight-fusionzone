@@ -1,20 +1,19 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Layout/Margin.h"
+
 #include "SMEditorSettings.generated.h"
 
 UENUM()
-enum class ESMPinOverride : uint8
+enum class ESMJumpToGraphBehavior : uint8
 {
-	/** Override is disabled for all assets. Restart required. */
-	None,
-	/** Override is only for Logic Driver assets. */
-	LogicDriverOnly,
-	/** Override is for all blueprint types. */
-	AllBlueprints
+	/** The local or intermediate graph within the same blueprint. */
+	PreferLocalGraph,
+	/** An external blueprint's graph. */
+	PreferExternalGraph
 };
 
 UCLASS(config = EditorPerProjectUserSettings)
@@ -46,27 +45,32 @@ public:
 	UPROPERTY(config, EditAnywhere, Category = "States")
 	FLinearColor StateMachineWithLogicColor;
 
+	/** The default color for Any States. */
 	UPROPERTY(config, EditAnywhere, Category = "States")
 	FLinearColor AnyStateDefaultColor;
+
+	/** The maximum amount of Any State icons to display per state. */
+	UPROPERTY(config, EditAnywhere, Category = "States", meta = (ClampMin = "0", ClampMax = "10"))
+	int32 MaxAnyStateIcons;
 	
 	/** The buffer size which accepts pins to create transitions. Open editors will need to be refreshed. */
-	UPROPERTY(config, EditAnywhere, Category = "States", meta = (ClampMin = "4.0", ClampMax="15.0"))
+	UPROPERTY(config, EditAnywhere, Category = "States", meta = (ClampMin = "4.0", ClampMax = "15.0"))
 	float StateConnectionSize;
-	
-	/** The padding around the main content box for state machines. */
-	UPROPERTY(config, EditAnywhere, Category = "States")
-	FMargin StateMachineContentPadding;
-	
-	/** The padding around the main content box. */
-	UPROPERTY(config, EditAnywhere, Category = "States")
-	FMargin StateContentPadding;
 
 	/** Displays the class name above state stack classes. */
 	UPROPERTY(config, EditAnywhere, Category = "States")
 	bool bDisplayStateStackClassNames;
 	
+	/** The padding around the main content box for state machines. */
+	UPROPERTY(config, EditAnywhere, AdvancedDisplay, Category = "States")
+	FMargin StateMachineContentPadding;
+	
+	/** The padding around the main content box. */
+	UPROPERTY(config, EditAnywhere, AdvancedDisplay, Category = "States")
+	FMargin StateContentPadding;
+	
 	/** Prevent nodes from displaying overlay widgets indicating a special status, such as for intermediate graphs or waiting for an end state. */
-	UPROPERTY(config, EditAnywhere, Category = "States")
+	UPROPERTY(config, EditAnywhere, AdvancedDisplay, Category = "States")
 	bool bDisableVisualCues;
 	
 	/** When a transition evaluator has no input. */
@@ -88,6 +92,10 @@ public:
 	/** When a transition has On Transition Entered logic. */
 	UPROPERTY(config, EditAnywhere, Category = "Transitions", meta = (EditCondition = "bEnableTransitionWithEntryLogicColor"))
 	FLinearColor TransitionWithEntryLogicColor;
+
+	/** Display the transition priority next to transition icons. */
+	UPROPERTY(config, EditAnywhere, Category = "Transitions")
+	bool bDisplayTransitionPriority;
 	
 	/** When a state is active during debug. */
 	UPROPERTY(config, EditAnywhere, Category = "Debug")
@@ -117,16 +125,43 @@ public:
 	UPROPERTY(config, EditAnywhere, Category = "Debug", meta = (EditCondition = "bDisplayTransitionEvaluation"))
 	FLinearColor EvaluatingTransitionColor;
 
+	/**
+	 * The behavior when double clicking on states.
+	 * Either prefer the local graph or the node blueprint.
+	 */
+	UPROPERTY(config, EditAnywhere, Category = "Node Double Click")
+	ESMJumpToGraphBehavior StateDoubleClickBehavior;
+
+	/**
+	 * The behavior when double clicking on transitions.
+	 * Either prefer the local graph or the node blueprint.
+	 */
+	UPROPERTY(config, EditAnywhere, Category = "Node Double Click")
+	ESMJumpToGraphBehavior TransitionDoubleClickBehavior;
+
+	/**
+	 * The behavior when double clicking on conduits.
+	 * Either prefer the local graph or the node blueprint.
+	 */
+	UPROPERTY(config, EditAnywhere, Category = "Node Double Click")
+	ESMJumpToGraphBehavior ConduitDoubleClickBehavior;
+	
+	/**
+	 * The behavior when double clicking on state machine references.
+	 * The local graph is available when the intermediate graph is enabled.
+	 *
+	 * If a node class is assigned it will still have to be accessed through the context menu.
+	 */
+	UPROPERTY(config, EditAnywhere, Category = "Node Double Click")
+	ESMJumpToGraphBehavior ReferenceDoubleClickBehavior;
+	
 	/** Show quick animations such as when a state is placed on a graph. */
 	UPROPERTY(config, EditAnywhere, Category = "Visual")
 	bool bEnableAnimations;
 
-	/**
-	 * Logic Driver can add support to select soft actor references from UEdGraphPins. Unreal by default does not support this.
-	 * You can add support only to Logic Driver assets, to all blueprint assets, or disable completely.
-	 **/
-	UPROPERTY(config, EditAnywhere, Category = "Pins")
-	ESMPinOverride OverrideActorSoftReferencePins;
+	/** Show fast path icons on all applicable nodes. */
+	UPROPERTY(config, EditAnywhere, Category = "Visual")
+	bool bDisplayFastPath;
 	
 	/**
 	 * Add all Kismet toolbar extenders to the state machine editor. This allows items from third party plugins to be visible in Logic Driver.

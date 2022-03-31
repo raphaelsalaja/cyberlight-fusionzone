@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMEditorSettings.h"
 
@@ -12,6 +12,7 @@ USMEditorSettings::USMEditorSettings()
 	StateMachineWithLogicColor = FLinearColor(0.3f, 0.7f, 0.8f);
 	StateMachineParentDefaultColor = FLinearColor(1.f, 0.2f, 0.f, 1.f);
 	AnyStateDefaultColor = FLinearColor(0.36f, 0.1f, 0.68f, 1.f);
+	MaxAnyStateIcons = 3;
 	StateConnectionSize = 8;
 
 	bDisplayStateStackClassNames = true;
@@ -26,6 +27,7 @@ USMEditorSettings::USMEditorSettings()
 	TransitionHoverColor = FLinearColor(0.724f, 0.256f, 0.0f, 1.0f);
 	bEnableTransitionWithEntryLogicColor = false;
 	TransitionWithEntryLogicColor = FLinearColor(0.2f, 0.8f, 1.f, 1.f);
+	bDisplayTransitionPriority = true;
 	
 	ActiveStateColor = FLinearColor(1.f, 0.6f, 0.35f);
 	ActiveTransitionColor = FLinearColor::Red;
@@ -38,8 +40,12 @@ USMEditorSettings::USMEditorSettings()
 	EvaluatingTransitionColor = FLinearColor(0.92f, .2f, .92f);
 
 	bEnableAnimations = true;
+	bDisplayFastPath = true;
 
-	OverrideActorSoftReferencePins = ESMPinOverride::LogicDriverOnly;
+	StateDoubleClickBehavior = ESMJumpToGraphBehavior::PreferLocalGraph;
+	TransitionDoubleClickBehavior = ESMJumpToGraphBehavior::PreferLocalGraph;
+	ConduitDoubleClickBehavior = ESMJumpToGraphBehavior::PreferLocalGraph;
+	ReferenceDoubleClickBehavior = ESMJumpToGraphBehavior::PreferExternalGraph;
 	
 	bEnableBlueprintMenuExtenders = true;
 	bEnableBlueprintToolbarExtenders = true;

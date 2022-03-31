@@ -1,9 +1,10 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateUpdateNode.h"
-#include "EdGraph/EdGraph.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
 #include "Graph/SMStateGraph.h"
+
+#include "EdGraph/EdGraph.h"
 
 #define LOCTEXT_NAMESPACE "SMStateUpdateNode"
 
@@ -15,7 +16,7 @@ USMGraphK2Node_StateUpdateNode::USMGraphK2Node_StateUpdateNode(const FObjectInit
 void USMGraphK2Node_StateUpdateNode::AllocateDefaultPins()
 {
 	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Exec, UEdGraphSchema_K2::PN_Then);
-	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Float, TEXT("DeltaSeconds"));
+	CreatePin(EGPD_Output, USMGraphK2Schema::PC_Real, USMGraphK2Schema::PC_Float, TEXT("DeltaSeconds"));
 }
 
 FText USMGraphK2Node_StateUpdateNode::GetNodeTitle(ENodeTitleType::Type TitleType) const

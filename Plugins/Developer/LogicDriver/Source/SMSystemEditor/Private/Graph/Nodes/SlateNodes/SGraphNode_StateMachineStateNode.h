@@ -1,10 +1,8 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SGraphNode_StateNode.h"
-
 
 class SGraphNode_StateMachineStateNode : public SGraphNode_StateNode
 {
@@ -14,16 +12,18 @@ public:
 
 	void Construct(const FArguments& InArgs, USMGraphNode_StateNodeBase* InNode);
 
-	// SGraphNode interface
+	// SGraphNode
 	virtual TArray<FOverlayWidgetInfo> GetOverlayWidgets(bool bSelected, const FVector2D& WidgetSize) const override;
-	// End of SGraphNode interface
+	// ~SGraphNode
 
 protected:
 	// SGraphNode_StateNode
 	virtual const FSlateBrush* GetNameIcon() const override;
-	virtual TSharedRef<SVerticalBox> BuildComplexTooltip() override;
+	virtual TSharedPtr<SVerticalBox> BuildComplexTooltip() override;
 	virtual UEdGraph* GetGraphToUseForTooltip() const override;
 	// ~SGraphNode_StateNode
+
+	FReply OnIntermediateIconDoubleClick(const FGeometry& InMyGeometry, const FPointerEvent& InMouseEvent);
 
 protected:
 	TSharedPtr<SWidget> IntermediateWidget;

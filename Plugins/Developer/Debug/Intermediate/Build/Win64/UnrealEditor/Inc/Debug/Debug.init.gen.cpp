@@ -5,31 +5,25 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeDebug_init() {}
-	UPackage* Z_Construct_UPackage__Script_Debug()
+	static FPackageRegistrationInfo Z_Registration_Info_UPackage__Script_Debug;
+	FORCENOINLINE UPackage* Z_Construct_UPackage__Script_Debug()
 	{
-		static UPackage* ReturnPackage = nullptr;
-		if (!ReturnPackage)
+		if (!Z_Registration_Info_UPackage__Script_Debug.OuterSingleton)
 		{
 			static const UECodeGen_Private::FPackageParams PackageParams = {
 				"/Script/Debug",
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0xC6DB8D91,
-				0x12EA07F8,
+				0x3D5AEAAC,
+				0x4D41CF57,
 				METADATA_PARAMS(nullptr, 0)
 			};
-			UECodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);
+			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_Debug.OuterSingleton, PackageParams);
 		}
-		return ReturnPackage;
+		return Z_Registration_Info_UPackage__Script_Debug.OuterSingleton;
 	}
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_Debug(Z_Construct_UPackage__Script_Debug, TEXT("/Script/Debug"), Z_Registration_Info_UPackage__Script_Debug, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x3D5AEAAC, 0x4D41CF57));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

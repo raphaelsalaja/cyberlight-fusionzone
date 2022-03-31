@@ -1,27 +1,28 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
+
 #include "CoreMinimal.h"
 #include "K2Node_CallFunction.h"
 #include "Misc/AutomationTest.h"
 #include "Misc/Paths.h"
 #include "Misc/PackageName.h"
 #include "Factories/Factory.h"
-#include "Graph/Schema/SMGraphSchema.h"
-#include "SMInstance.h"
+
 #include "Blueprints/SMBlueprint.h"
+
 #include "Utilities/SMBlueprintEditorUtils.h"
 #include "SMTestContext.h"
 #include "Graph/SMTransitionGraph.h"
 #include "Graph/Nodes/SMGraphNode_StateMachineStateNode.h"
 #include "Graph/Nodes/SMGraphNode_TransitionEdge.h"
 #include "Graph/Nodes/RootNodes/SMGraphK2Node_TransitionResultNode.h"
+#include "Graph/Schema/SMGraphSchema.h"
 
 
 #if WITH_DEV_AUTOMATION_TESTS
 
 class UK2Node_DynamicCast;
-
 
 // Manage a physical asset. Based on UnrealEd\ObjectTools
 struct FAssetHandler
@@ -71,7 +72,7 @@ struct FAssetHandler
 	template<typename T>
 	T* GetObjectAs() const
 	{
-		return Cast<T>(GetObject());
+		return CastChecked<T>(GetObject());
 	}
 
 	static FString DefaultFullPath() { return FPackageName::FilenameToLongPackageName(FPaths::AutomationTransientDir() + TEXT("Automation_SMAssetCreation")); }
@@ -91,10 +92,13 @@ namespace TestHelpers
 	USMInstance* CompileAndCreateStateMachineInstanceFromBP(USMBlueprint* Blueprint);
 
 	FAssetHandler ConstructNewStateMachineAsset();
+	FAssetHandler CreateAssetFromBlueprint(UBlueprint* InBlueprint);
+	
 	bool TryCreateNewStateMachineAsset(FAutomationTestBase* Test, FAssetHandler& NewAsset, bool Save = false);
 
 	/** Create USMNodeBlueprint for a given instance class. */
 	FAssetHandler ConstructNewNodeAsset(UClass* NodeClass);
+	
 	/** Creates a node class blueprint and validates proper graphs and k2 nodes exist. */
 	bool TryCreateNewNodeAsset(FAutomationTestBase* Test, FAssetHandler& NewAsset, UClass* NodeClass, bool Save = false);
 	
@@ -141,22 +145,33 @@ namespace TestHelpers
 	
 	/** Build a state machine and assign it to a state machine state node. */
 	USMGraphNode_StateMachineStateNode* BuildNestedStateMachine(FAutomationTestBase* Test, USMGraph* StateMachineGraph, int32 NumStates, UEdGraphPin** FromPinInOut, UEdGraphPin** NestedPinOut);
+
+	/**
+	 * Build a state machine with normal states, references, and more normal states.
+	 * @return Total states added.
+	 */
+	int32 BuildStateMachineWithReferences(FAutomationTestBase* Test, USMGraph* StateMachineGraph, int32 NumStatesBeforeReferences, int32 NumStatesAfterReferences, int32 NumReferences, int32 NumNestedStates,
+		TArray<FAssetHandler>& OutCreatedReferenceAssets, TArray<USMGraphNode_StateMachineStateNode*>& OutNestedStateMachineNodes);
 	
 	/** Thoroughly test a single state machine. Does not include nested tests. */
 	USMInstance* TestLinearStateMachine(FAutomationTestBase* Test, USMBlueprint* Blueprint, int32 NumStates, bool bShutdownStateMachine = true);
 
 	/** Run a state machine until it is in an end state. Works with nested state machines. */
 	USMInstance* RunStateMachineToCompletion(FAutomationTestBase* Test, USMBlueprint* Blueprint,
-		int32& LogicEntryValueOut, int32& LogicUpdateValueOut, int32& LogicEndValueOut, int32 MaxIterations = 1000, bool bShutdownStateMachine = true, bool bTestCompletion = true, bool bCompile = true, int32* IterationsRan = nullptr);
+		int32& LogicEntryValueOut, int32& LogicUpdateValueOut, int32& LogicEndValueOut, int32 MaxIterations = 1000,
+		bool bShutdownStateMachine = true, bool bTestCompletion = true, bool bCompile = true, int32* IterationsRan = nullptr, USMInstance* UseInstance = nullptr);
 
 	/** Recursively run state machines until the end state is reached of each one. Tests retrieving nested active state and retrieving node information.
 	 * If the state machine isn't started it will start it. Bind events verifies events are fired but not an accurate count. */
-	int32 RunAllStateMachinesToCompletion(FAutomationTestBase* Test, USMInstance* Instance, FSMStateMachine* StateMachine, int32 AbortAfterStatesHit=-1, int32 CheckStatesHit = 0, bool bBindEvents = true);
+	int32 RunAllStateMachinesToCompletion(FAutomationTestBase* Test, USMInstance* Instance, FSMStateMachine* StateMachine = nullptr, int32 AbortAfterStatesHit=-1, int32 CheckStatesHit = 0, bool bBindEvents = true);
 
 #pragma endregion
 
 #pragma region Logic Helpers
 
+	/** Adds a function on the test context to an execution entry node. */
+	UK2Node_CallFunction* AddGenericContextLogicToExecutionEntry(FAutomationTestBase* Test, USMGraphK2Node_RuntimeNode_Base* ExecutionEntry, const FName& ContextFunctionName);
+	
 	/** Increment an entry int from the context. */
 	void AddStateEntryLogic(FAutomationTestBase* Test, USMGraphNode_StateNode* StateNode);
 
@@ -233,7 +248,7 @@ namespace TestHelpers
 
 		UEdGraphPin** FloatOutPin = NewNode->Pins.FindByPredicate([&](UEdGraphPin* Pin)
 		{
-			return Pin->Direction == EGPD_Output && Pin->PinType.PinCategory == UEdGraphSchema_K2::PC_Float;
+			return Pin->Direction == EGPD_Output && Pin->PinType.PinCategory == UEdGraphSchema_K2::PC_Real;
 		});
 		Test->TestNotNull("Expected to find FloatOutPin", FloatOutPin);
 
@@ -247,7 +262,7 @@ namespace TestHelpers
 		// Find the float in pin.
 		UEdGraphPin** FloatInPin = CanTransitionGetter->Pins.FindByPredicate([&](UEdGraphPin* Pin)
 		{
-			return Pin->Direction == EGPD_Input && Pin->PinType.PinCategory == UEdGraphSchema_K2::PC_Float;
+			return Pin->Direction == EGPD_Input && Pin->PinType.PinCategory == UEdGraphSchema_K2::PC_Real;
 		});
 		Test->TestNotNull("Expected to find FloatInPin", FloatInPin);
 
@@ -340,6 +355,9 @@ namespace TestHelpers
 
 	/** Set string properties of a template to the given value. */
 	void TestSetTemplate(FAutomationTestBase* Test, USMInstance* Template, const FString& DefaultStringValue, const FString& NewStringValue);
+
+	/** Duplicates a given node. */
+	TSet<UEdGraphNode*> DuplicateNodes(const TArray<UEdGraphNode*>& InNodes);
 #pragma endregion
 
 

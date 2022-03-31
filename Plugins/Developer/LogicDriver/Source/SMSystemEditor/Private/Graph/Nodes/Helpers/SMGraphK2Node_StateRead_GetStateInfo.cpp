@@ -1,16 +1,16 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMGraphK2Node_StateReadNodes.h"
-#include "BlueprintNodeSpawner.h"
-#include "BlueprintActionDatabaseRegistrar.h"
+#include "Utilities/SMBlueprintEditorUtils.h"
 #include "Graph/Schema/SMGraphK2Schema.h"
 #include "Graph/SMStateGraph.h"
 #include "Graph/SMTransitionGraph.h"
-#include "K2Node_CallFunction.h"
+
 #include "SMUtils.h"
-#include "K2Node_StructMemberGet.h"
-#include "Utilities/SMBlueprintEditorUtils.h"
-#include "KismetCompiler.h"
+
+#include "BlueprintNodeSpawner.h"
+#include "BlueprintActionDatabaseRegistrar.h"
+#include "K2Node_CallFunction.h"
 
 #define LOCTEXT_NAMESPACE "SMStateMachineReadNodeGetInfo"
 

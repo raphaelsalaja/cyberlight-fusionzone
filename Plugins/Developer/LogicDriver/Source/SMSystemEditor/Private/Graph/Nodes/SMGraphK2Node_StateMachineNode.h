@@ -1,13 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "EdGraph/EdGraphNode.h"
-#include "EdGraph/EdGraphNodeUtils.h"
 #include "SMGraphK2Node_Base.h"
-#include "SMGraphK2Node_StateMachineNode.generated.h"
 
+#include "EdGraph/EdGraphNodeUtils.h"
+
+#include "SMGraphK2Node_StateMachineNode.generated.h"
 
 class USMGraph;
 class USMGraphK2;
@@ -24,7 +23,7 @@ public:
 	virtual void PostPlacedNewNode() override;
 	virtual void PostPasteNode() override;
 	virtual void DestroyNode() override;
-	virtual TSharedPtr<class INameValidatorInterface> MakeNameValidator() const override;
+	virtual TSharedPtr<INameValidatorInterface> MakeNameValidator() const override;
 	virtual FText GetMenuCategory() const override;
 	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
 	virtual UObject* GetJumpTargetForDoubleClick() const override;

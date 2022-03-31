@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMPropertyGraph.h"
 #include "Utilities/SMBlueprintEditorUtils.h"
@@ -85,7 +85,7 @@ void USMPropertyGraph::RefreshProperty(bool bModify, bool bSetFromPinFirst)
 		FSMBlueprintEditorUtils::ConditionallyCompileBlueprint(Blueprint);
 	}
 	
-	if(ResultNode)
+	if (ResultNode)
 	{
 		ResultNode->ReconstructNode();
 	}
@@ -183,7 +183,7 @@ void USMPropertyGraph::OnGraphManuallyCloned(USMPropertyGraph* OldGraph)
 
 void USMPropertyGraph::PruneDisconnectedNodes()
 {
-	if(ResultNode)
+	if (ResultNode)
 	{
 		UBlueprint* Blueprint = FSMBlueprintEditorUtils::FindBlueprintForGraphChecked(this);
 		bool bChanged = false;
@@ -194,16 +194,16 @@ void USMPropertyGraph::PruneDisconnectedNodes()
 		TArray<UEdGraphNode*> AllNodes;
 		FSMBlueprintEditorUtils::GetAllNodesOfClassNested<UEdGraphNode>(this, AllNodes);
 
-		for(UEdGraphNode* Node : AllNodes)
+		for (UEdGraphNode* Node : AllNodes)
 		{
-			if(!ConnectedNodes.Contains(Node))
+			if (!ConnectedNodes.Contains(Node))
 			{
 				RemoveNode(Node);
 				bChanged = true;
 			}
 		}
 
-		if(bChanged)
+		if (bChanged)
 		{
 			FSMBlueprintEditorUtils::MarkBlueprintAsModified(Blueprint);
 		}

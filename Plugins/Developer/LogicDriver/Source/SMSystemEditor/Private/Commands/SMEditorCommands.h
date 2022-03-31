@@ -1,10 +1,9 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "EditorStyle.h"
+#include "EditorStyleSet.h"
 #include "Framework/Commands/Commands.h"
-
 
 class FSMEditorCommands : public TCommands<FSMEditorCommands>
 {
@@ -78,6 +77,9 @@ public:
 	/** Go to the blueprint for this property. Could be the node blueprint or a state stack blueprint. */
 	TSharedPtr<FUICommandInfo> GoToPropertyBlueprint;
 
+	/** Go to the blueprint for this transition stack element. */
+	TSharedPtr<FUICommandInfo> GoToTransitionStackBlueprint;
+	
 	/** Use the graph to edit. */
 	TSharedPtr<FUICommandInfo> ConvertPropertyToGraphEdit;
 

@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "LockOnTarget/Public/Utilities/LOTC_BPLibrary.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeLOTC_BPLibrary() {}
 // Cross Module References
@@ -139,13 +135,13 @@ void EmptyLinkFunctionForGeneratedCodeLOTC_BPLibrary() {}
 		{ "ToolTip", "Return array of box vertices with world location." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "GetBoxVertices", nullptr, nullptr, sizeof(LOTC_BPLibrary_eventGetBoxVertices_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "GetBoxVertices", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::LOTC_BPLibrary_eventGetBoxVertices_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -208,13 +204,13 @@ void EmptyLinkFunctionForGeneratedCodeLOTC_BPLibrary() {}
 		{ "ToolTip", "Determines if 2D point is on the screen.\n\n@param ScreenOffset - Narrows the screen resolution in percent of screen size for check viewport boundaries. Should be in (0.f, 50.f)." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "Is2DPointOnScreen", nullptr, nullptr, sizeof(LOTC_BPLibrary_eventIs2DPointOnScreen_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "Is2DPointOnScreen", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::LOTC_BPLibrary_eventIs2DPointOnScreen_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -279,13 +275,13 @@ void EmptyLinkFunctionForGeneratedCodeLOTC_BPLibrary() {}
 		{ "ToolTip", "Determines if the Actor is in viewport even if there are no bounds vertices bounds on the viewport.\nUseful for large objects. For small objects just use simple version.\nFunction uses Actor bounds and ranges overlap.\n\n@param Actor - Actor to check if it is on the viewport.\n@param PlayerController - PlayerController to determine the viewport size and other things.\n@param bRenderCheck - Can little faster determine the result. Also helps to determine if the Actor is behind any object.\n@param ScreenOffset - Narrows the screen resolution in percent of screen size for check viewport boundaries. Should be in (0.f, 50.f).\n\n@return - Is Actor on the viewport screen." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "IsActorOnScreenComplex", nullptr, nullptr, sizeof(LOTC_BPLibrary_eventIsActorOnScreenComplex_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "IsActorOnScreenComplex", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::LOTC_BPLibrary_eventIsActorOnScreenComplex_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -350,13 +346,13 @@ void EmptyLinkFunctionForGeneratedCodeLOTC_BPLibrary() {}
 		{ "ToolTip", "Determines if the Actor is in viewport.\nUses Actor location, which converts to screen position.\nFor large objects you can use Complex version.\n\n@param Actor - Actor to check if it is on the viewport.\n@param PlayerController - PlayerController to determine the viewport size and other things.\n@param bRenderCheck - Can little faster determine the result. Also helps to determine if the Actor is behind any object.\n@param ScreenOffset - Narrows the screen resolution in percent of screen size for check viewport boundaries. Should be in (0.f, 50.f).\n\n@return - Is Actor on the viewport screen." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "IsActorOnScreenSimple", nullptr, nullptr, sizeof(LOTC_BPLibrary_eventIsActorOnScreenSimple_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "IsActorOnScreenSimple", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::LOTC_BPLibrary_eventIsActorOnScreenSimple_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -418,16 +414,17 @@ void EmptyLinkFunctionForGeneratedCodeLOTC_BPLibrary() {}
 		{ "ToolTip", "Determines if World location is on the screen.\n\n@param ScreenOffset - Narrows the screen resolution in percent of screen size for check viewport boundaries. Should be in (0.f, 50.f)." },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "IsVectorOnScreen", nullptr, nullptr, sizeof(LOTC_BPLibrary_eventIsVectorOnScreen_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ULOTC_BPLibrary, nullptr, "IsVectorOnScreen", nullptr, nullptr, sizeof(Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::LOTC_BPLibrary_eventIsVectorOnScreen_Parms), Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14C22401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::Function_MetaDataParams)) };
 	UFunction* Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ULOTC_BPLibrary);
 	UClass* Z_Construct_UClass_ULOTC_BPLibrary_NoRegister()
 	{
 		return ULOTC_BPLibrary::StaticClass();
@@ -447,11 +444,11 @@ void EmptyLinkFunctionForGeneratedCodeLOTC_BPLibrary() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_LockOnTarget,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_ULOTC_BPLibrary_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices, "GetBoxVertices" }, // 1427842748
-		{ &Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen, "Is2DPointOnScreen" }, // 1939208204
-		{ &Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex, "IsActorOnScreenComplex" }, // 862620049
-		{ &Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple, "IsActorOnScreenSimple" }, // 3431109367
-		{ &Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen, "IsVectorOnScreen" }, // 3227654189
+		{ &Z_Construct_UFunction_ULOTC_BPLibrary_GetBoxVertices, "GetBoxVertices" }, // 4168875460
+		{ &Z_Construct_UFunction_ULOTC_BPLibrary_Is2DPointOnScreen, "Is2DPointOnScreen" }, // 2423251510
+		{ &Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenComplex, "IsActorOnScreenComplex" }, // 1625270542
+		{ &Z_Construct_UFunction_ULOTC_BPLibrary_IsActorOnScreenSimple, "IsActorOnScreenSimple" }, // 2579726797
+		{ &Z_Construct_UFunction_ULOTC_BPLibrary_IsVectorOnScreen, "IsVectorOnScreen" }, // 978520929
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ULOTC_BPLibrary_Statics::Class_MetaDataParams[] = {
@@ -479,21 +476,26 @@ void EmptyLinkFunctionForGeneratedCodeLOTC_BPLibrary() {}
 	};
 	UClass* Z_Construct_UClass_ULOTC_BPLibrary()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_ULOTC_BPLibrary.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_ULOTC_BPLibrary_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_ULOTC_BPLibrary.OuterSingleton, Z_Construct_UClass_ULOTC_BPLibrary_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_ULOTC_BPLibrary.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(ULOTC_BPLibrary, 2181512441);
 	template<> LOCKONTARGET_API UClass* StaticClass<ULOTC_BPLibrary>()
 	{
 		return ULOTC_BPLibrary::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_ULOTC_BPLibrary(Z_Construct_UClass_ULOTC_BPLibrary, &ULOTC_BPLibrary::StaticClass, TEXT("/Script/LockOnTarget"), TEXT("ULOTC_BPLibrary"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ULOTC_BPLibrary);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_LOTC_BPLibrary_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_LOTC_BPLibrary_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_ULOTC_BPLibrary, ULOTC_BPLibrary::StaticClass, TEXT("ULOTC_BPLibrary"), &Z_Registration_Info_UClass_ULOTC_BPLibrary, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ULOTC_BPLibrary), 1110554141U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_LOTC_BPLibrary_h_1167220528(TEXT("/Script/LockOnTarget"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_LOTC_BPLibrary_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LockOnTarget_Source_LockOnTarget_Public_Utilities_LOTC_BPLibrary_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

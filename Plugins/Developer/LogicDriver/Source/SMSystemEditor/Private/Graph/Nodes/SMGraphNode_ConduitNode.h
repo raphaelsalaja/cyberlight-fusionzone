@@ -1,13 +1,12 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "EdGraph/EdGraphNode.h"
-#include "SMConduitInstance.h"
 #include "SMGraphNode_StateNode.h"
-#include "SMGraphNode_ConduitNode.generated.h"
 
+#include "SMConduitInstance.h"
+
+#include "SMGraphNode_ConduitNode.generated.h"
 
 class USMGraphNode_TransitionEdge;
 class USMGraph;
@@ -17,15 +16,17 @@ class USMGraphNode_ConduitNode : public USMGraphNode_StateNodeBase
 {
 	GENERATED_UCLASS_BODY()
 
-	UPROPERTY(EditAnywhere, NoClear, Category = "Class", meta = (BlueprintBaseOnly))
+	/** Select a custom node class to use for this node. This can be a blueprint or C++ class. */
+	UPROPERTY(EditAnywhere, NoClear, Category = "Conduit", meta = (BlueprintBaseOnly))
 	TSubclassOf<USMConduitInstance> ConduitClass;
 
 	/**
 	 * @deprecated Set on the node template instead.
 	 */
 	UPROPERTY()
-	bool bEvalWithTransitions_DEPRECATED;
-	
+	uint8 bEvalWithTransitions_DEPRECATED: 1;
+
+public:
 	// UEdGraphNode
 	virtual void AllocateDefaultPins() override;
 	virtual FText GetTooltipText() const override;
@@ -43,6 +44,7 @@ class USMGraphNode_ConduitNode : public USMGraphNode_StateNodeBase
 	virtual FName GetFriendlyNodeName() const override { return "Conduit"; }
 	virtual void SetRuntimeDefaults(FSMState_Base& State) const override;
 	virtual FLinearColor GetActiveBackgroundColor() const override;
+	virtual UObject* GetJumpTargetForDoubleClick() const override;
 	// ~USMGraphNode_Base
 
 	/** If this conduit should be configured to evaluate with transitions. */

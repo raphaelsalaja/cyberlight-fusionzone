@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/Schema/SMStateGraphSchema.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMStateGraphSchema() {}
 // Cross Module References
@@ -21,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeSMStateGraphSchema() {}
 	void USMStateGraphSchema::StaticRegisterNativesUSMStateGraphSchema()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMStateGraphSchema);
 	UClass* Z_Construct_UClass_USMStateGraphSchema_NoRegister()
 	{
 		return USMStateGraphSchema::StaticClass();
@@ -64,21 +61,26 @@ void EmptyLinkFunctionForGeneratedCodeSMStateGraphSchema() {}
 	};
 	UClass* Z_Construct_UClass_USMStateGraphSchema()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMStateGraphSchema.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMStateGraphSchema_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMStateGraphSchema.OuterSingleton, Z_Construct_UClass_USMStateGraphSchema_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMStateGraphSchema.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMStateGraphSchema, 1001774076);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMStateGraphSchema>()
 	{
 		return USMStateGraphSchema::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMStateGraphSchema(Z_Construct_UClass_USMStateGraphSchema, &USMStateGraphSchema::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMStateGraphSchema"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMStateGraphSchema);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMStateGraphSchema_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMStateGraphSchema_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMStateGraphSchema, USMStateGraphSchema::StaticClass, TEXT("USMStateGraphSchema"), &Z_Registration_Info_UClass_USMStateGraphSchema, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMStateGraphSchema), 4083280U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMStateGraphSchema_h_1857079780(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMStateGraphSchema_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMStateGraphSchema_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

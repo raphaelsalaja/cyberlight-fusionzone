@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMPreviewObject.h"
 #include "Utilities/SMPreviewUtils.h"
@@ -13,7 +13,7 @@
 #include "Editor.h"
 
 #include "Engine/World.h"
-#include "Engine/Engine.h"
+#include "Engine/GameEngine.h"
 #include "GameFramework/GameModeBase.h"
 #include "GameFramework/Character.h"
 #include "Serialization/ObjectAndNameAsStringProxyArchive.h"
@@ -187,7 +187,7 @@ void USMPreviewObject::PostEditChangeChainProperty(FPropertyChangedChainEvent& P
 	
 	if (FProperty* HeadProperty = PropertyChangedEvent.PropertyChain.GetHead()->GetValue())
 	{
-		// The direct property on this preview object that chagned.
+		// The direct property on this preview object that changed.
 		const FName DirectPropertyName = HeadProperty->GetFName();
 
 		if (DirectPropertyName == GET_MEMBER_NAME_CHECKED(USMPreviewObject, GameMode))
@@ -426,7 +426,7 @@ bool USMPreviewObject::ContainsActor(AActor* CompareActor) const
 void USMPreviewObject::SaveAllActorReferences()
 {
 	UWorld* CurrentPreviewWorld = GetPreviewWorld();
-	if (!CurrentPreviewWorld || CurrentPreviewWorld->IsPendingKillOrUnreachable() || CurrentPreviewWorld->HasAnyFlags(RF_BeginDestroyed | RF_FinishDestroyed))
+	if (!IsValid(CurrentPreviewWorld) || CurrentPreviewWorld->IsUnreachable() || CurrentPreviewWorld->HasAnyFlags(RF_BeginDestroyed | RF_FinishDestroyed))
 	{
 		// Nothing to save, likely this is saving after the editor has closed.
 		// Don't continue to avoid wiping out saved actor property names.

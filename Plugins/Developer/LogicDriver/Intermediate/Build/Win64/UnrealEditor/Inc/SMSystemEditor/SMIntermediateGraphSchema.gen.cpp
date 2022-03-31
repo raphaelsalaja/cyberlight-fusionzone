@@ -6,10 +6,6 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "SMSystemEditor/Private/Graph/Schema/SMIntermediateGraphSchema.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMIntermediateGraphSchema() {}
 // Cross Module References
@@ -21,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeSMIntermediateGraphSchema() {}
 	void USMIntermediateGraphSchema::StaticRegisterNativesUSMIntermediateGraphSchema()
 	{
 	}
+	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(USMIntermediateGraphSchema);
 	UClass* Z_Construct_UClass_USMIntermediateGraphSchema_NoRegister()
 	{
 		return USMIntermediateGraphSchema::StaticClass();
@@ -64,21 +61,26 @@ void EmptyLinkFunctionForGeneratedCodeSMIntermediateGraphSchema() {}
 	};
 	UClass* Z_Construct_UClass_USMIntermediateGraphSchema()
 	{
-		static UClass* OuterClass = nullptr;
-		if (!OuterClass)
+		if (!Z_Registration_Info_UClass_USMIntermediateGraphSchema.OuterSingleton)
 		{
-			UECodeGen_Private::ConstructUClass(OuterClass, Z_Construct_UClass_USMIntermediateGraphSchema_Statics::ClassParams);
+			UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_USMIntermediateGraphSchema.OuterSingleton, Z_Construct_UClass_USMIntermediateGraphSchema_Statics::ClassParams);
 		}
-		return OuterClass;
+		return Z_Registration_Info_UClass_USMIntermediateGraphSchema.OuterSingleton;
 	}
-	IMPLEMENT_CLASS(USMIntermediateGraphSchema, 626332271);
 	template<> SMSYSTEMEDITOR_API UClass* StaticClass<USMIntermediateGraphSchema>()
 	{
 		return USMIntermediateGraphSchema::StaticClass();
 	}
-	static FCompiledInDefer Z_CompiledInDefer_UClass_USMIntermediateGraphSchema(Z_Construct_UClass_USMIntermediateGraphSchema, &USMIntermediateGraphSchema::StaticClass, TEXT("/Script/SMSystemEditor"), TEXT("USMIntermediateGraphSchema"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USMIntermediateGraphSchema);
+	struct Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMIntermediateGraphSchema_h_Statics
+	{
+		static const FClassRegisterCompiledInInfo ClassInfo[];
+	};
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMIntermediateGraphSchema_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_USMIntermediateGraphSchema, USMIntermediateGraphSchema::StaticClass, TEXT("USMIntermediateGraphSchema"), &Z_Registration_Info_UClass_USMIntermediateGraphSchema, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USMIntermediateGraphSchema), 3609446458U) },
+	};
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMIntermediateGraphSchema_h_1536509408(TEXT("/Script/SMSystemEditor"),
+		Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMIntermediateGraphSchema_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_revenant_5_00_ea_Plugins_Developer_LogicDriver_Source_SMSystemEditor_Private_Graph_Schema_SMIntermediateGraphSchema_h_Statics::ClassInfo),
+		nullptr, 0,
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

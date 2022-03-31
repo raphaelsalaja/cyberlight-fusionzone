@@ -1,4 +1,4 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMNodeWidgetInfo.h"
 
@@ -9,7 +9,7 @@ FSMNodeWidgetInfo::FSMNodeWidgetInfo()
 	MaxWidth = 450;
 	MinHeight = 50;
 	MaxHeight = 450;
-	DisplayOrder = 0;
+	DisplayOrder_DEPRECATED = 0;
 	BackgroundColor = FLinearColor(0.1f, 0.128f, 0.2f, 0.5f);
 	Clipping = EWidgetClipping::ClipToBounds;
 	bConsiderForDefaultWidget = false;

@@ -5,31 +5,25 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#ifdef _MSC_VER
-#pragma warning (push)
-#pragma warning (disable : 4883)
-#endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSMExtendedRuntime_init() {}
-	UPackage* Z_Construct_UPackage__Script_SMExtendedRuntime()
+	static FPackageRegistrationInfo Z_Registration_Info_UPackage__Script_SMExtendedRuntime;
+	FORCENOINLINE UPackage* Z_Construct_UPackage__Script_SMExtendedRuntime()
 	{
-		static UPackage* ReturnPackage = nullptr;
-		if (!ReturnPackage)
+		if (!Z_Registration_Info_UPackage__Script_SMExtendedRuntime.OuterSingleton)
 		{
 			static const UECodeGen_Private::FPackageParams PackageParams = {
 				"/Script/SMExtendedRuntime",
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x7A995F31,
-				0x3EFF25C2,
+				0x3B2C8D83,
+				0x0C1C8158,
 				METADATA_PARAMS(nullptr, 0)
 			};
-			UECodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);
+			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_SMExtendedRuntime.OuterSingleton, PackageParams);
 		}
-		return ReturnPackage;
+		return Z_Registration_Info_UPackage__Script_SMExtendedRuntime.OuterSingleton;
 	}
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_SMExtendedRuntime(Z_Construct_UPackage__Script_SMExtendedRuntime, TEXT("/Script/SMExtendedRuntime"), Z_Registration_Info_UPackage__Script_SMExtendedRuntime, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x3B2C8D83, 0x0C1C8158));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif

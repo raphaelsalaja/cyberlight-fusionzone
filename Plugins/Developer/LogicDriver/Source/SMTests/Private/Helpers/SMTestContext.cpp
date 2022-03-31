@@ -1,8 +1,24 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #include "SMTestContext.h"
 
 float USMTestContext::GreaterThanTest = 5;
+
+void USMTestContext::IncreaseUpdateInt(float Value)
+{
+	TestUpdateFromDeltaSecondsInt += FMath::RoundToInt(Value);
+	TimesUpdateHit.Increase();
+}
+
+void USMTestContext::IncreaseTransitionInit()
+{
+	TestTransitionInit.Increase();
+}
+
+void USMTestContext::IncreaseTransitionShutdown()
+{
+	TestTransitionShutdown.Increase();
+}
 
 void USMStateTestInstance::OnStateBeginEventFunc(USMStateInstance_Base* Instance)
 {
@@ -175,6 +191,38 @@ void USMStateMachineTestInstance::OnStateMachineCompleted_Implementation()
 	StateMachineCompletedHit.Increase();
 }
 
+void USMStateMachineReferenceTestInstance::ConstructionScript_Implementation()
+{
+	Super::ConstructionScript_Implementation();
+	SetByConstructionScript = "Test_" + FString::FromInt(ExposedInt);
+
+	{
+		TArray<USMTransitionInstance*> Transitions;
+		GetOutgoingTransitions(Transitions);
+
+		CanReadNextStates = Transitions.Num();
+	}
+
+	{
+		TArray<USMTransitionInstance*> Transitions;
+		GetIncomingTransitions(Transitions);
+
+		CanReadPreviousStates = Transitions.Num();
+	}
+}
+
+void USMStateMachineReferenceTestInstance::OnStateBegin_Implementation()
+{
+	Super::OnStateBegin_Implementation();
+	ExposedInt++;
+	
+	// We should be a reference but not be the same as the owning state machine instance.
+	// Since the test object isn't available just run ensures.
+	USMInstance* ReferencedInstance = GetStateMachineReference();
+	ensure(ReferencedInstance);
+	ensure(ReferencedInstance != GetStateMachineInstance());
+}
+
 void USMTransitionTestInstance::OnTransitionEnteredEventFunc(USMTransitionInstance* TransitionInstance)
 {
 	check(TransitionInstance);
@@ -195,6 +243,16 @@ void USMTransitionTestInstance::OnTransitionShutdown_Implementation()
 {
 	TransitionShutdownHit.Increase();
 	//OnTransitionEnteredEvent.RemoveDynamic(this, &USMTransitionTestInstance::OnTransitionEnteredEventFunc); Can't remove because this will fire before TransitionEntered.
+}
+
+void USMTransitionTestInstance::OnRootStateMachineStart_Implementation()
+{
+	TransitionRootSMStartHit.Increase();
+}
+
+void USMTransitionTestInstance::OnRootStateMachineStop_Implementation()
+{
+	TransitionRootSMStopHit.Increase();
 }
 
 FText USMTextGraphState::DefaultText = FText::FromString("ctor default");

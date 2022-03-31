@@ -1,7 +1,7 @@
 /MANIFEST:EMBED
-/MANIFESTINPUT:D:\Programs\UE_5.0EA\Engine\Build\Windows\Resources\Default-Win64.manifest
+/MANIFESTINPUT:"..\Build\Windows\Resources\Default-Win64.manifest"
 /NOLOGO
-/DEBUG
+/DEBUG:FULL
 /errorReport:prompt
 /MACHINE:x64
 /SUBSYSTEM:WINDOWS
@@ -36,14 +36,14 @@
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Intermediate\Build\Win64\RevenantEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.obj"
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTargetEditor\Module.LockOnTargetEditor.cpp.obj"
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTargetEditor\Default.rc2.res"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Slate\UnrealEditor-Slate.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\SlateCore\UnrealEditor-SlateCore.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\UMG\UnrealEditor-UMG.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\EditorStyle\UnrealEditor-EditorStyle.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\UnrealEd\UnrealEditor-UnrealEd.lib"
-"D:\Programs\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\Engine\UnrealEditor-Engine.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\Slate\UnrealEditor-Slate.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\SlateCore\UnrealEditor-SlateCore.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\UMG\UnrealEditor-UMG.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\EditorStyle\UnrealEditor-EditorStyle.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\UnrealEd\UnrealEditor-UnrealEd.lib"
+"..\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
 "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTarget\UnrealEditor-LockOnTarget.lib"
 "delayimp.lib"
 "wininet.lib"
@@ -73,4 +73,3 @@
 /IMPLIB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Intermediate\Build\Win64\UnrealEditor\Development\LockOnTargetEditor\UnrealEditor-LockOnTargetEditor.suppressed.lib"
 /PDB:"D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\LockOnTarget\Binaries\Win64\UnrealEditor-LockOnTargetEditor.pdb"
 /ignore:4078
-/INCLUDE:IMPLEMENT_MODULE_LockOnTargetEditor

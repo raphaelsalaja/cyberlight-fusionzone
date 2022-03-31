@@ -1,12 +1,14 @@
-// Copyright Recursoft LLC 2019-2021. All Rights Reserved.
+// Copyright Recursoft LLC 2019-2022. All Rights Reserved.
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "SMGraphNode_Base.h"
+#include "NodeStack/NodeStackContainer.h"
 
 #include "SMState.h"
 #include "SMStateInstance.h"
+
+#include "GameplayTagContainer.h"
 
 #include "EdGraph/EdGraphNode.h"
 
@@ -21,28 +23,38 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateNodeBase : public USMGraphNode_Base
 	GENERATED_UCLASS_BODY()
 
 	/**
+	 * Add tags to this state that Any State nodes will recognize.
+	 * This can allow control over which specific Any State nodes should impact this state.
+	 *
+	 * On the Any State you can define an AnyStateTagQuery to control which tags an Any State should recognize.
+	 * Only valid in the editor.
+	 */
+	UPROPERTY(EditAnywhere, Category = "Any State")
+	FGameplayTagContainer AnyStateTags;
+	
+	/**
 	 * @deprecated Set on the node template instead.
 	 */
 	UPROPERTY()
-	bool bAlwaysUpdate_DEPRECATED;
+	uint8 bAlwaysUpdate_DEPRECATED: 1;
 
 	/**
 	 * @deprecated Set on the node template instead.
 	 */
 	UPROPERTY()
-	bool bDisableTickTransitionEvaluation_DEPRECATED;
+	uint8 bDisableTickTransitionEvaluation_DEPRECATED: 1;
 
 	/**
 	 * @deprecated Set on the node template instead.
 	 */
 	UPROPERTY()
-	bool bEvalTransitionsOnStart_DEPRECATED;
+	uint8 bEvalTransitionsOnStart_DEPRECATED: 1;
 
 	/**
 	 * @deprecated Set on the node template instead.
 	 */
 	UPROPERTY()
-	bool bExcludeFromAnyState_DEPRECATED;
+	uint8 bExcludeFromAnyState_DEPRECATED: 1;
 	
 	/**
 	 * Set by the editor and read by the schema to allow self transitions.
@@ -51,8 +63,9 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateNodeBase : public USMGraphNode_Base
 	 * mouse movement to prevent single clicks when in CanCreateConnection,
 	 * so we're relying on a context menu.
 	 */
-	bool bCanTransitionToSelf;
+	uint8 bCanTransitionToSelf: 1;
 
+public:
 	// UEdGraphNode
 	virtual void AllocateDefaultPins() override;
 	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
@@ -61,8 +74,9 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateNodeBase : public USMGraphNode_Base
 	virtual void PostPlacedNewNode() override;
 	virtual void PostPasteNode() override;
 	virtual void DestroyNode() override;
-	virtual TSharedPtr<class INameValidatorInterface> MakeNameValidator() const override;
+	virtual TSharedPtr<INameValidatorInterface> MakeNameValidator() const override;
 	virtual void PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent) override;
+	virtual void PinConnectionListChanged(UEdGraphPin* Pin) override;
 	// ~UEdGraphNode
 
 	// USMGraphNode
@@ -76,7 +90,7 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateNodeBase : public USMGraphNode_Base
 
 	/**
 	 * Checks if there are no outbound transitions.
-	 * @param bCheckAnyState Checks if an any state will prevent this from being an end state.
+	 * @param bCheckAnyState Checks if an Any State will prevent this from being an end state.
 	 */
 	virtual bool IsEndState(bool bCheckAnyState = true) const;
 
@@ -119,36 +133,13 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateNodeBase : public USMGraphNode_Base
 	/** Return the entry pin if this states is connected to an entry node, nullptr otherwise. */
 	UEdGraphPin* GetConnectedEntryPin() const;
 	
-	FLinearColor GetBackgroundColorForNodeInstance(USMNodeInstance* NodeInstance) const;
+	FLinearColor GetBackgroundColorForNodeInstance(const USMNodeInstance* NodeInstance) const;
 protected:
 	virtual FLinearColor Internal_GetBackgroundColor() const override;
-
+	
 private:
 	friend class SGraphNode_StateNode;
 	bool bRequestInitialAnimation;
-};
-
-USTRUCT()
-struct FStateStackContainer
-{
-	GENERATED_BODY()
-
-	FStateStackContainer() : StateStackClass(nullptr), NodeStackInstanceTemplate(nullptr) {}
-	explicit FStateStackContainer(TSubclassOf<USMStateInstance> InClass, USMNodeInstance* InTemplate = nullptr) : StateStackClass(InClass), NodeStackInstanceTemplate(InTemplate) {}
-	
-	/** The class to assign the template for this state stack. */
-	UPROPERTY(EditAnywhere, Category = "Class", meta = (BlueprintBaseOnly))
-	TSubclassOf<USMStateInstance> StateStackClass;
-
-	/** The instanced template to use as an archetype. */
-	UPROPERTY(VisibleDefaultsOnly, Instanced, Category = "Class", meta = (DisplayName = Template))
-	USMNodeInstance* NodeStackInstanceTemplate;
-
-	void InitTemplate(UObject* Owner, bool bForceInit = false, bool bForceNewGuid = false);
-	void DestroyTemplate();
-
-	UPROPERTY()
-	FGuid TemplateGuid;
 };
 
 /**
@@ -159,16 +150,19 @@ class SMSYSTEMEDITOR_API USMGraphNode_StateNode : public USMGraphNode_StateNodeB
 {
 public:
 	GENERATED_UCLASS_BODY()
-	
-	UPROPERTY(EditAnywhere, NoClear, Category = "Class", meta = (BlueprintBaseOnly))
+
+	/** Select a custom node class to use for this node. This can be a blueprint or C++ class. */
+	UPROPERTY(EditAnywhere, NoClear, Category = "State", meta = (BlueprintBaseOnly))
 	TSubclassOf<USMStateInstance> StateClass;
 
 	/** Augment the state by adding additional state classes to perform logic processing. */
-	UPROPERTY(EditAnywhere, Category = "Class")
+	UPROPERTY(EditAnywhere, Category = "State")
 	TArray<FStateStackContainer> StateStack;
 
 	// UEdGraphNode
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+	virtual UObject* GetJumpTargetForDoubleClick() const override;
+	
 	//~ UEdGraphNode
 	
 	// USMGraphNode_Base
@@ -181,16 +175,16 @@ public:
 	virtual bool DoesNodePossiblyHaveConstructionScripts() const override;
 	virtual void RunAllConstructionScripts_Internal() override;
 	virtual void OnCompile(FSMKismetCompilerContext& CompilerContext) override;
+	/**
+	 * Retrieve the array index from the template guid.
+	 *
+	 * @return the array index or INDEX_NONE if not found.
+	 */
+	virtual int32 GetIndexOfTemplate(const FGuid& TemplateGuid) const override;
 	// ~USMGraphNode_Base
 
+	/** Return all state stack templates. */
 	const TArray<FStateStackContainer>& GetAllNodeStackTemplates() const;
-
-	/**
-	 * Retrieve the array index from the template guid
-	 *
-	 * @return the array index or -1 if not found.
-	 */
-	int32 GetIndexOfTemplate(const FGuid& TemplateGuid) const;
 
 	/**
 	 * Retrieve the template instance from an index.
@@ -201,39 +195,4 @@ public:
 	
 	void InitStateStack();
 	void DestroyStateStack();
-};
-
-/**
- * Nodes without a graph that just serve to transfer their transitions to all other USMGraphNode_StateNodeBase in a single SMGraph.
- */
-UCLASS(MinimalAPI)
-class USMGraphNode_AnyStateNode : public USMGraphNode_StateNodeBase
-{
-public:
-	GENERATED_UCLASS_BODY()
-
-	/** Allows the initial transitions to evaluate even when the active state is an initial state of this node.
-	 * Default behavior prevents this. */
-	UPROPERTY(EditAnywhere, Category = "Any State")
-	bool bAllowInitialReentry;
-	
-	// UEdGraphNode
-	virtual void AllocateDefaultPins() override;
-	virtual void PostPlacedNewNode() override;
-	virtual void PostPasteNode() override;
-	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
-	virtual void OnRenameNode(const FString& NewName) override;
-	// ~UEdGraphNode
-	
-	// USMGraphNode_Base
-	virtual FName GetFriendlyNodeName() const override { return "Any State"; }
-	virtual FString GetStateName() const override;
-	// ~USMGraphNode_Base
-
-protected:
-	virtual FLinearColor Internal_GetBackgroundColor() const override;
-	
-protected:
-	UPROPERTY()
-	FText NodeName;
 };
