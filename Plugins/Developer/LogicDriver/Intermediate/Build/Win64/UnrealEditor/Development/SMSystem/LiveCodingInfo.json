@@ -28,14 +28,14 @@
 		],
 		"Module.SMSystem.gen.1_of_4.cpp.obj": [
 			"ISMStateMachineInterface.gen.cpp.obj",
-			"SMBlueprint.gen.cpp.obj",
 			"SMBlueprintGeneratedClass.gen.cpp.obj",
 			"SMConduit.gen.cpp.obj",
 			"SMConduitInstance.gen.cpp.obj",
 			"SMExposedFunctions.gen.cpp.obj",
-			"SMGraphProperty_Base.gen.cpp.obj",
 			"SMInputTypes.gen.cpp.obj",
-			"SMInstance.gen.cpp.obj"
+			"SMInstance.gen.cpp.obj",
+			"SMBlueprint.gen.cpp.obj",
+			"SMGraphProperty_Base.gen.cpp.obj"
 		],
 		"Module.SMSystem.gen.2_of_4.cpp.obj": [
 			"SMNodeInstance.gen.cpp.obj",
@@ -51,8 +51,8 @@
 			"SMStateMachine.gen.cpp.obj",
 			"SMStateMachineComponent.gen.cpp.obj",
 			"SMStateMachineInstance.gen.cpp.obj",
-			"SMSystem.init.gen.cpp.obj",
-			"SMTransactions.gen.cpp.obj"
+			"SMTransactions.gen.cpp.obj",
+			"SMSystem.init.gen.cpp.obj"
 		],
 		"Module.SMSystem.gen.4_of_4.cpp.obj": [
 			"SMTransition.gen.cpp.obj",

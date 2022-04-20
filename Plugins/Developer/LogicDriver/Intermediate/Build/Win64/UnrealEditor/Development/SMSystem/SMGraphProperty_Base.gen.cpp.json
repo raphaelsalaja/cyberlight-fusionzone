@@ -1,0 +1,19 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "d:\\projects\\unrealengine\\revenant-5.00-ea\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smsystem\\smgraphproperty_base.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\projects\\unrealengine\\revenant-5.00-ea\\intermediate\\build\\win64\\revenanteditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
+        "Includes": [
+            "d:\\projects\\unrealengine\\revenant-5.00-ea\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\development\\smsystem\\definitions.smsystem.h",
+            "d:\\projects\\unrealengine\\revenant-5.00-ea\\plugins\\developer\\logicdriver\\source\\smsystem\\public\\properties\\smgraphproperty_base.h",
+            "d:\\projects\\unrealengine\\revenant-5.00-ea\\plugins\\developer\\logicdriver\\source\\smsystem\\public\\smexposedfunctions.h",
+            "d:\\projects\\unrealengine\\revenant-5.00-ea\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smsystem\\smexposedfunctions.generated.h",
+            "d:\\projects\\unrealengine\\revenant-5.00-ea\\plugins\\developer\\logicdriver\\source\\smsystem\\public\\properties\\smnodewidgetinfo.h",
+            "d:\\projects\\unrealengine\\revenant-5.00-ea\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smsystem\\smnodewidgetinfo.generated.h",
+            "d:\\projects\\unrealengine\\revenant-5.00-ea\\plugins\\developer\\logicdriver\\intermediate\\build\\win64\\unrealeditor\\inc\\smsystem\\smgraphproperty_base.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

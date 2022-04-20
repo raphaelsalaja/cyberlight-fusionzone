@@ -61,8 +61,8 @@
 /DBUILT_FROM_CHANGELIST=19206456
 /DBUILD_VERSION=++UE5+Release-5.0-CL-19206456
 /DBUILD_ICON_FILE_NAME="\"..\\Build\\Windows\\Resources\\Default.ico\""
-/DPROJECT_COMPANY_NAME=worldpeace.industries
-/DPROJECT_PRODUCT_NAME=Revenant
+/DPROJECT_COMPANY_NAME="Cthonic Games"
+/DPROJECT_COPYRIGHT_STRING="Fill out your copyright notice in the Description page of Project Settings."
 /DPROJECT_PRODUCT_IDENTIFIER=Revenant
-/fo "D:\Projects\UnrealEngine\Revenant5\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Default.rc2.res"
+/fo "D:\Projects\UnrealEngine\revenant-5.00-ea\Plugins\Developer\Debug\Intermediate\Build\Win64\UnrealEditor\Development\Debug\Default.rc2.res"
 "..\Build\Windows\Resources\Default.rc2"
