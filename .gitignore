@@ -1,7 +1,6 @@
 # Visual Studio 2015 user specific files
 .vs/
 .idea/
-.node_modules/
 
 # Compiled Object files
 *.slo
@@ -78,3 +77,4 @@ DerivedDataCache/*
 
 package.json
 package-lock.json
+node_modules
